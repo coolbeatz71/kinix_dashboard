@@ -1,26 +1,32 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "src"
-  ]
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "paths": {
+            "@components/*": ["components/*"],
+            "@containers/*": ["containers/*"],
+            "@helpers/*": ["helpers/*"],
+            "@constants/*": ["constants/*"],
+            "@hooks/*": ["hooks/*"],
+            "@styles/*": ["styles/*"],
+            "@context/*": ["context/*"],
+            "@interfaces/*": ["interfaces/*"],
+            "@l10n/*": ["l10n/*"]
+        },
+        "incremental": true
+    },
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"]
 }
