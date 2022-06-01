@@ -1,6 +1,8 @@
 {
+    "extends": "./tsconfig.paths.json",
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"],
     "compilerOptions": {
-        "baseUrl": ".",
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
@@ -14,19 +16,6 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
-        "paths": {
-            "@components/*": ["components/*"],
-            "@containers/*": ["containers/*"],
-            "@helpers/*": ["helpers/*"],
-            "@constants/*": ["constants/*"],
-            "@hooks/*": ["hooks/*"],
-            "@styles/*": ["styles/*"],
-            "@context/*": ["context/*"],
-            "@interfaces/*": ["interfaces/*"],
-            "@l10n/*": ["l10n/*"]
-        },
         "incremental": true
-    },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules"]
+    }
 }

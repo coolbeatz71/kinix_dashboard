@@ -3,9 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
-        "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
-        "test": "DISABLE_ESLINT_PLUGIN=true react-scripts test",
+        "start": "DISABLE_ESLINT_PLUGIN=true craco start",
+        "build": "DISABLE_ESLINT_PLUGIN=true craco build",
+        "test": "DISABLE_ESLINT_PLUGIN=true craco test",
         "eject": "react-scripts eject",
         "type:check": "tsc",
         "lint": "eslint ./components/**/*",
@@ -13,7 +13,11 @@
         "prettier": "prettier --check --config package.json ./components/**/*",
         "prettier:fix": "prettier --write --config package.json ./components/**/*"
     },
+    "overrides": {
+        "autoprefixer": "10.4.5"
+    },
     "dependencies": {
+        "@craco/craco": "^6.4.3",
         "@reduxjs/toolkit": "^1.8.1",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^13.0.0",
@@ -38,6 +42,7 @@
         "nuka-carousel": "^4.8.4",
         "numeral": "^2.0.6",
         "react": "^18.1.0",
+        "react-app-rewire-alias": "^1.1.7",
         "react-dom": "^18.1.0",
         "react-horizontal-scrolling-menu": "^2.7.1",
         "react-icons": "^4.3.1",
