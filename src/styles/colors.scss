@@ -1,0 +1,91 @@
+$primary: #0c2346;
+$success: #1dd3b0;
+$error: #ef476f;
+$warning: #f07f34;
+$neutral: #f9fcff;
+$white: #ffffff;
+$black: #000000;
+$yellow: #ffc300;
+$gray: #f8f9fa;
+$default: #e9ecef;
+$grey: rgb(211, 211, 211);
+$news-letter: #ebe6e2;
+$link: #1890ff;
+
+$bg-warning-fade: rgba(
+    $color: $warning,
+    $alpha: 0.5,
+);
+
+$dark: rgba(
+    $color: $black,
+    $alpha: 0.65,
+);
+
+$dark50: rgba(
+    $color: $black,
+    $alpha: 0.5,
+);
+
+$dark20: rgba(
+    $color: $black,
+    $alpha: 0.2,
+);
+
+$dark10: rgba(
+    $color: $black,
+    $alpha: 0.08,
+);
+
+$light: rgba(
+    $color: $white,
+    $alpha: 0.65,
+);
+
+$light50: rgba(
+    $color: $white,
+    $alpha: 0.5,
+);
+
+$light20: rgba(
+    $color: $white,
+    $alpha: 0.2,
+);
+
+$light10: rgba(
+    $color: $white,
+    $alpha: 0.08,
+);
+
+$bg-primary-light: rgba(
+    $color: $neutral,
+    $alpha: 0.65,
+);
+
+$bg-primary-light90: rgba(
+    $color: $neutral,
+    $alpha: 0.9,
+);
+
+$bg-primary-dark90: rgba(
+    $color: $primary,
+    $alpha: 0.9,
+);
+
+$bg-primary-dark: rgba(
+    $color: $primary,
+    $alpha: 0.65,
+);
+
+$twitter: #1da1f2;
+$instagram: #e1306c;
+$facebook: #4267b2;
+$youtube: #ff0000;
+$google: #e45e52;
+
+$loader: #072ac9;
+
+$bg-sidenav-triger: rgba(
+    $color: $neutral,
+    $alpha: 0.2,
+);

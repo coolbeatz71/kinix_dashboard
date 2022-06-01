@@ -1,0 +1,38 @@
+@import 'colors.scss';
+@import 'dimensions.scss';
+
+[data-content-padding] {
+    padding: calc(#{$content-padding} / 2) 0;
+}
+
+[class~='ant-form-item-with-help'],
+[class~='ant-form-item-has-error'] {
+    margin-bottom: 1rem !important;
+}
+
+textarea {
+    &::-webkit-input-placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+
+    &:-moz-placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+
+    &::-moz-placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+
+    &:-ms-input-placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+
+    &::placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+}
