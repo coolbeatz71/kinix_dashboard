@@ -25,7 +25,8 @@
             "@hooks/*": ["hooks/*"],
             "@styles/*": ["styles/*"],
             "@context/*": ["context/*"],
-            "@interfaces/*": ["interfaces/*"]
+            "@interfaces/*": ["interfaces/*"],
+            "@redux/*": ["redux/*"]
         }
     }
 }

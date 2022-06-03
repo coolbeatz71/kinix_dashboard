@@ -12,6 +12,7 @@ module.exports = {
             '@styles': path.resolve(__dirname, 'src/styles'),
             '@context': path.resolve(__dirname, 'src/context'),
             '@interfaces': path.resolve(__dirname, 'src/interfaces'),
+            '@redux': path.resolve(__dirname, 'src/redux'),
         },
     },
     plugins: [
