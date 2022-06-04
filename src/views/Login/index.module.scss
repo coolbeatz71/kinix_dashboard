@@ -11,9 +11,8 @@
     background: $bg-primary-dark;
 
     &__card {
-        width: 45%;
+        width: 512px;
         display: inline-block;
-
-        padding: $padding;
+        padding: $padding 0;
     }
 }

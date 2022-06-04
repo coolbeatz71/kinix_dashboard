@@ -5,6 +5,10 @@
     padding: calc(#{$content-padding} / 2) 0;
 }
 
+[class~='anticon'] {
+    vertical-align: middle;
+}
+
 [class~='ant-form-item-with-help'],
 [class~='ant-form-item-has-error'] {
     margin-bottom: 1rem !important;
