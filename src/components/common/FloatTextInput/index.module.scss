@@ -1,0 +1,59 @@
+@import 'styles/colors.scss';
+
+.textInput {
+    position: relative;
+
+    [class~='ant-input-password'] {
+        [class~='ant-input'] {
+            padding-right: 10px !important;
+        }
+    }
+
+    [class~='ant-input-affix-wrapper'] {
+        padding: 0 !important;
+        padding-right: 0.8rem !important;
+    }
+
+    [class~='ant-input'] {
+        font-size: 14px;
+        padding: 16px 12px 4px 12px !important;
+    }
+
+    [class~='ant-select'] [class~='ant-select-selector'] {
+        padding: 16px 10px 4px 11px;
+    }
+
+    [class~='ant-select-single']:not([class~='ant-select-customize-input']) [class~='ant-select-selector'] {
+        padding: 16px 10px 4px 11px;
+        height: 48px;
+    }
+
+    [class~='ant-select-single'] [class~='ant-select-selector'] [class~='ant-select-selection-search'] {
+        top: 16px;
+    }
+
+    [class~='label'] {
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 12px;
+        top: 11px;
+        transition: 0.2s ease all;
+    }
+
+    [class~='asPlaceholder'] {
+        font-size: 14px;
+        color: $dark50;
+        z-index: 1;
+    }
+
+    [class~='asLabel'] {
+        top: 6px;
+        font-size: 10px !important;
+        font-weight: 700;
+        padding: 0 4px;
+        margin-left: -4px;
+        color: $primary;
+        z-index: 1;
+    }
+}

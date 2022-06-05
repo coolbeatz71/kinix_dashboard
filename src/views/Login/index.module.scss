@@ -1,0 +1,18 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.login {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: $bg-primary-dark;
+
+    &__card {
+        width: 512px;
+        display: inline-block;
+        padding: $padding 0;
+    }
+}
