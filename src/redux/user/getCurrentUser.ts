@@ -7,7 +7,7 @@ const getCurrentUserAction = createAsyncThunk('user/currentUser', async (_, { re
 
     if (isTokenValid) {
         try {
-            const { data } = await api.get('/auth/user');
+            const { data } = await api.get('/admin');
             return data;
         } catch (error) {
             return rejectWithValue(error);

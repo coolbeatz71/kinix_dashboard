@@ -6,9 +6,8 @@ const getToken = (): string | null => {
 };
 
 export const verifyToken = (): unknown => {
-    const auth = getToken();
-    if (!auth) return false;
-    const [, token] = auth.split(' ');
+    const token = getToken();
+    if (!token) return false;
     try {
         const jwtPayload = decodeToken(token);
         return jwtPayload;

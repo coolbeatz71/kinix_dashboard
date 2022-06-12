@@ -43,13 +43,17 @@ const Layout: FC<ILayoutProps> = ({ children, title }) => {
                     </title>
                 </Helmet>
 
-                <SideNav isSideNavExpanded={isSideNavExpanded} setIsSideNavExpanded={setIsSideNavExpanded} />
+                <SideNav
+                    isSideNavExpanded={isSideNavExpanded}
+                    currentUser={userData as ICurrentAdmin}
+                    setIsSideNavExpanded={setIsSideNavExpanded}
+                />
 
                 <div className={styles.layout__main}>
                     <Header
                         isSideNavExpanded={isSideNavExpanded}
-                        setIsSideNavExpanded={setIsSideNavExpanded}
                         currentUser={userData as ICurrentAdmin}
+                        setIsSideNavExpanded={setIsSideNavExpanded}
                     />
 
                     <Content className={styles.layout__main__content}>{children}</Content>

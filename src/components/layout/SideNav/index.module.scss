@@ -22,6 +22,8 @@
         &__items {
             display: flex;
             align-items: center;
+            padding: 0 1rem !important;
+            margin: 1rem 0 !important;
 
             &:hover {
                 background-color: $bg-warning-fade;
@@ -32,11 +34,31 @@
                 }
             }
         }
+
+        &__sub {
+            font-size: 11px;
+
+            [class~='ant-menu-inline'] {
+                border-radius: $border-radius;
+                background-color: $bg-primary-dark;
+            }
+
+            [class~='ant-menu-submenu-title'] {
+                color: $light50;
+                padding-right: 0;
+                padding-left: 1rem !important;
+                border-radius: $border-radius;
+
+                i {
+                    color: $light50;
+                }
+            }
+        }
     }
 
     &__logo {
         height: $header-height;
-        background-position: center;
+        background-position: 0.5rem center;
         background-repeat: no-repeat;
     }
 
@@ -73,6 +95,14 @@
         svg {
             color: $dark;
             font-weight: 600;
+        }
+    }
+
+    [class~='ant-menu-submenu-title'] {
+        border-radius: $border-radius;
+
+        &:hover {
+            background: rgba($color: $header, $alpha: 0.5);
         }
     }
 

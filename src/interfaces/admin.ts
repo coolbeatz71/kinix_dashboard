@@ -1,9 +1,12 @@
+import EnumProvider from './provider';
+import EnumRole from './userRole';
+
 export interface ICurrentAdmin {
-    role: string;
+    role: EnumRole;
     email: string;
     image: string;
     userName: string;
-    provider: string;
+    provider: EnumProvider;
     verified: boolean;
     phoneNumber: string;
     isLoggedIn: boolean;

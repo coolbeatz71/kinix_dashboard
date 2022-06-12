@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react';
+import { HiUsers } from 'react-icons/hi';
+import { TbNetwork } from 'react-icons/tb';
 import { BsFillSpeakerFill } from 'react-icons/bs';
 import { FaMicrophoneAlt, FaPodcast } from 'react-icons/fa';
-import { VideoCameraFilled, StarFilled, GlobalOutlined } from '@ant-design/icons';
-import { RiArticleLine, RiFocusLine } from 'react-icons/ri';
-import { TbNetwork } from 'react-icons/tb';
+import { VideoCameraFilled, GlobalOutlined } from '@ant-design/icons';
+import { RiAdminFill, RiArticleLine, RiFocusLine } from 'react-icons/ri';
 import {
     ADMIN_PATH,
     ADS_PATH,
@@ -17,7 +18,7 @@ import {
 } from './paths';
 import EnumRole from '@interfaces/userRole';
 
-interface ISideNavSection {
+export interface ISideNavSection {
     icon: ReactNode;
     text: string;
     href?: string;
@@ -55,61 +56,54 @@ export const PROMO_SECTIONS: ISideNavSection[] = [
 export const VIDEO_SECTIONS: ISideNavSection[] = [
     {
         icon: <VideoCameraFilled />,
-        text: 'Videos',
+        text: 'Clip Videos',
+        href: MUSIC_VIDEO_PATH,
         role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
-        sub: [
-            {
-                icon: <VideoCameraFilled />,
-                text: 'Clip Video',
-                href: MUSIC_VIDEO_PATH,
-                role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
-            },
-            {
-                icon: <FaMicrophoneAlt />,
-                text: 'Interview',
-                href: INTERVIEW_PATH,
-                role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
-            },
-            {
-                icon: <FaPodcast />,
-                text: 'Podcast',
-                href: PODCAST_PATH,
-                role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
-            },
-            {
-                icon: <RiFocusLine />,
-                text: 'LeFocus',
-                href: LEFOCUS_PATH,
-                role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
-            },
-            {
-                icon: <BsFillSpeakerFill />,
-                text: 'Flex&Beatz',
-                href: FLEXBEATZ_PATH,
-                role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
-            },
-        ],
+    },
+    {
+        icon: <FaMicrophoneAlt />,
+        text: 'Interviews',
+        href: INTERVIEW_PATH,
+        role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
+    },
+    {
+        icon: <FaPodcast />,
+        text: 'Podcasts',
+        href: PODCAST_PATH,
+        role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
+    },
+    {
+        icon: <RiFocusLine />,
+        text: 'LeFocus',
+        href: LEFOCUS_PATH,
+        role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
+    },
+    {
+        icon: <BsFillSpeakerFill />,
+        text: 'Flex&Beatz',
+        href: FLEXBEATZ_PATH,
+        role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
     },
 ];
 
 export const USER_SECTIONS: ISideNavSection[] = [
     {
-        icon: <StarFilled />,
-        text: 'Admins',
+        icon: <RiAdminFill />,
+        text: 'Administrateurs',
         href: ADMIN_PATH,
         role: [EnumRole.SUPER_ADMIN],
     },
     {
-        icon: <StarFilled />,
-        text: 'Users',
+        icon: <HiUsers />,
+        text: 'Clients',
         href: '/users',
-        role: [EnumRole.SUPER_ADMIN],
+        role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
     },
 ];
 
 export default [
-    { key: 'article', title: 'ARTICLE SECTION', sub: ARTICLE_SECTIONS },
-    { key: 'video', title: 'VIDEO SECTION', sub: VIDEO_SECTIONS },
-    { key: 'promo', title: 'PROMO SECTION', sub: PROMO_SECTIONS },
-    { key: 'user', title: 'USER SECTION', sub: USER_SECTIONS },
+    { key: 'article', title: 'Section articles', sub: ARTICLE_SECTIONS },
+    { key: 'video', title: 'Section videos', sub: VIDEO_SECTIONS },
+    { key: 'promo', title: 'Section promotion', sub: PROMO_SECTIONS },
+    { key: 'user', title: 'Section utilisateurs', sub: USER_SECTIONS },
 ];
