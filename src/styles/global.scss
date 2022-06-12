@@ -2,7 +2,12 @@
 @import 'dimensions.scss';
 
 [class~='ant-layout-header'] {
-    background: $neutral;
+    background: $header;
+    padding: 0 $padding;
+}
+
+[class~='ant-layout'] {
+    background: $white;
 }
 
 [data-content-padding] {

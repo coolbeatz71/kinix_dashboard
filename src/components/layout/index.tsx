@@ -43,7 +43,7 @@ const Layout: FC<ILayoutProps> = ({ children, title }) => {
                     </title>
                 </Helmet>
 
-                <SideNav />
+                <SideNav isSideNavExpanded={isSideNavExpanded} setIsSideNavExpanded={setIsSideNavExpanded} />
 
                 <div className={styles.layout__main}>
                     <Header
@@ -52,9 +52,7 @@ const Layout: FC<ILayoutProps> = ({ children, title }) => {
                         currentUser={userData as ICurrentAdmin}
                     />
 
-                    <Content className={styles.layout__main__content} data-sidenav-expanded={isSideNavExpanded}>
-                        {children}
-                    </Content>
+                    <Content className={styles.layout__main__content}>{children}</Content>
                 </div>
             </AntLayout>
         </HelmetProvider>

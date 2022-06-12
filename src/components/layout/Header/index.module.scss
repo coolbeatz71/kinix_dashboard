@@ -1,6 +1,6 @@
 @import 'styles/colors.scss';
 @import 'styles/dimensions.scss';
-@import 'styles/_mixins.scss';
+@import 'styles/mixins.scss';
 
 .header {
     position: fixed;
@@ -12,6 +12,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    [class~='ant-btn'] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
     [class~='hamburger-menu'] {
         display: flex;
@@ -27,6 +33,13 @@
                 fill: $primary;
             }
         }
+    }
+
+    &[data-sidenav-expanded='true'] {
+        padding: 0 $padding;
+    }
+    &[data-sidenav-expanded='false'] {
+        padding: 0 $content-padding;
     }
 
     &__row {

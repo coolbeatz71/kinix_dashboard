@@ -1,6 +1,6 @@
 @import 'styles/colors.scss';
 @import 'styles/dimensions.scss';
-@import 'styles/_mixins.scss';
+@import 'styles/mixins.scss';
 
 .layout {
     min-height: 100vh;
@@ -10,13 +10,7 @@
         width: 100%;
 
         &__content {
-            &[data-sidenav-expanded='false'] {
-                padding: $padding;
-            }
-            &[data-sidenav-expanded='true'] {
-                padding: calc(#{$content-padding} / 1.4) $content-padding;
-            }
-
+            padding: $padding;
             margin-top: $header-height;
 
             @include mediaXS {

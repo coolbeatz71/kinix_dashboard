@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
-import { useMedia } from 'react-use';
 import { ICurrentAdmin } from '@interfaces/admin';
 import getSideNavWidth from '@helpers/getSideNavWidth';
 import { MenuOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, Dropdown, Layout, Menu, Row } from 'antd';
-import { lgSize } from '@constants/mediaQuery';
+import { Avatar, Button, Col, Dropdown, Grid, Layout, Menu, Row } from 'antd';
 import formatName from '@helpers/formatName';
 
 import styles from './index.module.scss';
 
 const { Header: AntHeader } = Layout;
 const { Item } = Menu;
+const { useBreakpoint } = Grid;
 
 export interface IHeaderProps {
     isSideNavExpanded: boolean;
@@ -22,7 +21,7 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
     const toggleSideNav = (): void => setIsSideNavExpanded(!isSideNavExpanded);
     const sideNavWidth = getSideNavWidth(isSideNavExpanded);
 
-    const lg = useMedia(lgSize);
+    const { lg } = useBreakpoint();
 
     const headerStyles = {
         left: sideNavWidth,
@@ -40,7 +39,11 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
     );
 
     return (
-        <AntHeader className={styles.header} style={lg ? headerStyles : undefined}>
+        <AntHeader
+            className={styles.header}
+            style={lg ? headerStyles : undefined}
+            data-sidenav-close={isSideNavExpanded}
+        >
             <Row align="middle" className={styles.header__row} justify="space-between">
                 <Col xs={12} sm={12} lg={1} className="p-0">
                     <Button
