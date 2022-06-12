@@ -1,6 +1,10 @@
 @import 'colors.scss';
 @import 'dimensions.scss';
 
+[class~='ant-layout-header'] {
+    background: $neutral;
+}
+
 [data-content-padding] {
     padding: calc(#{$content-padding} / 2) 0;
 }

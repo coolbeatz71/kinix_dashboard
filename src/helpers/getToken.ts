@@ -6,7 +6,7 @@ const getToken = (): string | null => {
 };
 
 export const verifyToken = (): unknown => {
-    const auth = localStorage.getItem(API_TOKEN);
+    const auth = getToken();
     if (!auth) return false;
     const [, token] = auth.split(' ');
     try {

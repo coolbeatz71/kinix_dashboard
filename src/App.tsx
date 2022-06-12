@@ -1,10 +1,10 @@
 import React from 'react';
-import Login from '@views/Login';
+import Dashboard from '@views/Dashboard';
 
 function App() {
     return (
         <div>
-            <Login />
+            <Dashboard />
         </div>
     );
 }

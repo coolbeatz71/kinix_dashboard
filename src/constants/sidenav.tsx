@@ -25,6 +25,9 @@ interface ISideNavSection {
     sub?: ISideNavSection[];
 }
 
+export const MAX_SIDENAV_WIDTH = 200;
+export const MIN_SIDENAV_WIDTH = 60;
+
 export const ARTICLE_SECTIONS: ISideNavSection[] = [
     {
         icon: <RiArticleLine />,
@@ -106,7 +109,7 @@ export const USER_SECTIONS: ISideNavSection[] = [
 
 export default [
     { key: 'article', title: 'ARTICLE SECTION', sub: ARTICLE_SECTIONS },
-    { key: 'promo', title: 'PROMO SECTION', sub: PROMO_SECTIONS },
     { key: 'video', title: 'VIDEO SECTION', sub: VIDEO_SECTIONS },
+    { key: 'promo', title: 'PROMO SECTION', sub: PROMO_SECTIONS },
     { key: 'user', title: 'USER SECTION', sub: USER_SECTIONS },
 ];
