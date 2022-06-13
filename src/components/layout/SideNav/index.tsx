@@ -2,7 +2,7 @@ import React, { FC, Fragment, Key, ReactNode, useState } from 'react';
 import { Divider, Grid, Layout, Menu } from 'antd';
 import getSideNavWidth from '@helpers/getSideNavWidth';
 import Logo from '@components/common/Logo';
-import { HOME_PATH } from '@constants/paths';
+import { LOGIN_PATH } from '@constants/paths';
 import { HomeFilled } from '@ant-design/icons';
 
 import styles from './index.module.scss';
@@ -95,7 +95,7 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
                     className={styles.sidenav__menu}
                 >
                     <Item title={null} className={styles.sidenav__menu__items} icon={<HomeFilled />}>
-                        <a href={HOME_PATH}>Dashboard</a>
+                        <a href={LOGIN_PATH}>Dashboard</a>
                     </Item>
 
                     {renderSections(isSideNavExpanded)}

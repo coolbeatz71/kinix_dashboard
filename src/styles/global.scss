@@ -1,6 +1,14 @@
 @import 'colors.scss';
 @import 'dimensions.scss';
 
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: 100vh;
+}
+
 [class~='ant-layout-header'] {
     background: $header;
     padding: 0 $padding;
@@ -20,7 +28,7 @@
 
 [class~='ant-form-item-with-help'],
 [class~='ant-form-item-has-error'] {
-    margin-bottom: 1rem !important;
+    margin-bottom: $padding !important;
 }
 
 textarea {
@@ -48,4 +56,8 @@ textarea {
         font-size: 14px;
         color: $dark50 !important;
     }
+}
+
+[class~='ant-form-item-explain-error'] {
+    margin-top: 0.2rem;
 }

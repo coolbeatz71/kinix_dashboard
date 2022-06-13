@@ -1,5 +1,5 @@
 import { TOKEN_INVALID_EXPIRED } from '@constants/api';
-import { HOME_PATH } from '@constants/paths';
+import { LOGIN_PATH } from '@constants/paths';
 import { API_TOKEN, API_URL, PLATFORM_NAME } from '@constants/platform';
 import getToken from '@helpers/getToken';
 import axios, { AxiosError, AxiosResponse } from 'axios';
@@ -18,7 +18,7 @@ const responseHandler = (response: AxiosResponse): AxiosResponse => response.dat
 const errorHandler = async (error: AxiosError): Promise<AxiosError> => {
     if (error?.message === TOKEN_INVALID_EXPIRED) {
         localStorage.removeItem(API_TOKEN);
-        window.location.href = HOME_PATH;
+        window.location.href = LOGIN_PATH;
     }
     const errorResponse = error.response ? error.response.data : error.message;
     return await Promise.reject(errorResponse);

@@ -4,8 +4,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 
-import '@styles/coreui.min.css';
 import '@styles/global.scss';
+import '@styles/coreui.min.css';
 import '@styles/nprogress.scss';
 import store from '@redux/store';
 
