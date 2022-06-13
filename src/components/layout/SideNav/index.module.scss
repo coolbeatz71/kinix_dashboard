@@ -16,7 +16,7 @@
 
     &__menu {
         &_divider {
-            margin: 0.5rem 0;
+            margin: 0;
         }
 
         &__items {
@@ -62,6 +62,10 @@
         background-repeat: no-repeat;
     }
 
+    [class~='ant-layout-sider-trigger'] {
+        background: $light10;
+    }
+
     [class~='ant-layout-sider-children'] {
         .sidenav__menu {
             border: none;
@@ -102,7 +106,14 @@
         border-radius: $border-radius;
 
         &:hover {
+            * {
+                color: $white;
+            }
             background: rgba($color: $header, $alpha: 0.5);
+        }
+
+        &[aria-expanded='true'] {
+            background: rgba($color: $header, $alpha: 0.2);
         }
     }
 

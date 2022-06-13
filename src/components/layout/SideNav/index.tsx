@@ -21,7 +21,7 @@ export interface ISideNavProps {
     setIsSideNavExpanded: (val: boolean) => void;
 }
 
-const defaultOpen = [sidenav[0].key];
+const defaultOpen = [sidenav[1].key];
 
 const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, currentUser }) => {
     const { lg } = useBreakpoint();

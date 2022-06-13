@@ -4,6 +4,7 @@ import getSideNavWidth from '@helpers/getSideNavWidth';
 import { MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Col, Dropdown, Grid, Layout, Menu, Row } from 'antd';
 import formatName from '@helpers/formatName';
+import { getAvatarColor } from '@helpers/getAvatarColor';
 
 import styles from './index.module.scss';
 
@@ -55,7 +56,7 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
                     />
                 </Col>
                 <Col xs={12} sm={12} lg={23} className="d-flex flex-row-reverse">
-                    {!currentUser?.isLoggedIn && (
+                    {currentUser.isLoggedIn && (
                         <Dropdown
                             placement="bottomLeft"
                             overlay={UserProfileMenu}
@@ -67,11 +68,12 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
                                     <Avatar
                                         size="small"
                                         icon={<UserOutlined />}
-                                        style={{ backgroundColor: '#87d068' }}
+                                        src={currentUser.image}
+                                        style={{ backgroundColor: getAvatarColor(currentUser.userName) }}
                                     />
                                 }
                             >
-                                {formatName('Mutombo Jean-vincent')}
+                                {formatName(currentUser.userName)}
                             </Button>
                         </Dropdown>
                     )}
