@@ -3,6 +3,7 @@ export const IMAGES_URL = process.env.REACT_APP_IMAGES_URL;
 export const API_URL = process.env.REACT_APP_API_URL;
 
 export const JWT_SECRET_KEY = process.env.REACT_APP_JWT_SECRET_KEY;
+export const CRYPTO_PASSPHASE = process.env.REACT_APP_CRYPTO_PASSPHASE;
 
 export const STAGING_URL = process.env.REACT_APP_FRONTEND_STAGING_URL;
 export const PROD_URL = process.env.REACT_APP_FRONTEND_PRODUCTION_URL;

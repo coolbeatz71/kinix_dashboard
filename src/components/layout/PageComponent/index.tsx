@@ -20,20 +20,14 @@ const PageComponent: FC = () => {
     const { data: user } = useSelector(({ user }: IRootState) => user?.currentUser);
     const { data: loginData } = useSelector(({ auth: { login } }: IRootState) => login);
 
-    //TODO handle currentUser on the redux side
-    const localUser = {
-        isLoggedIn: true,
-        role: EnumRole.ADMIN,
-    };
-
     useEffect(() => {
         if (isEmpty(user)) dispatch(getCurrentUserAction());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     const filterCallback = ({ extraProps: { roles, isLoggedIn } }: IRoute): boolean | undefined => {
-        if (!localUser) return isLoggedIn === false;
-        if (localUser && isAdmin(localUser?.role)) return roles?.includes(EnumRole.ADMIN);
+        if (!user) return isLoggedIn === false;
+        if (user && isAdmin(user?.role)) return roles?.includes(EnumRole.ADMIN);
         return roles ? roles?.includes(EnumRole.ADMIN) : true;
     };
 
@@ -48,7 +42,7 @@ const PageComponent: FC = () => {
                                 path={route.path}
                                 exact={route.exact}
                                 render={(props) => (
-                                    <AppLayout title={route.name} currentUser={localUser as ICurrentAdmin}>
+                                    <AppLayout title={route.name} currentUser={user as ICurrentAdmin}>
                                         <route.component {...props} {...route.extraProps} />
                                     </AppLayout>
                                 )}
@@ -57,7 +51,7 @@ const PageComponent: FC = () => {
                     );
                 })}
 
-                {localUser?.isLoggedIn || loginData?.isLoggedIn ? (
+                {user?.isLoggedIn || loginData?.isLoggedIn ? (
                     <Redirect to={DASHBOARD_PATH} exact={true} />
                 ) : (
                     <Redirect to={LOGIN_PATH} exact={true} />

@@ -20,7 +20,6 @@ export interface IAppLayoutProps {
 
 const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
     const [isSideNavExpanded, setIsSideNavExpanded] = useState<boolean>(false);
-    console.log(currentUser);
     return (
         <HelmetProvider>
             <Layout className={styles.layout}>

@@ -1,5 +1,5 @@
 import { API_TOKEN } from '@constants/platform';
-import { decodeToken } from 'react-jwt';
+import { decodeToken, isExpired } from 'react-jwt';
 
 const getToken = (): string | null => {
     return localStorage.getItem(API_TOKEN) || '';
@@ -14,6 +14,12 @@ export const verifyToken = (): unknown => {
     } catch (err) {
         return false;
     }
+};
+
+export const isTokenExpired = (): boolean => {
+    const token = getToken();
+    if (token) return isExpired(token);
+    return true;
 };
 
 export const isJWTValid = !!verifyToken();

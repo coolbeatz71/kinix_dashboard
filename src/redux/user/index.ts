@@ -6,7 +6,9 @@ import { userInitialState } from './types';
 export const userSlice = createSlice({
     name: 'user',
     initialState: userInitialState,
-    reducers: {},
+    reducers: {
+        currentUser: ActionWrapperFulfilled,
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getCurrentUserAction.pending, ActionWrapperPending)

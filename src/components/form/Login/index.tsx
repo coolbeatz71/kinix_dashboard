@@ -30,8 +30,7 @@ const LoginForm: FC = () => {
     }, [dispatch]);
 
     const onSubmit = (formValues: ILoginData): void => {
-        const { credential, password } = formValues;
-        dispatch(loginAction({ credential, password })).then((res) => {
+        dispatch(loginAction({ data: formValues, dispatch })).then((res) => {
             if (res.type === 'auth/login/rejected') form.resetFields();
             if (res.type === 'auth/login/fulfilled') replace(DASHBOARD_PATH);
         });
