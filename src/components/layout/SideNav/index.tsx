@@ -94,7 +94,7 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
                     onOpenChange={onOpenSectionChange}
                     className={styles.sidenav__menu}
                 >
-                    <Item title={null} className={styles.sidenav__menu__items} icon={<HomeFilled />}>
+                    <Item key="Dashboard" title={null} className={styles.sidenav__menu__items} icon={<HomeFilled />}>
                         <a href={LOGIN_PATH}>Dashboard</a>
                     </Item>
 

@@ -16,4 +16,5 @@ export const APP_TWITTER_HANDLE = `@${APP_NAME}HQ`;
 export const APP_DESCRIPTION = 'When words stop coming out, music pops up';
 
 export const API_TOKEN = 'kiinox-token';
+export const USER_DATA = 'kiinox-user';
 export const PLATFORM_NAME = 'kiinox_dashboard';

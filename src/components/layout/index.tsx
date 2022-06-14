@@ -20,20 +20,20 @@ export interface IAppLayoutProps {
 
 const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
     const [isSideNavExpanded, setIsSideNavExpanded] = useState<boolean>(false);
-
-    const _title = upperFirst(title) || '';
-
+    console.log(currentUser);
     return (
         <HelmetProvider>
             <Layout className={styles.layout}>
                 <Helmet>
                     <title>
-                        {title ? `${_title} | ` : ''}
+                        {title ? `${upperFirst(title)} | ` : ''}
                         {APP_NAME}
                     </title>
                 </Helmet>
 
-                {currentUser?.isLoggedIn ? (
+                {!currentUser?.isLoggedIn ? (
+                    children
+                ) : (
                     <Fragment>
                         <SideNav
                             currentUser={currentUser}
@@ -49,8 +49,6 @@ const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
                             <Content className={styles.layout__main__content}>{children}</Content>
                         </div>
                     </Fragment>
-                ) : (
-                    children
                 )}
             </Layout>
         </HelmetProvider>

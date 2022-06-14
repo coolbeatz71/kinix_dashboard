@@ -1,5 +1,5 @@
 import React, { FC, memo, Suspense, useEffect } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
@@ -10,23 +10,31 @@ import { isAdmin } from '@constants/userRole';
 import { IRoute } from '@interfaces/route';
 import EnumRole from '@interfaces/userRole';
 import routes from '@constants/routes';
-import { ICurrentAdmin } from '@interfaces/admin';
 import AppLayout from '@components/layout';
 import { DASHBOARD_PATH, LOGIN_PATH } from '@constants/paths';
+import FancyRoute from '@components/common/FancyRoute';
+import { ICurrentAdmin } from '@interfaces/admin';
 
 const PageComponent: FC = () => {
     const dispatch = useAppDispatch();
-    const { data: userData } = useSelector(({ user }: IRootState) => user?.currentUser);
+    const { data: user } = useSelector(({ user }: IRootState) => user?.currentUser);
+    const { data: loginData } = useSelector(({ auth: { login } }: IRootState) => login);
+
+    //TODO handle currentUser on the redux side
+    const localUser = {
+        isLoggedIn: true,
+        role: EnumRole.ADMIN,
+    };
 
     useEffect(() => {
-        if (isEmpty(userData)) dispatch(getCurrentUserAction());
+        if (isEmpty(user)) dispatch(getCurrentUserAction());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
 
     const filterCallback = ({ extraProps: { roles, isLoggedIn } }: IRoute): boolean | undefined => {
-        if (!userData) return isLoggedIn === false;
-        else if (isAdmin(userData?.role)) return roles?.includes(EnumRole.ADMIN);
-        return roles?.includes(EnumRole.SUPER_ADMIN);
+        if (!localUser) return isLoggedIn === false;
+        if (localUser && isAdmin(localUser?.role)) return roles?.includes(EnumRole.ADMIN);
+        return roles ? roles?.includes(EnumRole.ADMIN) : true;
     };
 
     return (
@@ -35,12 +43,12 @@ const PageComponent: FC = () => {
                 {routes.filter(filterCallback).map((route, idx) => {
                     return (
                         route.component && (
-                            <Route
+                            <FancyRoute
                                 key={idx}
                                 path={route.path}
                                 exact={route.exact}
                                 render={(props) => (
-                                    <AppLayout currentUser={userData as ICurrentAdmin} title={route.name}>
+                                    <AppLayout title={route.name} currentUser={localUser as ICurrentAdmin}>
                                         <route.component {...props} {...route.extraProps} />
                                     </AppLayout>
                                 )}
@@ -49,7 +57,7 @@ const PageComponent: FC = () => {
                     );
                 })}
 
-                {userData?.isLoggedIn ? (
+                {localUser?.isLoggedIn || loginData?.isLoggedIn ? (
                     <Redirect to={DASHBOARD_PATH} exact={true} />
                 ) : (
                     <Redirect to={LOGIN_PATH} exact={true} />
