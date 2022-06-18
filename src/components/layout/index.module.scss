@@ -1,0 +1,25 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+@import 'styles/mixins.scss';
+
+.layout {
+    min-height: 100vh;
+    overflow: hidden;
+
+    &__main {
+        width: 100%;
+
+        &__content {
+            padding: $padding;
+            margin-top: $header-height;
+
+            @include mediaXS {
+                padding: $mobile-content-padding !important;
+            }
+
+            @include mediaSM {
+                padding: calc(#{$mobile-content-padding} * 2) !important;
+            }
+        }
+    }
+}

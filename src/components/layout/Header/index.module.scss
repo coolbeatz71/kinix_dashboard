@@ -1,0 +1,64 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+@import 'styles/mixins.scss';
+
+.header {
+    position: fixed;
+    transition: ease-out all 0.15s, ease-in-out height 0.2s;
+
+    height: $header-height;
+
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    [class~='ant-btn'] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    [class~='hamburger-menu'] {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start !important;
+
+        background: transparent !important;
+        border-color: transparent !important;
+
+        color: $primary;
+        svg {
+            rect {
+                fill: $primary;
+            }
+        }
+    }
+
+    &[data-sidenav-expanded='true'] {
+        padding: 0 $padding;
+    }
+    &[data-sidenav-expanded='false'] {
+        padding: 0 $content-padding;
+    }
+
+    &__row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        [class~='ant-col'] {
+            display: flex;
+            align-items: center;
+        }
+
+        &__profile {
+            [class~='ant-avatar'] {
+                margin-right: 0.4rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}

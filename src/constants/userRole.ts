@@ -1,15 +1,7 @@
-enum EnumRole {
-    VIEWER_CLIENT = 'VIEWER_CLIENT',
-    ADS_CLIENT = 'ADS_CLIENT',
-    VIDEO_CLIENT = 'VIDEO_CLIENT',
-    ADMIN = 'ADMIN',
-    SUPER_ADMIN = 'SUPER_ADMIN',
-}
+import EnumRole from '@interfaces/userRole';
 
-export const isViewerClient = (user: EnumRole): boolean => user === EnumRole.VIEWER_CLIENT;
-export const isAdsClient = (user: EnumRole): boolean => user === EnumRole.ADS_CLIENT;
-export const isVideoClient = (user: EnumRole): boolean => user === EnumRole.VIDEO_CLIENT;
-export const isAdmin = (user: EnumRole): boolean => user === EnumRole.ADMIN;
-export const isSuperAdmin = (user: EnumRole): boolean => user === EnumRole.SUPER_ADMIN;
-
-export default EnumRole;
+export const isViewerClient = (role: EnumRole): boolean => role === EnumRole.VIEWER_CLIENT;
+export const isAdsClient = (role: EnumRole): boolean => role === EnumRole.ADS_CLIENT;
+export const isVideoClient = (role: EnumRole): boolean => role === EnumRole.VIDEO_CLIENT;
+export const isAdmin = (role: EnumRole): boolean => role === EnumRole.ADMIN;
+export const isSuperAdmin = (role: EnumRole): boolean => role === EnumRole.SUPER_ADMIN;

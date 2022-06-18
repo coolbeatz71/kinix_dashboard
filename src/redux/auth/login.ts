@@ -3,6 +3,10 @@ import { ILoginData } from '@interfaces/auth';
 import api from 'services/axios';
 import { authSlice } from './';
 import { AppDispatch } from 'redux/store';
+import { API_TOKEN } from '@constants/platform';
+import { IUnknownObject } from '@interfaces/app';
+import setCurrentUserAction from '@redux/user/setCurrentUser';
+import { setLocalUserData } from '@helpers/getLocalUserData';
 
 export const resetLoginAction =
     () =>
@@ -10,13 +14,23 @@ export const resetLoginAction =
         return dispatch(authSlice.actions.clear({ context: 'auth/login' }));
     };
 
-const loginAction = createAsyncThunk('auth/login', async (params: ILoginData, { rejectWithValue }) => {
-    try {
-        const { data } = await api.post('/admin/auth', params);
-        return data;
-    } catch (error) {
-        return rejectWithValue(error);
-    }
-});
+const loginAction = createAsyncThunk(
+    'auth/login',
+    async (params: { data: ILoginData; dispatch: AppDispatch }, { rejectWithValue }) => {
+        const { data, dispatch } = params;
+        try {
+            const response: IUnknownObject = await api.post('/admin/auth', data);
+
+            setLocalUserData(response.data);
+            dispatch(setCurrentUserAction(response.data));
+            localStorage.setItem(API_TOKEN, response.token);
+            api.defaults.headers.Authorization = response.token;
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    },
+);
 
 export default loginAction;
