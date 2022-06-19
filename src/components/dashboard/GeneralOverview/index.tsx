@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { Col, Row } from 'antd';
 
 import ErrorAlert from '@components/common/ErrorAlert';
@@ -20,6 +20,60 @@ export interface IGeneralOverviewProps {
 }
 
 const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, error, overview, reload }) => {
+    const data = [
+        {
+            title: 'utilisateurs',
+            total: overview?.users.all,
+            icon: <HiUsers data-icon="utilisateurs" />,
+            actions: [
+                { title: 'confirmé', value: overview?.users.verified, color: 'green' },
+                {
+                    title: 'non-confirmé',
+                    value: overview?.users.unverified,
+                    color: 'volcano',
+                },
+            ],
+        },
+        {
+            title: 'videos',
+            total: overview?.videos.all,
+            icon: <VideoCameraFilled data-icon="videos" />,
+            actions: [
+                { title: 'partagé', value: overview?.videos.shared, color: 'cyan' },
+                {
+                    title: 'évalué',
+                    value: overview?.videos.rated,
+                    color: 'purple',
+                },
+            ],
+        },
+        {
+            title: 'articles',
+            total: overview?.articles.all,
+            icon: <RiArticleLine data-icon="articles" />,
+            actions: [
+                { title: 'liké', value: overview?.articles.liked, color: 'cyan' },
+                {
+                    title: 'commenté',
+                    value: overview?.articles.commented,
+                    color: 'purple',
+                },
+            ],
+        },
+        {
+            title: 'promotions',
+            total: overview?.promotions.all,
+            icon: <GlobalOutlined data-icon="promotions" />,
+            actions: [
+                { title: 'actif', value: overview?.promotions.active, color: 'green' },
+                {
+                    title: 'inactif',
+                    value: overview?.promotions.inactive,
+                    color: 'volcano',
+                },
+            ],
+        },
+    ];
     return (
         <Row align="middle" justify="space-between" className={styles.general} gutter={24}>
             {loading ? (
@@ -33,72 +87,17 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, error, overview, 
                     <ErrorAlert error={error} showIcon closable banner onClose={reload} />
                 </Col>
             ) : (
-                <Fragment>
-                    <Col xs={24} sm={12} md={6} lg={6}>
+                data.map((item) => (
+                    <Col xs={24} sm={12} md={6} lg={6} key={item.title}>
                         <OverviewCard
-                            title="utilisateurs"
-                            total={overview?.users.all}
-                            icon={<HiUsers data-icon="utilisateurs" />}
+                            icon={item.icon}
+                            title={item.title}
+                            total={item.total}
+                            actions={item.actions}
                             className={styles.general__count}
-                            actions={[
-                                { title: 'confirmé', value: overview?.users.verified, color: 'green' },
-                                {
-                                    title: 'non-confirmé',
-                                    value: overview?.users.unverified,
-                                    color: 'volcano',
-                                },
-                            ]}
                         />
                     </Col>
-                    <Col xs={24} sm={12} md={6} lg={6}>
-                        <OverviewCard
-                            title="videos"
-                            total={overview?.videos.all}
-                            icon={<VideoCameraFilled data-icon="videos" />}
-                            className={styles.general__count}
-                            actions={[
-                                { title: 'partagé', value: overview?.videos.shared, color: 'cyan' },
-                                {
-                                    title: 'évalué',
-                                    value: overview?.videos.rated,
-                                    color: 'purple',
-                                },
-                            ]}
-                        />
-                    </Col>
-                    <Col xs={24} sm={12} md={6} lg={6}>
-                        <OverviewCard
-                            title="articles"
-                            total={overview?.articles.all}
-                            icon={<RiArticleLine data-icon="articles" />}
-                            className={styles.general__count}
-                            actions={[
-                                { title: 'liké', value: overview?.articles.liked, color: 'cyan' },
-                                {
-                                    title: 'commenté',
-                                    value: overview?.articles.commented,
-                                    color: 'purple',
-                                },
-                            ]}
-                        />
-                    </Col>
-                    <Col xs={24} sm={12} md={6} lg={6}>
-                        <OverviewCard
-                            title="promotions"
-                            total={overview?.promotions.all}
-                            icon={<GlobalOutlined data-icon="promotions" />}
-                            className={styles.general__count}
-                            actions={[
-                                { title: 'actif', value: overview?.promotions.active, color: 'green' },
-                                {
-                                    title: 'inactif',
-                                    value: overview?.promotions.inactive,
-                                    color: 'volcano',
-                                },
-                            ]}
-                        />
-                    </Col>
-                </Fragment>
+                ))
             )}
         </Row>
     );
