@@ -68,6 +68,8 @@
 
     [class~='ant-layout-sider-children'] {
         position: fixed;
+        z-index: 999;
+
         .sidenav__menu {
             border: none;
             padding: 0 0.5rem;
