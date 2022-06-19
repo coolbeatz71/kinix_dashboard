@@ -24,7 +24,7 @@ const loginAction = createAsyncThunk(
             setLocalUserData(response.data);
             dispatch(setCurrentUserAction(response.data));
             localStorage.setItem(API_TOKEN, response.token);
-            api.defaults.headers.Authorization = response.token;
+            api.defaults.headers.Authorization = `Bearer ${response.token}`;
 
             return response.data;
         } catch (error) {

@@ -1,0 +1,56 @@
+@import 'styles/dimensions.scss';
+@import 'styles/colors.scss';
+
+.general {
+    svg {
+        padding: 0.5rem;
+        height: 5rem;
+        color: $white;
+    }
+
+    svg,
+    [class~='anticon'] {
+        width: 100%;
+        border-radius: $border-radius;
+        &[data-icon='utilisateurs'] {
+            background: $link;
+        }
+        &[data-icon='articles'] {
+            background: $success;
+        }
+        &[data-icon='videos'] {
+            background: $warning;
+        }
+        &[data-icon='promotions'] {
+            background: $error;
+        }
+    }
+
+    &__count {
+        padding-left: 1rem;
+        display: flex;
+        flex-flow: column;
+        align-items: flex-end;
+        justify-content: space-around;
+
+        [data-value='true'] {
+            font-size: 30pt;
+            font-weight: 600;
+            line-height: 35px;
+        }
+    }
+
+    [class~='ant-card-actions'] {
+        display: flex;
+        justify-content: center;
+
+        li {
+            border: transparent;
+
+            & > span {
+                display: flex;
+                justify-content: space-around;
+            }
+        }
+    }
+}

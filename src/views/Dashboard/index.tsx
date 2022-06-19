@@ -1,13 +1,28 @@
 import React, { FC } from 'react';
+import { useEffect } from 'react';
 
-import styles from './index.module.scss';
+import { useAppDispatch } from '@redux/store';
+import getOverviewAction from '../../redux/overview/getOverview';
+import { useSelector } from 'react-redux';
+import { IRootState } from '@redux/reducers';
+import GeneralOverview from '@components/dashboard/GeneralOverview';
 
 const Dashboard: FC = () => {
+    const dispatch = useAppDispatch();
+    const { error, loading, data } = useSelector(({ overview: { get } }: IRootState) => get);
+
+    useEffect(() => {
+        loadOverview();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const loadOverview = (): void => {
+        dispatch(getOverviewAction());
+    };
+
     return (
-        <div className={styles.dashboard}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus consequatur id iusto illo sint itaque
-            quibusdam cumque dolore. Quisquam, cum repellendus? Repellendus minus ea maiores eveniet, ullam vero aperiam
-            rerum.
+        <div>
+            <GeneralOverview loading={loading} error={error} overview={data?.general} reload={loadOverview} />
         </div>
     );
 };
