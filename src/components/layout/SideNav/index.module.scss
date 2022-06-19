@@ -67,6 +67,7 @@
     }
 
     [class~='ant-layout-sider-children'] {
+        position: fixed;
         .sidenav__menu {
             border: none;
             padding: 0 0.5rem;
@@ -109,11 +110,11 @@
             * {
                 color: $white;
             }
-            background: rgba($color: $header, $alpha: 0.5);
+            background: rgba($color: $background, $alpha: 0.5);
         }
 
         &[aria-expanded='true'] {
-            background: rgba($color: $header, $alpha: 0.2);
+            background: rgba($color: $background, $alpha: 0.2);
         }
     }
 

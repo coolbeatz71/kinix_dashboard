@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler } from 'react';
 import { Alert, Form } from 'antd';
 import { IUnknownObject } from '@interfaces/app';
 
@@ -9,13 +9,21 @@ export interface IErrorAlertProps {
     closable: boolean;
     banner: boolean;
     showIcon: boolean;
+    onClose?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const ErrorAlert: FC<IErrorAlertProps> = ({ error, closable, banner, showIcon }) => {
+const ErrorAlert: FC<IErrorAlertProps> = ({ error, closable, banner, showIcon, onClose }) => {
     return (
         error && (
             <Item>
-                <Alert message={error?.message} type="error" showIcon={showIcon} closable={closable} banner={banner} />
+                <Alert
+                    type="error"
+                    banner={banner}
+                    showIcon={showIcon}
+                    closable={closable}
+                    onClose={onClose}
+                    message={error?.message}
+                />
             </Item>
         )
     );
