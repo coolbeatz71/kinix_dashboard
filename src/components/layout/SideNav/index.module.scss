@@ -63,12 +63,13 @@
     }
 
     [class~='ant-layout-sider-trigger'] {
+        z-index: 99;
         background: $light10;
     }
 
     [class~='ant-layout-sider-children'] {
         position: fixed;
-        z-index: 999;
+        z-index: 98;
 
         .sidenav__menu {
             border: none;
