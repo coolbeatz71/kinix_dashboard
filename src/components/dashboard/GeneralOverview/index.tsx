@@ -77,7 +77,7 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, error, overview, 
     return (
         <Row align="middle" justify="space-between" className={styles.general} gutter={24}>
             {loading ? (
-                Array.from(Array(4)).map((i) => (
+                Array.from(Array(4)).map((_, i) => (
                     <Col xs={24} sm={12} md={6} lg={6} key={i}>
                         <GeneralOverviewSkeleton />
                     </Col>
@@ -88,7 +88,7 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, error, overview, 
                 </Col>
             ) : (
                 data.map((item) => (
-                    <Col xs={24} sm={12} md={6} lg={6} key={item.title}>
+                    <Col xs={24} sm={24} md={12} lg={12} xl={6} key={item.title}>
                         <OverviewCard
                             icon={item.icon}
                             title={item.title}

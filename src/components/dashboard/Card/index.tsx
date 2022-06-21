@@ -23,6 +23,7 @@ const OverviewCard: FC<IOverviewCardProps> = ({ title, total, icon, actions, cla
         <Card
             bordered
             hoverable
+            className="mb-4"
             actions={[
                 actions.map((action) => (
                     <div key={action.title}>

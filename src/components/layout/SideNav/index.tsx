@@ -59,7 +59,7 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
                 {!isExpanded ? (
                     getSubMenuItems(section.sub).map((item) => (
                         <Item title={null} className={styles.sidenav__menu__items} key={item.text} icon={item.icon}>
-                            {item.text}
+                            <a href={item.href}>{item.text}</a>
                         </Item>
                     ))
                 ) : (
