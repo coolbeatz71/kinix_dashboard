@@ -1,9 +1,14 @@
 import React, { FC } from 'react';
-import { Avatar, Col, Menu, Row, Typography } from 'antd';
-import { UserOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Avatar, Col, Menu, Row, Typography, Spin, notification } from 'antd';
+import { UserOutlined, SettingOutlined, LogoutOutlined, LoadingOutlined } from '@ant-design/icons';
 import { getAvatarColor } from '@helpers/getAvatarColor';
 
 import styles from './index.module.scss';
+import { IRootState } from '@redux/reducers';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import logoutAction from '@redux/auth/logout';
+import { useAppDispatch } from '@redux/store';
 
 const { Item } = Menu;
 const { Text } = Typography;
@@ -13,9 +18,34 @@ export interface IUserProfileMenuProps {
     email: string;
     userName: string;
     phoneNumber: string;
+    setOpenDropdown: (val: boolean) => void;
 }
 
-const UserProfileMenu: FC<IUserProfileMenuProps> = ({ avatar, email, phoneNumber, userName }) => {
+const UserProfileMenu: FC<IUserProfileMenuProps> = ({ avatar, email, phoneNumber, userName, setOpenDropdown }) => {
+    const { error, loading } = useSelector(({ auth: { logout } }: IRootState) => logout);
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (error) {
+            notification.error({
+                key: 'error',
+                maxCount: 1,
+                message: 'Erreur',
+                description: error?.message,
+                placement: 'bottomRight',
+            });
+        }
+    }, [error]);
+
+    const onLogout = (): void => {
+        dispatch(logoutAction({ dispatch })).then((res) => {
+            if (res.type === 'auth/logout/fulfilled') {
+                setOpenDropdown(false);
+            }
+        });
+    };
+
     return (
         <Menu className={styles.profile}>
             <Row align="middle" justify="center">
@@ -34,8 +64,8 @@ const UserProfileMenu: FC<IUserProfileMenuProps> = ({ avatar, email, phoneNumber
                 </Col>
             </Row>
             <Item icon={<SettingOutlined />}>Configuration</Item>
-            <Item data-signout icon={<LogoutOutlined />}>
-                Déconnexion
+            <Item danger data-signout icon={<LogoutOutlined />} onClick={onLogout}>
+                {loading ? <Spin indicator={<LoadingOutlined />} /> : 'Déconnexion'}
             </Item>
         </Menu>
     );

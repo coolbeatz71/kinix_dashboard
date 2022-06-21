@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { ICurrentAdmin } from '@interfaces/admin';
 import getSideNavWidth from '@helpers/getSideNavWidth';
 import { MenuOutlined, UserOutlined } from '@ant-design/icons';
@@ -22,6 +22,8 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
     const toggleSideNav = (): void => setIsSideNavExpanded(!isSideNavExpanded);
     const sideNavWidth = getSideNavWidth(isSideNavExpanded);
 
+    const [openDropDown, setOpenDropdown] = useState(false);
+
     const { lg } = useBreakpoint();
 
     const headerStyles = {
@@ -44,6 +46,7 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
                 <Col xs={12} sm={12} lg={23} className="d-flex flex-row-reverse">
                     {currentUser.isLoggedIn && (
                         <Dropdown
+                            visible={openDropDown}
                             placement="bottomLeft"
                             className={styles.header__row__profile}
                             overlay={
@@ -51,11 +54,13 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
                                     email={currentUser.email}
                                     avatar={currentUser.image}
                                     userName={currentUser.userName}
+                                    setOpenDropdown={setOpenDropdown}
                                     phoneNumber={currentUser.phoneNumber}
                                 />
                             }
                         >
                             <Button
+                                onClick={() => setOpenDropdown(!openDropDown)}
                                 type="text"
                                 icon={
                                     <Avatar
