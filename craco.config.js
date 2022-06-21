@@ -3,6 +3,10 @@ const CracoAntdPlugin = require('craco-antd');
 
 module.exports = {
     webpack: {
+        configure: {
+            // TODO: must be updated later for production optimization
+            devtool: 'eval-source-map',
+        },
         alias: {
             '@components': path.resolve(__dirname, 'src/components'),
             '@views': path.resolve(__dirname, 'src/views'),
