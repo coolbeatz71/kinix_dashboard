@@ -1,0 +1,21 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+@import 'styles/mixins.scss';
+
+.pageTitle {
+    margin: $padding 0;
+    padding: calc(#{$padding}/ 1.2) 0;
+
+    padding-top: 0;
+    margin-top: 0;
+    border-bottom: 1px solid $dark20;
+
+    @include preventTextSelection;
+
+    h3 {
+        margin-bottom: 0;
+        display: inline-block;
+        font-size: 15pt;
+        color: $primary;
+    }
+}

@@ -9,6 +9,7 @@ import store, { persistor } from '@redux/store';
 import '@styles/global.scss';
 import '@styles/coreui.min.css';
 import '@styles/nprogress.scss';
+import '@styles/404.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

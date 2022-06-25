@@ -8,6 +8,7 @@ module.exports = {
             devtool: 'eval-source-map',
         },
         alias: {
+            '@assets': path.resolve(__dirname, 'src/assets'),
             '@components': path.resolve(__dirname, 'src/components'),
             '@views': path.resolve(__dirname, 'src/views'),
             '@helpers': path.resolve(__dirname, 'src/helpers'),
