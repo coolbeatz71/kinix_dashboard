@@ -1,13 +1,20 @@
-import React, { FC, useEffect } from 'react';
+import React, { ReactElement, RefObject, useEffect } from 'react';
 import { useQuill } from 'react-quilljs';
+import Quill from 'quill';
 import axios from 'axios';
 import { IMAGES_API_PRESET, IMAGES_API_SECRET, IMAGES_API_URL } from '@constants/platform';
 import { IUnknownObject } from '@interfaces/app';
 
 import styles from './index.module.scss';
 
-const QuillEditor: FC = () => {
-    const placeholder = 'Ecrire quelque ici...';
+export interface IQuillEditorData {
+    quill: Quill | undefined;
+    quillRef: RefObject<IUnknownObject>;
+    component: ReactElement;
+}
+
+const useQuillEditor = (): IQuillEditorData => {
+    const placeholder = 'Ecrire quelque chose ici...';
 
     const modules = {
         toolbar: [
@@ -59,11 +66,17 @@ const QuillEditor: FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [quill]);
 
-    return (
+    const component = (
         <div className={styles.quillEditor}>
             <div ref={quillRef} />
         </div>
     );
+
+    return {
+        quill,
+        quillRef,
+        component,
+    };
 };
 
-export default QuillEditor;
+export default useQuillEditor;

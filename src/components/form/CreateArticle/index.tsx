@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { Form, FormInstance, Input, Select } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
-import QuillEditor from '@components/common/QuillEditor';
 import { summaryValidator, tagsValidator, titleValidator } from './vaidators';
 import { IArticleData } from '@interfaces/articles';
+import useQuillEditor from '@hooks/useQuillEditor';
+import { useEffect } from 'react';
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -15,6 +16,17 @@ export interface ICreateArticleProps {
 
 const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef }) => {
     const textAreaStyle = { height: 98 };
+
+    const { component: quillEditor, quill } = useQuillEditor();
+
+    useEffect(() => {
+        if (quill) {
+            quill.on('text-change', (_delta, _oldDelta, _source) => {
+                console.log(_delta, _oldDelta);
+                console.log(quill?.root.innerHTML);
+            });
+        }
+    }, [quill]);
 
     return (
         <Form form={formRef} size="large" layout="vertical" onFinish={onSubmit} name="create_article">
@@ -30,7 +42,7 @@ const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef }) => {
                 </FloatTextInput>
             </Item>
 
-            <QuillEditor />
+            {quillEditor}
 
             <Item name="tags" validateTrigger={['onSubmit', 'onBlur']} rules={tagsValidator('Tags')}>
                 <Select mode="tags" size="large" placeholder="Ex: kinshasa, music, hip-hop" maxTagCount="responsive" />

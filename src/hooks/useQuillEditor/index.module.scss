@@ -6,7 +6,8 @@ $border: #e0dfdf;
 .quillEditor {
     width: 100%;
     display: inline-block;
-    margin: $padding 0;
+    margin-top: $padding;
+    margin-bottom: $content-padding;
 
     [class~='ql-toolbar'],
     [class~='ql-container'] {
