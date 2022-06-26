@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Button, Modal, Space, Row, Typography, Col } from 'antd';
+import { Button, Modal, Space, Row, Typography, Col, Form } from 'antd';
 import { SaveOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
 import CreateArticleForm from '@components/form/CreateArticle';
 
+const { useForm } = Form;
 const { Title } = Typography;
 
 export interface IArticleModalProps {
@@ -13,8 +14,14 @@ export interface IArticleModalProps {
 }
 
 const ArticleModal: FC<IArticleModalProps> = ({ visible, setVisible }) => {
+    const [form] = useForm();
     const onCloseModal = (): void => {
         setVisible(false);
+    };
+
+    const onCreateArticle = (): void => {
+        form.validateFields();
+        console.log(form.getFieldsValue());
     };
 
     return (
@@ -31,7 +38,13 @@ const ArticleModal: FC<IArticleModalProps> = ({ visible, setVisible }) => {
                     </Col>
                     <Col>
                         <Space>
-                            <Button type="primary" ghost icon={<SaveOutlined />}>
+                            <Button
+                                ghost
+                                type="primary"
+                                htmlType="submit"
+                                onClick={onCreateArticle}
+                                icon={<SaveOutlined />}
+                            >
                                 Enregistrer
                             </Button>
                             <Button type="primary" danger icon={<CloseCircleOutlined />} onClick={onCloseModal}>
@@ -42,7 +55,7 @@ const ArticleModal: FC<IArticleModalProps> = ({ visible, setVisible }) => {
                 </Row>
             }
         >
-            <CreateArticleForm />
+            <CreateArticleForm formRef={form} onSubmit={onCreateArticle} />
         </Modal>
     );
 };
