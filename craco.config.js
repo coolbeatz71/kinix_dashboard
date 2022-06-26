@@ -18,6 +18,7 @@ module.exports = {
             '@context': path.resolve(__dirname, 'src/context'),
             '@interfaces': path.resolve(__dirname, 'src/interfaces'),
             '@redux': path.resolve(__dirname, 'src/redux'),
+            '@services': path.resolve(__dirname, 'src/services'),
         },
     },
     plugins: [

@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Form, FormInstance, Input, Select } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
 import { summaryValidator, tagsValidator, titleValidator } from './vaidators';
 import { IArticleData } from '@interfaces/articles';
 import useQuillEditor from '@hooks/useQuillEditor';
-import { useEffect } from 'react';
+import getQuillImageUrls from '@helpers/getQuillImageUrls';
+import deleteImageFromCloudinary from '@helpers/deleteImageFromCloudinary';
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -18,15 +19,22 @@ const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef }) => {
     const textAreaStyle = { height: 98 };
 
     const { component: quillEditor, quill } = useQuillEditor();
+    const [articleBody, setArticleBody] = useState('');
 
     useEffect(() => {
         if (quill) {
-            quill.on('text-change', (_delta, _oldDelta, _source) => {
-                console.log(_delta, _oldDelta);
-                console.log(quill?.root.innerHTML);
+            quill.on('text-change', (_, oldDelta, source) => {
+                if (source === 'user') {
+                    const deleted = getQuillImageUrls(quill?.getContents().diff(oldDelta).ops);
+                    if (deleted) deleteImageFromCloudinary(deleted[0]);
+                }
+
+                setArticleBody(quill?.root.innerHTML);
             });
         }
     }, [quill]);
+
+    console.log(articleBody);
 
     return (
         <Form form={formRef} size="large" layout="vertical" onFinish={onSubmit} name="create_article">

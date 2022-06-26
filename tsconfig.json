@@ -27,7 +27,8 @@
             "@styles/*": ["styles/*"],
             "@context/*": ["context/*"],
             "@interfaces/*": ["interfaces/*"],
-            "@redux/*": ["redux/*"]
+            "@redux/*": ["redux/*"],
+            "@services/*": ["services/*"]
         }
     }
 }

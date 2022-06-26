@@ -2,6 +2,7 @@ export const IMAGES_API_URL = process.env.REACT_APP_CLOUDINARY_URL as string;
 export const IMAGES_API_KEY = process.env.REACT_APP_CLOUDINARY_API_KEY as string;
 export const IMAGES_API_SECRET = process.env.REACT_APP_CLOUDINARY_SECRET as string;
 export const IMAGES_API_PRESET = process.env.REACT_APP_CLOUDINARY_PRESET as string;
+export const IMAGES_API_CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME as string;
 
 export const API_URL = process.env.REACT_APP_API_URL;
 
