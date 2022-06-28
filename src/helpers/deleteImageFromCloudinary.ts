@@ -15,17 +15,17 @@ const deleteImageFromCloudinary = (imageUrl: string): void => {
                     key: 'success',
                     maxCount: 1,
                     message: 'Cloud',
-                    description: 'Image supprimée avec succès du stockage',
-                    placement: 'bottomRight',
+                    description: 'Image supprimée avec succès du cloud',
+                    placement: 'topRight',
                 });
             })
-            .catch((err: unknown) => {
+            .catch((err) => {
                 notification.error({
                     key: 'error',
                     maxCount: 1,
                     message: 'Erreur',
-                    description: err as string,
-                    placement: 'bottomRight',
+                    description: err?.message,
+                    placement: 'topRight',
                 });
             });
     }

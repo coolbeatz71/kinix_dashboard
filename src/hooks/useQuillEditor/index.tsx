@@ -1,8 +1,9 @@
 import React, { ReactElement, RefObject, useEffect } from 'react';
-import { useQuill } from 'react-quilljs';
 import Quill from 'quill';
 import axios from 'axios';
+import { useQuill } from 'react-quilljs';
 import { IMAGES_API_PRESET, IMAGES_API_SECRET, IMAGES_API_URL } from '@constants/platform';
+import { notification } from 'antd';
 import { IUnknownObject } from '@interfaces/app';
 
 import styles from './index.module.scss';
@@ -42,11 +43,28 @@ const useQuillEditor = (): IQuillEditorData => {
         formData.append('file', file, file.name);
         formData.append('upload_preset', IMAGES_API_PRESET);
         formData.append('api_key', IMAGES_API_SECRET);
-
-        const { data } = await axios.post(`${IMAGES_API_URL}/upload`, formData, {
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        });
-        insertToEditor(data.url);
+        try {
+            const { data } = await axios.post(`${IMAGES_API_URL}/upload`, formData, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            });
+            notification.info({
+                key: 'success',
+                maxCount: 1,
+                message: 'Cloud',
+                description: 'Image uploadée avec succès sur le cloud',
+                placement: 'topRight',
+            });
+            insertToEditor(data.url);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+            notification.error({
+                key: 'error',
+                maxCount: 1,
+                message: 'Erreur',
+                description: err?.message,
+                placement: 'topRight',
+            });
+        }
     };
 
     const selectLocalImage = (): void => {
