@@ -73,9 +73,9 @@ const useQuillEditor = (): IQuillEditorData => {
         input.setAttribute('accept', 'image/*');
         input.click();
 
-        input.onchange = () => {
+        input.onchange = async () => {
             const file = (input as IUnknownObject)?.files[0];
-            saveToServer(file);
+            await saveToServer(file);
         };
     };
 
