@@ -1,13 +1,15 @@
+import axios from 'axios';
 import { notification } from 'antd';
 import { SHA1 } from 'crypto-js';
-import { IMAGES_API_CLOUD_NAME, IMAGES_API_KEY, IMAGES_API_URL } from '@constants/platform';
+import { IMAGES_API_KEY, IMAGES_API_URL } from '@constants/platform';
 import { IMAGES_API_SECRET } from '../constants/platform';
-import axios from '@services/axios';
 
 const deleteImageFromCloudinary = (imageUrl: string): void => {
-    const splitted = imageUrl.split(IMAGES_API_CLOUD_NAME);
+    const folderName = 'articles';
+
+    const splitted = imageUrl.split(folderName);
     const fileName = splitted[1].split('.')[0];
-    const imagePublicId = `${IMAGES_API_CLOUD_NAME}${fileName}`;
+    const imagePublicId = `${folderName}${fileName}`;
     const timestamp = new Date().getTime();
     const plainText = `public_id=${imagePublicId}&timestamp=${timestamp}${IMAGES_API_SECRET}`;
     const signature = SHA1(plainText);
