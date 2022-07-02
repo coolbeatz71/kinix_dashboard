@@ -32,12 +32,12 @@ const deleteImageFromCloudinary = (imageUrl: string): void => {
                     placement: 'topRight',
                 });
             })
-            .catch((err) => {
+            .catch(() => {
                 notification.error({
                     key: 'error',
                     maxCount: 1,
                     message: 'Erreur',
-                    description: err?.message,
+                    description: "Impossible de supprimer l'image du cloud",
                     placement: 'topRight',
                 });
             });
