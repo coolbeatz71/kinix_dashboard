@@ -4,11 +4,11 @@ import { SHA1 } from 'crypto-js';
 import { IMAGES_API_KEY, IMAGES_API_URL } from '@constants/platform';
 import { IMAGES_API_SECRET } from '../constants/platform';
 
-const deleteImageFromCloudinary = (imageUrl: string): void => {
+const deleteImageFromCloudinary = async (imageUrl: string): Promise<unknown> => {
     const folderName = 'articles';
 
-    const splitted = imageUrl.split(folderName);
-    const fileName = splitted[1].split('.')[0];
+    const splitted = imageUrl?.split(folderName);
+    const fileName = splitted[1]?.split('.')[0];
     const imagePublicId = `${folderName}${fileName}`;
     const timestamp = new Date().getTime();
     const plainText = `public_id=${imagePublicId}&timestamp=${timestamp}${IMAGES_API_SECRET}`;
@@ -21,9 +21,9 @@ const deleteImageFromCloudinary = (imageUrl: string): void => {
     formData.append('timestamp', `${timestamp}`);
 
     if (imagePublicId) {
-        axios
-            .post(`${IMAGES_API_URL}/image/destroy`, formData)
-            .then(() => {
+        try {
+            const data = await axios.post(`${IMAGES_API_URL}/image/destroy`, formData);
+            if (data) {
                 notification.success({
                     key: 'success',
                     maxCount: 1,
@@ -31,16 +31,17 @@ const deleteImageFromCloudinary = (imageUrl: string): void => {
                     description: 'Image supprimée avec succès du cloud',
                     placement: 'topRight',
                 });
-            })
-            .catch(() => {
-                notification.error({
-                    key: 'error',
-                    maxCount: 1,
-                    message: 'Erreur',
-                    description: "Impossible de supprimer l'image du cloud",
-                    placement: 'topRight',
-                });
+            }
+            return data;
+        } catch (err) {
+            notification.error({
+                key: 'error',
+                maxCount: 1,
+                message: 'Erreur',
+                description: "Impossible de supprimer l'image du cloud",
+                placement: 'topRight',
             });
+        }
     }
 };
 
