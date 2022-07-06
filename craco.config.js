@@ -8,6 +8,7 @@ module.exports = {
             devtool: 'eval-source-map',
         },
         alias: {
+            '@assets': path.resolve(__dirname, 'src/assets'),
             '@components': path.resolve(__dirname, 'src/components'),
             '@views': path.resolve(__dirname, 'src/views'),
             '@helpers': path.resolve(__dirname, 'src/helpers'),
@@ -17,6 +18,7 @@ module.exports = {
             '@context': path.resolve(__dirname, 'src/context'),
             '@interfaces': path.resolve(__dirname, 'src/interfaces'),
             '@redux': path.resolve(__dirname, 'src/redux'),
+            '@services': path.resolve(__dirname, 'src/services'),
         },
     },
     plugins: [

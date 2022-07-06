@@ -18,6 +18,7 @@
         "incremental": true,
         "baseUrl": "./src",
         "paths": {
+            "@assets/*": ["assets/*"],
             "@components/*": ["components/*"],
             "@views/*": ["views/*"],
             "@helpers/*": ["helpers/*"],
@@ -26,7 +27,8 @@
             "@styles/*": ["styles/*"],
             "@context/*": ["context/*"],
             "@interfaces/*": ["interfaces/*"],
-            "@redux/*": ["redux/*"]
+            "@redux/*": ["redux/*"],
+            "@services/*": ["services/*"]
         }
     }
 }

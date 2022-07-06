@@ -1,8 +1,6 @@
-import React, { FC } from 'react';
-import { useEffect } from 'react';
-
+import React, { FC, useEffect } from 'react';
 import { useAppDispatch } from '@redux/store';
-import getOverviewAction from '../../redux/overview/getOverview';
+import getOverviewAction from '@redux/overview/getOverview';
 import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import GeneralOverview from '@components/dashboard/GeneralOverview';

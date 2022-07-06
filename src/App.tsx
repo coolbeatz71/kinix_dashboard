@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Loading from '@components/common/Loading';
-import { HashRouter, Route, Switch } from 'react-router-dom';
-import { LOGIN_PATH } from '@constants/paths';
+import { LOGIN_PATH, NOT_FOUND_PATH } from '@constants/paths';
 import PageComponent from '@components/layout/PageComponent';
+import Page404 from '@views/Page404';
 
 const App = (): JSX.Element => {
     return (
-        <HashRouter>
-            <React.Suspense fallback={<Loading />}>
+        <BrowserRouter>
+            <Suspense fallback={<Loading />}>
                 <Switch>
-                    {/* <Route exact path="/404" render={(props) => <Page404 {...props} />} />
-                    <Route exact path="/500" render={(props) => <Page500 {...props} />} /> */}
+                    <Route exact path={NOT_FOUND_PATH} render={(props) => <Page404 {...props} />} />
                     <Route path={LOGIN_PATH} render={() => <PageComponent />} />
                 </Switch>
-            </React.Suspense>
-        </HashRouter>
+            </Suspense>
+        </BrowserRouter>
     );
 };
 

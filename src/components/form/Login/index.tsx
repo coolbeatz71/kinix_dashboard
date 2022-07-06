@@ -9,9 +9,9 @@ import { IRootState } from '@redux/reducers';
 import loginAction, { resetLoginAction } from '@redux/auth/login';
 import { ILoginData } from '@interfaces/auth';
 import ErrorAlert from '@components/common/ErrorAlert';
+import { DASHBOARD_PATH } from '@constants/paths';
 
 import styles from './index.module.scss';
-import { DASHBOARD_PATH } from '@constants/paths';
 
 const { Item, useForm } = Form;
 const { Password } = Input;

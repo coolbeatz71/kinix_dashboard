@@ -3,11 +3,12 @@
 @import 'styles/mixins.scss';
 
 .layout {
-    min-height: 100vh;
+    height: 100vh;
     overflow: hidden;
 
     &__main {
         width: 100%;
+        height: 100%;
         background: $background;
 
         &__content {
