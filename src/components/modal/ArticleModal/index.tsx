@@ -8,7 +8,7 @@ import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { IArticleData } from '@interfaces/articles';
 import addArticleAction, { resetAddArticleAction } from '@redux/articles/add';
 import { IRootState } from '@redux/reducers';
-import FormSuccessResult from '../FormSuccessResult';
+import FormSuccessResult from '../../common/FormSuccessResult';
 
 import styles from './index.module.scss';
 
@@ -22,7 +22,7 @@ export interface IArticleModalProps {
     setVisible: (val: boolean) => void;
 }
 
-const SUCCESS_CREATE = 'Cet article a été créé avec succès';
+const SUCCESS_CREATE = "L'article a été créé avec succès";
 const SUCCESS_EDIT = 'Cet article a été modifié avec succès';
 
 const ArticleModal: FC<IArticleModalProps> = ({ visible, setVisible, formContext, initialValues }) => {
@@ -38,7 +38,6 @@ const ArticleModal: FC<IArticleModalProps> = ({ visible, setVisible, formContext
 
     const onSubmitArticle = (formData: IUnknownObject | IArticleData): void => {
         form.validateFields();
-        console.log('dt', formData);
         const isEdit = formContext === EnumFormContext.EDIT;
         dispatch(
             addArticleAction({
@@ -69,7 +68,9 @@ const ArticleModal: FC<IArticleModalProps> = ({ visible, setVisible, formContext
                 !success && (
                     <Row justify="space-between" align="middle">
                         <Col flex={1}>
-                            <Title level={4}>Créer Article</Title>
+                            <Title level={4} className="mb-0">
+                                Créer Article
+                            </Title>
                         </Col>
                         <Col>
                             <Space>
