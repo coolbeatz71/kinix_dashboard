@@ -17,11 +17,13 @@ const Articles: FC = () => {
                 </Button>
             </PageTitle>
 
-            <ArticleModal
-                visible={openAddArticleModal}
-                setVisible={setOpenAddArticleModal}
-                formContext={EnumFormContext.CREATE}
-            />
+            {openAddArticleModal && (
+                <ArticleModal
+                    visible={openAddArticleModal}
+                    setVisible={setOpenAddArticleModal}
+                    formContext={EnumFormContext.CREATE}
+                />
+            )}
         </div>
     );
 };

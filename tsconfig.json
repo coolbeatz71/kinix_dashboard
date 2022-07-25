@@ -29,6 +29,7 @@
             "@interfaces/*": ["interfaces/*"],
             "@redux/*": ["redux/*"],
             "@services/*": ["services/*"]
-        }
+        },
+        "typeRoots": ["types", "./node_modules/@types"]
     }
 }

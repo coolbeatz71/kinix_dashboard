@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { Button, Form, FormInstance, Input, Select } from 'antd';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import FloatTextInput from '@components/common/FloatTextInput';
-import { categoryValidator, tagsValidator, titleValidator, userValidator } from './validators';
+import { categoryValidator, linkValidator, tagsValidator, titleValidator, userValidator } from './validators';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IVideoData } from '@interfaces/videos';
@@ -85,7 +85,7 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
                 </FloatTextInput>
             </Item>
 
-            <Item name="link" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Lien')}>
+            <Item name="link" validateTrigger={['onSubmit', 'onBlur']} rules={linkValidator('Lien')}>
                 <FloatTextInput
                     required
                     label="Lien video"
@@ -97,10 +97,10 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
                         suffix={
                             <VideoPlayer url={videoLink}>
                                 <Button
-                                    className="d-flex justify-content-end"
                                     size="small"
                                     type="link"
                                     icon={<PlayCircleOutlined />}
+                                    className="d-flex justify-content-end"
                                 />
                             </VideoPlayer>
                         }

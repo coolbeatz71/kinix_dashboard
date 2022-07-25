@@ -9,7 +9,7 @@ export const tagsValidator = (name: string): Rule[] => [required(name)];
 
 export const linkValidator = (name: string): Rule[] => [
     required(name),
-    max(name, 500),
+    max(name, 100),
     () => ({
         validator(_rule: Rule, value: string) {
             if ([undefined, null, ''].includes(value)) return Promise.resolve();
