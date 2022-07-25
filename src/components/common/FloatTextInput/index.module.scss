@@ -20,25 +20,25 @@
     }
 
     [class~='ant-select'] {
+        [class~='anticon-loading'] {
+            color: $primary;
+            font-size: 14px;
+        }
         [class~='ant-select-selection-search'] {
             [class~='ant-select-selection-search-input'] {
                 font-size: 14px;
                 position: absolute;
-                top: -9px;
+                top: -8px;
+                height: 30px;
             }
         }
-
+        [class~='ant-select-selector'] {
+            font-size: 14px;
+            padding: 16px 12px 4px 12px !important;
+        }
         [class~='ant-select-selection-item'] {
             font-size: 14px;
-        }
-    }
-
-    [class~='ant-select'][class~='ant-select-selector'] {
-        font-size: 14px;
-        padding: 16px 12px 4px 12px !important;
-
-        [class~='ant-select-selection-item'] {
-            line-height: 1.5;
+            line-height: 1.5 !important;
         }
     }
 

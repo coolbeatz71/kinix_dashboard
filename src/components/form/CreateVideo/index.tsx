@@ -8,6 +8,7 @@ import { IVideoData } from '@interfaces/videos';
 import { ICategory, IUser } from '@interfaces/api';
 import { useAppDispatch } from '@redux/store';
 import searchUsersAction from '@redux/users/searchUsers';
+import { lowerCase, upperFirst } from 'lodash';
 
 const { Item } = Form;
 
@@ -50,11 +51,14 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
         if (value) dispatch(searchUsersAction({ search: value }));
     };
 
-    console.log('users', users);
-
-    const options = users?.map((user) => ({
+    const usersOptions = users?.map((user) => ({
         value: user.id,
         label: `${user.userName} - ${user.email}`,
+    }));
+
+    const categoriesOptions = categories?.map((cat) => ({
+        value: cat.id,
+        label: upperFirst(lowerCase(cat.name)),
     }));
 
     return (
@@ -75,13 +79,29 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
 
             <Item name="userId" validateTrigger={['onSubmit', 'onBlur']} rules={userValidator('Client')}>
                 <FloatTextInput label="Client" placeholder="Sélectionner un client" required>
-                    <Select size="large" options={options} showSearch onSearch={handleSearchUser} />
+                    <Select
+                        showSearch
+                        size="large"
+                        filterOption={false}
+                        notFoundContent={null}
+                        loading={loadingUsers}
+                        options={usersOptions}
+                        onSearch={handleSearchUser}
+                        defaultActiveFirstOption={false}
+                    />
                 </FloatTextInput>
             </Item>
 
             <Item name="categoryId" validateTrigger={['onSubmit', 'onBlur']} rules={categoryValidator('Catégorie')}>
                 <FloatTextInput label="Client" placeholder="Sélectionner une catégorie" required>
-                    <Select size="large" loading={loadingCategories} />
+                    <Select
+                        size="large"
+                        filterOption={false}
+                        options={categoriesOptions}
+                        disabled={loadingCategories}
+                        loading={loadingCategories}
+                        defaultActiveFirstOption={false}
+                    />
                 </FloatTextInput>
             </Item>
 
