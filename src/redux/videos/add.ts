@@ -15,9 +15,11 @@ const addVideoAction = createAsyncThunk(
     'videos/add',
     async (params: { data: IVideoData; isEdit: boolean }, { rejectWithValue }) => {
         const { data, isEdit } = params;
+        const { categoryId } = data;
+        const formatData = { ...data, categoryId: (categoryId as IUnknownObject).value };
         try {
             const response: IUnknownObject = await api.request({
-                data,
+                data: formatData,
                 method: isEdit ? 'PUT' : 'POST',
                 url: `/admin/videos${isEdit ? `/${data.slug}` : ''}`,
             });

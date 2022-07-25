@@ -52,8 +52,8 @@
 }
 [class~='ant-select-multiple'] {
     [class~='ant-select-selection-item'] {
-        height: 30px;
-        line-height: 28px;
+        height: 30px !important;
+        line-height: 28px !important;
     }
 }
 

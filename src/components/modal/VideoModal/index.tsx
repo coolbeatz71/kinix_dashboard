@@ -28,14 +28,15 @@ const SUCCESS_CREATE = 'La video a été créé avec succès';
 const SUCCESS_EDIT = 'Cette video a été modifié avec succès';
 
 const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, initialValues }) => {
+    const [form] = useForm();
     const dispatch = useAppDispatch();
-    const { error, loading } = useSelector(({ videos: { add } }: IRootState) => add);
+
     const { data: categories, loading: loadingCategories } = useSelector(
         ({ videos: { categories } }: IRootState) => categories,
     );
+    const { error, loading } = useSelector(({ videos: { add } }: IRootState) => add);
     const { data: users, loading: loadingUsers } = useSelector(({ users: { search } }: IRootState) => search);
 
-    const [form] = useForm();
     const [success, setSuccess] = useState('');
 
     const onCloseModal = (): void => {
@@ -51,8 +52,8 @@ const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, in
                 data: formData as IVideoData,
             }),
         ).then((res) => {
-            if (res.type === 'videos/add/fulfilled') setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
             if (res.type === 'videos/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (res.type === 'videos/add/fulfilled') setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
         });
     };
 

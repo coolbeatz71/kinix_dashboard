@@ -14,11 +14,11 @@ const { Item } = Form;
 const { TextArea } = Input;
 
 export interface ICreateArticleProps {
-    error: Error | IUnknownObject | null;
-    formRef: FormInstance<IArticleData>;
-    onSubmit: (val: IArticleData) => void;
     initialValues?: IArticleData;
     formContext: EnumFormContext;
+    formRef: FormInstance<IArticleData>;
+    error: Error | IUnknownObject | null;
+    onSubmit: (val: IArticleData) => void;
 }
 
 const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error }) => {

@@ -45,8 +45,8 @@ const ArticleModal: FC<IArticleModalProps> = ({ visible, setVisible, formContext
                 data: formData as IArticleData,
             }),
         ).then((res) => {
-            if (res.type === 'articles/add/fulfilled') setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
             if (res.type === 'articles/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (res.type === 'articles/add/fulfilled') setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
         });
     };
 

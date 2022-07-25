@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
-import { Form, FormInstance, Input, Select } from 'antd';
+import { Button, Form, FormInstance, Input, Select } from 'antd';
+import { PlayCircleOutlined } from '@ant-design/icons';
 import FloatTextInput from '@components/common/FloatTextInput';
 import { categoryValidator, tagsValidator, titleValidator, userValidator } from './validators';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
@@ -10,34 +11,36 @@ import { useAppDispatch } from '@redux/store';
 import searchUsersAction from '@redux/users/searchUsers';
 import useRouteQuery from '@hooks/useRouteQuery';
 import format from '@helpers/formatString';
+import VideoPlayer from '@components/common/VideoPlayer';
 
-const { Item } = Form;
+const { Item, useWatch } = Form;
 
 export interface ICreateVideoProps {
-    error: Error | IUnknownObject | null;
+    users?: IUser[];
+    loadingUsers: boolean;
+    categories?: ICategory[];
+    initialValues?: IVideoData;
+    loadingCategories: boolean;
+    formContext: EnumFormContext;
     formRef: FormInstance<IVideoData>;
     onSubmit: (val: IVideoData) => void;
-    initialValues?: IVideoData;
-    formContext: EnumFormContext;
-    users?: IUser[];
-    categories?: ICategory[];
-    loadingUsers: boolean;
-    loadingCategories: boolean;
+    error: Error | IUnknownObject | null;
 }
 
 const CreateVideoForm: FC<ICreateVideoProps> = ({
-    onSubmit,
-    formContext,
-    formRef,
     error,
-    categories,
     users,
-    loadingCategories,
+    formRef,
+    onSubmit,
+    categories,
+    formContext,
     loadingUsers,
+    loadingCategories,
 }) => {
     const query = useRouteQuery();
     const dispatch = useAppDispatch();
     const category = query.get('category');
+    const videoLink = useWatch('link', formRef);
     const isEdit = formContext === EnumFormContext.EDIT;
 
     const onSubmitArticle = (formData: IVideoData): void => onSubmit(formData);
@@ -60,7 +63,12 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
 
     const usersOptions = users?.map((user) => ({
         value: user.id,
-        label: `<span data-username>${user.userName}</span><span data-email>${user.email}</span>`,
+        label: (
+            <div className="d-flex justify-content-between">
+                <strong>{user.userName}</strong>
+                <span className="text-muted">{user.email}</span>
+            </div>
+        ),
     }));
     const categoriesOptions = categories?.map((cat) => ({
         value: cat.id,
@@ -78,8 +86,25 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
             </Item>
 
             <Item name="link" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Lien')}>
-                <FloatTextInput label="Titre" placeholder="Ex: https://www.youtube.com/watch?v=q1YVUO9D_MI" required>
-                    <Input size="large" maxLength={100} />
+                <FloatTextInput
+                    required
+                    label="Lien video"
+                    placeholder="Ex: https://www.youtube.com/watch?v=q1YVUO9D_MI"
+                >
+                    <Input
+                        size="large"
+                        maxLength={500}
+                        suffix={
+                            <VideoPlayer url={videoLink}>
+                                <Button
+                                    className="d-flex justify-content-end"
+                                    size="small"
+                                    type="link"
+                                    icon={<PlayCircleOutlined />}
+                                />
+                            </VideoPlayer>
+                        }
+                    />
                 </FloatTextInput>
             </Item>
 
