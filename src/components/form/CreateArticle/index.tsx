@@ -6,7 +6,7 @@ import { summaryValidator, tagsValidator, titleValidator } from './vaidators';
 import { IArticleData } from '@interfaces/articles';
 import useQuillEditor from '@hooks/useQuillEditor';
 import getQuillImageUrls from '@helpers/getQuillImageUrls';
-import deleteImageFromCloudinary from '@helpers/deleteImageFromCloudinary';
+import deleteImageFromCloudinary from '@helpers/deleteImageCloudinary';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import ErrorAlert from '@components/common/ErrorAlert';
 

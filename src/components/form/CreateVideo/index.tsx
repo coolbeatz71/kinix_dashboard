@@ -1,14 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Form, FormInstance, Input, Select } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
-import { categoryValidator, tagsValidator, titleValidator, userValidator } from './vaidators';
+import { categoryValidator, tagsValidator, titleValidator, userValidator } from './validators';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IVideoData } from '@interfaces/videos';
 import { ICategory, IUser } from '@interfaces/api';
 import { useAppDispatch } from '@redux/store';
 import searchUsersAction from '@redux/users/searchUsers';
-import { lowerCase, upperFirst } from 'lodash';
+import useRouteQuery from '@hooks/useRouteQuery';
+import format from '@helpers/formatString';
 
 const { Item } = Form;
 
@@ -26,7 +27,7 @@ export interface ICreateVideoProps {
 
 const CreateVideoForm: FC<ICreateVideoProps> = ({
     onSubmit,
-    formContext: _,
+    formContext,
     formRef,
     error,
     categories,
@@ -34,18 +35,24 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
     loadingCategories,
     loadingUsers,
 }) => {
+    const query = useRouteQuery();
     const dispatch = useAppDispatch();
-    // const isEdit = formContext === EnumFormContext.EDIT; // for the default category
-    const onSubmitArticle = (formData: IVideoData): void => {
-        const { title, link, tags, userId, categoryId } = formData;
-        return onSubmit({
-            title,
-            link,
-            tags,
-            userId,
-            categoryId,
-        });
-    };
+    const category = query.get('category');
+    const isEdit = formContext === EnumFormContext.EDIT;
+
+    const onSubmitArticle = (formData: IVideoData): void => onSubmit(formData);
+
+    useEffect(() => {
+        if (!isEdit) {
+            const initCategory = categories?.find((cat) => cat.name === category?.toUpperCase());
+            formRef.setFieldsValue({
+                categoryId: {
+                    value: initCategory?.id,
+                    label: format(initCategory?.name, 'upper-lowercase'),
+                },
+            });
+        }
+    }, [categories, category, formRef, isEdit]);
 
     const handleSearchUser = (value: string): void => {
         if (value) dispatch(searchUsersAction({ search: value }));
@@ -53,12 +60,11 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
 
     const usersOptions = users?.map((user) => ({
         value: user.id,
-        label: `${user.userName} - ${user.email}`,
+        label: `<span data-username>${user.userName}</span><span data-email>${user.email}</span>`,
     }));
-
     const categoriesOptions = categories?.map((cat) => ({
         value: cat.id,
-        label: upperFirst(lowerCase(cat.name)),
+        label: format(cat.name, 'upper-lowercase'),
     }));
 
     return (
