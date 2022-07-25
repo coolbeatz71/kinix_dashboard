@@ -53,7 +53,7 @@ const LoginForm: FC = () => {
 
             <Item name="password" validateTrigger={['onSubmit', 'onBlur']} rules={passwordValidator('Mot de passe')}>
                 <FloatTextInput label="Mot de passe" placeholder="Mot de passe" required>
-                    <Password size="large" visibilityToggle />
+                    <Password size="large" visibilityToggle autoComplete="new-password" />
                 </FloatTextInput>
             </Item>
 

@@ -5,7 +5,7 @@ import { authSlice } from './';
 import { AppDispatch } from 'redux/store';
 import { API_TOKEN } from '@constants/platform';
 import { IUnknownObject } from '@interfaces/app';
-import setCurrentUserAction from '@redux/user/setCurrentUser';
+import setCurrentUserAction from '@redux/users/setCurrentUser';
 import { setLocalUserData } from '@helpers/getLocalUserData';
 
 export const resetLoginAction =

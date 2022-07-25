@@ -9,6 +9,8 @@ import FormSuccessResult from '@components/common/FormSuccessResult';
 import { IVideoData } from '@interfaces/videos';
 import addVideoAction, { resetAddVideoAction } from '@redux/videos/add';
 import CreateVideoForm from '@components/form/CreateVideo';
+import getVideoCategoriesAction from '@redux/videos/getCategories';
+import { ICategory, IUser } from '@interfaces/api';
 
 import styles from './index.module.scss';
 
@@ -28,6 +30,10 @@ const SUCCESS_EDIT = 'Cette video a été modifié avec succès';
 const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, initialValues }) => {
     const dispatch = useAppDispatch();
     const { error, loading } = useSelector(({ videos: { add } }: IRootState) => add);
+    const { data: categories, loading: loadingCategories } = useSelector(
+        ({ videos: { categories } }: IRootState) => categories,
+    );
+    const { data: users, loading: loadingUsers } = useSelector(({ users: { search } }: IRootState) => search);
 
     const [form] = useForm();
     const [success, setSuccess] = useState('');
@@ -53,12 +59,12 @@ const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, in
     useEffect(() => {
         setSuccess('');
         resetAddVideoAction()(dispatch);
-    }, [dispatch]);
+        dispatch(getVideoCategoriesAction());
+    }, []);
 
     return (
         <Modal
             centered
-            width={720}
             footer={null}
             destroyOnClose
             closable={false}
@@ -98,9 +104,13 @@ const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, in
                 <CreateVideoForm
                     error={error}
                     formRef={form}
-                    formContext={formContext}
                     onSubmit={onSubmitVideo}
+                    users={users as IUser[]}
+                    formContext={formContext}
+                    loadingUsers={loadingUsers}
                     initialValues={initialValues}
+                    loadingCategories={loadingCategories}
+                    categories={categories as ICategory[]}
                 />
             )}
         </Modal>

@@ -3,7 +3,7 @@ import { Redirect, Switch, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
-import getCurrentUserAction from '@redux/user/getCurrentUser';
+import getCurrentUserAction from '@redux/users/getCurrentUser';
 import { isEmpty } from 'lodash';
 import Loading from '@components/common/Loading';
 import { isAdmin } from '@constants/userRole';
@@ -17,7 +17,7 @@ import { ICurrentAdmin } from '@interfaces/admin';
 
 const PageComponent: FC = () => {
     const dispatch = useAppDispatch();
-    const { data: user } = useSelector(({ user }: IRootState) => user?.currentUser);
+    const { data: user } = useSelector(({ users }: IRootState) => users?.currentUser);
     const { data: loginData } = useSelector(({ auth: { login } }: IRootState) => login);
 
     const { location } = useHistory();

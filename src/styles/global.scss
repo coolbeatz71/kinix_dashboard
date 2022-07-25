@@ -47,6 +47,9 @@
     background-color: rgba($color: $link, $alpha: 0.1);
 }
 
+[class~='ant-select-selection-placeholder'] {
+    font-size: 14px;
+}
 [class~='ant-select-multiple'] {
     [class~='ant-select-selection-item'] {
         height: 30px;
