@@ -3,7 +3,7 @@ import { ICurrentAdmin } from '@interfaces/admin';
 import getSideNavWidth from '@helpers/getSideNavWidth';
 import { MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Col, Dropdown, Grid, Layout, Row } from 'antd';
-import formatName from '@helpers/formatName';
+import format from '@helpers/formatString';
 import { getAvatarColor } from '@helpers/getAvatarColor';
 
 import styles from './index.module.scss';
@@ -61,7 +61,7 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
                         >
                             <Button
                                 onClick={() => setOpenDropdown(!openDropDown)}
-                                type="text"
+                                type="link"
                                 icon={
                                     <Avatar
                                         size="small"
@@ -71,7 +71,7 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
                                     />
                                 }
                             >
-                                {formatName(currentUser.userName)}
+                                {format(currentUser.userName, 'upper-lowercase')}
                             </Button>
                         </Dropdown>
                     )}

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import PageTitle from '@components/common/PageTitle';
-import ArticleModal from '@components/common/ArticleModal';
+import ArticleModal from '@components/modal/ArticleModal';
 import { useState } from 'react';
 import { EnumFormContext } from '@interfaces/app';
 
@@ -17,11 +17,13 @@ const Articles: FC = () => {
                 </Button>
             </PageTitle>
 
-            <ArticleModal
-                visible={openAddArticleModal}
-                setVisible={setOpenAddArticleModal}
-                formContext={EnumFormContext.CREATE}
-            />
+            {openAddArticleModal && (
+                <ArticleModal
+                    visible={openAddArticleModal}
+                    setVisible={setOpenAddArticleModal}
+                    formContext={EnumFormContext.CREATE}
+                />
+            )}
         </div>
     );
 };

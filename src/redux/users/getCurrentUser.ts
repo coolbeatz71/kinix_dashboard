@@ -3,7 +3,7 @@ import api from 'services/axios';
 import { isTokenExpired, verifyToken } from '@helpers/getToken';
 import getLocalUserData from '@helpers/getLocalUserData';
 
-const getCurrentUserAction = createAsyncThunk('user/currentUser', async (_, { rejectWithValue }) => {
+const getCurrentUserAction = createAsyncThunk('users/currentUser', async (_, { rejectWithValue }) => {
     const token = verifyToken();
     const isExpired = isTokenExpired();
     if (!isExpired) {

@@ -6,7 +6,7 @@ import { summaryValidator, tagsValidator, titleValidator } from './vaidators';
 import { IArticleData } from '@interfaces/articles';
 import useQuillEditor from '@hooks/useQuillEditor';
 import getQuillImageUrls from '@helpers/getQuillImageUrls';
-import deleteImageFromCloudinary from '@helpers/deleteImageFromCloudinary';
+import deleteImageFromCloudinary from '@helpers/deleteImageCloudinary';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import ErrorAlert from '@components/common/ErrorAlert';
 
@@ -14,11 +14,11 @@ const { Item } = Form;
 const { TextArea } = Input;
 
 export interface ICreateArticleProps {
-    error: Error | IUnknownObject | null;
-    formRef: FormInstance<IArticleData>;
-    onSubmit: (val: IArticleData) => void;
     initialValues?: IArticleData;
     formContext: EnumFormContext;
+    formRef: FormInstance<IArticleData>;
+    error: Error | IUnknownObject | null;
+    onSubmit: (val: IArticleData) => void;
 }
 
 const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error }) => {

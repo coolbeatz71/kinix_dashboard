@@ -17,6 +17,7 @@
         "autoprefixer": "10.4.5"
     },
     "dependencies": {
+        "@ant-design/icons": "^4.7.0",
         "@craco/craco": "^6.4.3",
         "@reduxjs/toolkit": "^1.8.2",
         "@testing-library/jest-dom": "^5.14.1",
