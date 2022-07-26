@@ -1,0 +1,15 @@
+@import 'styles/dimensions.scss';
+
+.tableTitle {
+    &__button {
+        text-align: left;
+        width: calc(#{$padding} * 2);
+        [class~='anticon'] {
+            line-height: 32px;
+            font-size: calc(#{$padding} * 0.8);
+        }
+    }
+    &__typography {
+        margin-bottom: 0 !important;
+    }
+}

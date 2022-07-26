@@ -6,6 +6,7 @@ import {
     ActionWrapperReset,
 } from 'constants/redux';
 import addArticleAction from './add';
+import getAllArticlesAction from './getAll';
 import { articlesInitialState } from './types';
 
 export const articlesSlice = createSlice({
@@ -19,7 +20,11 @@ export const articlesSlice = createSlice({
             // add an article
             .addCase(addArticleAction.pending, ActionWrapperPending)
             .addCase(addArticleAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(addArticleAction.rejected, ActionWrapperRejected);
+            .addCase(addArticleAction.rejected, ActionWrapperRejected)
+            // get all articles
+            .addCase(getAllArticlesAction.pending, ActionWrapperPending)
+            .addCase(getAllArticlesAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getAllArticlesAction.rejected, ActionWrapperRejected);
     },
 });
 

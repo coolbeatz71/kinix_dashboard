@@ -6,3 +6,9 @@ export interface IArticleData {
     tags?: string[];
     slug?: string;
 }
+
+export enum EnumStatus {
+    ALL = 'ALL',
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE',
+}
