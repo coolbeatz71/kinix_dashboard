@@ -1,12 +1,16 @@
-@import 'styles/dimensions.scss';
+@import 'styles/colors.scss';
 
 .tableTitle {
     &__button {
-        text-align: left;
-        width: calc(#{$padding} * 2);
+        display: flex;
+        justify-content: start !important;
+        color: $dark;
+        &::hover {
+            color: $black;
+        }
         [class~='anticon'] {
             line-height: 32px;
-            font-size: calc(#{$padding} * 0.8);
+            font-size: 14pt;
         }
     }
     &__typography {

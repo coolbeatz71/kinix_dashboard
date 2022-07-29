@@ -10,7 +10,7 @@ export interface IParams {
 
 const getAllArticlesAction = createAsyncThunk('articles/all', async (params: IParams, { rejectWithValue }) => {
     try {
-        const { data } = await api.get('/articles', { params });
+        const { data } = await api.get('/admin/articles', { params });
         return data;
     } catch (error) {
         return rejectWithValue(error);

@@ -78,7 +78,7 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, error, overview, 
         <Row align="middle" justify="space-between" className={styles.general} gutter={24}>
             {loading ? (
                 Array.from(Array(4).keys()).map((i) => (
-                    <Col xs={24} sm={12} md={6} lg={6} key={i}>
+                    <Col xs={24} sm={24} md={12} lg={12} xl={6} key={i}>
                         <GeneralOverviewSkeleton />
                     </Col>
                 ))

@@ -9,6 +9,6 @@ export interface IArticleData {
 
 export enum EnumStatus {
     ALL = 'ALL',
-    ACTIVE = 'ACTIVE',
-    INACTIVE = 'INACTIVE',
+    ACTIVE = 'ACTIF',
+    INACTIVE = 'INACTIF',
 }

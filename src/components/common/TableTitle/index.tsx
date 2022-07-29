@@ -15,14 +15,14 @@ export interface ITableTitleProps {
     level?: 1 | 2 | 3 | 4 | 5;
 }
 
-const TableTitle: FC<ITableTitleProps> = ({ children, goBack = false, onClick, level = 3, extra }) => {
+const TableTitle: FC<ITableTitleProps> = ({ children, goBack = false, onClick, level = 4, extra }) => {
     const history = useHistory();
     return (
         <Row align="middle">
             {goBack && (
                 <Col>
                     <Button
-                        type="text"
+                        type="link"
                         icon={<ArrowLeftOutlined />}
                         className={styles.tableTitle__button}
                         onClick={() => (onClick ? onClick() : history.goBack())}

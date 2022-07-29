@@ -1,5 +1,6 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Badge, Card, Col, Input, Row, Select, Table } from 'antd';
+import numeral from 'numeral';
+import { Card, Col, Input, Row, Select, Table } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { IUnknownObject } from '@interfaces/app';
 import { LIMIT } from '@constants/app';
@@ -13,16 +14,7 @@ import ErrorAlert from '@components/common/ErrorAlert';
 import { useHistory } from 'react-router-dom';
 import { ARTICLE_PATH } from '@constants/paths';
 import format from '@helpers/formatString';
-
-// const statusCol = {
-//     title: 'Status',
-//     key: 'active',
-//     dataIndex: 'active',
-//     width: 120,
-//     render: (active: boolean) => (
-//         <Badge color={active ? 'green' : 'volcano'} text={format(active ? 'actif' : 'inactif')} />
-//     ),
-// };
+import tableColumns from './columns';
 
 const { Option } = Select;
 
@@ -75,7 +67,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
     };
 
     const Wrapper = onSelect === undefined ? Card : Fragment;
-    const title = `${status ? `${format(status, 'upper-lowercase')} ` : ''}Causes`;
+    const title = `Articles${!isStatusAll ? ` ${format(status, 'lowercase')}` : ''}`;
     useEffect(() => onTitle?.(title), [onTitle, title]);
 
     const navigateToStatus = (status: EnumStatus): void => {
@@ -102,7 +94,6 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                     </Col>
                     <Col>
                         <Select
-                            size="small"
                             value={status}
                             defaultValue={status}
                             style={{ width: 140 }}
@@ -119,7 +110,6 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                     <Col>
                         <Input
                             allowClear
-                            size="small"
                             value={search}
                             disabled={loading}
                             placeholder="Recherche"
@@ -139,19 +129,17 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                 </Row>
                 <br />
                 <Table
-                    size="small"
-                    dataSource={rows}
+                    dataSource={[...rows]}
                     loading={loading}
-                    scroll={{ x: 600 }}
-                    rowKey={(record) => record.id}
-                    // columns={tableColumns(() => changePage(page, limit, search), status, onSelect)}
+                    rowKey={(record: IUnknownObject) => record.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
+                    columns={tableColumns(() => changePage(page, limit, search), status, onSelect)}
                     pagination={{
                         total,
                         current: page,
                         pageSize: limit,
                         showSizeChanger: true,
-                        pageSizeOptions: ['10', '20', '50'],
+                        pageSizeOptions: ['10', '20', '50', '100'],
                         showTotal: (t) => `${numeral(t).format('0,0')} articles`,
                         onChange: (current, limit) => changePage(current, limit, search),
                         onShowSizeChange: (current, size) => changePage(current, size, search),
