@@ -1,17 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import PageTitle from '@components/common/PageTitle';
 import ArticleModal from '@components/modal/ArticleModal';
-import { useState } from 'react';
 import { EnumFormContext } from '@interfaces/app';
+import ListArticles from '@components/tables/ListArticles';
 
 const Articles: FC = () => {
+    const [title, setTitle] = useState<string>('Articles');
     const [openAddArticleModal, setOpenAddArticleModal] = useState(false);
 
     return (
         <div>
-            <PageTitle title="Articles">
+            <PageTitle title={title}>
                 <Button type="primary" icon={<PlusCircleOutlined />} onClick={() => setOpenAddArticleModal(true)}>
                     Ajouter
                 </Button>
@@ -24,6 +25,8 @@ const Articles: FC = () => {
                     formContext={EnumFormContext.CREATE}
                 />
             )}
+
+            <ListArticles onTitle={(t) => setTitle(t)} />
         </div>
     );
 };

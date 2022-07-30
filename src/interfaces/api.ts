@@ -32,6 +32,13 @@ export interface IArticle {
     userId: number;
     createdAt?: string;
     updatedAt?: string;
+    user?: IUser;
+    like?: ILike[];
+    comment?: IComment[];
+    bookmark?: IBookmark[];
+    likesCount?: number;
+    commentsCount?: number;
+    bookmarksCount?: number;
 }
 
 export interface IComment {

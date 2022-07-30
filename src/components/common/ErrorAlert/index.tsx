@@ -9,19 +9,21 @@ export interface IErrorAlertProps {
     closable: boolean;
     banner: boolean;
     showIcon: boolean;
+    closeText?: string;
     onClose?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const ErrorAlert: FC<IErrorAlertProps> = ({ error, closable, banner, showIcon, onClose }) => {
+const ErrorAlert: FC<IErrorAlertProps> = ({ error, closable, banner, showIcon, onClose, closeText = '' }) => {
     return (
         error && (
             <Item>
                 <Alert
                     type="error"
                     banner={banner}
+                    onClose={onClose}
                     showIcon={showIcon}
                     closable={closable}
-                    onClose={onClose}
+                    closeText={closeText}
                     message={error?.message}
                 />
             </Item>
