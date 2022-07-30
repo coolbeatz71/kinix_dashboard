@@ -69,7 +69,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
     };
 
     const Wrapper = onSelect === undefined ? Card : Fragment;
-    const title = `Articles ${!isStatusAll ? `${format(isStatusActive ? 'actif' : 'inactif', 'lowercase')}` : ''}`;
+    const title = `Articles ${!isStatusAll ? `${format(isStatusActive ? 'actifs' : 'inactifs)', 'lowercase')}` : ''}`;
     useEffect(() => onTitle?.(title), [onTitle, title]);
 
     const navigateToStatus = (status: EnumStatus): void => {

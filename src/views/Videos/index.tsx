@@ -16,13 +16,12 @@ const Videos: FC = () => {
                     Ajouter
                 </Button>
             </PageTitle>
-            {openAddVideoModal && (
-                <VideoModal
-                    visible={openAddVideoModal}
-                    setVisible={setOpenAddVideoModal}
-                    formContext={EnumFormContext.CREATE}
-                />
-            )}
+
+            <VideoModal
+                visible={openAddVideoModal}
+                setVisible={setOpenAddVideoModal}
+                formContext={EnumFormContext.CREATE}
+            />
         </div>
     );
 };

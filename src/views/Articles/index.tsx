@@ -18,13 +18,11 @@ const Articles: FC = () => {
                 </Button>
             </PageTitle>
 
-            {openAddArticleModal && (
-                <ArticleModal
-                    visible={openAddArticleModal}
-                    setVisible={setOpenAddArticleModal}
-                    formContext={EnumFormContext.CREATE}
-                />
-            )}
+            <ArticleModal
+                visible={openAddArticleModal}
+                setVisible={setOpenAddArticleModal}
+                formContext={EnumFormContext.CREATE}
+            />
 
             <ListArticles onTitle={(t) => setTitle(t)} />
         </div>
