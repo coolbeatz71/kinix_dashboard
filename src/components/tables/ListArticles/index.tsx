@@ -41,6 +41,8 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
     });
     const { page, limit, search } = pagination;
     const isStatusAll = status === EnumStatus.ALL;
+    const isStatusActive = status === EnumStatus.ACTIVE;
+    const currentStatus = isStatusAll ? undefined : format(status, 'lowercase');
 
     useEffect(() => {
         dispatch(
@@ -48,7 +50,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                 page,
                 limit,
                 search,
-                status: isStatusAll ? undefined : status,
+                status: currentStatus,
             }),
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,13 +63,13 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                 page: p,
                 limit: l,
                 search: s,
-                status: isStatusAll ? undefined : status,
+                status: currentStatus,
             }),
         );
     };
 
     const Wrapper = onSelect === undefined ? Card : Fragment;
-    const title = `Articles ${!isStatusAll ? `${format(status, 'lowercase')}` : ''}`;
+    const title = `Articles ${!isStatusAll ? `${format(isStatusActive ? 'actif' : 'inactif', 'lowercase')}` : ''}`;
     useEffect(() => onTitle?.(title), [onTitle, title]);
 
     const navigateToStatus = (status: EnumStatus): void => {
