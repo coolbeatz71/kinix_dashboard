@@ -67,7 +67,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
     };
 
     const Wrapper = onSelect === undefined ? Card : Fragment;
-    const title = `Articles${!isStatusAll ? ` ${format(status, 'lowercase')}` : ''}`;
+    const title = `Articles ${!isStatusAll ? `${format(status, 'lowercase')}` : ''}`;
     useEffect(() => onTitle?.(title), [onTitle, title]);
 
     const navigateToStatus = (status: EnumStatus): void => {
@@ -96,7 +96,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                         <Select
                             value={status}
                             defaultValue={status}
-                            style={{ width: 140 }}
+                            style={{ width: 180 }}
                             onChange={(val) => {
                                 setStatus(val);
                                 navigateToStatus(val);
@@ -129,11 +129,12 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                 </Row>
                 <br />
                 <Table
-                    dataSource={[...rows]}
+                    dataSource={rows}
                     loading={loading}
+                    scroll={{ x: 720 }}
                     rowKey={(record: IUnknownObject) => record.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
-                    columns={tableColumns(() => changePage(page, limit, search), status, onSelect)}
+                    columns={tableColumns(() => changePage(page, limit, search), onSelect)}
                     pagination={{
                         total,
                         current: page,

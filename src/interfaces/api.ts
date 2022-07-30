@@ -36,6 +36,9 @@ export interface IArticle {
     like?: ILike[];
     comment?: IComment[];
     bookmark?: IBookmark[];
+    likesCount?: number;
+    commentsCount?: number;
+    bookmarksCount?: number;
 }
 
 export interface IComment {

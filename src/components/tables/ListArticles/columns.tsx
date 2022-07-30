@@ -1,12 +1,11 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import numeral from 'numeral';
-import { Link } from 'react-router-dom';
 import { ColumnType } from 'antd/lib/table';
-import { Badge, Popover, Tooltip } from 'antd';
+import { Popover, Tag, Tooltip } from 'antd';
 import format from '@helpers/formatString';
 import { IUnknownObject } from '@interfaces/app';
-import { IArticle, IBookmark, IComment, ILike, IUser } from '@interfaces/api';
+import { IArticle, IUser } from '@interfaces/api';
 import ArticleTableActions from './ArticleTableActions';
 import PopoverContentLink from '@components/common/PopoverContentLink';
 
@@ -16,7 +15,9 @@ const statusCol = {
     dataIndex: 'active',
     width: 120,
     render: (active: boolean) => (
-        <Badge color={active ? 'green' : 'volcano'} text={format(active ? 'actif' : 'inactif')} />
+        <Tag color={active ? 'green' : 'volcano'} className="rounded">
+            {format(active ? 'actif' : 'inactif')}
+        </Tag>
     ),
 };
 
@@ -31,81 +32,80 @@ const actionCol = (reload: () => void): IUnknownObject => ({
 
 const tableColumns = (
     reload: () => void,
-    status?: string | string[],
     onSelect?: (article: IArticle) => void,
-): ColumnType<IUnknownObject>[] => [
+): ColumnType<IArticle | IUnknownObject>[] => [
     {
         title: 'Titre',
         key: 'title',
         dataIndex: 'title',
-        width: 180,
+        width: 200,
         ellipsis: true,
         fixed: 'left',
-        // render: (_, record: IArticle) => (
-        //     <Popover placement="bottomLeft" content={PopoverContentLink(record, 'articles')}>
-        //         <Link to={`/articles/${record.slug}`}>{format(record.title, 'upper-truncate')}</Link>
-        //     </Popover>
-        // ),
+        render: (_, record: IArticle) => (
+            <Popover placement="bottomLeft" content={PopoverContentLink(record, 'articles')}>
+                {record.title}
+            </Popover>
+        ),
     },
-    // {
-    //     title: 'Auteur',
-    //     key: 'user',
-    //     dataIndex: 'user',
-    //     width: 120,
-    //     render: (user: IUser) => user.userName,
-    // },
-    // {
-    //     title: 'Likes',
-    //     key: 'like',
-    //     dataIndex: 'like',
-    //     sorter: (a: IArticle, b: IArticle) => Number(a.like?.length) - Number(b.like?.length),
-    //     width: 120,
-    //     render: (like: ILike[]) => (
-    //         <Tooltip title={numeral(like.length).format()}>
-    //             <span>{numeral(like.length).format('0.[00]a')}</span>
-    //         </Tooltip>
-    //     ),
-    // },
-    // {
-    //     title: 'Commentaires',
-    //     key: 'comment',
-    //     dataIndex: 'comment',
-    //     width: 120,
-    //     sorter: (a: IArticle, b: IArticle) => Number(a.comment?.length) - Number(b.comment?.length),
-    //     render: (comment: IComment[]) => (
-    //         <Tooltip title={numeral(comment.length).format()}>
-    //             <span>{numeral(comment.length).format('0.[00]a')}</span>
-    //         </Tooltip>
-    //     ),
-    // },
-    // {
-    //     title: 'Favoris',
-    //     key: 'bookmark',
-    //     dataIndex: 'bookmark',
-    //     width: 120,
-    //     sorter: (a: IArticle, b: IArticle) => Number(a.bookmark?.length) - Number(b.bookmark?.length),
-    //     render: (bookmark: IBookmark[]) => (
-    //         <Tooltip title={numeral(bookmark.length).format()}>
-    //             <span>{numeral(bookmark.length).format('0.[00]a')}</span>
-    //         </Tooltip>
-    //     ),
-    // },
-    // {
-    //     title: 'Créé le',
-    //     key: 'createdAt',
-    //     dataIndex: 'createdAt',
-    //     width: 100,
-    //     render: (date: string) => dayjs(date).format('Do MMM'),
-    // },
-    // {
-    //     title: 'Modifié le',
-    //     key: 'updatedAt',
-    //     dataIndex: 'updatedAt',
-    //     width: 100,
-    //     render: (date: string) => dayjs(date).format('Do MMM'),
-    // },
-    // ...(status ? [] : [statusCol]),
-    // ...(onSelect ? [] : [actionCol(reload)]),
+    {
+        title: 'Auteur',
+        key: 'user',
+        dataIndex: 'user',
+        width: 120,
+        render: (user: IUser) => user.userName,
+    },
+    {
+        title: 'Likes',
+        key: 'like',
+        dataIndex: 'like',
+        sorter: (a: IArticle, b: IArticle) => Number(a.likesCount) - Number(b.likesCount),
+        width: 100,
+        render: (likes: number) => (
+            <Tooltip title={numeral(likes).format()}>
+                <span>{numeral(likes).format('0.[00]a')}</span>
+            </Tooltip>
+        ),
+    },
+    {
+        title: 'Commentaires',
+        key: 'comment',
+        dataIndex: 'comment',
+        width: 100,
+        sorter: (a: IArticle, b: IArticle) => Number(a.commentsCount) - Number(b.commentsCount),
+        render: (comments: number) => (
+            <Tooltip title={numeral(comments).format()}>
+                <span>{numeral(comments).format('0.[00]a')}</span>
+            </Tooltip>
+        ),
+    },
+    {
+        title: 'Favoris',
+        key: 'bookmark',
+        dataIndex: 'bookmark',
+        width: 100,
+        sorter: (a: IArticle, b: IArticle) => Number(a.bookmarksCount) - Number(b.bookmarksCount),
+        render: (bookmarks: number) => (
+            <Tooltip title={numeral(bookmarks).format()}>
+                <span>{numeral(bookmarks).format('0.[00]a')}</span>
+            </Tooltip>
+        ),
+    },
+    {
+        title: 'Créé le',
+        key: 'createdAt',
+        dataIndex: 'createdAt',
+        width: 100,
+        render: (date: string) => dayjs(date).format('DD MMM YYYY'),
+    },
+    {
+        title: 'Modifié le',
+        key: 'updatedAt',
+        dataIndex: 'updatedAt',
+        width: 100,
+        render: (date: string) => dayjs(date).format('DD MMM YYYY'),
+    },
+    ...[statusCol],
+    ...(onSelect ? [] : [actionCol(reload)]),
 ];
 
 export default tableColumns;
