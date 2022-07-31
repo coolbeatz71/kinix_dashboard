@@ -3,9 +3,15 @@ import { BasicInitialState, BasicInitialStateList, IBasicInitialState, IBasicIni
 export type IVideosState = {
     add: IBasicInitialState;
     categories: IBasicInitialStateList;
+    approve: IBasicInitialState;
+    disable: IBasicInitialState;
+    delete: IBasicInitialState;
 };
 
 export const videosInitialState: IVideosState = {
     add: BasicInitialState,
     categories: BasicInitialStateList,
+    approve: BasicInitialState,
+    disable: BasicInitialState,
+    delete: BasicInitialState,
 };
