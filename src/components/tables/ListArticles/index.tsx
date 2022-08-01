@@ -1,7 +1,6 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
 import numeral from 'numeral';
-import { Card, Col, Input, Row, Select, Table } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Table } from 'antd';
 import { IUnknownObject } from '@interfaces/app';
 import { LIMIT } from '@constants/app';
 import { useAppDispatch } from '@redux/store';
@@ -15,10 +14,10 @@ import { useHistory } from 'react-router-dom';
 import { ARTICLE_PATH } from '@constants/paths';
 import format from '@helpers/formatString';
 import tableColumns from './columns';
+import TableSearchInput from '@components/common/TableSearchInput';
+import TableStatusFilter from '@components/common/TableStatusFilter';
 
 import styles from './index.module.scss';
-
-const { Option } = Select;
 
 export interface ListArticlesProps {
     onTitle?: (title: string) => void;
@@ -85,7 +84,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
     };
 
     return (
-        <>
+        <Fragment>
             {error && (
                 <ErrorAlert error={error} banner={onSelect === undefined} closeText="Re-Essayer" closable showIcon />
             )}
@@ -97,37 +96,15 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                         </TableTitle>
                     </Col>
                     <Col>
-                        <Select
-                            value={status}
-                            defaultValue={status}
-                            style={{ width: 180 }}
-                            onChange={(val) => {
-                                setStatus(val);
-                                navigateToStatus(val);
-                            }}
-                        >
-                            <Option value={EnumStatus.ALL}>Tout</Option>
-                            <Option value={EnumStatus.ACTIVE}>Actif</Option>
-                            <Option value={EnumStatus.INACTIVE}>Inactif</Option>
-                        </Select>
+                        <TableStatusFilter status={status} setStatus={setStatus} navigateToStatus={navigateToStatus} />
                     </Col>
                     <Col>
-                        <Input
-                            allowClear
-                            value={search}
-                            disabled={loading}
-                            placeholder="Recherche"
-                            prefix={<SearchOutlined />}
-                            onChange={(e) => {
-                                setPagination({ ...pagination, search: e.target.value });
-                                if (e.type !== 'change') changePage(1, limit, '');
-                            }}
-                            onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
-                                    if ([null, '', undefined].includes(search)) changePage(1, limit, '');
-                                    else changePage(1, limit, search);
-                                }
-                            }}
+                        <TableSearchInput
+                            search={search}
+                            loading={loading}
+                            changePage={changePage}
+                            pagination={pagination}
+                            setPagination={setPagination}
                         />
                     </Col>
                 </Row>
@@ -137,7 +114,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                     loading={loading}
                     scroll={{ x: 720 }}
                     className={styles.table}
-                    rowKey={(record: IUnknownObject) => record.id}
+                    rowKey={(article: IUnknownObject) => article.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     columns={tableColumns(() => changePage(page, limit, search), onSelect)}
                     pagination={{
@@ -152,7 +129,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                     }}
                 />
             </Wrapper>
-        </>
+        </Fragment>
     );
 };
 

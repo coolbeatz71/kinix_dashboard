@@ -29,7 +29,7 @@ const actionCol = (reload: () => void): IUnknownObject => ({
     align: 'center',
     className: 'action',
     dataIndex: 'action',
-    render: (...prp: IArticle[]) => <ArticleTableActions record={prp[1]} reload={reload} />,
+    render: (...prp: IArticle[]) => <ArticleTableActions article={prp[1]} reload={reload} />,
 });
 
 const tableColumns = (
@@ -43,9 +43,9 @@ const tableColumns = (
         width: 200,
         ellipsis: true,
         fixed: 'left',
-        render: (_, record: IArticle) => (
-            <Popover placement="bottomLeft" content={PopoverContentLink(record, 'articles')}>
-                {record.title}
+        render: (_, article: IArticle) => (
+            <Popover placement="bottomLeft" content={PopoverContentLink(article, 'articles')}>
+                {article.title}
             </Popover>
         ),
     },

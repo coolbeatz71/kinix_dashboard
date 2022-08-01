@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, Fragment } from 'react';
 import { ReadOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
 import { IArticle } from '@interfaces/api';
@@ -12,16 +12,17 @@ import ArticleActionModal from '../ActionModal';
 import { EnumActionContext } from '@interfaces/app';
 
 export interface IArticleTableActionsProps {
-    record: IArticle;
+    article: IArticle;
     reload: () => void;
 }
 
-const ArticleTableActions: FC<IArticleTableActionsProps> = ({ record, reload }) => {
+//TODO: implement the edit article
+const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload }) => {
     const [openMenu, setOpenMenu] = useState(false);
     const { data: user } = useSelector(({ users }: IRootState) => users?.currentUser);
 
     return (
-        <>
+        <Fragment>
             <Dropdown
                 arrow
                 visible={openMenu}
@@ -32,25 +33,25 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ record, reload }) 
                     <Menu className={styles.actions__menu}>
                         <Button type="text" icon={<ReadOutlined />} className={styles.actions__button}>
                             <span>
-                                <Link to={`/articles/${record.slug}`} target="_blank" rel="noopener noreferrer">
+                                <Link to={`/articles/${article.slug}`} target="_blank" rel="noopener noreferrer">
                                     Ouvrir
                                 </Link>
                             </span>
                         </Button>
 
-                        {!record.active && user.role === EnumRole.SUPER_ADMIN && (
+                        {!article.active && user.role === EnumRole.SUPER_ADMIN && (
                             <ArticleActionModal
                                 reload={reload}
-                                article={record}
+                                article={article}
                                 context={EnumActionContext.APPROVE}
                                 closeMenu={() => setOpenMenu(false)}
                             />
                         )}
 
-                        {record.active && user.role === EnumRole.SUPER_ADMIN && (
+                        {article.active && user.role === EnumRole.SUPER_ADMIN && (
                             <ArticleActionModal
                                 reload={reload}
-                                article={record}
+                                article={article}
                                 context={EnumActionContext.DISABLE}
                                 closeMenu={() => setOpenMenu(false)}
                             />
@@ -59,7 +60,7 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ record, reload }) 
                         {user.role === EnumRole.SUPER_ADMIN && (
                             <ArticleActionModal
                                 reload={reload}
-                                article={record}
+                                article={article}
                                 context={EnumActionContext.DELETE}
                                 closeMenu={() => setOpenMenu(false)}
                             />
@@ -69,7 +70,7 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ record, reload }) 
             >
                 <Button className={styles.actions__icon} type="link" icon={<SettingOutlined />} />
             </Dropdown>
-        </>
+        </Fragment>
     );
 };
 
