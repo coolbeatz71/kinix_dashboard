@@ -76,6 +76,7 @@ const ArticleModal: FC<IArticleModalProps> = ({
             closable={false}
             visible={visible}
             className={styles.articleModal}
+            wrapClassName={styles.articleModal__wrap}
             title={
                 !success && (
                     <Row justify="space-between" align="middle">
