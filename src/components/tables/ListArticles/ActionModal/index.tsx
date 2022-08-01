@@ -1,10 +1,21 @@
-import React, { FC, useState } from 'react';
-import { Button, Col, Form, Modal, Row, Input } from 'antd';
-import { EnumActionContext } from '@interfaces/app';
+import React, { FC, Fragment, ReactNode, useState } from 'react';
+import { lowerCase } from 'lodash';
+import { useSelector } from 'react-redux';
 import { IArticle } from '@interfaces/api';
+import { EnumActionContext } from '@interfaces/app';
+import { Button, Col, Form, Modal, Row, Input, notification } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
 import { required } from '@helpers/validators';
 import ErrorAlert from '@components/common/ErrorAlert';
+import { IRootState } from '@redux/reducers';
+import { useAppDispatch } from '@redux/store';
+
+import approveArticleAction, { resetApproveArticleAction } from '@redux/articles/approve';
+import deleteArticleAction, { resetDeleteArticleAction } from '@redux/articles/delete';
+import disableArticleAction, { resetDisableArticleAction } from '@redux/articles/disable';
+import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, StopOutlined } from '@ant-design/icons';
+
+import styles from './index.module.scss';
 
 const { Item } = Form;
 const { Password } = Input;
@@ -18,61 +29,129 @@ export interface IArticleActionModalProps {
 
 const ArticleActionModal: FC<IArticleActionModalProps> = ({
     article,
+    reload,
     closeMenu = () => {
         //
     },
     context,
 }) => {
+    const dispatch = useAppDispatch();
     const [password, setPassword] = useState<string>('');
-    const [visible, setVisible] = useState<boolean>(false);
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
+    const {
+        delete: { error: errDelete, loading: loadingDelete },
+        approve: { error: errApprove, loading: loadingApprove },
+        disable: { error: errDisable, loading: loadingDisable },
+    } = useSelector(({ articles }: IRootState) => articles);
+
+    const error = errApprove || errDisable || errDelete;
+    const loading = loadingApprove || loadingDisable || loadingDelete;
+
+    const getButtonIcon = (): ReactNode => {
+        switch (context) {
+            case EnumActionContext.APPROVE:
+                return <CheckCircleOutlined />;
+            case EnumActionContext.DISABLE:
+                return <StopOutlined />;
+            default:
+                return <DeleteOutlined />;
+        }
+    };
     const getButtonText = (): string => {
         switch (context) {
             case EnumActionContext.APPROVE:
                 return 'Approver';
             case EnumActionContext.DISABLE:
                 return 'Désactiver';
-            case EnumActionContext.DELETE:
-                return 'Effacer';
             default:
                 return 'Effacer';
         }
     };
 
-    const onFinish = (password: string) => {
-        console.log(password);
+    const getSuccessMessage = (): string => {
+        switch (context) {
+            case EnumActionContext.APPROVE:
+                return 'apprové';
+            case EnumActionContext.DISABLE:
+                return 'désactivé';
+            default:
+                return 'effacé';
+        }
     };
 
-    const clearErrors = () => {};
+    const handleSuccess = (): void => {
+        notification.success({
+            maxCount: 1,
+            key: 'success',
+            placement: 'topRight',
+            message: 'Confirmation',
+            description: `Article: "${article.title}" ${getSuccessMessage()}`,
+        });
+        clearErrors();
+        reload();
+        setOpenModal(false);
+    };
+
+    const onFinish = (password: string): void => {
+        const params = { slug: article.slug, password };
+        const responseType = `articles/${lowerCase(context)}/fulfilled`;
+        switch (context) {
+            case EnumActionContext.APPROVE:
+                dispatch(approveArticleAction(params)).then((res) => {
+                    if (res.type === responseType) handleSuccess();
+                });
+                break;
+            case EnumActionContext.DISABLE:
+                dispatch(disableArticleAction(params)).then((res) => {
+                    if (res.type === responseType) handleSuccess();
+                });
+                break;
+            default:
+                dispatch(deleteArticleAction(params)).then((res) => {
+                    if (res.type === responseType) handleSuccess();
+                });
+                break;
+        }
+    };
+
+    const clearErrors = (): void => {
+        resetApproveArticleAction()(dispatch);
+        resetDisableArticleAction()(dispatch);
+        resetDeleteArticleAction()(dispatch);
+    };
 
     return (
-        <>
+        <Fragment>
             <Button
                 type="text"
-                danger={context === EnumActionContext.DELETE}
                 onClick={() => {
                     closeMenu();
                     clearErrors();
-                    setVisible(true);
                     setPassword('');
+                    setOpenModal(true);
                 }}
+                icon={getButtonIcon()}
+                className={styles.actionModal__button}
+                danger={context === EnumActionContext.DELETE}
             >
                 {getButtonText()}
             </Button>
 
             <Modal
-                title={`${getButtonText()} article:  "${article.title}"`}
                 footer={null}
-                visible={visible}
-                onCancel={() => setVisible(false)}
+                destroyOnClose
+                visible={openModal}
+                closeIcon={<CloseCircleOutlined />}
+                onCancel={() => setOpenModal(false)}
+                className={styles.actionModal__modal}
+                title={`${getButtonText()} article: "${article.title}"`}
             >
                 <Form
                     initialValues={{ password }}
                     validateTrigger={['onFinish']}
-                    onValuesChange={({ password: ps }) => {
-                        setPassword(ps);
-                    }}
                     onFinish={() => onFinish(password)}
+                    onValuesChange={({ password: ps }) => setPassword(ps)}
                 >
                     <Item name="password" validateTrigger={['onSubmit', 'onBlur']} rules={[required('Mot de passe')]}>
                         <FloatTextInput label="Mot de passe" placeholder="Mot de passe" required>
@@ -82,18 +161,21 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
 
                     <ErrorAlert error={error} showIcon closable banner />
 
-                    <Item>
-                        <Row gutter={20} justify="end">
-                            <Col>
-                                <Button type="primary" size="large" htmlType="submit" loading={loading} danger>
-                                    Confirmer
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Item>
+                    <Row gutter={24} justify="end">
+                        <Col>
+                            <Button type="primary" ghost size="large" htmlType="submit" loading={loading}>
+                                Confirmer
+                            </Button>
+                        </Col>
+                        <Col>
+                            <Button danger size="large" type="primary" onClick={() => setOpenModal(false)}>
+                                Annuler
+                            </Button>
+                        </Col>
+                    </Row>
                 </Form>
             </Modal>
-        </>
+        </Fragment>
     );
 };
 

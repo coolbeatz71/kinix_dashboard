@@ -1,10 +1,15 @@
 import React, { FC, useState } from 'react';
-import { SettingOutlined } from '@ant-design/icons';
+import { ReadOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
 import { IArticle } from '@interfaces/api';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import styles from './index.module.scss';
+import { useSelector } from 'react-redux';
+import { IRootState } from '@redux/reducers';
+import EnumRole from '@interfaces/userRole';
+import ArticleActionModal from '../ActionModal';
+import { EnumActionContext } from '@interfaces/app';
 
 export interface IArticleTableActionsProps {
     record: IArticle;
@@ -12,29 +17,57 @@ export interface IArticleTableActionsProps {
 }
 
 const ArticleTableActions: FC<IArticleTableActionsProps> = ({ record, reload }) => {
-    const { push } = useHistory();
-    const [visible, setVisible] = useState(false);
+    const [openMenu, setOpenMenu] = useState(false);
+    const { data: user } = useSelector(({ users }: IRootState) => users?.currentUser);
 
     return (
         <>
             <Dropdown
-                visible={visible}
+                arrow
+                visible={openMenu}
                 trigger={['click']}
                 className={styles.actions}
-                onVisibleChange={(v) => setVisible(v)}
+                onVisibleChange={(v) => setOpenMenu(v)}
                 overlay={
-                    <Menu>
-                        <Button
-                            type="text"
-                            className={styles.actions__button}
-                            onClick={() => push(`/articles/${record.slug}`)}
-                        >
-                            Ouvrir
+                    <Menu className={styles.actions__menu}>
+                        <Button type="text" icon={<ReadOutlined />} className={styles.actions__button}>
+                            <span>
+                                <Link to={`/articles/${record.slug}`} target="_blank" rel="noopener noreferrer">
+                                    Ouvrir
+                                </Link>
+                            </span>
                         </Button>
+
+                        {!record.active && user.role === EnumRole.SUPER_ADMIN && (
+                            <ArticleActionModal
+                                reload={reload}
+                                article={record}
+                                context={EnumActionContext.APPROVE}
+                                closeMenu={() => setOpenMenu(false)}
+                            />
+                        )}
+
+                        {record.active && user.role === EnumRole.SUPER_ADMIN && (
+                            <ArticleActionModal
+                                reload={reload}
+                                article={record}
+                                context={EnumActionContext.DISABLE}
+                                closeMenu={() => setOpenMenu(false)}
+                            />
+                        )}
+
+                        {user.role === EnumRole.SUPER_ADMIN && (
+                            <ArticleActionModal
+                                reload={reload}
+                                article={record}
+                                context={EnumActionContext.DELETE}
+                                closeMenu={() => setOpenMenu(false)}
+                            />
+                        )}
                     </Menu>
                 }
             >
-                <Button type="text" icon={<SettingOutlined />} />
+                <Button className={styles.actions__icon} type="link" icon={<SettingOutlined />} />
             </Dropdown>
         </>
     );

@@ -3,7 +3,7 @@ import { AnyAction, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '@services/axios';
 import { articlesSlice } from '.';
 
-export const resetApproveArticleAction =
+export const resetDeleteArticleAction =
     () =>
     (dispatch: AppDispatch): AnyAction => {
         return dispatch(articlesSlice.actions.clear({ context: 'articles/delete' }));

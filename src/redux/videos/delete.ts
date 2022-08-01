@@ -3,7 +3,7 @@ import { AnyAction, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '@services/axios';
 import { videosSlice } from '.';
 
-export const resetApproveVideoAction =
+export const resetDeleteVideoAction =
     () =>
     (dispatch: AppDispatch): AnyAction => {
         return dispatch(videosSlice.actions.clear({ context: 'videos/delete' }));

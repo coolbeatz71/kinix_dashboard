@@ -10,10 +10,10 @@ import ArticleTableActions from './ArticleTableActions';
 import PopoverContentLink from '@components/common/PopoverContentLink';
 
 const statusCol = {
-    title: 'Status',
-    key: 'active',
-    dataIndex: 'active',
     width: 120,
+    key: 'active',
+    title: 'Status',
+    dataIndex: 'active',
     render: (active: boolean) => (
         <Tag color={active ? 'green' : 'volcano'} className="rounded">
             {format(active ? 'actif' : 'inactif')}
@@ -23,10 +23,12 @@ const statusCol = {
 
 const actionCol = (reload: () => void): IUnknownObject => ({
     title: '',
-    key: 'action',
-    dataIndex: 'action',
     width: 32,
+    key: 'action',
     fixed: 'right',
+    align: 'center',
+    className: 'action',
+    dataIndex: 'action',
     render: (...prp: IArticle[]) => <ArticleTableActions record={prp[1]} reload={reload} />,
 });
 

@@ -16,6 +16,8 @@ import { ARTICLE_PATH } from '@constants/paths';
 import format from '@helpers/formatString';
 import tableColumns from './columns';
 
+import styles from './index.module.scss';
+
 const { Option } = Select;
 
 export interface ListArticlesProps {
@@ -134,6 +136,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                     dataSource={rows}
                     loading={loading}
                     scroll={{ x: 720 }}
+                    className={styles.table}
                     rowKey={(record: IUnknownObject) => record.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     columns={tableColumns(() => changePage(page, limit, search), onSelect)}
