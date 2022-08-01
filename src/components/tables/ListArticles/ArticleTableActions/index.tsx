@@ -1,24 +1,25 @@
 import React, { FC, useState, Fragment } from 'react';
-import { ReadOutlined, SettingOutlined } from '@ant-design/icons';
+import { FormOutlined, ReadOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
 import { IArticle } from '@interfaces/api';
 import { Link } from 'react-router-dom';
-
-import styles from './index.module.scss';
 import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import EnumRole from '@interfaces/userRole';
 import ArticleActionModal from '../ActionModal';
-import { EnumActionContext } from '@interfaces/app';
+import { EnumActionContext, EnumFormContext } from '@interfaces/app';
+import ArticleModal from '@components/modal/ArticleModal';
+import { IArticleData } from '@interfaces/articles';
 
+import styles from './index.module.scss';
 export interface IArticleTableActionsProps {
     article: IArticle;
     reload: () => void;
 }
 
-//TODO: implement the edit article
 const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload }) => {
     const [openMenu, setOpenMenu] = useState(false);
+    const [openAddArticleModal, setOpenAddArticleModal] = useState(false);
     const { data: user } = useSelector(({ users }: IRootState) => users?.currentUser);
 
     return (
@@ -39,31 +40,42 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                             </span>
                         </Button>
 
-                        {!article.active && user.role === EnumRole.SUPER_ADMIN && (
-                            <ArticleActionModal
-                                reload={reload}
-                                article={article}
-                                context={EnumActionContext.APPROVE}
-                                closeMenu={() => setOpenMenu(false)}
-                            />
-                        )}
+                        <Button
+                            type="text"
+                            icon={<FormOutlined />}
+                            className={styles.actions__button}
+                            onClick={() => {
+                                setOpenMenu(false);
+                                setOpenAddArticleModal(true);
+                            }}
+                        >
+                            Editer
+                        </Button>
 
-                        {article.active && user.role === EnumRole.SUPER_ADMIN && (
-                            <ArticleActionModal
-                                reload={reload}
-                                article={article}
-                                context={EnumActionContext.DISABLE}
-                                closeMenu={() => setOpenMenu(false)}
-                            />
-                        )}
+                        <ArticleModal
+                            reload={reload}
+                            visible={openAddArticleModal}
+                            setVisible={setOpenAddArticleModal}
+                            formContext={EnumFormContext.EDIT}
+                            initialValues={article as IArticleData}
+                        />
 
                         {user.role === EnumRole.SUPER_ADMIN && (
-                            <ArticleActionModal
-                                reload={reload}
-                                article={article}
-                                context={EnumActionContext.DELETE}
-                                closeMenu={() => setOpenMenu(false)}
-                            />
+                            <Fragment>
+                                <ArticleActionModal
+                                    reload={reload}
+                                    article={article}
+                                    closeMenu={() => setOpenMenu(false)}
+                                    context={article.active ? EnumActionContext.DISABLE : EnumActionContext.APPROVE}
+                                />
+
+                                <ArticleActionModal
+                                    reload={reload}
+                                    article={article}
+                                    context={EnumActionContext.DELETE}
+                                    closeMenu={() => setOpenMenu(false)}
+                                />
+                            </Fragment>
                         )}
                     </Menu>
                 }
