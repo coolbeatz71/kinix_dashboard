@@ -39,7 +39,7 @@ const ArticleModal: FC<IArticleModalProps> = ({
     const { error, loading } = useSelector(({ articles: { add } }: IRootState) => add);
 
     const [form] = useForm();
-    const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useState<string>('');
 
     const onCloseModal = (): void => {
         setVisible(false);
@@ -63,9 +63,9 @@ const ArticleModal: FC<IArticleModalProps> = ({
     };
 
     useEffect(() => {
-        setSuccess('');
+        if (visible) setSuccess('');
         resetAddArticleAction()(dispatch);
-    }, [dispatch]);
+    }, [dispatch, visible]);
 
     return (
         <Modal
