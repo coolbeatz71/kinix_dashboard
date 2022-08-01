@@ -7,3 +7,9 @@ export enum EnumFormContext {
     CREATE = 'CREATE',
     EDIT = 'EDIT',
 }
+
+export enum EnumActionContext {
+    APPROVE = 'APPROVE',
+    DISABLE = 'DISABLE',
+    DELETE = 'DELETE',
+}

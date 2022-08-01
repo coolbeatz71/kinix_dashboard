@@ -21,13 +21,19 @@ export interface ICreateArticleProps {
     onSubmit: (val: IArticleData) => void;
 }
 
-const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error }) => {
+const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error, formContext, initialValues }) => {
     const textAreaStyle = { height: 98 };
+    const isEdit = formContext === EnumFormContext.EDIT;
 
     const { component: quillEditor, quill } = useQuillEditor();
 
-    const [articleBody, setArticleBody] = useState('');
+    const [articleBody, setArticleBody] = useState<string | undefined>(isEdit ? initialValues?.body : '');
     const [insertedImages, setInsertedImages] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (quill && isEdit) quill.clipboard.dangerouslyPasteHTML(String(articleBody));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [quill, isEdit]);
 
     useEffect(() => {
         if (quill) {
@@ -54,8 +60,10 @@ const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error }
     }, [quill]);
 
     const onSubmitArticle = (formData: IArticleData): void => {
+        const { slug } = initialValues as IArticleData;
         const { title, summary, tags } = formData;
         return onSubmit({
+            slug,
             title,
             summary,
             tags,
@@ -65,7 +73,14 @@ const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error }
     };
 
     return (
-        <Form form={formRef} size="large" layout="vertical" onFinish={onSubmitArticle} name="create_article">
+        <Form
+            size="large"
+            form={formRef}
+            layout="vertical"
+            name="create_article"
+            onFinish={onSubmitArticle}
+            initialValues={isEdit ? initialValues : {}}
+        >
             <ErrorAlert error={error} closable banner showIcon />
 
             <Item name="title" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Titre')}>

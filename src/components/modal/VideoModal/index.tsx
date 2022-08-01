@@ -58,10 +58,10 @@ const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, in
     };
 
     useEffect(() => {
-        setSuccess('');
+        if (visible) setSuccess('');
         resetAddVideoAction()(dispatch);
         dispatch(getVideoCategoriesAction());
-    }, []);
+    }, [dispatch, visible]);
 
     return (
         <Modal

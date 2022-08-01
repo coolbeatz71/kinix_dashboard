@@ -6,6 +6,9 @@ import {
     ActionWrapperReset,
 } from 'constants/redux';
 import addVideoAction from './add';
+import approveVideoAction from './approve';
+import deleteVideoAction from './delete';
+import disableVideoAction from './disable';
 import getVideoCategoriesAction from './getCategories';
 import { videosInitialState } from './types';
 
@@ -24,7 +27,19 @@ export const videosSlice = createSlice({
             // get video categories
             .addCase(getVideoCategoriesAction.pending, ActionWrapperPending)
             .addCase(getVideoCategoriesAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(getVideoCategoriesAction.rejected, ActionWrapperRejected);
+            .addCase(getVideoCategoriesAction.rejected, ActionWrapperRejected)
+            // approve
+            .addCase(approveVideoAction.pending, ActionWrapperPending)
+            .addCase(approveVideoAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(approveVideoAction.rejected, ActionWrapperRejected)
+            // disable
+            .addCase(disableVideoAction.pending, ActionWrapperPending)
+            .addCase(disableVideoAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(disableVideoAction.rejected, ActionWrapperRejected)
+            // delete
+            .addCase(deleteVideoAction.pending, ActionWrapperPending)
+            .addCase(deleteVideoAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(deleteVideoAction.rejected, ActionWrapperRejected);
     },
 });
 

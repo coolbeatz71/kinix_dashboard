@@ -3,7 +3,7 @@
 .tableTitle {
     &__button {
         display: flex;
-        justify-content: start !important;
+        justify-content: flex-start !important;
         color: $dark;
         &::hover {
             color: $black;
