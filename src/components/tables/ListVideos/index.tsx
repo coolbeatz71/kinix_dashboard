@@ -16,6 +16,8 @@ import format from '@helpers/formatString';
 import tableColumns from './columns';
 import TableSearchInput from '@components/common/TableSearchInput';
 import TableStatusFilter from '@components/common/TableStatusFilter';
+import useRouteQuery from '@hooks/useRouteQuery';
+import EnumCategory from '@interfaces/category';
 
 import styles from './index.module.scss';
 
@@ -26,7 +28,9 @@ export interface ListVideosProps {
 
 const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
     const { push } = useHistory();
+    const query = useRouteQuery();
     const dispatch = useAppDispatch();
+    const category = query.get('category');
 
     const [status, setStatus] = useState<EnumStatus>(EnumStatus.ALL);
     const {
@@ -41,9 +45,13 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
         search: '',
     });
     const { page, limit, search } = pagination;
+
     const isStatusAll = status === EnumStatus.ALL;
     const isStatusActive = status === EnumStatus.ACTIVE;
     const currentStatus = isStatusAll ? undefined : format(status, 'lowercase');
+
+    const values = Object.values(EnumCategory);
+    const isCategoryValid = values.includes(category as unknown as EnumCategory);
 
     useEffect(() => {
         dispatch(
@@ -52,6 +60,7 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
                 limit,
                 search,
                 status: currentStatus,
+                category: isCategoryValid ? category : undefined,
             }),
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,8 +86,8 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
         if (status === EnumStatus.ALL) push(VIDEO_PATH);
         else {
             push({
-                pathname: VIDEO_PATH,
                 search: `?status=${format(status, 'lowercase')}`,
+                pathname: category ? `${VIDEO_PATH}?category=${category}` : VIDEO_PATH,
             });
         }
     };
@@ -112,7 +121,7 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
                 <Table
                     dataSource={rows}
                     loading={loading}
-                    scroll={{ x: 720 }}
+                    scroll={{ x: 1500 }}
                     className={styles.table}
                     rowKey={(video: IUnknownObject) => video.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}

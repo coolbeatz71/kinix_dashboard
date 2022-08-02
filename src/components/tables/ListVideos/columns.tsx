@@ -9,6 +9,7 @@ import { IVideo, IUser } from '@interfaces/api';
 import format from '@helpers/formatString';
 import VideoTableActions from './VideoTableActions';
 import PopoverContentLink from '@components/common/PopoverContentLink';
+import { LinkOutlined } from '@ant-design/icons';
 
 const statusCol = {
     width: 120,
@@ -38,6 +39,18 @@ const tableColumns = (
     onSelect?: (video: IVideo) => void,
 ): ColumnType<IVideo | IUnknownObject>[] => [
     {
+        title: 'Lien',
+        key: 'link',
+        dataIndex: 'link',
+        width: 45,
+        fixed: 'left',
+        render: (_, video: IVideo) => (
+            <a target="_blank" href={video.link} rel="noreferrer">
+                <LinkOutlined />
+            </a>
+        ),
+    },
+    {
         title: 'Titre',
         key: 'title',
         dataIndex: 'title',
@@ -48,19 +61,6 @@ const tableColumns = (
             <Popover placement="bottomLeft" content={PopoverContentLink(video, 'videos')}>
                 {video.title}
             </Popover>
-        ),
-    },
-    {
-        title: 'Lien',
-        key: 'link',
-        dataIndex: 'link',
-        width: 200,
-        ellipsis: true,
-        fixed: 'left',
-        render: (_, video: IVideo) => (
-            <a target="_blank" href={video.link} rel="noreferrer">
-                Policies
-            </a>
         ),
     },
     {
@@ -76,7 +76,7 @@ const tableColumns = (
         dataIndex: 'rate',
         width: 120,
         render: (_, video: IVideo) => (
-            <StarRatingComponent name="video-rate" starCount={5} value={Number(video.avgRate)} />
+            <StarRatingComponent editing={false} name="video-rate" starCount={5} value={Number(video.avgRate)} />
         ),
     },
     {

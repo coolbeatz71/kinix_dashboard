@@ -5,9 +5,9 @@ import { MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Col, Dropdown, Grid, Layout, Row } from 'antd';
 import format from '@helpers/formatString';
 import { getAvatarColor } from '@helpers/getAvatarColor';
+import UserProfileMenu from '@components/common/UserProfileMenu';
 
 import styles from './index.module.scss';
-import UserProfileMenu from '@components/common/UserProfileMenu';
 
 const { Header: AntHeader } = Layout;
 const { useBreakpoint } = Grid;
@@ -19,12 +19,11 @@ export interface IHeaderProps {
 }
 
 const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, currentUser }) => {
-    const toggleSideNav = (): void => setIsSideNavExpanded(!isSideNavExpanded);
-    const sideNavWidth = getSideNavWidth(isSideNavExpanded);
-
+    const { lg } = useBreakpoint();
     const [openDropDown, setOpenDropdown] = useState(false);
 
-    const { lg } = useBreakpoint();
+    const toggleSideNav = (): void => setIsSideNavExpanded(!isSideNavExpanded);
+    const sideNavWidth = getSideNavWidth(isSideNavExpanded);
 
     const headerStyles = {
         left: sideNavWidth,

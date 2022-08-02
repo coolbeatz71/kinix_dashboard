@@ -5,7 +5,7 @@ import PageTitle from '@components/common/PageTitle';
 import { useState } from 'react';
 import { EnumFormContext } from '@interfaces/app';
 import VideoModal from '@components/modal/VideoModal';
-import ListArticles from '@components/tables/ListArticles';
+import ListVideos from '@components/tables/ListVideos';
 
 const Videos: FC = () => {
     const [title, setTitle] = useState<string>('Videos');
@@ -25,7 +25,7 @@ const Videos: FC = () => {
                 formContext={EnumFormContext.CREATE}
             />
 
-            <ListArticles onTitle={(t) => setTitle(t)} />
+            <ListVideos onTitle={(t) => setTitle(t)} />
         </div>
     );
 };

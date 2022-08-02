@@ -112,7 +112,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                 <Table
                     dataSource={rows}
                     loading={loading}
-                    scroll={{ x: 720 }}
+                    scroll={{ x: 1500 }}
                     className={styles.table}
                     rowKey={(article: IUnknownObject) => article.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}

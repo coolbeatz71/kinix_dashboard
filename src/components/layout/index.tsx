@@ -1,12 +1,12 @@
 import { upperFirst } from 'lodash';
 import React, { FC, Fragment, ReactNode, useState } from 'react';
-
 import { Layout } from 'antd';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { APP_NAME } from '@constants/platform';
 import Header from './Header';
 import { ICurrentAdmin } from '@interfaces/admin';
 import SideNav from './SideNav';
+import getSideNavWidth from '@helpers/getSideNavWidth';
 
 import styles from './index.module.scss';
 
@@ -20,6 +20,13 @@ export interface IAppLayoutProps {
 
 const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
     const [isSideNavExpanded, setIsSideNavExpanded] = useState<boolean>(false);
+    const sideNavWidth = getSideNavWidth(isSideNavExpanded);
+
+    const contentStyles = {
+        left: sideNavWidth,
+        width: `calc(100% - ${sideNavWidth}px)`,
+    };
+
     return (
         <HelmetProvider>
             <Layout className={styles.layout}>
@@ -45,7 +52,9 @@ const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
                                 isSideNavExpanded={isSideNavExpanded}
                                 setIsSideNavExpanded={setIsSideNavExpanded}
                             />
-                            <Content className={styles.layout__main__content}>{children}</Content>
+                            <Content style={contentStyles} className={styles.layout__main__content}>
+                                {children}
+                            </Content>
                         </div>
                     </Fragment>
                 )}

@@ -6,6 +6,7 @@ export interface IParams {
     limit?: number;
     search?: string;
     status?: string;
+    category?: string | null | undefined;
 }
 
 const getAllVideosAction = createAsyncThunk('videos/all', async (params: IParams, { rejectWithValue }) => {
