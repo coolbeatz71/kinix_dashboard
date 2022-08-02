@@ -18,6 +18,7 @@ import TableSearchInput from '@components/common/TableSearchInput';
 import TableStatusFilter from '@components/common/TableStatusFilter';
 import useRouteQuery from '@hooks/useRouteQuery';
 import EnumCategory from '@interfaces/category';
+import TableCategoryFilter from '@components/common/TableCategoryFilter';
 
 import styles from './index.module.scss';
 
@@ -30,9 +31,10 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
     const { push } = useHistory();
     const query = useRouteQuery();
     const dispatch = useAppDispatch();
-    const category = query.get('category');
+    const catQuery = query.get('category');
 
     const [status, setStatus] = useState<EnumStatus>(EnumStatus.ALL);
+    const [category, setCategory] = useState<EnumCategory>((catQuery as EnumCategory) || EnumCategory.ALL);
     const {
         data: { total, rows },
         loading,
@@ -47,11 +49,13 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
     const { page, limit, search } = pagination;
 
     const isStatusAll = status === EnumStatus.ALL;
+    const isCategoryAll = category === EnumCategory.ALL;
     const isStatusActive = status === EnumStatus.ACTIVE;
     const currentStatus = isStatusAll ? undefined : format(status, 'lowercase');
+    const currentCategory = isCategoryAll ? undefined : category;
 
     const values = Object.values(EnumCategory);
-    const isCategoryValid = values.includes(category as unknown as EnumCategory);
+    const isCategoryValid = values.includes(catQuery as unknown as EnumCategory);
 
     useEffect(() => {
         dispatch(
@@ -60,11 +64,11 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
                 limit,
                 search,
                 status: currentStatus,
-                category: isCategoryValid ? category : undefined,
+                category: isCategoryValid ? currentCategory : undefined,
             }),
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch, status]);
+    }, [dispatch, status, category]);
 
     const changePage = (p: number, l: number, s: string): void => {
         setPagination({ page: p, limit: l, search: s });
@@ -74,6 +78,7 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
                 limit: l,
                 search: s,
                 status: currentStatus,
+                category: currentCategory,
             }),
         );
     };
@@ -82,12 +87,20 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
     const title = `Videos ${!isStatusAll ? `${format(isStatusActive ? 'actifs' : 'inactifs)', 'lowercase')}` : ''}`;
     useEffect(() => onTitle?.(title), [onTitle, title]);
 
-    const navigateToStatus = (status: EnumStatus): void => {
-        if (status === EnumStatus.ALL) push(VIDEO_PATH);
+    const navigateToStatus = (selected: EnumStatus): void => {
+        if (selected === EnumStatus.ALL) push(`${VIDEO_PATH}?category=${category}`);
         else {
             push({
-                search: `?status=${format(status, 'lowercase')}`,
-                pathname: category ? `${VIDEO_PATH}?category=${category}` : VIDEO_PATH,
+                search: `?status=${format(selected, 'lowercase')}&category=${category}`,
+            });
+        }
+    };
+
+    const navigateToCategory = (selected: EnumCategory): void => {
+        if (selected === ('' as EnumCategory)) push(`${VIDEO_PATH}?status=${format(status, 'lowercase')}`);
+        else {
+            push({
+                search: `?status=${format(status, 'lowercase')}&category=${selected}`,
             });
         }
     };
@@ -106,6 +119,13 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
                     </Col>
                     <Col>
                         <TableStatusFilter status={status} setStatus={setStatus} navigateToStatus={navigateToStatus} />
+                    </Col>
+                    <Col>
+                        <TableCategoryFilter
+                            setCategory={setCategory}
+                            category={category as EnumCategory}
+                            navigateToCategory={navigateToCategory}
+                        />
                     </Col>
                     <Col>
                         <TableSearchInput
