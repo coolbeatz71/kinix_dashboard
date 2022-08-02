@@ -13,3 +13,9 @@ export enum EnumActionContext {
     DISABLE = 'DISABLE',
     DELETE = 'DELETE',
 }
+
+export enum EnumStatus {
+    ALL = 'ALL',
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE',
+}

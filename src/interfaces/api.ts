@@ -61,7 +61,13 @@ export interface IVideo {
     totalRaters?: number;
     shared?: boolean;
     userId: number;
+    user?: IUser;
+    category?: ICategory;
+    share: IShare[];
+    rate: IRate[];
     categoryId: number;
+    sharesCount?: number;
+    playlistsCount?: number;
     createdAt?: string;
     updatedAt?: string;
 }

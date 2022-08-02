@@ -1,4 +1,4 @@
-import { EnumStatus } from '@interfaces/articles';
+import { EnumStatus } from '@interfaces/app';
 import { DefaultOptionType } from 'antd/lib/select';
 
 export const LIMIT = 10;

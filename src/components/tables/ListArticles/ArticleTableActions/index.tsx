@@ -49,7 +49,7 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                                 setOpenAddArticleModal(true);
                             }}
                         >
-                            Editer
+                            Modifier
                         </Button>
 
                         <ArticleModal

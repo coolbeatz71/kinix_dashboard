@@ -1,19 +1,18 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Button, Modal, Space, Row, Typography, Col, Form } from 'antd';
+import { Modal, Form } from 'antd';
 import { useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
-import { SaveOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import CreateArticleForm from '@components/form/CreateArticle';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { IArticleData } from '@interfaces/articles';
 import addArticleAction, { resetAddArticleAction } from '@redux/articles/add';
 import { IRootState } from '@redux/reducers';
 import FormSuccessResult from '../../common/FormSuccessResult';
+import CreateModalHeader from '@components/common/CreateModalHeader';
 
 import styles from './index.module.scss';
 
 const { useForm } = Form;
-const { Title } = Typography;
 
 export interface IArticleModalProps {
     visible: boolean;
@@ -36,6 +35,7 @@ const ArticleModal: FC<IArticleModalProps> = ({
     },
 }) => {
     const dispatch = useAppDispatch();
+    const isEdit = formContext === EnumFormContext.EDIT;
     const { error, loading } = useSelector(({ articles: { add } }: IRootState) => add);
 
     const [form] = useForm();
@@ -47,7 +47,6 @@ const ArticleModal: FC<IArticleModalProps> = ({
 
     const onSubmitArticle = (formData: IUnknownObject | IArticleData): void => {
         form.validateFields();
-        const isEdit = formContext === EnumFormContext.EDIT;
         dispatch(
             addArticleAction({
                 isEdit,
@@ -79,31 +78,13 @@ const ArticleModal: FC<IArticleModalProps> = ({
             wrapClassName={styles.articleModal__wrap}
             title={
                 !success && (
-                    <Row justify="space-between" align="middle">
-                        <Col flex={1}>
-                            <Title level={4} className="mb-0">
-                                Créer Article
-                            </Title>
-                        </Col>
-                        <Col>
-                            <Space>
-                                <Button
-                                    ghost
-                                    type="primary"
-                                    loading={loading}
-                                    disabled={loading}
-                                    htmlType="submit"
-                                    icon={<SaveOutlined />}
-                                    onClick={() => form.submit()}
-                                >
-                                    Enregistrer
-                                </Button>
-                                <Button type="primary" danger icon={<CloseCircleOutlined />} onClick={onCloseModal}>
-                                    Annuler
-                                </Button>
-                            </Space>
-                        </Col>
-                    </Row>
+                    <CreateModalHeader
+                        isEdit={isEdit}
+                        loading={loading}
+                        context="article"
+                        onCloseModal={onCloseModal}
+                        onSubmit={() => form.submit()}
+                    />
                 )
             }
         >
