@@ -2,13 +2,14 @@ import React, { FC } from 'react';
 import { Avatar, Col, Menu, Row, Typography, Spin, notification } from 'antd';
 import { UserOutlined, SettingOutlined, LogoutOutlined, LoadingOutlined } from '@ant-design/icons';
 import { getAvatarColor } from '@helpers/getAvatarColor';
-
-import styles from './index.module.scss';
 import { IRootState } from '@redux/reducers';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import logoutAction from '@redux/auth/logout';
 import { useAppDispatch } from '@redux/store';
+import { LOGIN_PATH } from '@constants/paths';
+
+import styles from './index.module.scss';
 
 const { Item } = Menu;
 const { Text } = Typography;
@@ -22,9 +23,8 @@ export interface IUserProfileMenuProps {
 }
 
 const UserProfileMenu: FC<IUserProfileMenuProps> = ({ avatar, email, phoneNumber, userName, setOpenDropdown }) => {
-    const { error, loading } = useSelector(({ auth: { logout } }: IRootState) => logout);
-
     const dispatch = useAppDispatch();
+    const { error, loading } = useSelector(({ auth: { logout } }: IRootState) => logout);
 
     useEffect(() => {
         if (error) {
@@ -42,6 +42,7 @@ const UserProfileMenu: FC<IUserProfileMenuProps> = ({ avatar, email, phoneNumber
         dispatch(logoutAction({ dispatch })).then((res) => {
             if (res.type === 'auth/logout/fulfilled') {
                 setOpenDropdown(false);
+                window.location.href = LOGIN_PATH;
             }
         });
     };

@@ -4,7 +4,6 @@ import { AppDispatch, persistor } from 'redux/store';
 import { API_TOKEN, USER_DATA } from '@constants/platform';
 import { IUnknownObject } from '@interfaces/app';
 import { authSlice } from '.';
-import { LOGIN_PATH } from '@constants/paths';
 
 const logoutAction = createAsyncThunk('auth/logout', async (params: { dispatch: AppDispatch }, { rejectWithValue }) => {
     const { dispatch } = params;
@@ -18,7 +17,6 @@ const logoutAction = createAsyncThunk('auth/logout', async (params: { dispatch: 
         persistor.purge();
         localStorage.removeItem(USER_DATA);
         localStorage.removeItem(API_TOKEN);
-        window.location.href = LOGIN_PATH;
 
         return response.data;
     } catch (error) {
