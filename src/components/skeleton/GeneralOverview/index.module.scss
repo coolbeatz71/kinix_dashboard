@@ -7,6 +7,10 @@
         }
     }
 
+    [class~='ant-skeleton-button'] {
+        width: 100% !important;
+    }
+
     [class~='ant-card-body'] {
         [class~='ant-row'] {
             height: 4.4rem;
@@ -15,7 +19,7 @@
         [class~='ant-col'],
         [class~='ant-skeleton'],
         [class~='ant-skeleton-button'] {
-            height: 100%;
+            height: 100% !important;
         }
     }
 }

@@ -1,5 +1,5 @@
-import { upperFirst } from 'lodash';
 import React, { FC, Fragment, ReactNode, useState } from 'react';
+import { upperFirst } from 'lodash';
 import { Layout } from 'antd';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { APP_NAME } from '@constants/platform';
@@ -7,6 +7,7 @@ import Header from './Header';
 import { ICurrentAdmin } from '@interfaces/admin';
 import SideNav from './SideNav';
 import getSideNavWidth from '@helpers/getSideNavWidth';
+import { IUnknownObject } from '@interfaces/app';
 
 import styles from './index.module.scss';
 
@@ -22,7 +23,8 @@ const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
     const [isSideNavExpanded, setIsSideNavExpanded] = useState<boolean>(false);
     const sideNavWidth = getSideNavWidth(isSideNavExpanded);
 
-    const contentStyles = {
+    const contentStyles: IUnknownObject = {
+        position: 'absolute',
         left: sideNavWidth,
         width: `calc(100% - ${sideNavWidth}px)`,
     };
