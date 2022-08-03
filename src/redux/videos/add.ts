@@ -16,7 +16,7 @@ const addVideoAction = createAsyncThunk(
     async (params: { data: IVideoData; isEdit: boolean }, { rejectWithValue }) => {
         const { data, isEdit } = params;
         const { categoryId } = data;
-        const formatData = { ...data, categoryId: (categoryId as IUnknownObject).value };
+        const formatData = isEdit ? data : { ...data, categoryId: (categoryId as IUnknownObject).value };
         try {
             const response: IUnknownObject = await api.request({
                 data: formatData,

@@ -5,14 +5,13 @@ import { Button, Dropdown, Menu } from 'antd';
 import { FormOutlined, PlayCircleOutlined, SettingOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { IVideo } from '@interfaces/api';
-
-import styles from './index.module.scss';
 import VideoModal from '@components/modal/VideoModal';
 import { EnumActionContext, EnumFormContext } from '@interfaces/app';
-import { IVideoData } from '@interfaces/videos';
 import VideoPlayer from '@components/common/VideoPlayer';
 import EnumRole from '@interfaces/userRole';
 import VideoActionModal from '../ActionModal';
+
+import styles from './index.module.scss';
 
 export interface IVideoTableActionsProps {
     video: IVideo;
@@ -69,10 +68,10 @@ const VideoTableActions: FC<IVideoTableActionsProps> = ({ video, reload }) => {
 
                         <VideoModal
                             reload={reload}
+                            initialValues={video}
                             visible={openAddVideoModal}
                             setVisible={setOpenAddVideoModal}
                             formContext={EnumFormContext.EDIT}
-                            initialValues={video as IVideoData}
                         />
 
                         {user.role === EnumRole.SUPER_ADMIN && (

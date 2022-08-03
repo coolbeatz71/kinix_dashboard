@@ -9,7 +9,7 @@ import { IVideoData } from '@interfaces/videos';
 import addVideoAction, { resetAddVideoAction } from '@redux/videos/add';
 import CreateVideoForm from '@components/form/CreateVideo';
 import getVideoCategoriesAction from '@redux/videos/getCategories';
-import { ICategory, IUser } from '@interfaces/api';
+import { ICategory, IUser, IVideo } from '@interfaces/api';
 import CreateModalHeader from '@components/common/CreateModalHeader';
 
 import styles from './index.module.scss';
@@ -19,7 +19,7 @@ const { useForm } = Form;
 export interface IVideoModalProps {
     visible: boolean;
     reload?: () => void;
-    initialValues?: IVideoData;
+    initialValues?: IVideo;
     formContext: EnumFormContext;
     setVisible: (val: boolean) => void;
 }
@@ -54,10 +54,11 @@ const VideoModal: FC<IVideoModalProps> = ({
 
     const onSubmitVideo = (formData: IUnknownObject | IVideoData): void => {
         form.validateFields();
+        const data = isEdit ? { ...formData, slug: initialValues?.slug } : formData;
         dispatch(
             addVideoAction({
                 isEdit,
-                data: formData as IVideoData,
+                data: data as IVideoData,
             }),
         ).then((res) => {
             if (res.type === 'videos/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
