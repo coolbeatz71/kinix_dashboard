@@ -6,7 +6,7 @@ import { categoryValidator, linkValidator, tagsValidator, titleValidator, userVa
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IVideoData } from '@interfaces/videos';
-import { ICategory, IUser } from '@interfaces/api';
+import { ICategory, IUser, IVideo } from '@interfaces/api';
 import { useAppDispatch } from '@redux/store';
 import searchUsersAction from '@redux/users/searchUsers';
 import useRouteQuery from '@hooks/useRouteQuery';
@@ -19,7 +19,7 @@ export interface ICreateVideoProps {
     users?: IUser[];
     loadingUsers: boolean;
     categories?: ICategory[];
-    initialValues?: IVideoData;
+    initialValues?: IVideo;
     loadingCategories: boolean;
     formContext: EnumFormContext;
     formRef: FormInstance<IVideoData>;
@@ -36,6 +36,7 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
     formContext,
     loadingUsers,
     loadingCategories,
+    initialValues,
 }) => {
     const query = useRouteQuery();
     const dispatch = useAppDispatch();
@@ -44,6 +45,11 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
     const isEdit = formContext === EnumFormContext.EDIT;
 
     const onSubmitArticle = (formData: IVideoData): void => onSubmit(formData);
+
+    useEffect(() => {
+        if (isEdit) handleSearchUser(initialValues?.user?.userName);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isEdit, initialValues]);
 
     useEffect(() => {
         if (!isEdit) {
@@ -57,7 +63,7 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
         }
     }, [categories, category, formRef, isEdit]);
 
-    const handleSearchUser = (value: string): void => {
+    const handleSearchUser = (value: string | undefined): void => {
         if (value) dispatch(searchUsersAction({ search: value }));
     };
 
@@ -76,7 +82,14 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
     }));
 
     return (
-        <Form form={formRef} size="large" layout="vertical" onFinish={onSubmitArticle} name="create_video">
+        <Form
+            size="large"
+            form={formRef}
+            layout="vertical"
+            name="create_video"
+            onFinish={onSubmitArticle}
+            initialValues={isEdit ? initialValues : {}}
+        >
             <ErrorAlert error={error} closable banner showIcon />
 
             <Item name="title" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Titre')}>
@@ -124,13 +137,13 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
             </Item>
 
             <Item name="categoryId" validateTrigger={['onSubmit', 'onBlur']} rules={categoryValidator('Catégorie')}>
-                <FloatTextInput label="Client" placeholder="Sélectionner une catégorie" required>
+                <FloatTextInput label="Categorie" placeholder="Sélectionner une catégorie" required>
                     <Select
                         size="large"
                         filterOption={false}
                         options={categoriesOptions}
-                        disabled={loadingCategories}
                         loading={loadingCategories}
+                        disabled={loadingCategories}
                         defaultActiveFirstOption={false}
                     />
                 </FloatTextInput>

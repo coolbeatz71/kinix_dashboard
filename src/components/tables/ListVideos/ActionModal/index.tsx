@@ -1,7 +1,7 @@
 import React, { FC, Fragment, ReactNode, useState } from 'react';
 import { lowerCase, truncate } from 'lodash';
 import { useSelector } from 'react-redux';
-import { IArticle } from '@interfaces/api';
+import { IVideo } from '@interfaces/api';
 import { EnumActionContext } from '@interfaces/app';
 import { Button, Col, Form, Modal, Row, Input, notification, Tooltip } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
@@ -10,9 +10,9 @@ import ErrorAlert from '@components/common/ErrorAlert';
 import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
 
-import approveArticleAction, { resetApproveArticleAction } from '@redux/articles/approve';
-import deleteArticleAction, { resetDeleteArticleAction } from '@redux/articles/delete';
-import disableArticleAction, { resetDisableArticleAction } from '@redux/articles/disable';
+import approveVideoAction, { resetApproveVideoAction } from '@redux/videos/approve';
+import deleteVideoAction, { resetDeleteVideoAction } from '@redux/videos/delete';
+import disableVideoAction, { resetDisableVideoAction } from '@redux/videos/disable';
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, StopOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
@@ -20,15 +20,15 @@ import styles from './index.module.scss';
 const { Item } = Form;
 const { Password } = Input;
 
-export interface IArticleActionModalProps {
-    article: IArticle;
+export interface IVideoActionModalProps {
+    video: IVideo;
     reload: () => void;
     closeMenu?: () => void;
     context: EnumActionContext;
 }
 
-const ArticleActionModal: FC<IArticleActionModalProps> = ({
-    article,
+const VideoActionModal: FC<IVideoActionModalProps> = ({
+    video,
     reload,
     closeMenu = () => {
         //
@@ -43,7 +43,7 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
         delete: { error: errDelete, loading: loadingDelete },
         approve: { error: errApprove, loading: loadingApprove },
         disable: { error: errDisable, loading: loadingDisable },
-    } = useSelector(({ articles }: IRootState) => articles);
+    } = useSelector(({ videos }: IRootState) => videos);
 
     const error = errApprove || errDisable || errDelete;
     const loading = loadingApprove || loadingDisable || loadingDelete;
@@ -86,7 +86,7 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
             key: 'success',
             placement: 'topRight',
             message: 'Confirmation',
-            description: `Article: "${article.title}" ${getSuccessMessage()}`,
+            description: `Video: "${video.title}" ${getSuccessMessage()}`,
         });
         clearErrors();
         reload();
@@ -94,21 +94,21 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
     };
 
     const onFinish = (password: string): void => {
-        const params = { slug: article.slug, password };
-        const responseType = `articles/${lowerCase(context)}/fulfilled`;
+        const params = { slug: video.slug, password };
+        const responseType = `videos/${lowerCase(context)}/fulfilled`;
         switch (context) {
             case EnumActionContext.APPROVE:
-                dispatch(approveArticleAction(params)).then((res) => {
+                dispatch(approveVideoAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
             case EnumActionContext.DISABLE:
-                dispatch(disableArticleAction(params)).then((res) => {
+                dispatch(disableVideoAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
             default:
-                dispatch(deleteArticleAction(params)).then((res) => {
+                dispatch(deleteVideoAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
@@ -116,9 +116,9 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
     };
 
     const clearErrors = (): void => {
-        resetApproveArticleAction()(dispatch);
-        resetDisableArticleAction()(dispatch);
-        resetDeleteArticleAction()(dispatch);
+        resetApproveVideoAction()(dispatch);
+        resetDisableVideoAction()(dispatch);
+        resetDeleteVideoAction()(dispatch);
     };
 
     return (
@@ -146,8 +146,8 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                 onCancel={() => setOpenModal(false)}
                 className={styles.actionModal__modal}
                 title={
-                    <Tooltip title={article.title} visible>
-                        {getButtonText()} video: "{truncate(article.title, { length: 40 })}
+                    <Tooltip title={video.title} visible>
+                        {getButtonText()} video: "{truncate(video.title, { length: 40 })}
                     </Tooltip>
                 }
             >
@@ -183,4 +183,4 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
     );
 };
 
-export default ArticleActionModal;
+export default VideoActionModal;

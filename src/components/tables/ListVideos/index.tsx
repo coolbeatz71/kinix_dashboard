@@ -6,34 +6,40 @@ import { LIMIT } from '@constants/app';
 import { useAppDispatch } from '@redux/store';
 import { IRootState } from '@redux/reducers';
 import { useSelector } from 'react-redux';
-import getAllArticlesAction from '@redux/articles/getAll';
+import getAllVideosAction from '@redux/videos/getAll';
 import { EnumStatus } from '@interfaces/app';
 import TableTitle from '@components/common/TableTitle';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { useHistory } from 'react-router-dom';
-import { ARTICLE_PATH } from '@constants/paths';
+import { VIDEO_PATH } from '@constants/paths';
 import format from '@helpers/formatString';
 import tableColumns from './columns';
 import TableSearchInput from '@components/common/TableSearchInput';
 import TableStatusFilter from '@components/common/TableStatusFilter';
+import useRouteQuery from '@hooks/useRouteQuery';
+import EnumCategory from '@interfaces/category';
+import TableCategoryFilter from '@components/common/TableCategoryFilter';
 
 import styles from './index.module.scss';
 
-export interface ListArticlesProps {
+export interface ListVideosProps {
     onTitle?: (title: string) => void;
-    onSelect?: (article: IUnknownObject) => void;
+    onSelect?: (video: IUnknownObject) => void;
 }
 
-const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
+const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
     const { push } = useHistory();
+    const query = useRouteQuery();
     const dispatch = useAppDispatch();
+    const catQuery = query.get('category');
 
     const [status, setStatus] = useState<EnumStatus>(EnumStatus.ALL);
+    const [category, setCategory] = useState<EnumCategory>((catQuery as EnumCategory) || EnumCategory.ALL);
     const {
         data: { total, rows },
         loading,
         error,
-    } = useSelector(({ articles: { all } }: IRootState) => all);
+    } = useSelector(({ videos: { all } }: IRootState) => all);
 
     const [pagination, setPagination] = useState({
         page: 1,
@@ -41,44 +47,60 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
         search: '',
     });
     const { page, limit, search } = pagination;
+
     const isStatusAll = status === EnumStatus.ALL;
+    const isCategoryAll = category === EnumCategory.ALL;
     const isStatusActive = status === EnumStatus.ACTIVE;
     const currentStatus = isStatusAll ? undefined : format(status, 'lowercase');
+    const currentCategory = isCategoryAll ? undefined : category;
+
+    const values = Object.values(EnumCategory);
+    const isCategoryValid = values.includes(catQuery as unknown as EnumCategory);
 
     useEffect(() => {
         dispatch(
-            getAllArticlesAction({
+            getAllVideosAction({
                 page,
                 limit,
                 search,
                 status: currentStatus,
+                category: isCategoryValid ? currentCategory : undefined,
             }),
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch, status]);
+    }, [dispatch, status, category]);
 
     const changePage = (p: number, l: number, s: string): void => {
         setPagination({ page: p, limit: l, search: s });
         dispatch(
-            getAllArticlesAction({
+            getAllVideosAction({
                 page: p,
                 limit: l,
                 search: s,
                 status: currentStatus,
+                category: currentCategory,
             }),
         );
     };
 
     const Wrapper = onSelect === undefined ? Card : Fragment;
-    const title = `Articles ${!isStatusAll ? `${format(isStatusActive ? 'actifs' : 'inactifs)', 'lowercase')}` : ''}`;
+    const title = `Videos ${!isStatusAll ? `${format(isStatusActive ? 'actifs' : 'inactifs)', 'lowercase')}` : ''}`;
     useEffect(() => onTitle?.(title), [onTitle, title]);
 
-    const navigateToStatus = (status: EnumStatus): void => {
-        if (status === EnumStatus.ALL) push(ARTICLE_PATH);
+    const navigateToStatus = (selected: EnumStatus): void => {
+        if (selected === EnumStatus.ALL) push(`${VIDEO_PATH}?category=${category}`);
         else {
             push({
-                pathname: ARTICLE_PATH,
-                search: `?status=${format(status, 'lowercase')}`,
+                search: `?status=${format(selected, 'lowercase')}&category=${category}`,
+            });
+        }
+    };
+
+    const navigateToCategory = (selected: EnumCategory): void => {
+        if (selected === ('' as EnumCategory)) push(`${VIDEO_PATH}?status=${format(status, 'lowercase')}`);
+        else {
+            push({
+                search: `?status=${format(status, 'lowercase')}&category=${selected}`,
             });
         }
     };
@@ -99,6 +121,13 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                         <TableStatusFilter status={status} setStatus={setStatus} navigateToStatus={navigateToStatus} />
                     </Col>
                     <Col>
+                        <TableCategoryFilter
+                            setCategory={setCategory}
+                            category={category as EnumCategory}
+                            navigateToCategory={navigateToCategory}
+                        />
+                    </Col>
+                    <Col>
                         <TableSearchInput
                             search={search}
                             loading={loading}
@@ -114,7 +143,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                     loading={loading}
                     scroll={{ x: 1500 }}
                     className={styles.table}
-                    rowKey={(article: IUnknownObject) => article.id}
+                    rowKey={(video: IUnknownObject) => video.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     columns={tableColumns(() => changePage(page, limit, search), onSelect)}
                     pagination={{
@@ -123,7 +152,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                         pageSize: limit,
                         showSizeChanger: true,
                         pageSizeOptions: ['10', '20', '50', '100'],
-                        showTotal: (t) => `${numeral(t).format('0,0')} articles`,
+                        showTotal: (t) => `${numeral(t).format('0,0')} videos`,
                         onChange: (current, limit) => changePage(current, limit, search),
                         onShowSizeChange: (current, size) => changePage(current, size, search),
                     }}
@@ -133,4 +162,4 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
     );
 };
 
-export default ListArticles;
+export default ListVideos;

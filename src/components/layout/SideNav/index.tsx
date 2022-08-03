@@ -2,14 +2,14 @@ import React, { FC, Fragment, Key, ReactNode, useState } from 'react';
 import { Divider, Grid, Layout, Menu } from 'antd';
 import getSideNavWidth from '@helpers/getSideNavWidth';
 import Logo from '@components/common/Logo';
-import { LOGIN_PATH } from '@constants/paths';
+import { DASHBOARD_PATH } from '@constants/paths';
 import { HomeFilled } from '@ant-design/icons';
-
-import styles from './index.module.scss';
 import sidenav, { ISideNavSection } from '@constants/sidenav';
 import { ICurrentAdmin } from '@interfaces/admin';
 import { isAdmin } from '@constants/userRole';
 import { toUpper } from 'lodash';
+
+import styles from './index.module.scss';
 
 const { Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -95,7 +95,7 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
                     className={styles.sidenav__menu}
                 >
                     <Item key="Dashboard" title={null} className={styles.sidenav__menu__items} icon={<HomeFilled />}>
-                        <a href={LOGIN_PATH}>Dashboard</a>
+                        <a href={DASHBOARD_PATH}>Dashboard</a>
                     </Item>
 
                     {renderSections(isSideNavExpanded)}

@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Button, Modal, Space, Row, Typography, Col, Form } from 'antd';
+import { Modal, Form } from 'antd';
 import { useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
-import { SaveOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { IRootState } from '@redux/reducers';
 import FormSuccessResult from '@components/common/FormSuccessResult';
@@ -10,16 +9,17 @@ import { IVideoData } from '@interfaces/videos';
 import addVideoAction, { resetAddVideoAction } from '@redux/videos/add';
 import CreateVideoForm from '@components/form/CreateVideo';
 import getVideoCategoriesAction from '@redux/videos/getCategories';
-import { ICategory, IUser } from '@interfaces/api';
+import { ICategory, IUser, IVideo } from '@interfaces/api';
+import CreateModalHeader from '@components/common/CreateModalHeader';
 
 import styles from './index.module.scss';
 
 const { useForm } = Form;
-const { Title } = Typography;
 
 export interface IVideoModalProps {
     visible: boolean;
-    initialValues?: IVideoData;
+    reload?: () => void;
+    initialValues?: IVideo;
     formContext: EnumFormContext;
     setVisible: (val: boolean) => void;
 }
@@ -27,9 +27,18 @@ export interface IVideoModalProps {
 const SUCCESS_CREATE = 'La video a été créé avec succès';
 const SUCCESS_EDIT = 'Cette video a été modifié avec succès';
 
-const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, initialValues }) => {
+const VideoModal: FC<IVideoModalProps> = ({
+    visible,
+    setVisible,
+    formContext,
+    initialValues,
+    reload = () => {
+        //
+    },
+}) => {
     const [form] = useForm();
     const dispatch = useAppDispatch();
+    const isEdit = formContext === EnumFormContext.EDIT;
 
     const { data: categories, loading: loadingCategories } = useSelector(
         ({ videos: { categories } }: IRootState) => categories,
@@ -45,15 +54,18 @@ const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, in
 
     const onSubmitVideo = (formData: IUnknownObject | IVideoData): void => {
         form.validateFields();
-        const isEdit = formContext === EnumFormContext.EDIT;
+        const data = isEdit ? { ...formData, slug: initialValues?.slug } : formData;
         dispatch(
             addVideoAction({
                 isEdit,
-                data: formData as IVideoData,
+                data: data as IVideoData,
             }),
         ).then((res) => {
             if (res.type === 'videos/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (res.type === 'videos/add/fulfilled') setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
+            if (res.type === 'videos/add/fulfilled') {
+                if (isEdit) reload();
+                setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
+            }
         });
     };
 
@@ -73,29 +85,13 @@ const VideoModal: FC<IVideoModalProps> = ({ visible, setVisible, formContext, in
             className={styles.videoModal}
             title={
                 !success && (
-                    <Row justify="space-between" align="middle">
-                        <Col flex={1}>
-                            <Title level={4}>Créer Video</Title>
-                        </Col>
-                        <Col>
-                            <Space>
-                                <Button
-                                    ghost
-                                    type="primary"
-                                    loading={loading}
-                                    disabled={loading}
-                                    htmlType="submit"
-                                    icon={<SaveOutlined />}
-                                    onClick={() => form.submit()}
-                                >
-                                    Enregistrer
-                                </Button>
-                                <Button type="primary" danger icon={<CloseCircleOutlined />} onClick={onCloseModal}>
-                                    Annuler
-                                </Button>
-                            </Space>
-                        </Col>
-                    </Row>
+                    <CreateModalHeader
+                        context="video"
+                        isEdit={isEdit}
+                        loading={loading}
+                        onCloseModal={onCloseModal}
+                        onSubmit={() => form.submit()}
+                    />
                 )
             }
         >

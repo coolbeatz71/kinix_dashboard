@@ -2,6 +2,7 @@ import { BasicInitialState, BasicInitialStateList, IBasicInitialState, IBasicIni
 
 export type IVideosState = {
     add: IBasicInitialState;
+    all: IBasicInitialState;
     categories: IBasicInitialStateList;
     approve: IBasicInitialState;
     disable: IBasicInitialState;
@@ -10,6 +11,7 @@ export type IVideosState = {
 
 export const videosInitialState: IVideosState = {
     add: BasicInitialState,
+    all: BasicInitialState,
     categories: BasicInitialStateList,
     approve: BasicInitialState,
     disable: BasicInitialState,
