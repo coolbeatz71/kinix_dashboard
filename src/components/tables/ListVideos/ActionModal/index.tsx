@@ -1,9 +1,9 @@
 import React, { FC, Fragment, ReactNode, useState } from 'react';
-import { lowerCase } from 'lodash';
+import { lowerCase, truncate } from 'lodash';
 import { useSelector } from 'react-redux';
 import { IVideo } from '@interfaces/api';
 import { EnumActionContext } from '@interfaces/app';
-import { Button, Col, Form, Modal, Row, Input, notification } from 'antd';
+import { Button, Col, Form, Modal, Row, Input, notification, Tooltip } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
 import { required } from '@helpers/validators';
 import ErrorAlert from '@components/common/ErrorAlert';
@@ -145,7 +145,11 @@ const VideoActionModal: FC<IVideoActionModalProps> = ({
                 closeIcon={<CloseCircleOutlined />}
                 onCancel={() => setOpenModal(false)}
                 className={styles.actionModal__modal}
-                title={`${getButtonText()} video: "${video.title}"`}
+                title={
+                    <Tooltip title={video.title} visible>
+                        {getButtonText()} video: "{truncate(video.title, { length: 40 })}
+                    </Tooltip>
+                }
             >
                 <Form
                     initialValues={{ password }}
