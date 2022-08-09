@@ -29,7 +29,35 @@ export interface IGeneralOverview {
     promotions: Promotions;
 }
 
+interface UserRole {
+    ads: number;
+    admin: number;
+    video: number;
+    viewer: number;
+    superAdmin: number;
+}
+
+interface UserActivity {
+    active: number;
+    inactive: number;
+}
+interface UserProvider {
+    local: number;
+    google: number;
+    facebook: number;
+}
+
+type UserNotification = UserActivity;
+
+export interface IUserOverview {
+    role: UserRole;
+    activity: UserActivity;
+    provider: UserProvider;
+    notification: UserNotification;
+}
+
 interface IOverview {
+    users: IUserOverview;
     general: IGeneralOverview;
 }
 

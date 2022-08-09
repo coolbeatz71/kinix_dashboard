@@ -4,7 +4,7 @@ import { Col, Row } from 'antd';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IUnknownObject } from '@interfaces/app';
 import { IGeneralOverview } from '@interfaces/overview';
-import OverviewCard from '../Card';
+import OverviewCard from '../OverviewCard';
 import { HiUsers } from 'react-icons/hi';
 import { RiArticleLine } from 'react-icons/ri';
 import { VideoCameraFilled, GlobalOutlined } from '@ant-design/icons';

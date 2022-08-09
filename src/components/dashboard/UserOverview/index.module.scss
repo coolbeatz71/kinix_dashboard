@@ -1,0 +1,43 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.users {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+
+    [class~='ant-card-body'] {
+        padding: 0;
+    }
+
+    [data-title='true'] {
+        margin-bottom: 1rem;
+        [class~='title'] {
+            margin-bottom: 0.5rem;
+        }
+
+        h4 {
+            font-size: 12pt;
+        }
+
+        [class~='anticon'] {
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-right: 0.2rem;
+        }
+
+        [class~='ant-typography'] {
+            margin-bottom: 0;
+        }
+
+        [class~='ant-divider'] {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__container {
+        background: $gray;
+        border-radius: $border-radius;
+        margin-bottom: 1rem;
+    }
+}
