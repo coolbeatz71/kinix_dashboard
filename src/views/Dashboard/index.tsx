@@ -1,27 +1,35 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, Fragment, useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@redux/store';
 import getOverviewAction from '@redux/overview/getOverview';
-import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import GeneralOverview from '@components/dashboard/GeneralOverview';
+import UserOverview from '@components/dashboard/UserOverview';
+import ServerError from '@components/common/ServerError';
 
 const Dashboard: FC = () => {
     const dispatch = useAppDispatch();
-    const { error, loading, data } = useSelector(({ overview: { get } }: IRootState) => get);
+    const { loading, data, error } = useSelector(({ overview: { get } }: IRootState) => get);
+
+    const loadOverview = useCallback(() => {
+        dispatch(getOverviewAction());
+    }, [dispatch]);
 
     useEffect(() => {
         loadOverview();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const loadOverview = (): void => {
-        dispatch(getOverviewAction());
-    };
+    }, [loadOverview]);
 
     return (
-        <div>
-            <GeneralOverview loading={loading} error={error} overview={data?.general} reload={loadOverview} />
-        </div>
+        <Fragment>
+            {error ? (
+                <ServerError onRefresh={() => loadOverview()} />
+            ) : (
+                <Fragment>
+                    <GeneralOverview loading={loading} overview={data?.general} />
+                    <UserOverview loading={loading} overview={data?.users} />
+                </Fragment>
+            )}
+        </Fragment>
     );
 };
 

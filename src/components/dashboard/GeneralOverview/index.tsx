@@ -1,25 +1,19 @@
 import React, { FC } from 'react';
 import { Col, Row } from 'antd';
-
-import ErrorAlert from '@components/common/ErrorAlert';
-import { IUnknownObject } from '@interfaces/app';
 import { IGeneralOverview } from '@interfaces/overview';
-import OverviewCard from '../Card';
+import OverviewCard from '../OverviewCard';
 import { HiUsers } from 'react-icons/hi';
 import { RiArticleLine } from 'react-icons/ri';
 import { VideoCameraFilled, GlobalOutlined } from '@ant-design/icons';
-
-import styles from './index.module.scss';
 import GeneralOverviewSkeleton from '@components/skeleton/GeneralOverview';
 
+import styles from './index.module.scss';
 export interface IGeneralOverviewProps {
     loading: boolean;
     overview: IGeneralOverview;
-    reload: () => void;
-    error: Error | IUnknownObject | null;
 }
 
-const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, error, overview, reload }) => {
+const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, overview }) => {
     const data = [
         {
             title: 'utilisateurs',
@@ -74,31 +68,26 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, error, overview, 
             ],
         },
     ];
+
     return (
         <Row align="middle" justify="space-between" className={styles.general} gutter={24}>
-            {loading ? (
-                Array.from(Array(4).keys()).map((i) => (
-                    <Col xs={24} sm={24} md={12} lg={12} xl={6} key={i}>
-                        <GeneralOverviewSkeleton />
-                    </Col>
-                ))
-            ) : error ? (
-                <Col span={24}>
-                    <ErrorAlert error={error} showIcon closable banner onClose={reload} />
-                </Col>
-            ) : (
-                data.map((item) => (
-                    <Col xs={24} sm={24} md={12} lg={12} xl={6} key={item.title}>
-                        <OverviewCard
-                            icon={item.icon}
-                            title={item.title}
-                            total={item.total}
-                            actions={item.actions}
-                            className={styles.general__count}
-                        />
-                    </Col>
-                ))
-            )}
+            {loading
+                ? Array.from(Array(4).keys()).map((i) => (
+                      <Col xs={24} sm={24} md={12} lg={12} xl={6} key={i}>
+                          <GeneralOverviewSkeleton />
+                      </Col>
+                  ))
+                : data.map((item) => (
+                      <Col xs={24} sm={24} md={12} lg={12} xl={6} key={item.title}>
+                          <OverviewCard
+                              icon={item.icon}
+                              title={item.title}
+                              total={item.total}
+                              actions={item.actions}
+                              className={styles.general__count}
+                          />
+                      </Col>
+                  ))}
         </Row>
     );
 };

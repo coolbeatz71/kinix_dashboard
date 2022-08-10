@@ -1,0 +1,24 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.users {
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+
+    [class~='ant-card-body'] {
+        padding: 0;
+
+        [class~='ant-skeleton'] {
+            height: 250px;
+
+            [class~='ant-skeleton-button'] {
+                height: 100%;
+            }
+        }
+    }
+
+    &__container {
+        background: $gray;
+        border-radius: $border-radius;
+    }
+}
