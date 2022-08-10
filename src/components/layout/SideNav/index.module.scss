@@ -68,6 +68,7 @@
     }
 
     [class~='ant-layout-sider-children'] {
+        background: $primary !important;
         position: fixed;
         z-index: 98;
 

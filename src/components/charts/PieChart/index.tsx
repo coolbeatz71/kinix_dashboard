@@ -2,6 +2,7 @@ import React, { ReactElement, FC } from 'react';
 import { PieChart, Pie, Legend, Cell } from 'recharts';
 import { IUnknownObject } from '@interfaces/app';
 import { LINK } from '@constants/colors';
+import { IPieChartDataItem } from '@interfaces/charts';
 
 const RADIAN = Math.PI / 180;
 
@@ -16,17 +17,10 @@ const CustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }
         </text>
     );
 };
-
-export interface IDataItem {
-    name: string;
-    value: number;
-    color: string;
-}
-
 export interface IAppPieChartProps {
-    data: IDataItem[];
     width?: number;
     height?: number;
+    data: IPieChartDataItem[];
 }
 
 const AppPieChart: FC<IAppPieChartProps> = ({ data, width = 200, height = 300 }) => {

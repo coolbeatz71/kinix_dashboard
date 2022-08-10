@@ -3,17 +3,13 @@ import numeral from 'numeral';
 import { IUnknownObject } from '@interfaces/app';
 import { PieChart, Pie, Sector, ResponsiveContainer, Cell, Legend } from 'recharts';
 import { LINK } from '@constants/colors';
+import { IPieChartDataItem } from '@interfaces/charts';
 
-export interface IDataItem {
-    name: string;
-    value: number;
-    color: string;
-}
-
+import styles from './index.module.scss';
 export interface IShapePieChartProps {
-    data: IDataItem[];
     width?: number;
     height?: number;
+    data: IPieChartDataItem[];
 }
 
 const renderActiveShape = ({
@@ -68,17 +64,17 @@ const renderActiveShape = ({
             />
             <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
             <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-            <text x={textX} y={ey} textAnchor={textAnchor} fill="#333" strokeWidth="2">{`Total: ${numeral(value).format(
-                '0.[00]a',
-            )}`}</text>
+            <text x={textX} y={ey} textAnchor={textAnchor} fill="#333" style={{ fontWeight: 600 }}>{`Total: ${numeral(
+                value,
+            ).format('0.[00]a')}`}</text>
             <text x={textX} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-                {`(Pourcentage: ${(percent * 100).toFixed(2)}%)`}
+                {`${(percent * 100).toFixed(2)}%`}
             </text>
         </g>
     );
 };
 
-const ShapePieChart: FC<IShapePieChartProps> = ({ data, width = 400, height = 400 }) => {
+const ShapePieChart: FC<IShapePieChartProps> = ({ data, width = '100%', height = 250 }) => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const onMouseEnter = (_: React.MouseEvent<Element, MouseEvent>, i: number): void => {
@@ -86,16 +82,16 @@ const ShapePieChart: FC<IShapePieChartProps> = ({ data, width = 400, height = 40
     };
 
     return (
-        <ResponsiveContainer width="100%" height="100%">
-            <PieChart width={width} height={height}>
+        <ResponsiveContainer width={width} height={height} className={styles.shapePie}>
+            <PieChart>
                 <Pie
                     cx="50%"
                     cy="50%"
                     data={data}
                     fill={LINK}
                     dataKey="value"
-                    innerRadius={60}
-                    outerRadius={80}
+                    innerRadius={70}
+                    outerRadius={90}
                     activeIndex={activeIndex}
                     onMouseEnter={onMouseEnter}
                     activeShape={renderActiveShape}
@@ -104,7 +100,7 @@ const ShapePieChart: FC<IShapePieChartProps> = ({ data, width = 400, height = 40
                         <Cell key={`cell-${dt.name}`} fill={dt.color} />
                     ))}
                 </Pie>
-                <Legend align="center" iconType="circle" />
+                <Legend align="center" layout="centric" iconType="square" />
             </PieChart>
         </ResponsiveContainer>
     );

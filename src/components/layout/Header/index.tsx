@@ -13,12 +13,13 @@ const { Header: AntHeader } = Layout;
 const { useBreakpoint } = Grid;
 
 export interface IHeaderProps {
+    scrolled: string;
     isSideNavExpanded: boolean;
     currentUser: ICurrentAdmin;
     setIsSideNavExpanded: (val: boolean) => void;
 }
 
-const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, currentUser }) => {
+const Header: FC<IHeaderProps> = ({ scrolled, isSideNavExpanded, setIsSideNavExpanded, currentUser }) => {
     const { lg } = useBreakpoint();
     const [openDropDown, setOpenDropdown] = useState(false);
 
@@ -31,7 +32,12 @@ const Header: FC<IHeaderProps> = ({ isSideNavExpanded, setIsSideNavExpanded, cur
     };
 
     return (
-        <AntHeader className={styles.header} style={headerStyles} data-sidenav-close={isSideNavExpanded}>
+        <AntHeader
+            style={headerStyles}
+            data-scroll={scrolled}
+            className={styles.header}
+            data-sidenav-close={isSideNavExpanded}
+        >
             <Row align="middle" className={styles.header__row} justify="space-between">
                 <Col xs={12} sm={12} lg={1} className="p-0">
                     <Button

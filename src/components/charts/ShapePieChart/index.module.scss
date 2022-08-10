@@ -1,0 +1,17 @@
+.shapePie {
+    [class~='recharts-wrapper'] {
+        & > svg {
+            padding: 1rem;
+            cursor: pointer;
+        }
+    }
+
+    [class~='recharts-legend-wrapper'] {
+        padding-left: 1rem;
+
+        [class~='recharts-legend-item-text'] {
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+    }
+}

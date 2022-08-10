@@ -1,4 +1,4 @@
-import React, { FC, Fragment, ReactNode, useState } from 'react';
+import React, { FC, Fragment, ReactNode, useCallback, useState, useEffect } from 'react';
 import { upperFirst } from 'lodash';
 import { Layout } from 'antd';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -26,10 +26,21 @@ const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
     const contentStyles: IUnknownObject = {
         position: 'absolute',
         left: sideNavWidth,
-        top: 0,
-        bottom: 0,
         width: `calc(100% - ${sideNavWidth}px)`,
     };
+
+    const [scrolled, setScrolled] = useState<string>('');
+
+    const scrollHandler = useCallback(() => {
+        setScrolled(window.pageYOffset > 80 ? 'scrolled' : '');
+    }, []);
+
+    useEffect(() => {
+        window.addEventListener('scroll', scrollHandler, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', scrollHandler);
+        };
+    }, [scrollHandler]);
 
     return (
         <HelmetProvider>
@@ -52,6 +63,7 @@ const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
                         />
                         <div className={styles.layout__main}>
                             <Header
+                                scrolled={scrolled}
                                 currentUser={currentUser}
                                 isSideNavExpanded={isSideNavExpanded}
                                 setIsSideNavExpanded={setIsSideNavExpanded}
