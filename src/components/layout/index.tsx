@@ -26,6 +26,8 @@ const AppLayout: FC<IAppLayoutProps> = ({ title, currentUser, children }) => {
     const contentStyles: IUnknownObject = {
         position: 'absolute',
         left: sideNavWidth,
+        top: 0,
+        bottom: 0,
         width: `calc(100% - ${sideNavWidth}px)`,
     };
 

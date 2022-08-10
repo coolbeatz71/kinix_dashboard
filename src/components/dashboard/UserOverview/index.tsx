@@ -1,23 +1,20 @@
 import React, { FC } from 'react';
 import { BellOutlined, TeamOutlined, UserSwitchOutlined, WifiOutlined } from '@ant-design/icons';
+import { upperFirst } from 'lodash';
 import { Card, Col, Divider, Row, Typography } from 'antd';
-import { IUnknownObject } from '@interfaces/app';
 import { IUserOverview } from '@interfaces/overview';
 import { ERROR, FACEBOOK, GOOGLE, GRAY, PRIMARY, SUCCESS, WARNING, YELLOW } from '@constants/colors';
 
 import styles from './index.module.scss';
-import { upperFirst } from 'lodash';
 
 const { Title, Text } = Typography;
 
 export interface IUserOverviewProps {
     loading: boolean;
-    reload: () => void;
     overview: IUserOverview;
-    error: Error | IUnknownObject | null;
 }
 
-const UserOverview: FC<IUserOverviewProps> = ({ loading, error, overview, reload }) => {
+const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
     const groups = [
         {
             title: 'activité',

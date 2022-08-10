@@ -1,0 +1,11 @@
+.serverError {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    [class~='ant-result-icon'] {
+        margin: 0;
+    }
+}
