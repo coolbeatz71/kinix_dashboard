@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { Card, Col, Row, Skeleton } from 'antd';
 import { CheckCircleOutlined, CommentOutlined, HeartOutlined } from '@ant-design/icons';
 import { IArticleOverview } from '@interfaces/overview';
@@ -6,8 +6,10 @@ import { ERROR, GRAY, LINK, SUCCESS } from '@constants/colors';
 import OverviewGroupTitle from '@components/common/OverviewGroupTitle';
 import ShapePieChart from '@components/charts/ShapePieChart';
 import AppBarChart from '@components/charts/BarChart';
+import OverviewTitle from '@components/common/OverviewTitle';
 
 import styles from './index.module.scss';
+import { RiArticleLine } from 'react-icons/ri';
 
 export interface IArticleOverviewProps {
     loading: boolean;
@@ -78,7 +80,8 @@ const ArticleOverview: FC<IArticleOverviewProps> = ({ loading, overview }) => {
     ];
 
     return (
-        <Fragment>
+        <div className="mb-4 d-inline-block w-100">
+            <OverviewTitle color={SUCCESS} title="articles" icon={<RiArticleLine />} />
             <Row align="middle" justify="space-between" gutter={32}>
                 {groups.map((group) => (
                     <Col xs={24} sm={24} md={12} key={group.title}>
@@ -111,7 +114,7 @@ const ArticleOverview: FC<IArticleOverviewProps> = ({ loading, overview }) => {
                     </Col>
                 </Row>
             ))}
-        </Fragment>
+        </div>
     );
 };
 
