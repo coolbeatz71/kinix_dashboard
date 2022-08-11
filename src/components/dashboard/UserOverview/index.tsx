@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import { BellOutlined, TeamOutlined, UserSwitchOutlined, WifiOutlined } from '@ant-design/icons';
+import { HiUsers } from 'react-icons/hi';
 import { Card, Col, Row, Skeleton } from 'antd';
 import { IUserOverview } from '@interfaces/overview';
 import { FACEBOOK, GOOGLE, GRAY, LINK, PRIMARY, SUCCESS, WARNING, YELLOW } from '@constants/colors';
-import { EnumChartType } from '@interfaces/charts';
 import ShapePieChart from '@components/charts/ShapePieChart';
 import OverviewGroupTitle from '@components/common/OverviewGroupTitle';
+import OverviewTitle from '@components/common/OverviewTitle';
 
 import styles from './index.module.scss';
 
@@ -19,7 +20,6 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         {
             title: 'activité',
             icon: <WifiOutlined />,
-            type: EnumChartType.ACTIVITY,
             subTitle: `Activité d'utilisateurs selon qu'ils sont actuellement connectés ou hors ligne.`,
             data: [
                 {
@@ -37,7 +37,6 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         {
             title: 'origine compte',
             icon: <UserSwitchOutlined />,
-            type: EnumChartType.PROVIDER,
             subTitle: `Aperçu des utilisateurs en fonction de l'origine (type) des détails de création de compte.`,
             data: [
                 {
@@ -60,7 +59,6 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         {
             icon: <TeamOutlined />,
             title: 'type de compte',
-            type: EnumChartType.ROLE,
             subTitle: `Aperçu des utilisateurs en fonction du type de compte (rôle au sein de la plateforme).`,
             data: [
                 {
@@ -93,7 +91,6 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         {
             title: 'notification',
             icon: <BellOutlined />,
-            type: EnumChartType.NOTIFICATION,
             subTitle: `Aperçu des utilisateurs en fonction de l'activation ou désactivation des notifications par e-mail.`,
             data: [
                 {
@@ -110,22 +107,25 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         },
     ];
     return (
-        <Card bordered hoverable className={styles.users}>
-            <Row align="middle" justify="space-between" gutter={32}>
-                {groups.map((group) => (
-                    <Col xs={24} sm={24} md={12} key={group.title} className="my-4">
-                        <OverviewGroupTitle title={group.title} subTitle={group.subTitle} icon={group.icon} />
-                        <Card bordered className={styles.users__container}>
-                            {loading ? (
-                                <Skeleton.Button active size="large" block />
-                            ) : (
-                                <ShapePieChart data={group.data} />
-                            )}
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
-        </Card>
+        <div className="mb-4 d-inline-block w-100">
+            <OverviewTitle color={LINK} title="utilisateurs" icon={<HiUsers />} />
+            <Card bordered hoverable className={styles.users}>
+                <Row align="middle" justify="space-between" gutter={32}>
+                    {groups.map((group) => (
+                        <Col xs={24} sm={24} md={12} key={group.title} className="my-4">
+                            <OverviewGroupTitle title={group.title} subTitle={group.subTitle} icon={group.icon} />
+                            <Card bordered className={styles.users__container}>
+                                {loading ? (
+                                    <Skeleton.Button active size="large" block />
+                                ) : (
+                                    <ShapePieChart data={group.data} />
+                                )}
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+            </Card>
+        </div>
     );
 };
 

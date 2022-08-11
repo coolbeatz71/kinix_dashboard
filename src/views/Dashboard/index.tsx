@@ -6,6 +6,7 @@ import { IRootState } from '@redux/reducers';
 import GeneralOverview from '@components/dashboard/GeneralOverview';
 import UserOverview from '@components/dashboard/UserOverview';
 import ServerError from '@components/common/ServerError';
+import ArticleOverview from '@components/dashboard/ArticleOverview';
 
 const Dashboard: FC = () => {
     const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const Dashboard: FC = () => {
                 <Fragment>
                     <GeneralOverview loading={loading} overview={data?.general} />
                     <UserOverview loading={loading} overview={data?.users} />
+                    <ArticleOverview loading={loading} overview={data?.articles} />
                 </Fragment>
             )}
         </Fragment>
