@@ -57,7 +57,7 @@ const ArticleOverview: FC<IArticleOverviewProps> = ({ loading, overview }) => {
             color: ERROR,
             title: 'Top 5: Likes',
             icon: <HeartOutlined />,
-            subTitle: `Aperçu des articles basés sur leur accessibilité (actif/inactif)`,
+            subTitle: `Aperçu du top 5 des articles ayant le plus de likes`,
             data: overview?.top.likes.map((dt, idx) => ({
                 desc: dt.title,
                 name: `${idx + 1}`,
@@ -68,7 +68,7 @@ const ArticleOverview: FC<IArticleOverviewProps> = ({ loading, overview }) => {
             color: LINK,
             icon: <CommentOutlined />,
             title: 'Top 5: Commentaires',
-            subTitle: `Aperçu du top 5 des articles les plus commentés`,
+            subTitle: `Aperçu du top 5 des articles ayant le plus de commentaires`,
             data: overview?.top.comments.map((dt, idx) => ({
                 desc: dt.title,
                 name: `${idx + 1}`,

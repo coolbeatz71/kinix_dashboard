@@ -21,7 +21,9 @@ const OverviewGroupTitle: FC<IOverviewGroupTitleProps> = ({ title, icon, subTitl
             </Col>
             <Divider />
             <Col span={24}>
-                <Text ellipsis>{subTitle}</Text>
+                <Text ellipsis data-desc>
+                    {subTitle}
+                </Text>
             </Col>
         </Row>
     );
