@@ -8,6 +8,7 @@ export interface IBarChartDataItem {
     uv: number;
     pv?: number;
     name: string;
+    desc?: string;
 }
 
 export enum EnumChartType {

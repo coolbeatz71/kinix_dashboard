@@ -3,7 +3,6 @@ import { BellOutlined, TeamOutlined, UserSwitchOutlined, WifiOutlined } from '@a
 import { Card, Col, Row, Skeleton } from 'antd';
 import { IUserOverview } from '@interfaces/overview';
 import { FACEBOOK, GOOGLE, GRAY, LINK, PRIMARY, SUCCESS, WARNING, YELLOW } from '@constants/colors';
-import { EnumChartType } from '@interfaces/charts';
 import ShapePieChart from '@components/charts/ShapePieChart';
 import OverviewGroupTitle from '@components/common/OverviewGroupTitle';
 
@@ -19,7 +18,6 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         {
             title: 'activité',
             icon: <WifiOutlined />,
-            type: EnumChartType.ACTIVITY,
             subTitle: `Activité d'utilisateurs selon qu'ils sont actuellement connectés ou hors ligne.`,
             data: [
                 {
@@ -37,7 +35,6 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         {
             title: 'origine compte',
             icon: <UserSwitchOutlined />,
-            type: EnumChartType.PROVIDER,
             subTitle: `Aperçu des utilisateurs en fonction de l'origine (type) des détails de création de compte.`,
             data: [
                 {
@@ -60,7 +57,6 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         {
             icon: <TeamOutlined />,
             title: 'type de compte',
-            type: EnumChartType.ROLE,
             subTitle: `Aperçu des utilisateurs en fonction du type de compte (rôle au sein de la plateforme).`,
             data: [
                 {
@@ -93,7 +89,6 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
         {
             title: 'notification',
             icon: <BellOutlined />,
-            type: EnumChartType.NOTIFICATION,
             subTitle: `Aperçu des utilisateurs en fonction de l'activation ou désactivation des notifications par e-mail.`,
             data: [
                 {

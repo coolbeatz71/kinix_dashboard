@@ -1,35 +1,37 @@
-interface Users {
+import { IUnknownObject } from './app';
+
+interface IUsers {
     all: number;
     verified: number;
     unverified: number;
 }
 
-interface Articles {
+interface IArticles {
     all: number;
     liked: number;
     commented: number;
 }
 
-interface Videos {
+interface IVideos {
     all: number;
     rated: number;
     shared: number;
 }
 
-interface Promotions {
+interface IPromotions {
     all: number;
     active: number;
     inactive: number;
 }
 
 export interface IGeneralOverview {
-    users: Users;
-    articles: Articles;
-    videos: Videos;
-    promotions: Promotions;
+    users: IUsers;
+    articles: IArticles;
+    videos: IVideos;
+    promotions: IPromotions;
 }
 
-interface UserRole {
+interface IUserRole {
     ads: number;
     admin: number;
     video: number;
@@ -37,28 +39,45 @@ interface UserRole {
     superAdmin: number;
 }
 
-interface UserActivity {
+interface IActivity {
     active: number;
     inactive: number;
 }
-interface UserProvider {
+interface IUserProvider {
     local: number;
     google: number;
     facebook: number;
 }
 
-type UserNotification = UserActivity;
+interface IArticleLikes {
+    liked: number;
+    nonLiked: number;
+}
+
+interface IArticleTop {
+    likes: IUnknownObject[];
+    comments: IUnknownObject[];
+}
+
+type IUserNotification = IActivity;
 
 export interface IUserOverview {
-    role: UserRole;
-    activity: UserActivity;
-    provider: UserProvider;
-    notification: UserNotification;
+    role: IUserRole;
+    activity: IActivity;
+    provider: IUserProvider;
+    notification: IUserNotification;
+}
+
+export interface IArticleOverview {
+    top: IArticleTop;
+    activity: IActivity;
+    likes: IArticleLikes;
 }
 
 interface IOverview {
     users: IUserOverview;
     general: IGeneralOverview;
+    articles: IArticleOverview;
 }
 
 export default IOverview;

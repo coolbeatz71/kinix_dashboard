@@ -1,7 +1,9 @@
-import { FC } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import React, { FC, ReactElement } from 'react';
+import { truncate } from 'lodash';
 import { GRAY, LINK } from '@constants/colors';
 import { IBarChartDataItem } from '@interfaces/charts';
+import { BarChart, CartesianGrid, XAxis, YAxis, Bar, Tooltip, ResponsiveContainer } from 'recharts';
+import { IUnknownObject } from '@interfaces/app';
 
 import styles from './index.module.scss';
 export interface IAppBarChartProps {
@@ -16,29 +18,44 @@ export interface IAppBarChartProps {
     data: IBarChartDataItem[];
 }
 
+const CustomTooltip = (params: IUnknownObject): ReactElement | null => {
+    const { active, payload } = params;
+
+    if (active && payload && payload.length) {
+        const value = payload[0].value;
+        const desc = truncate(payload[0].payload.desc, { length: 50 });
+        return (
+            <div data-custom-tooltip>
+                <p data-label>Total: {value}</p>
+                <p data-desc>{desc}</p>
+            </div>
+        );
+    }
+
+    return null;
+};
+
 const AppBarChart: FC<IAppBarChartProps> = ({
     data,
-    width = 500,
-    height = 280,
-    uvLabel = 'en-ligne',
-    pvLabel = 'hors-ligne',
+    height = 250,
+    uvLabel = '',
+    pvLabel = '',
     single = false,
     noYAxis = false,
     pvColor = `${GRAY}`,
     uvColor = `${LINK}`,
 }) => {
     return (
-        <BarChart width={width} height={height} data={data} className={styles.chart}>
-            {!single && [
-                <CartesianGrid key="1" strokeDasharray="3 3" />,
-                <XAxis key="2" dataKey="name" />,
-                !noYAxis && <YAxis key="3" />,
-                <Tooltip key="4" />,
-                <Legend key="5" align="center" />,
-                <Bar key="6" dataKey="pv" legendType="square" fill={pvColor} name={pvLabel} />,
-            ]}
-            <Bar dataKey="uv" legendType="square" fill={uvColor} name={uvLabel} />
-        </BarChart>
+        <ResponsiveContainer width="100%" height={height}>
+            <BarChart data={data} className={styles.chart}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                {!noYAxis && <YAxis />}
+                <Tooltip content={<CustomTooltip />} />
+                {!single && [<Bar key="5" dataKey="pv" legendType="square" fill={pvColor} name={pvLabel} />]}
+                <Bar dataKey="uv" legendType="square" fill={uvColor} name={uvLabel} />
+            </BarChart>
+        </ResponsiveContainer>
     );
 };
 
