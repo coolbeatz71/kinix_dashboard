@@ -59,6 +59,19 @@ interface IArticleTop {
     comments: IUnknownObject[];
 }
 
+interface IVideoTop {
+    shares: IUnknownObject[];
+    rates: IUnknownObject[];
+}
+
+interface IVideoCategory {
+    musicVideos: number;
+    interviews: number;
+    lefocus: number;
+    flexBeatz: number;
+    podcasts: number;
+}
+
 type IUserNotification = IActivity;
 
 export interface IUserOverview {
@@ -74,10 +87,17 @@ export interface IArticleOverview {
     likes: IArticleLikes;
 }
 
+export interface IVideoOverview {
+    top: IVideoTop;
+    activity: IActivity;
+    category: IVideoCategory;
+}
+
 interface IOverview {
     users: IUserOverview;
     general: IGeneralOverview;
     articles: IArticleOverview;
+    videos: IVideoOverview;
 }
 
 export default IOverview;

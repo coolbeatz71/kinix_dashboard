@@ -2,7 +2,6 @@
 @import 'styles/dimensions.scss';
 
 .overviewTitle {
-    display: flex;
     cursor: pointer;
     padding: 1rem;
     margin-top: 2rem;
@@ -23,5 +22,21 @@
         color: $white;
         margin-bottom: 0;
         margin-left: 1rem;
+    }
+
+    a {
+        text-decoration: none;
+        [class~='ant-btn'] {
+            color: $light;
+            border-color: $white;
+
+            &:hover,
+            &:visited,
+            &:focus,
+            &:active {
+                color: $white;
+                border-color: $light;
+            }
+        }
     }
 }

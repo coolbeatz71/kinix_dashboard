@@ -7,6 +7,7 @@ import GeneralOverview from '@components/dashboard/GeneralOverview';
 import UserOverview from '@components/dashboard/UserOverview';
 import ServerError from '@components/common/ServerError';
 import ArticleOverview from '@components/dashboard/ArticleOverview';
+import VideoOverview from '@components/dashboard/VideoOverview';
 
 const Dashboard: FC = () => {
     const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ const Dashboard: FC = () => {
                     <GeneralOverview loading={loading} overview={data?.general} />
                     <UserOverview loading={loading} overview={data?.users} />
                     <ArticleOverview loading={loading} overview={data?.articles} />
+                    <VideoOverview loading={loading} overview={data?.videos} />
                 </Fragment>
             )}
         </Fragment>
