@@ -74,7 +74,7 @@ const renderActiveShape = ({
     );
 };
 
-const ShapePieChart: FC<IShapePieChartProps> = ({ data, width = '100%', height = 250 }) => {
+const ShapePieChart: FC<IShapePieChartProps> = ({ data, width = '100%', height = 350 }) => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const onMouseEnter = (_: React.MouseEvent<Element, MouseEvent>, i: number): void => {
@@ -90,8 +90,8 @@ const ShapePieChart: FC<IShapePieChartProps> = ({ data, width = '100%', height =
                     data={data}
                     fill={LINK}
                     dataKey="value"
-                    innerRadius={70}
-                    outerRadius={90}
+                    innerRadius={80}
+                    outerRadius={120}
                     activeIndex={activeIndex}
                     onMouseEnter={onMouseEnter}
                     activeShape={renderActiveShape}

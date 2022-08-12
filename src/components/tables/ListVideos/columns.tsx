@@ -75,6 +75,7 @@ const tableColumns = (
         key: 'rate',
         dataIndex: 'rate',
         width: 120,
+        sorter: (a: IVideo, b: IVideo) => Number(a.avgRate) - Number(b.avgRate),
         render: (_, video: IVideo) => (
             <StarRatingComponent editing={false} name="video-rate" starCount={5} value={Number(video.avgRate)} />
         ),

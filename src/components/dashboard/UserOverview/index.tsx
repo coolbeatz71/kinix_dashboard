@@ -3,10 +3,11 @@ import { BellOutlined, TeamOutlined, UserSwitchOutlined, WifiOutlined } from '@a
 import { HiUsers } from 'react-icons/hi';
 import { Card, Col, Row, Skeleton } from 'antd';
 import { IUserOverview } from '@interfaces/overview';
-import { FACEBOOK, GOOGLE, GRAY, LINK, PRIMARY, SUCCESS, WARNING, YELLOW } from '@constants/colors';
+import { FACEBOOK, GOOGLE, GRAY, LINK, PRIMARY, WARNING, YELLOW } from '@constants/colors';
 import ShapePieChart from '@components/charts/ShapePieChart';
 import OverviewGroupTitle from '@components/common/OverviewGroupTitle';
 import OverviewTitle from '@components/common/OverviewTitle';
+import { USER_PATH } from '@constants/paths';
 
 import styles from './index.module.scss';
 
@@ -23,7 +24,7 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
             subTitle: `Activité d'utilisateurs selon qu'ils sont actuellement connectés ou hors ligne.`,
             data: [
                 {
-                    color: SUCCESS,
+                    color: LINK,
                     name: 'En-ligne',
                     value: overview?.activity.active,
                 },
@@ -94,7 +95,7 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
             subTitle: `Aperçu des utilisateurs en fonction de l'activation ou désactivation des notifications par e-mail.`,
             data: [
                 {
-                    color: SUCCESS,
+                    color: LINK,
                     name: 'Activées',
                     value: overview?.notification.active,
                 },
@@ -108,7 +109,7 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
     ];
     return (
         <div className="mb-4 d-inline-block w-100">
-            <OverviewTitle color={LINK} title="utilisateurs" icon={<HiUsers />} />
+            <OverviewTitle color={LINK} title="utilisateurs" icon={<HiUsers />} linkHasMore={USER_PATH} />
             <Card bordered hoverable className={styles.users}>
                 <Row align="middle" justify="space-between" gutter={32}>
                     {groups.map((group) => (

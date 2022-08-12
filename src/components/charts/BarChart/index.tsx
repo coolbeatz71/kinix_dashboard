@@ -37,7 +37,7 @@ const CustomTooltip = (params: IUnknownObject): ReactElement | null => {
 
 const AppBarChart: FC<IAppBarChartProps> = ({
     data,
-    height = 250,
+    height = 350,
     uvLabel = '',
     pvLabel = '',
     single = false,
