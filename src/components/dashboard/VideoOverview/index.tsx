@@ -27,7 +27,7 @@ const VideoOverview: FC<IVideoOverviewProps> = ({ loading, overview }) => {
         {
             title: 'Accessibilité',
             icon: <CheckCircleOutlined />,
-            subTitle: `Aperçu des videos basés sur leur accessibilité (actif/inactif)`,
+            subTitle: `Aperçu des videos basés sur leur accessibilité (actif/inactif).`,
             data: [
                 {
                     color: WARNING,
@@ -44,7 +44,7 @@ const VideoOverview: FC<IVideoOverviewProps> = ({ loading, overview }) => {
         {
             title: 'Categorie',
             icon: <AppstoreOutlined />,
-            subTitle: `Aperçu du total des videos par categorie`,
+            subTitle: `Aperçu du total des videos par categorie.`,
             data: [
                 {
                     color: ERROR,
@@ -80,7 +80,7 @@ const VideoOverview: FC<IVideoOverviewProps> = ({ loading, overview }) => {
             color: PRIMARY,
             title: 'Top 5: Partages',
             icon: <ShareAltOutlined />,
-            subTitle: `Aperçu du top 5 des videos ayant le plus de partages`,
+            subTitle: `Aperçu du top 5 des videos ayant le plus de partages.`,
             data: overview?.top.shares.map((dt, idx) => ({
                 desc: dt.title,
                 name: `${idx + 1}`,
@@ -91,7 +91,7 @@ const VideoOverview: FC<IVideoOverviewProps> = ({ loading, overview }) => {
             color: YELLOW,
             icon: <StarOutlined />,
             title: 'Top 5: Avis',
-            subTitle: `Aperçu du top 5 des videos ayant le plus d'etoiles d'avis`,
+            subTitle: `Aperçu du top 5 des videos ayant le plus d'etoiles d'avis.`,
             data: overview?.top.rates.map((dt, idx) => ({
                 desc: dt.title,
                 name: `${idx + 1}`,
