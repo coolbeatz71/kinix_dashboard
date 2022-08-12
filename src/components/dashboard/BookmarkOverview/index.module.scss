@@ -1,0 +1,24 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.bookmarks {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    [class~='ant-card-body'] {
+        padding: 0;
+
+        [class~='ant-skeleton'] {
+            height: 350px;
+
+            [class~='ant-skeleton-button'] {
+                height: 100%;
+            }
+        }
+    }
+
+    &__container {
+        background: $gray;
+        border-radius: $border-radius;
+    }
+}

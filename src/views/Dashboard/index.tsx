@@ -8,6 +8,8 @@ import UserOverview from '@components/dashboard/UserOverview';
 import ServerError from '@components/common/ServerError';
 import ArticleOverview from '@components/dashboard/ArticleOverview';
 import VideoOverview from '@components/dashboard/VideoOverview';
+import PlaylistOverview from '@components/dashboard/PlaylistOverview';
+import BookmarkOverview from '@components/dashboard/BookmarkOverview';
 
 const Dashboard: FC = () => {
     const dispatch = useAppDispatch();
@@ -31,6 +33,8 @@ const Dashboard: FC = () => {
                     <UserOverview loading={loading} overview={data?.users} />
                     <ArticleOverview loading={loading} overview={data?.articles} />
                     <VideoOverview loading={loading} overview={data?.videos} />
+                    <BookmarkOverview loading={loading} overview={data?.bookmarks} />
+                    <PlaylistOverview loading={loading} overview={data?.playlists} />
                 </Fragment>
             )}
         </Fragment>

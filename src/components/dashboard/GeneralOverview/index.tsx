@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Col, Row } from 'antd';
 import { IGeneralOverview } from '@interfaces/overview';
-import OverviewCard from '../OverviewCard';
+import OverviewCard from '../../common/OverviewCard';
 import { HiUsers } from 'react-icons/hi';
 import { RiArticleLine } from 'react-icons/ri';
 import { VideoCameraFilled, GlobalOutlined } from '@ant-design/icons';

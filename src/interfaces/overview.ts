@@ -93,11 +93,32 @@ export interface IVideoOverview {
     category: IVideoCategory;
 }
 
+export interface IBookmarkedArticle {
+    bookmarked: IUnknownObject[];
+}
+
+export interface IPlaylistedVideo {
+    playlisted: IUnknownObject[];
+}
+export interface IBookmarkOverview {
+    users: number;
+    articles: number;
+    top: IBookmarkedArticle;
+}
+
+export interface IPlaylistOverview {
+    users: number;
+    videos: number;
+    top: IPlaylistedVideo;
+}
+
 interface IOverview {
     users: IUserOverview;
+    videos: IVideoOverview;
     general: IGeneralOverview;
     articles: IArticleOverview;
-    videos: IVideoOverview;
+    playlists: IPlaylistOverview;
+    bookmarks: IBookmarkOverview;
 }
 
 export default IOverview;
