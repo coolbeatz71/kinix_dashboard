@@ -4,7 +4,7 @@ import { PieChartOutlined } from '@ant-design/icons';
 import { RiPlayList2Fill } from 'react-icons/ri';
 import { IPlaylistOverview } from '@interfaces/overview';
 import OverviewTitle from '@components/common/OverviewTitle';
-import { ERROR, SUCCESS, YELLOW } from '@constants/colors';
+import { LINK, WARNING } from '@constants/colors';
 import OverviewGroupTitle from '@components/common/OverviewGroupTitle';
 import ShapePieChart from '@components/charts/ShapePieChart';
 import AppBarChart from '@components/charts/BarChart';
@@ -23,12 +23,12 @@ const PlaylistOverview: FC<IPlaylistOverviewProps> = ({ loading, overview }) => 
         subTitle: "Aperçu du total d'utilisateurs et de videos dans les playlists.",
         data: [
             {
-                color: YELLOW,
+                color: LINK,
                 name: 'Utilisateurs',
                 value: overview?.users,
             },
             {
-                color: SUCCESS,
+                color: WARNING,
                 name: 'Videos',
                 value: overview?.videos,
             },
@@ -36,7 +36,7 @@ const PlaylistOverview: FC<IPlaylistOverviewProps> = ({ loading, overview }) => 
     };
 
     const top = {
-        color: ERROR,
+        color: WARNING,
         icon: <RiPlayList2Fill />,
         title: 'Top 5: de videos en playlists',
         subTitle: `Aperçu du top 5 des videos dans le plus de playlists.`,
@@ -49,7 +49,7 @@ const PlaylistOverview: FC<IPlaylistOverviewProps> = ({ loading, overview }) => 
 
     return (
         <div className="mb-4 d-inline-block w-100">
-            <OverviewTitle color={YELLOW} title="playlists" icon={<RiPlayList2Fill />} />
+            <OverviewTitle color={WARNING} title="playlists" icon={<RiPlayList2Fill />} />
             <Row align="middle" justify="space-between" gutter={32}>
                 <Col xs={24} sm={24} md={12} key={group.title}>
                     <Card bordered hoverable className={styles.playlists}>

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { IBookmarkOverview } from '@interfaces/overview';
 import OverviewTitle from '@components/common/OverviewTitle';
-import { ERROR, LINK, SUCCESS } from '@constants/colors';
+import { LINK, SUCCESS } from '@constants/colors';
 import { RiBookmark3Line } from 'react-icons/ri';
 import { PieChartOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Skeleton } from 'antd';
@@ -36,10 +36,10 @@ const BookmarkOverview: FC<IBookmarkOverviewProps> = ({ loading, overview }) => 
     };
 
     const top = {
-        color: ERROR,
+        color: SUCCESS,
         icon: <RiBookmark3Line />,
         title: "Top 5: d'articles en favoris",
-        subTitle: `Aperçu du top 5 des articles dans le plus de favori`,
+        subTitle: `Aperçu du top 5 des articles dans le plus de favoris.`,
         data: overview?.top.bookmarked.map((dt, idx) => ({
             desc: dt.title,
             name: `${idx + 1}`,
@@ -49,7 +49,7 @@ const BookmarkOverview: FC<IBookmarkOverviewProps> = ({ loading, overview }) => 
 
     return (
         <div className="mb-4 d-inline-block w-100">
-            <OverviewTitle color={ERROR} title="bookmarks" icon={<RiBookmark3Line />} />
+            <OverviewTitle color={SUCCESS} title="bookmarks" icon={<RiBookmark3Line />} />
             <Row align="middle" justify="space-between" gutter={32}>
                 <Col xs={24} sm={24} md={12} key={group.title}>
                     <Card bordered hoverable className={styles.bookmarks}>
