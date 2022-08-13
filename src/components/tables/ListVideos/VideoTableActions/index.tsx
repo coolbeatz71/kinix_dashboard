@@ -8,7 +8,7 @@ import { IVideo } from '@interfaces/api';
 import VideoModal from '@components/modal/VideoModal';
 import { EnumActionContext, EnumFormContext } from '@interfaces/app';
 import VideoPlayer from '@components/common/VideoPlayer';
-import EnumRole from '@interfaces/userRole';
+import EnumRole from '@interfaces/role';
 import VideoActionModal from '../ActionModal';
 
 import styles from './index.module.scss';

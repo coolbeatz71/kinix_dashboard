@@ -3,6 +3,7 @@ import getCurrentUserAction from './getCurrentUser';
 import { ActionWrapperFulfilled, ActionWrapperPending, ActionWrapperRejected } from 'constants/redux';
 import { userInitialState } from './types';
 import searchUsersAction from './searchUsers';
+import getClientsAction from './getClients';
 
 export const userSlice = createSlice({
     name: 'users',
@@ -19,7 +20,11 @@ export const userSlice = createSlice({
             // get all the users
             .addCase(searchUsersAction.pending, ActionWrapperPending)
             .addCase(searchUsersAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(searchUsersAction.rejected, ActionWrapperRejected);
+            .addCase(searchUsersAction.rejected, ActionWrapperRejected)
+            // get all the clients
+            .addCase(getClientsAction.pending, ActionWrapperPending)
+            .addCase(getClientsAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getClientsAction.rejected, ActionWrapperRejected);
     },
 });
 

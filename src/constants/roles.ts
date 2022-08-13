@@ -1,4 +1,4 @@
-import EnumRole from '@interfaces/userRole';
+import EnumRole from '@interfaces/role';
 
 export const isViewerClient = (role: EnumRole): boolean => role === EnumRole.VIEWER_CLIENT;
 export const isAdsClient = (role: EnumRole): boolean => role === EnumRole.ADS_CLIENT;

@@ -1,12 +1,12 @@
-import { ARTICLE_PATH } from '@constants/paths';
+import { USER_PATH } from '@constants/paths';
 import EnumRole from '@interfaces/role';
-import Articles from '.';
+import Users from '.';
 
 const route = [
     {
-        path: ARTICLE_PATH,
-        name: 'Articles',
-        component: Articles,
+        path: USER_PATH,
+        name: 'Utilisateurs',
+        component: Users,
         exact: true,
         extraProps: {
             isLoggedIn: true,

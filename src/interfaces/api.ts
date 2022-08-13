@@ -1,5 +1,5 @@
 import EnumProvider from './provider';
-import EnumRole from './userRole';
+import EnumRole from './role';
 
 export interface IUser {
     readonly id?: number;

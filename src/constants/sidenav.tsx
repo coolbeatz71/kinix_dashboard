@@ -16,7 +16,7 @@ import {
     PODCAST_PATH,
     STORY_PATH,
 } from './paths';
-import EnumRole from '@interfaces/userRole';
+import EnumRole from '@interfaces/role';
 
 export interface ISideNavSection {
     icon: ReactNode;

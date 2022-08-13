@@ -1,5 +1,5 @@
 import { DASHBOARD_PATH } from '@constants/paths';
-import EnumRole from '@interfaces/userRole';
+import EnumRole from '@interfaces/role';
 import Dashboard from '.';
 
 const route = [

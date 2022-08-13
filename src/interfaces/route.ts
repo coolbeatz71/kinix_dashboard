@@ -1,5 +1,5 @@
 import { IUnknownObject } from './app';
-import EnumRole from './userRole';
+import EnumRole from './role';
 
 export interface IRoute {
     path: string;
