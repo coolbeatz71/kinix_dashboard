@@ -7,6 +7,7 @@ import { IUnknownObject } from '@interfaces/app';
 import { IUser } from '@interfaces/api';
 import { clientColors, GRAY, LINK, providerColors } from '@constants/colors';
 import { CLIENTS_ROLE } from '@constants/app';
+import UserTableActions from './UserTableActions';
 
 const statusCol = {
     width: 120,
@@ -69,7 +70,7 @@ const roleCol = {
     ),
 };
 
-const actionCol = (_reload: () => void): IUnknownObject => ({
+const actionCol = (reload: () => void): IUnknownObject => ({
     title: '',
     width: 32,
     key: 'action',
@@ -77,7 +78,7 @@ const actionCol = (_reload: () => void): IUnknownObject => ({
     align: 'center',
     className: 'action',
     dataIndex: 'action',
-    // TODO:// implement user actions (block, unblock and delete users)
+    render: (...prp: IUser[]) => <UserTableActions user={prp[1]} reload={reload} />,
 });
 
 const tableColumns = (reload: () => void, onSelect?: (user: IUser) => void): ColumnType<IUser | IUnknownObject>[] => [
