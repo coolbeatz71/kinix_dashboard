@@ -6,7 +6,7 @@ import { FormOutlined, PlayCircleOutlined, SettingOutlined, VideoCameraOutlined 
 import { Link } from 'react-router-dom';
 import { IVideo } from '@interfaces/api';
 import VideoModal from '@components/modal/VideoModal';
-import { EnumActionContext, EnumFormContext } from '@interfaces/app';
+import { EnumArticleVideoActionContext, EnumFormContext } from '@interfaces/app';
 import VideoPlayer from '@components/common/VideoPlayer';
 import EnumRole from '@interfaces/role';
 import VideoActionModal from '../ActionModal';
@@ -80,13 +80,17 @@ const VideoTableActions: FC<IVideoTableActionsProps> = ({ video, reload }) => {
                                     reload={reload}
                                     video={video}
                                     closeMenu={() => setOpenMenu(false)}
-                                    context={video.active ? EnumActionContext.DISABLE : EnumActionContext.APPROVE}
+                                    context={
+                                        video.active
+                                            ? EnumArticleVideoActionContext.DISABLE
+                                            : EnumArticleVideoActionContext.APPROVE
+                                    }
                                 />
 
                                 <VideoActionModal
                                     reload={reload}
                                     video={video}
-                                    context={EnumActionContext.DELETE}
+                                    context={EnumArticleVideoActionContext.DELETE}
                                     closeMenu={() => setOpenMenu(false)}
                                 />
                             </Fragment>

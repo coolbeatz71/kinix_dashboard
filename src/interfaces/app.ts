@@ -8,9 +8,15 @@ export enum EnumFormContext {
     EDIT = 'EDIT',
 }
 
-export enum EnumActionContext {
+export enum EnumArticleVideoActionContext {
     APPROVE = 'APPROVE',
     DISABLE = 'DISABLE',
+    DELETE = 'DELETE',
+}
+
+export enum EnumUserActionContext {
+    UNBLOCK = 'UNBLOCK',
+    BLOCK = 'BLOCK',
     DELETE = 'DELETE',
 }
 

@@ -10,6 +10,7 @@ export interface IUser {
     provider?: EnumProvider;
     isLoggedIn?: boolean;
     verified?: boolean;
+    active?: boolean;
     image?: string | null;
     allowEmailNotification?: boolean;
     role?: EnumRole;

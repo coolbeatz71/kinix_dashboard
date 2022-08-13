@@ -1,26 +1,25 @@
 import React, { FC, useState, Fragment } from 'react';
-import { FormOutlined, ReadOutlined, SettingOutlined } from '@ant-design/icons';
+import { FormOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
-import { IArticle } from '@interfaces/api';
-import { Link } from 'react-router-dom';
+import { IUser } from '@interfaces/api';
 import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import EnumRole from '@interfaces/role';
-import ArticleActionModal from '../ActionModal';
-import { EnumActionContext, EnumFormContext } from '@interfaces/app';
-import ArticleModal from '@components/modal/ArticleModal';
-import { IArticleData } from '@interfaces/articles';
+import UserActionModal from '../ActionModal';
+import { EnumUserActionContext, EnumFormContext } from '@interfaces/app';
+import UserModal from '@components/modal/UserModal';
+import { IUserData } from '@interfaces/users';
 
 import styles from './index.module.scss';
-export interface IArticleTableActionsProps {
-    article: IArticle;
+export interface IUserTableActionsProps {
+    user: IUser;
     reload: () => void;
 }
 
-const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload }) => {
+const UserTableActions: FC<IUserTableActionsProps> = ({ user, reload }) => {
     const [openMenu, setOpenMenu] = useState(false);
-    const [openAddArticleModal, setOpenAddArticleModal] = useState(false);
-    const { data: user } = useSelector(({ users }: IRootState) => users?.currentUser);
+    const [openAddUserModal, setOpenAddUserModal] = useState(false);
+    const { data: userData } = useSelector(({ users }: IRootState) => users?.currentUser);
 
     return (
         <Fragment>
@@ -32,50 +31,40 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                 onVisibleChange={(v) => setOpenMenu(v)}
                 overlay={
                     <Menu className={styles.actions__menu}>
-                        <Button type="text" icon={<ReadOutlined />} className={styles.actions__button}>
-                            <span>
-                                <Link to={`/articles/${article.slug}`} target="_blank" rel="noopener noreferrer">
-                                    Ouvrir
-                                </Link>
-                            </span>
-                        </Button>
-
                         <Button
                             type="text"
                             icon={<FormOutlined />}
                             className={styles.actions__button}
                             onClick={() => {
                                 setOpenMenu(false);
-                                setOpenAddArticleModal(true);
+                                setOpenAddUserModal(true);
                             }}
                         >
                             Modifier
                         </Button>
 
-                        <ArticleModal
+                        <UserModal
                             reload={reload}
-                            visible={openAddArticleModal}
-                            setVisible={setOpenAddArticleModal}
+                            visible={openAddUserModal}
+                            setVisible={setOpenAddUserModal}
                             formContext={EnumFormContext.EDIT}
-                            initialValues={article as IArticleData}
+                            initialValues={user as IUserData}
                         />
 
-                        {user.role === EnumRole.SUPER_ADMIN && (
-                            <Fragment>
-                                <ArticleActionModal
-                                    reload={reload}
-                                    article={article}
-                                    closeMenu={() => setOpenMenu(false)}
-                                    context={article.active ? EnumActionContext.DISABLE : EnumActionContext.APPROVE}
-                                />
+                        <UserActionModal
+                            user={user}
+                            reload={reload}
+                            closeMenu={() => setOpenMenu(false)}
+                            context={user.active ? EnumUserActionContext.BLOCK : EnumUserActionContext.UNBLOCK}
+                        />
 
-                                <ArticleActionModal
-                                    reload={reload}
-                                    article={article}
-                                    context={EnumActionContext.DELETE}
-                                    closeMenu={() => setOpenMenu(false)}
-                                />
-                            </Fragment>
+                        {userData.role === EnumRole.SUPER_ADMIN && (
+                            <UserActionModal
+                                reload={reload}
+                                user={user}
+                                context={EnumUserActionContext.DELETE}
+                                closeMenu={() => setOpenMenu(false)}
+                            />
                         )}
                     </Menu>
                 }
@@ -86,4 +75,4 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
     );
 };
 
-export default ArticleTableActions;
+export default UserTableActions;

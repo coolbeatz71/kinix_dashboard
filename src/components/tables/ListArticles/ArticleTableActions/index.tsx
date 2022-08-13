@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import EnumRole from '@interfaces/role';
 import ArticleActionModal from '../ActionModal';
-import { EnumActionContext, EnumFormContext } from '@interfaces/app';
+import { EnumArticleVideoActionContext, EnumFormContext } from '@interfaces/app';
 import ArticleModal from '@components/modal/ArticleModal';
 import { IArticleData } from '@interfaces/articles';
 
@@ -66,13 +66,17 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                                     reload={reload}
                                     article={article}
                                     closeMenu={() => setOpenMenu(false)}
-                                    context={article.active ? EnumActionContext.DISABLE : EnumActionContext.APPROVE}
+                                    context={
+                                        article.active
+                                            ? EnumArticleVideoActionContext.DISABLE
+                                            : EnumArticleVideoActionContext.APPROVE
+                                    }
                                 />
 
                                 <ArticleActionModal
                                     reload={reload}
                                     article={article}
-                                    context={EnumActionContext.DELETE}
+                                    context={EnumArticleVideoActionContext.DELETE}
                                     closeMenu={() => setOpenMenu(false)}
                                 />
                             </Fragment>

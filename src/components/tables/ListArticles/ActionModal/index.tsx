@@ -2,7 +2,7 @@ import React, { FC, Fragment, ReactNode, useState } from 'react';
 import { lowerCase, truncate } from 'lodash';
 import { useSelector } from 'react-redux';
 import { IArticle } from '@interfaces/api';
-import { EnumActionContext } from '@interfaces/app';
+import { EnumArticleVideoActionContext } from '@interfaces/app';
 import { Button, Col, Form, Modal, Row, Input, notification, Tooltip } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
 import { required } from '@helpers/validators';
@@ -24,7 +24,7 @@ export interface IArticleActionModalProps {
     article: IArticle;
     reload: () => void;
     closeMenu?: () => void;
-    context: EnumActionContext;
+    context: EnumArticleVideoActionContext;
 }
 
 const ArticleActionModal: FC<IArticleActionModalProps> = ({
@@ -50,9 +50,9 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
 
     const getButtonIcon = (): ReactNode => {
         switch (context) {
-            case EnumActionContext.APPROVE:
+            case EnumArticleVideoActionContext.APPROVE:
                 return <CheckCircleOutlined />;
-            case EnumActionContext.DISABLE:
+            case EnumArticleVideoActionContext.DISABLE:
                 return <StopOutlined />;
             default:
                 return <DeleteOutlined />;
@@ -60,9 +60,9 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
     };
     const getButtonText = (): string => {
         switch (context) {
-            case EnumActionContext.APPROVE:
+            case EnumArticleVideoActionContext.APPROVE:
                 return 'Approver';
-            case EnumActionContext.DISABLE:
+            case EnumArticleVideoActionContext.DISABLE:
                 return 'Désactiver';
             default:
                 return 'Effacer';
@@ -71,9 +71,9 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
 
     const getSuccessMessage = (): string => {
         switch (context) {
-            case EnumActionContext.APPROVE:
+            case EnumArticleVideoActionContext.APPROVE:
                 return 'apprové';
-            case EnumActionContext.DISABLE:
+            case EnumArticleVideoActionContext.DISABLE:
                 return 'désactivé';
             default:
                 return 'effacé';
@@ -97,12 +97,12 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
         const params = { slug: article.slug, password };
         const responseType = `articles/${lowerCase(context)}/fulfilled`;
         switch (context) {
-            case EnumActionContext.APPROVE:
+            case EnumArticleVideoActionContext.APPROVE:
                 dispatch(approveArticleAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
-            case EnumActionContext.DISABLE:
+            case EnumArticleVideoActionContext.DISABLE:
                 dispatch(disableArticleAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
@@ -133,7 +133,7 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                 }}
                 icon={getButtonIcon()}
                 className={styles.actionModal__button}
-                danger={context === EnumActionContext.DELETE}
+                danger={context === EnumArticleVideoActionContext.DELETE}
             >
                 {getButtonText()}
             </Button>
