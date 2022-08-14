@@ -5,74 +5,76 @@ import { useSelector } from 'react-redux';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { IRootState } from '@redux/reducers';
 import FormSuccessResult from '@components/common/FormSuccessResult';
-import { IVideoData } from '@interfaces/videos';
-import addVideoAction, { resetAddVideoAction } from '@redux/videos/add';
-import CreateVideoForm from '@components/form/CreateVideo';
-import getVideoCategoriesAction from '@redux/videos/getCategories';
-import { ICategory, IUser, IVideo } from '@interfaces/api';
+import addUserAction, { resetAddUserAction } from '@redux/users/add';
+import { IUserData } from '@interfaces/users';
+import CreateUserForm from '@components/form/CreateUser';
+import { IUser } from '@interfaces/api';
 import CreateModalHeader from '@components/common/CreateModalHeader';
 
 import styles from './index.module.scss';
 
 const { useForm } = Form;
 
-export interface IVideoModalProps {
+export interface IUserModalProps {
     visible: boolean;
     reload?: () => void;
-    initialValues?: IVideo;
+    initialValues?: IUser;
     formContext: EnumFormContext;
+    accountType: 'client' | 'admin';
     setVisible: (val: boolean) => void;
 }
 
-const SUCCESS_CREATE = 'La video a été créé avec succès';
-const SUCCESS_EDIT = 'Cette video a été modifié avec succès';
-
-const UserModal: FC<IVideoModalProps> = ({
+const UserModal: FC<IUserModalProps> = ({
     visible,
     setVisible,
     formContext,
+    accountType,
     initialValues,
     reload = () => {
         //
     },
 }) => {
+    const isClientRole = accountType === 'client';
+    const SUCCESS_CREATE = isClientRole
+        ? "L'utilisateur a été créé avec succès"
+        : "L'administrateur a été créé avec succès";
+
+    const SUCCESS_EDIT = isClientRole
+        ? 'Cet utilisateur a été modifié avec succès'
+        : 'Cet administrateur a été modifié avec succès';
+
     const [form] = useForm();
     const dispatch = useAppDispatch();
-    const isEdit = formContext === EnumFormContext.EDIT;
-
-    const { data: categories, loading: loadingCategories } = useSelector(
-        ({ videos: { categories } }: IRootState) => categories,
-    );
-    const { error, loading } = useSelector(({ videos: { add } }: IRootState) => add);
-    const { data: users, loading: loadingUsers } = useSelector(({ users: { search } }: IRootState) => search);
-
     const [success, setSuccess] = useState('');
+    const isEdit = formContext === EnumFormContext.EDIT;
+    const { error, loading } = useSelector(({ users: { add } }: IRootState) => add);
 
     const onCloseModal = (): void => {
         setVisible(false);
+        form.resetFields();
     };
 
-    const onSubmitVideo = (formData: IUnknownObject | IVideoData): void => {
+    const onSubmitUser = (formData: IUnknownObject | IUserData): void => {
         form.validateFields();
-        const data = isEdit ? { ...formData, slug: initialValues?.slug } : formData;
+        const data = isEdit ? { ...formData, id: initialValues?.id } : formData;
         dispatch(
-            addVideoAction({
+            addUserAction({
                 isEdit,
-                data: data as IVideoData,
+                data: data as IUserData,
             }),
         ).then((res) => {
-            if (res.type === 'videos/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (res.type === 'videos/add/fulfilled') {
-                if (isEdit) reload();
+            if (res.type === 'users/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (res.type === 'users/add/fulfilled') {
+                reload();
                 setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
+                form.resetFields();
             }
         });
     };
 
     useEffect(() => {
         if (visible) setSuccess('');
-        resetAddVideoAction()(dispatch);
-        dispatch(getVideoCategoriesAction());
+        resetAddUserAction()(dispatch);
     }, [dispatch, visible]);
 
     return (
@@ -86,11 +88,11 @@ const UserModal: FC<IVideoModalProps> = ({
             title={
                 !success && (
                     <CreateModalHeader
-                        context="video"
                         isEdit={isEdit}
                         loading={loading}
                         onCloseModal={onCloseModal}
                         onSubmit={() => form.submit()}
+                        context={isClientRole ? 'utilisateur' : 'administrateur'}
                     />
                 )
             }
@@ -98,16 +100,13 @@ const UserModal: FC<IVideoModalProps> = ({
             {success ? (
                 <FormSuccessResult title={success} onClose={onCloseModal} />
             ) : (
-                <CreateVideoForm
+                <CreateUserForm
                     error={error}
                     formRef={form}
-                    onSubmit={onSubmitVideo}
-                    users={users as IUser[]}
+                    onSubmit={onSubmitUser}
                     formContext={formContext}
-                    loadingUsers={loadingUsers}
+                    accountType={accountType}
                     initialValues={initialValues}
-                    loadingCategories={loadingCategories}
-                    categories={categories as ICategory[]}
                 />
             )}
         </Modal>

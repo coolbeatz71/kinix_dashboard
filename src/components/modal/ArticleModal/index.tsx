@@ -43,6 +43,7 @@ const ArticleModal: FC<IArticleModalProps> = ({
 
     const onCloseModal = (): void => {
         setVisible(false);
+        form.resetFields();
     };
 
     const onSubmitArticle = (formData: IUnknownObject | IArticleData): void => {
@@ -55,8 +56,9 @@ const ArticleModal: FC<IArticleModalProps> = ({
         ).then((res) => {
             if (res.type === 'articles/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
             if (res.type === 'articles/add/fulfilled') {
-                if (isEdit) reload();
+                reload();
                 setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
+                form.resetFields();
             }
         });
     };

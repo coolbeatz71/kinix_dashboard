@@ -1,14 +1,13 @@
 import React, { FC, useState, Fragment } from 'react';
 import { FormOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
-import { IUser } from '@interfaces/api';
 import { useSelector } from 'react-redux';
+import { IUser } from '@interfaces/api';
+import { EnumUserActionContext, EnumFormContext } from '@interfaces/app';
 import { IRootState } from '@redux/reducers';
 import EnumRole from '@interfaces/role';
 import UserActionModal from '../ActionModal';
-import { EnumUserActionContext, EnumFormContext } from '@interfaces/app';
 import UserModal from '@components/modal/UserModal';
-import { IUserData } from '@interfaces/users';
 
 import styles from './index.module.scss';
 export interface IUserTableActionsProps {
@@ -45,10 +44,11 @@ const UserTableActions: FC<IUserTableActionsProps> = ({ user, reload }) => {
 
                         <UserModal
                             reload={reload}
+                            accountType="client"
                             visible={openAddUserModal}
+                            initialValues={user as IUser}
                             setVisible={setOpenAddUserModal}
                             formContext={EnumFormContext.EDIT}
-                            initialValues={user as IUserData}
                         />
 
                         <UserActionModal

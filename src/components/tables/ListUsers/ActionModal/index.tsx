@@ -86,7 +86,7 @@ const UserActionModal: FC<IUserActionModalProps> = ({
             key: 'success',
             placement: 'topRight',
             message: 'Confirmation',
-            description: `Utilisateur: "${user.email} - ${user.userName}" ${getSuccessMessage()}`,
+            description: `Utilisateur: "${user.userName} - ${user.email}" ${getSuccessMessage()}`,
         });
         clearErrors();
         reload();

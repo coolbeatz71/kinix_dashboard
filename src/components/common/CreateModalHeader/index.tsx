@@ -10,7 +10,7 @@ export interface ICreateModalHeaderProps {
     loading: boolean;
     onSubmit: () => void;
     onCloseModal: () => void;
-    context: 'article' | 'video';
+    context: string;
 }
 
 const CreateModalHeader: FC<ICreateModalHeaderProps> = ({ loading, onCloseModal, onSubmit, context, isEdit }) => {
@@ -19,7 +19,7 @@ const CreateModalHeader: FC<ICreateModalHeaderProps> = ({ loading, onCloseModal,
     return (
         <Row justify="space-between" align="middle">
             <Col flex={1}>
-                <Title level={4}>
+                <Title level={4} className="mb-0">
                     {isEdit ? 'Modifier' : 'Créer'} {title}
                 </Title>
             </Col>

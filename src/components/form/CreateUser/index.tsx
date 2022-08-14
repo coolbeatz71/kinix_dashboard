@@ -1,13 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Form, FormInstance, Input, Select } from 'antd';
-import ReRegExp from 'reregexp';
+import RandExp from 'randexp';
 import { IUser } from '@interfaces/api';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { IUserData } from '@interfaces/users';
 import ErrorAlert from '@components/common/ErrorAlert';
 import FloatTextInput from '@components/common/FloatTextInput';
-import { emailValidator, passwordRegex, roleValidator, userNameValidator } from './validators';
+import { emailValidator, roleValidator, userNameValidator } from './validators';
 import { ADMINS_FILTER_LIST, CLIENTS_FILTER_LIST } from '@constants/app';
+import EnumRole from '@interfaces/role';
+import { adminRoleLabelObj, clientRoleLabelObj } from '@constants/roles';
 
 const { Item } = Form;
 
@@ -20,14 +22,38 @@ export interface IcreateUserProps {
     error: Error | IUnknownObject | null;
 }
 
-const CreateUser: FC<IcreateUserProps> = ({ initialValues, formContext, formRef, onSubmit, error, accountType }) => {
-    const isEdit = formContext === EnumFormContext.EDIT;
+const CreateUserForm: FC<IcreateUserProps> = ({
+    error,
+    formRef,
+    onSubmit,
+    formContext,
+    accountType,
+    initialValues,
+}) => {
     const isClientRole = accountType === 'client';
+    const isEdit = formContext === EnumFormContext.EDIT;
+    const roleOptions = isClientRole ? CLIENTS_FILTER_LIST.slice(1) : ADMINS_FILTER_LIST.slice(1);
 
     const onSubmitUser = (formData: IUserData): void => {
-        const password = new ReRegExp(passwordRegex).build();
-        onSubmit({ password, ...formData });
+        if (isEdit) onSubmit(formData);
+        else {
+            const password = new RandExp('[a-zA-Z0-9]{10}').gen();
+            onSubmit({ password, ...formData });
+        }
     };
+
+    useEffect(() => {
+        if (isEdit) {
+            const { role } = initialValues as IUser;
+            const roleLabel = isClientRole ? clientRoleLabelObj : adminRoleLabelObj;
+            formRef.setFieldsValue({
+                role: {
+                    value: initialValues?.role,
+                    label: roleLabel[role as EnumRole],
+                } as unknown as EnumRole,
+            });
+        }
+    }, [formRef, initialValues, isClientRole, isEdit]);
 
     return (
         <Form
@@ -58,16 +84,11 @@ const CreateUser: FC<IcreateUserProps> = ({ initialValues, formContext, formRef,
 
             <Item name="role" validateTrigger={['onSubmit', 'onBlur']} rules={roleValidator('Type de compte')}>
                 <FloatTextInput label="Type de compte" placeholder="Sélectionner le type de compte" required>
-                    <Select
-                        size="large"
-                        filterOption={false}
-                        defaultActiveFirstOption={false}
-                        options={isClientRole ? CLIENTS_FILTER_LIST.slice(1) : ADMINS_FILTER_LIST.slice(1)}
-                    />
+                    <Select size="large" filterOption={false} options={roleOptions} defaultActiveFirstOption={false} />
                 </FloatTextInput>
             </Item>
         </Form>
     );
 };
 
-export default CreateUser;
+export default CreateUserForm;

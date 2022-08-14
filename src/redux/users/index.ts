@@ -7,11 +7,12 @@ import {
     ActionWrapperReset,
 } from 'constants/redux';
 import { userInitialState } from './types';
-import searchUsersAction from './searchUsers';
+import searchUsersAction from './search';
 import getClientsAction from './getClients';
 import blockUserAction from './block';
 import unblockUserAction from './unblock';
 import deleteUserAction from './delete';
+import addUserAction from './add';
 
 export const userSlice = createSlice({
     name: 'users',
@@ -45,7 +46,11 @@ export const userSlice = createSlice({
             // delete
             .addCase(deleteUserAction.pending, ActionWrapperPending)
             .addCase(deleteUserAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(deleteUserAction.rejected, ActionWrapperRejected);
+            .addCase(deleteUserAction.rejected, ActionWrapperRejected)
+            // create and update
+            .addCase(addUserAction.pending, ActionWrapperPending)
+            .addCase(addUserAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(addUserAction.rejected, ActionWrapperRejected);
     },
 });
 
