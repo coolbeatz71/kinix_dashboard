@@ -5,6 +5,7 @@ export interface IUserData {
     id?: number;
     userName: string;
     email?: string | null;
+    password?: string;
     phoneNumber?: string | null;
     provider?: EnumProvider;
     isLoggedIn?: boolean;

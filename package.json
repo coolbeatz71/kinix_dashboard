@@ -64,6 +64,7 @@
         "recharts": "^2.1.13",
         "redux-logger": "^3.0.6",
         "redux-persist": "^6.0.0",
+        "reregexp": "^1.6.0",
         "sass": "^1.52.1",
         "slick-carousel": "^1.8.1",
         "style-it": "^2.1.4",
