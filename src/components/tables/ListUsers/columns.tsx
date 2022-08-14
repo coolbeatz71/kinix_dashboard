@@ -89,6 +89,7 @@ const tableColumns = (reload: () => void, onSelect?: (user: IUser) => void): Col
         width: 120,
         ellipsis: true,
         fixed: 'left',
+        render: (dt: string) => dt || '-',
     },
     {
         title: 'Email',
@@ -97,6 +98,7 @@ const tableColumns = (reload: () => void, onSelect?: (user: IUser) => void): Col
         width: 250,
         fixed: 'left',
         ellipsis: true,
+        render: (dt: string) => dt || '-',
     },
     {
         title: 'Téléphone',
@@ -104,6 +106,7 @@ const tableColumns = (reload: () => void, onSelect?: (user: IUser) => void): Col
         dataIndex: 'phoneNumber',
         width: 250,
         ellipsis: true,
+        render: (dt: string) => dt || '-',
     },
     ...[providerCol],
     ...[roleCol],
