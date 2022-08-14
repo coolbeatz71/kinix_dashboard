@@ -2,60 +2,69 @@ import React, { FC, useEffect, useState } from 'react';
 import { Modal, Form } from 'antd';
 import { useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
-import CreateArticleForm from '@components/form/CreateArticle';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
-import { IArticleData } from '@interfaces/articles';
-import addArticleAction, { resetAddArticleAction } from '@redux/articles/add';
 import { IRootState } from '@redux/reducers';
-import FormSuccessResult from '../../common/FormSuccessResult';
+import FormSuccessResult from '@components/common/FormSuccessResult';
+import addUserAction, { resetAddUserAction } from '@redux/users/add';
+import { IUserData } from '@interfaces/users';
+import CreateUserForm from '@components/form/CreateUser';
+import { IUser } from '@interfaces/api';
 import CreateModalHeader from '@components/common/CreateModalHeader';
 
 import styles from './index.module.scss';
 
 const { useForm } = Form;
 
-export interface IArticleModalProps {
+export interface IUserModalProps {
     visible: boolean;
     reload?: () => void;
-    initialValues?: IArticleData;
+    initialValues?: IUser;
     formContext: EnumFormContext;
+    accountType: 'client' | 'admin';
     setVisible: (val: boolean) => void;
 }
 
-const SUCCESS_CREATE = "L'article a été créé avec succès";
-const SUCCESS_EDIT = 'Cet article a été modifié avec succès';
-
-const ArticleModal: FC<IArticleModalProps> = ({
+const UserModal: FC<IUserModalProps> = ({
     visible,
     setVisible,
     formContext,
+    accountType,
     initialValues,
     reload = () => {
         //
     },
 }) => {
-    const dispatch = useAppDispatch();
-    const isEdit = formContext === EnumFormContext.EDIT;
-    const { error, loading } = useSelector(({ articles: { add } }: IRootState) => add);
+    const isClientRole = accountType === 'client';
+    const SUCCESS_CREATE = isClientRole
+        ? "L'utilisateur a été créé avec succès"
+        : "L'administrateur a été créé avec succès";
+
+    const SUCCESS_EDIT = isClientRole
+        ? 'Cet utilisateur a été modifié avec succès'
+        : 'Cet administrateur a été modifié avec succès';
 
     const [form] = useForm();
-    const [success, setSuccess] = useState<string>('');
+    const dispatch = useAppDispatch();
+    const [success, setSuccess] = useState('');
+    const isEdit = formContext === EnumFormContext.EDIT;
+    const { error, loading } = useSelector(({ users: { add } }: IRootState) => add);
 
     const onCloseModal = (): void => {
         setVisible(false);
         form.resetFields();
     };
 
-    const onSubmitArticle = (formData: IUnknownObject | IArticleData): void => {
+    const onSubmitUser = (formData: IUnknownObject | IUserData): void => {
         form.validateFields();
+        const data = isEdit ? { ...formData, id: initialValues?.id } : formData;
         dispatch(
-            addArticleAction({
+            addUserAction({
                 isEdit,
-                data: formData as IArticleData,
+                data: data as IUserData,
             }),
         ).then((res) => {
-            if (res.type === 'articles/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (res.type === 'articles/add/fulfilled') {
+            if (res.type === 'users/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (res.type === 'users/add/fulfilled') {
                 reload();
                 setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
                 form.resetFields();
@@ -65,27 +74,25 @@ const ArticleModal: FC<IArticleModalProps> = ({
 
     useEffect(() => {
         if (visible) setSuccess('');
-        resetAddArticleAction()(dispatch);
+        resetAddUserAction()(dispatch);
     }, [dispatch, visible]);
 
     return (
         <Modal
             centered
-            width={720}
             footer={null}
             destroyOnClose
             closable={false}
             visible={visible}
-            className={styles.articleModal}
-            wrapClassName={styles.articleModal__wrap}
+            className={styles.videoModal}
             title={
                 !success && (
                     <CreateModalHeader
                         isEdit={isEdit}
                         loading={loading}
-                        context="article"
                         onCloseModal={onCloseModal}
                         onSubmit={() => form.submit()}
+                        context={isClientRole ? 'utilisateur' : 'administrateur'}
                     />
                 )
             }
@@ -93,11 +100,12 @@ const ArticleModal: FC<IArticleModalProps> = ({
             {success ? (
                 <FormSuccessResult title={success} onClose={onCloseModal} />
             ) : (
-                <CreateArticleForm
+                <CreateUserForm
                     error={error}
                     formRef={form}
+                    onSubmit={onSubmitUser}
                     formContext={formContext}
-                    onSubmit={onSubmitArticle}
+                    accountType={accountType}
                     initialValues={initialValues}
                 />
             )}
@@ -105,4 +113,4 @@ const ArticleModal: FC<IArticleModalProps> = ({
     );
 };
 
-export default ArticleModal;
+export default UserModal;

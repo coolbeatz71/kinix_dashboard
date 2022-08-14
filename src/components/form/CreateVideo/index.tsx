@@ -8,7 +8,7 @@ import ErrorAlert from '@components/common/ErrorAlert';
 import { IVideoData } from '@interfaces/videos';
 import { ICategory, IUser, IVideo } from '@interfaces/api';
 import { useAppDispatch } from '@redux/store';
-import searchUsersAction from '@redux/users/searchUsers';
+import searchUsersAction from '@redux/users/search';
 import useRouteQuery from '@hooks/useRouteQuery';
 import format from '@helpers/formatString';
 import VideoPlayer from '@components/common/VideoPlayer';

@@ -1,8 +1,8 @@
 import React, { FC, Fragment, ReactNode, useState } from 'react';
 import { lowerCase, truncate } from 'lodash';
 import { useSelector } from 'react-redux';
-import { IArticle } from '@interfaces/api';
-import { EnumArticleVideoActionContext } from '@interfaces/app';
+import { IUser } from '@interfaces/api';
+import { EnumUserActionContext } from '@interfaces/app';
 import { Button, Col, Form, Modal, Row, Input, notification, Tooltip } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
 import { required } from '@helpers/validators';
@@ -10,9 +10,9 @@ import ErrorAlert from '@components/common/ErrorAlert';
 import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
 
-import approveArticleAction, { resetApproveArticleAction } from '@redux/articles/approve';
-import deleteArticleAction, { resetDeleteArticleAction } from '@redux/articles/delete';
-import disableArticleAction, { resetDisableArticleAction } from '@redux/articles/disable';
+import unblockUserAction, { resetUnblockUserAction } from '@redux/users/unblock';
+import deleteUserAction, { resetDeleteUserAction } from '@redux/users/delete';
+import blockUserAction, { resetBlockUserAction } from '@redux/users/block';
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, StopOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
@@ -20,15 +20,15 @@ import styles from './index.module.scss';
 const { Item } = Form;
 const { Password } = Input;
 
-export interface IArticleActionModalProps {
-    article: IArticle;
+export interface IUserActionModalProps {
+    user: IUser;
     reload: () => void;
     closeMenu?: () => void;
-    context: EnumArticleVideoActionContext;
+    context: EnumUserActionContext;
 }
 
-const ArticleActionModal: FC<IArticleActionModalProps> = ({
-    article,
+const UserActionModal: FC<IUserActionModalProps> = ({
+    user,
     reload,
     closeMenu = () => {
         //
@@ -40,30 +40,30 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
     const [openModal, setOpenModal] = useState<boolean>(false);
 
     const {
+        block: { error: errBlock, loading: loadingBlock },
         delete: { error: errDelete, loading: loadingDelete },
-        approve: { error: errApprove, loading: loadingApprove },
-        disable: { error: errDisable, loading: loadingDisable },
-    } = useSelector(({ articles }: IRootState) => articles);
+        unblock: { error: errUnblock, loading: loadingUnblock },
+    } = useSelector(({ users }: IRootState) => users);
 
-    const error = errApprove || errDisable || errDelete;
-    const loading = loadingApprove || loadingDisable || loadingDelete;
+    const error = errUnblock || errBlock || errDelete;
+    const loading = loadingUnblock || loadingBlock || loadingDelete;
 
     const getButtonIcon = (): ReactNode => {
         switch (context) {
-            case EnumArticleVideoActionContext.APPROVE:
-                return <CheckCircleOutlined />;
-            case EnumArticleVideoActionContext.DISABLE:
+            case EnumUserActionContext.BLOCK:
                 return <StopOutlined />;
+            case EnumUserActionContext.UNBLOCK:
+                return <CheckCircleOutlined />;
             default:
                 return <DeleteOutlined />;
         }
     };
     const getButtonText = (): string => {
         switch (context) {
-            case EnumArticleVideoActionContext.APPROVE:
-                return 'Approver';
-            case EnumArticleVideoActionContext.DISABLE:
-                return 'Désactiver';
+            case EnumUserActionContext.BLOCK:
+                return 'Bloquer';
+            case EnumUserActionContext.UNBLOCK:
+                return 'Débloquer';
             default:
                 return 'Effacer';
         }
@@ -71,10 +71,10 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
 
     const getSuccessMessage = (): string => {
         switch (context) {
-            case EnumArticleVideoActionContext.APPROVE:
-                return 'apprové';
-            case EnumArticleVideoActionContext.DISABLE:
-                return 'désactivé';
+            case EnumUserActionContext.BLOCK:
+                return 'bloqué';
+            case EnumUserActionContext.UNBLOCK:
+                return 'débloqué';
             default:
                 return 'effacé';
         }
@@ -86,7 +86,7 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
             key: 'success',
             placement: 'topRight',
             message: 'Confirmation',
-            description: `Article: "${article.title}" ${getSuccessMessage()}`,
+            description: `Utilisateur: "${user.userName} - ${user.email}" ${getSuccessMessage()}`,
         });
         clearErrors();
         reload();
@@ -94,21 +94,21 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
     };
 
     const onFinish = (password: string): void => {
-        const params = { slug: article.slug, password };
-        const responseType = `articles/${lowerCase(context)}/fulfilled`;
+        const params = { id: Number(user.id), password };
+        const responseType = `users/${lowerCase(context)}/fulfilled`;
         switch (context) {
-            case EnumArticleVideoActionContext.APPROVE:
-                dispatch(approveArticleAction(params)).then((res) => {
+            case EnumUserActionContext.UNBLOCK:
+                dispatch(unblockUserAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
-            case EnumArticleVideoActionContext.DISABLE:
-                dispatch(disableArticleAction(params)).then((res) => {
+            case EnumUserActionContext.BLOCK:
+                dispatch(blockUserAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
             default:
-                dispatch(deleteArticleAction(params)).then((res) => {
+                dispatch(deleteUserAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
@@ -116,9 +116,9 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
     };
 
     const clearErrors = (): void => {
-        resetApproveArticleAction()(dispatch);
-        resetDisableArticleAction()(dispatch);
-        resetDeleteArticleAction()(dispatch);
+        resetUnblockUserAction()(dispatch);
+        resetBlockUserAction()(dispatch);
+        resetDeleteUserAction()(dispatch);
     };
 
     return (
@@ -133,7 +133,7 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                 }}
                 icon={getButtonIcon()}
                 className={styles.actionModal__button}
-                danger={context === EnumArticleVideoActionContext.DELETE}
+                danger={context === EnumUserActionContext.DELETE}
             >
                 {getButtonText()}
             </Button>
@@ -146,8 +146,8 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                 onCancel={() => setOpenModal(false)}
                 className={styles.actionModal__modal}
                 title={
-                    <Tooltip title={article.title} visible>
-                        {getButtonText()} video: "{truncate(article.title, { length: 40 })}
+                    <Tooltip title={user.email} visible>
+                        {getButtonText()} utilisateur: "{truncate(user.userName, { length: 40 })}
                     </Tooltip>
                 }
             >
@@ -183,4 +183,4 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
     );
 };
 
-export default ArticleActionModal;
+export default UserActionModal;

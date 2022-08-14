@@ -6,16 +6,18 @@ interface IParams {
     limit?: number;
     search?: string;
     status?: string;
-    category?: string | null | undefined;
+    role?: string | null | undefined;
 }
 
-const getAllVideosAction = createAsyncThunk('videos/all', async (params: IParams, { rejectWithValue }) => {
+const getClientsAction = createAsyncThunk('users/clients', async (params: IParams, { rejectWithValue }) => {
     try {
-        const { data } = await api.get('/admin/videos', { params });
+        const { data } = await api.get('/admin/clients', {
+            params,
+        });
         return data;
     } catch (error) {
         return rejectWithValue(error);
     }
 });
 
-export default getAllVideosAction;
+export default getClientsAction;

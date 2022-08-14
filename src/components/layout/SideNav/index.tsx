@@ -6,7 +6,7 @@ import { DASHBOARD_PATH } from '@constants/paths';
 import { HomeFilled } from '@ant-design/icons';
 import sidenav, { ISideNavSection } from '@constants/sidenav';
 import { ICurrentAdmin } from '@interfaces/admin';
-import { isAdmin } from '@constants/userRole';
+import { isAdmin } from '@constants/roles';
 import { toUpper } from 'lodash';
 
 import styles from './index.module.scss';

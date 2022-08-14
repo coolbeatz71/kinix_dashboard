@@ -50,6 +50,7 @@ const VideoModal: FC<IVideoModalProps> = ({
 
     const onCloseModal = (): void => {
         setVisible(false);
+        form.resetFields();
     };
 
     const onSubmitVideo = (formData: IUnknownObject | IVideoData): void => {
@@ -63,8 +64,9 @@ const VideoModal: FC<IVideoModalProps> = ({
         ).then((res) => {
             if (res.type === 'videos/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
             if (res.type === 'videos/add/fulfilled') {
-                if (isEdit) reload();
+                reload();
                 setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
+                form.resetFields();
             }
         });
     };

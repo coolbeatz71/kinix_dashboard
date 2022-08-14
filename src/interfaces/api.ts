@@ -1,5 +1,5 @@
 import EnumProvider from './provider';
-import EnumRole from './userRole';
+import EnumRole from './role';
 
 export interface IUser {
     readonly id?: number;
@@ -10,6 +10,7 @@ export interface IUser {
     provider?: EnumProvider;
     isLoggedIn?: boolean;
     verified?: boolean;
+    active?: boolean;
     image?: string | null;
     allowEmailNotification?: boolean;
     role?: EnumRole;
