@@ -56,10 +56,17 @@ const VideoModal: FC<IVideoModalProps> = ({
     const onSubmitVideo = (formData: IUnknownObject | IVideoData): void => {
         form.validateFields();
         const data = isEdit ? { ...formData, slug: initialValues?.slug } : formData;
+        const { categoryId } = data;
+        const isCategoryAPrimitive = typeof categoryId === 'number' || typeof categoryId === 'string';
+
+        const formattedData = isCategoryAPrimitive
+            ? data
+            : { ...data, categoryId: (categoryId as IUnknownObject).value };
+
         dispatch(
             addVideoAction({
                 isEdit,
-                data: data as IVideoData,
+                data: formattedData as IVideoData,
             }),
         ).then((res) => {
             if (res.type === 'videos/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });

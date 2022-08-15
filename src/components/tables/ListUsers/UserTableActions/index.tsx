@@ -6,7 +6,7 @@ import { IUser } from '@interfaces/api';
 import { EnumUserActionContext, EnumFormContext } from '@interfaces/app';
 import { IRootState } from '@redux/reducers';
 import EnumRole from '@interfaces/role';
-import UserActionModal from '../ActionModal';
+import UserActionModal from '../../../modal/UserActionModal';
 import UserModal from '@components/modal/UserModal';
 
 import styles from './index.module.scss';
@@ -54,16 +54,18 @@ const UserTableActions: FC<IUserTableActionsProps> = ({ user, reload }) => {
                         <UserActionModal
                             user={user}
                             reload={reload}
+                            accountType="client"
                             closeMenu={() => setOpenMenu(false)}
                             context={user.active ? EnumUserActionContext.BLOCK : EnumUserActionContext.UNBLOCK}
                         />
 
                         {userData.role === EnumRole.SUPER_ADMIN && (
                             <UserActionModal
-                                reload={reload}
                                 user={user}
-                                context={EnumUserActionContext.DELETE}
+                                reload={reload}
+                                accountType="client"
                                 closeMenu={() => setOpenMenu(false)}
+                                context={EnumUserActionContext.DELETE}
                             />
                         )}
                     </Menu>

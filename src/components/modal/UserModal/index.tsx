@@ -57,10 +57,17 @@ const UserModal: FC<IUserModalProps> = ({
     const onSubmitUser = (formData: IUnknownObject | IUserData): void => {
         form.validateFields();
         const data = isEdit ? { ...formData, id: initialValues?.id } : formData;
+        const { role } = formData;
+        const isRoleAString = typeof role === 'string';
+
+        const formattedData = isRoleAString
+            ? { ...data, role: role?.toUpperCase() }
+            : { ...data, role: (role as unknown as IUnknownObject).value };
+
         dispatch(
             addUserAction({
                 isEdit,
-                data: data as IUserData,
+                data: formattedData as IUserData,
             }),
         ).then((res) => {
             if (res.type === 'users/add/rejected') window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -80,6 +87,7 @@ const UserModal: FC<IUserModalProps> = ({
     return (
         <Modal
             centered
+            width={600}
             footer={null}
             destroyOnClose
             closable={false}

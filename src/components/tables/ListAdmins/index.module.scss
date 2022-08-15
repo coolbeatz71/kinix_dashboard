@@ -1,0 +1,9 @@
+.table {
+    [class~='ant-table-tbody'] {
+        [class~='action'] {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

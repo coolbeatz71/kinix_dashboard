@@ -15,13 +15,10 @@ const addUserAction = createAsyncThunk(
     'users/add',
     async (params: { data: IUserData; isEdit: boolean }, { rejectWithValue }) => {
         const { data, isEdit } = params;
-        const { role } = data;
-        const formatData = !isEdit
-            ? { ...data, role: role?.toUpperCase() }
-            : { ...data, role: (role as unknown as IUnknownObject).value };
+
         try {
             const response: IUnknownObject = await api.request({
-                data: formatData,
+                data,
                 method: isEdit ? 'PUT' : 'POST',
                 url: `/admin/users${isEdit ? `/${data.id}` : ''}`,
             });
