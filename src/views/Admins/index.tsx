@@ -1,18 +1,18 @@
 import React, { FC, useState } from 'react';
 import { Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { useAppDispatch } from '@redux/store';
 import { LIMIT } from '@constants/app';
+import { useAppDispatch } from '@redux/store';
 import PageTitle from '@components/common/PageTitle';
 import UserModal from '@components/modal/UserModal';
 import { EnumFormContext } from '@interfaces/app';
-import ListUsers from '@components/tables/ListUsers';
-import getClientsAction from '@redux/users/getClients';
+import ListAdmins from '@components/tables/ListAdmins';
+import getAdminsAction from '@redux/users/getAdmins';
 
-const Users: FC = () => {
+const Admins: FC = () => {
     const dispatch = useAppDispatch();
-    const [title, setTitle] = useState<string>('Users');
-    const [openAddUserModal, setOpenAddUserModal] = useState(false);
+    const [title, setTitle] = useState<string>('Admins');
+    const [openAddAdminModal, setOpenAddAdminModal] = useState(false);
 
     const [pagination] = useState({
         page: 1,
@@ -24,7 +24,7 @@ const Users: FC = () => {
 
     const reload = (): void => {
         dispatch(
-            getClientsAction({
+            getAdminsAction({
                 page,
                 limit,
                 search,
@@ -35,20 +35,20 @@ const Users: FC = () => {
     return (
         <div>
             <PageTitle title={title}>
-                <Button type="primary" icon={<PlusCircleOutlined />} onClick={() => setOpenAddUserModal(true)}>
+                <Button type="primary" icon={<PlusCircleOutlined />} onClick={() => setOpenAddAdminModal(true)}>
                     Ajouter
                 </Button>
             </PageTitle>
             <UserModal
                 reload={reload}
-                accountType="client"
-                visible={openAddUserModal}
-                setVisible={setOpenAddUserModal}
+                accountType="admin"
+                visible={openAddAdminModal}
+                setVisible={setOpenAddAdminModal}
                 formContext={EnumFormContext.CREATE}
             />
-            <ListUsers onTitle={(t) => setTitle(t)} />
+            <ListAdmins onTitle={(t) => setTitle(t)} />
         </div>
     );
 };
 
-export default Users;
+export default Admins;

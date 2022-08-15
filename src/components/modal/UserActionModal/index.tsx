@@ -25,6 +25,7 @@ export interface IUserActionModalProps {
     reload: () => void;
     closeMenu?: () => void;
     context: EnumUserActionContext;
+    accountType: 'client' | 'admin';
 }
 
 const UserActionModal: FC<IUserActionModalProps> = ({

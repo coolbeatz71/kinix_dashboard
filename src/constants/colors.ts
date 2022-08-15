@@ -22,3 +22,8 @@ export const clientColors: IUnknownObject = {
     ADS_CLIENT: YELLOW,
     VIEWER_CLIENT: GRAY,
 };
+
+export const adminColors: IUnknownObject = {
+    ADMIN: WARNING,
+    SUPER_ADMIN: PRIMARY,
+};

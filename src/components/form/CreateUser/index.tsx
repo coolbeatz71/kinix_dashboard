@@ -37,7 +37,7 @@ const CreateUserForm: FC<IcreateUserProps> = ({
     const onSubmitUser = (formData: IUserData): void => {
         if (isEdit) onSubmit(formData);
         else {
-            const password = new RandExp('[a-zA-Z0-9]{10}').gen();
+            const password = new RandExp('([a-z][A-Z][0-9]){6}').gen();
             onSubmit({ password, ...formData });
         }
     };

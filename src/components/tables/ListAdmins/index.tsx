@@ -10,24 +10,24 @@ import { EnumStatus } from '@interfaces/app';
 import TableTitle from '@components/common/TableTitle';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { useHistory } from 'react-router-dom';
-import { USER_PATH } from '@constants/paths';
+import { ADMIN_PATH } from '@constants/paths';
 import format from '@helpers/formatString';
 import tableColumns from './columns';
 import TableSearchInput from '@components/common/TableSearchInput';
 import TableStatusFilter from '@components/common/TableStatusFilter';
-import getClientsAction from '@redux/users/getClients';
+import getAdminsAction from '@redux/users/getAdmins';
 import useRouteQuery from '@hooks/useRouteQuery';
 import { EnumRoleClient, EnumRoleAdmin } from '@interfaces/role';
 import TableRoleFilter from '@components/common/TableRoleFilter';
 
 import styles from './index.module.scss';
 
-export interface ListUsersProps {
+export interface ListAdminsProps {
     onTitle?: (title: string) => void;
-    onSelect?: (user: IUnknownObject) => void;
+    onSelect?: (admin: IUnknownObject) => void;
 }
 
-const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
+const ListAdmins: FC<ListAdminsProps> = ({ onSelect, onTitle }) => {
     const { push } = useHistory();
     const dispatch = useAppDispatch();
 
@@ -36,13 +36,13 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
 
     const [status, setStatus] = useState<EnumStatus>(EnumStatus.ALL);
     const [role, setRole] = useState<EnumRoleClient | EnumRoleAdmin>(
-        (roleQuery as EnumRoleClient) || EnumRoleClient.ALL,
+        (roleQuery as EnumRoleClient) || EnumRoleAdmin.ALL,
     );
     const {
         error,
         loading,
         data: { total, rows },
-    } = useSelector(({ users: { clients } }: IRootState) => clients);
+    } = useSelector(({ users: { admins } }: IRootState) => admins);
 
     const [pagination, setPagination] = useState({
         page: 1,
@@ -50,18 +50,18 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
         search: '',
     });
     const { page, limit, search } = pagination;
-    const isRoleAll = role === EnumRoleClient.ALL;
+    const isRoleAll = role === EnumRoleAdmin.ALL;
     const isStatusAll = status === EnumStatus.ALL;
     const currentRole = isRoleAll ? undefined : role;
     const isStatusActive = status === EnumStatus.ACTIVE;
     const currentStatus = isStatusAll ? undefined : format(status, 'lowercase');
 
-    const values = Object.values(EnumRoleClient);
-    const isRoleValid = values.includes(roleQuery as unknown as EnumRoleClient);
+    const values = Object.values(EnumRoleAdmin);
+    const isRoleValid = values.includes(roleQuery as unknown as EnumRoleAdmin);
 
     useEffect(() => {
         dispatch(
-            getClientsAction({
+            getAdminsAction({
                 page,
                 limit,
                 search,
@@ -75,7 +75,7 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
     const changePage = (p: number, l: number, s: string): void => {
         setPagination({ page: p, limit: l, search: s });
         dispatch(
-            getClientsAction({
+            getAdminsAction({
                 page: p,
                 limit: l,
                 search: s,
@@ -86,22 +86,22 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
     };
 
     const Wrapper = onSelect === undefined ? Card : Fragment;
-    const title = `Utilisateurs ${
+    const title = `Administrateurs ${
         !isStatusAll ? `${format(isStatusActive ? 'actifs' : 'inactifs)', 'lowercase')}` : ''
     }`;
     useEffect(() => onTitle?.(title), [onTitle, title]);
 
     const navigateToStatus = (status: EnumStatus): void => {
-        if (status === EnumStatus.ALL) push(USER_PATH);
+        if (status === EnumStatus.ALL) push(ADMIN_PATH);
         else {
             push({
-                pathname: USER_PATH,
+                pathname: ADMIN_PATH,
                 search: `?status=${format(status, 'lowercase')}`,
             });
         }
     };
     const navigateToRole = (selected: EnumRoleClient | EnumRoleAdmin): void => {
-        if (selected === ('' as EnumRoleClient)) push(`${USER_PATH}?status=${format(status, 'lowercase')}`);
+        if (selected === ('' as EnumRoleAdmin)) push(`${ADMIN_PATH}?status=${format(status, 'lowercase')}`);
         else {
             push({
                 search: `?status=${format(status, 'lowercase')}&role=${selected}`,
@@ -126,9 +126,9 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
                     </Col>
                     <Col>
                         <TableRoleFilter
-                            context="clients"
+                            context="admins"
                             setRole={setRole}
-                            role={role as EnumRoleClient}
+                            role={role as EnumRoleAdmin}
                             navigateToRole={navigateToRole}
                         />
                     </Col>
@@ -148,7 +148,7 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
                     loading={loading}
                     scroll={{ x: 1500 }}
                     className={styles.table}
-                    rowKey={(user: IUnknownObject) => user.id}
+                    rowKey={(admin: IUnknownObject) => admin.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     columns={tableColumns(() => changePage(page, limit, search), onSelect)}
                     pagination={{
@@ -157,7 +157,7 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
                         pageSize: limit,
                         showSizeChanger: true,
                         pageSizeOptions: ['10', '20', '50', '100'],
-                        showTotal: (t) => `${numeral(t).format('0,0')} utilisateurs`,
+                        showTotal: (t) => `${numeral(t).format('0,0')} administrateurs`,
                         onChange: (current, limit) => changePage(current, limit, search),
                         onShowSizeChange: (current, size) => changePage(current, size, search),
                     }}
@@ -167,4 +167,4 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
     );
 };
 
-export default ListUsers;
+export default ListAdmins;

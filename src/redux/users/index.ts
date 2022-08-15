@@ -13,6 +13,7 @@ import blockUserAction from './block';
 import unblockUserAction from './unblock';
 import deleteUserAction from './delete';
 import addUserAction from './add';
+import getAdminsAction from './getAdmins';
 
 export const userSlice = createSlice({
     name: 'users',
@@ -50,7 +51,11 @@ export const userSlice = createSlice({
             // create and update
             .addCase(addUserAction.pending, ActionWrapperPending)
             .addCase(addUserAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(addUserAction.rejected, ActionWrapperRejected);
+            .addCase(addUserAction.rejected, ActionWrapperRejected)
+            // get all the admins
+            .addCase(getAdminsAction.pending, ActionWrapperPending)
+            .addCase(getAdminsAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getAdminsAction.rejected, ActionWrapperRejected);
     },
 });
 

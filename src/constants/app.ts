@@ -38,3 +38,8 @@ export const CLIENTS_ROLE: IUnknownObject = {
     ADS_CLIENT: 'Client promotion',
     VIEWER_CLIENT: 'Utilisateur',
 };
+
+export const ADMINS_ROLE: IUnknownObject = {
+    ADMIN: 'Administrateur',
+    SUPER_ADMIN: 'Super administrateur',
+};

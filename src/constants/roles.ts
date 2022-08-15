@@ -14,6 +14,6 @@ export const clientRoleLabelObj: IUnknownObject = {
 };
 
 export const adminRoleLabelObj: IUnknownObject = {
-    ADMIN: 'Administrateu',
+    ADMIN: 'Administrateur',
     SUPER_ADMIN: 'Super administrateur',
 };

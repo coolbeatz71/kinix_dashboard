@@ -9,7 +9,7 @@ export const STORY_PATH = '/stories';
 export const ADMIN_PATH = '/admins';
 export const USER_PATH = '/users';
 
-export const NOT_FOUND_PATH = '/404';
+export const NOT_FOUND_PATH = '/page-introuvable';
 
 export const MUSIC_VIDEO_PATH = `${VIDEO_PATH}?category=${EnumCategory.MUSIC_VIDEO}`;
 export const INTERVIEW_PATH = `${VIDEO_PATH}?category=${EnumCategory.INTERVIEW}`;

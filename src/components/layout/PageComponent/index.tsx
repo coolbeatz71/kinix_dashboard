@@ -6,7 +6,7 @@ import { useAppDispatch } from '@redux/store';
 import getCurrentUserAction from '@redux/users/getCurrentUser';
 import { isEmpty } from 'lodash';
 import Loading from '@components/common/Loading';
-import { isAdmin } from '@constants/roles';
+import { isAdmin, isSuperAdmin } from '@constants/roles';
 import { IRoute } from '@interfaces/route';
 import EnumRole from '@interfaces/role';
 import routes from '@constants/routes';
@@ -30,7 +30,8 @@ const PageComponent: FC = () => {
     const filterCallback = ({ extraProps: { roles, isLoggedIn } }: IRoute): boolean | undefined => {
         if (!user) return isLoggedIn === false;
         if (user && isAdmin(user?.role)) return roles?.includes(EnumRole.ADMIN);
-        return roles ? roles?.includes(EnumRole.ADMIN) : true;
+        if (user && isSuperAdmin(user?.role)) return roles?.includes(EnumRole.SUPER_ADMIN);
+        return roles ? roles?.includes(EnumRole.SUPER_ADMIN) : true;
     };
 
     const handleRedirect = (): JSX.Element => {

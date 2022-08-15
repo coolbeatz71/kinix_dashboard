@@ -1,6 +1,7 @@
 import React, { FC, Fragment, Key, ReactNode, useState } from 'react';
 import { Divider, Grid, Layout, Menu } from 'antd';
 import getSideNavWidth from '@helpers/getSideNavWidth';
+import { Link } from 'react-router-dom';
 import Logo from '@components/common/Logo';
 import { DASHBOARD_PATH } from '@constants/paths';
 import { HomeFilled } from '@ant-design/icons';
@@ -59,7 +60,7 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
                 {!isExpanded ? (
                     getSubMenuItems(section.sub).map((item) => (
                         <Item title={null} className={styles.sidenav__menu__items} key={item.text} icon={item.icon}>
-                            <a href={item.href}>{item.text}</a>
+                            <Link to={item.href as string}>{item.text}</Link>
                         </Item>
                     ))
                 ) : (
@@ -68,7 +69,7 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
                         <SubMenu key={section.key} title={toUpper(section.title)} className={styles.sidenav__menu__sub}>
                             {getSubMenuItems(section.sub).map((item) => (
                                 <Item className={styles.sidenav__menu__items} key={item.text} icon={item.icon}>
-                                    <a href={item.href}>{item.text}</a>
+                                    <Link to={item.href as string}>{item.text}</Link>
                                 </Item>
                             ))}
                         </SubMenu>
@@ -91,11 +92,11 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
                     mode="inline"
                     style={menuStyles}
                     openKeys={openSections}
-                    onOpenChange={onOpenSectionChange}
                     className={styles.sidenav__menu}
+                    onOpenChange={onOpenSectionChange}
                 >
                     <Item key="Dashboard" title={null} className={styles.sidenav__menu__items} icon={<HomeFilled />}>
-                        <a href={DASHBOARD_PATH}>Dashboard</a>
+                        <Link to={DASHBOARD_PATH}>Dashboard</Link>
                     </Item>
 
                     {renderSections(isSideNavExpanded)}

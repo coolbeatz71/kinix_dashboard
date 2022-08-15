@@ -2,6 +2,7 @@ import { BasicInitialState, BasicInitialStateList, IBasicInitialState, IBasicIni
 
 export type IUserState = {
     add: IBasicInitialState;
+    admins: IBasicInitialState;
     clients: IBasicInitialState;
     search: IBasicInitialStateList;
     currentUser: IBasicInitialState;
@@ -12,6 +13,7 @@ export type IUserState = {
 
 export const userInitialState: IUserState = {
     add: BasicInitialState,
+    admins: BasicInitialState,
     clients: BasicInitialState,
     search: BasicInitialStateList,
     currentUser: BasicInitialState,
