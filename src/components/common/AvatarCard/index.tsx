@@ -59,10 +59,10 @@ const AvatarCard: FC<IAvatarCardProps> = ({ image, userName, loading }) => {
                 ).then((response) => {
                     if (response.type === 'users/updateAvatar/fulfilled') {
                         setAvatar(imageUrl as string);
-                        notification.info({
+                        notification.success({
                             maxCount: 1,
                             key: 'success',
-                            message: 'Upload',
+                            message: 'Youpi!',
                             placement: 'topRight',
                             description: 'Photo de profil uploadée avec succès',
                         });
@@ -73,7 +73,7 @@ const AvatarCard: FC<IAvatarCardProps> = ({ image, userName, loading }) => {
             notification.error({
                 maxCount: 1,
                 key: 'error',
-                message: 'Erreur',
+                message: 'Oops!',
                 placement: 'topRight',
                 description: (err as Error)?.message,
             });

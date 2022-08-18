@@ -1,15 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from 'services/axios';
-import { isTokenExpired, verifyToken } from '@helpers/getToken';
-import getLocalUserData from '@helpers/getLocalUserData';
+import { verifyToken } from '@helpers/getToken';
 
 const getCurrentUserAction = createAsyncThunk('users/currentUser', async (_, { rejectWithValue }) => {
     const token = verifyToken();
-    const isExpired = isTokenExpired();
-    if (!isExpired) {
-        const user = getLocalUserData();
-        return user;
-    } else if (token) {
+    if (token) {
         try {
             const { data } = await api.get('/admin');
             return data;

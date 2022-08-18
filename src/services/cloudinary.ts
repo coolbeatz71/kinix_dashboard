@@ -1,28 +1,34 @@
 import axios from 'axios';
 import { notification } from 'antd';
 import { SHA1 } from 'crypto-js';
-import { IMAGES_API_KEY, IMAGES_API_PRESET, IMAGES_API_URL, IMAGES_API_SECRET } from '@constants/platform';
+import { IMAGES_API_KEY, IMAGES_API_URL, IMAGES_API_SECRET } from '@constants/platform';
 
 const uploadImageCloudinary = async (
     file: File,
     currentImage: string | null,
     folderName: 'articles' | 'avatars',
 ): Promise<unknown> => {
-    const isAvatar = folderName === 'avatars';
-
     const formData = new FormData();
 
     formData.append('folder', folderName);
     formData.append('file', file, file.name);
     formData.append('api_key', IMAGES_API_KEY);
 
-    if (!currentImage) formData.append('upload_preset', isAvatar ? 'trdvi7fs' : IMAGES_API_PRESET);
-    else {
-        const splitted = currentImage?.split(`${folderName}`);
+    if (!currentImage) {
+        const timestamp = new Date().getTime();
+        const plainText = `folder=${folderName}&timestamp=${timestamp}${IMAGES_API_SECRET}`;
+        formData.append('timestamp', `${timestamp}`);
+        formData.append('signature', `${SHA1(plainText)}`);
+    } else {
+        const splitted = currentImage?.split(`${folderName}/`);
         const fileName = splitted[1]?.split('.')[0];
         const imagePublicId = `${fileName}`;
+        const timestamp = new Date().getTime();
+        const plainText = `folder=${folderName}&public_id=${imagePublicId}&timestamp=${timestamp}${IMAGES_API_SECRET}`;
+
         formData.append('public_id', imagePublicId);
-        formData.append('upload_preset', isAvatar ? 'trdvi7fs' : IMAGES_API_PRESET);
+        formData.append('timestamp', `${timestamp}`);
+        formData.append('signature', `${SHA1(plainText)}`);
     }
 
     try {
@@ -49,13 +55,13 @@ export const deleteImageFromCloudinary = async (
     const imagePublicId = `${folderName}${fileName}`;
     const timestamp = new Date().getTime();
     const plainText = `public_id=${imagePublicId}&timestamp=${timestamp}${IMAGES_API_SECRET}`;
-    const signature = SHA1(plainText);
 
     const formData = new FormData();
-    formData.append('public_id', imagePublicId);
-    formData.append('signature', `${signature}`);
+
     formData.append('api_key', IMAGES_API_KEY);
+    formData.append('public_id', imagePublicId);
     formData.append('timestamp', `${timestamp}`);
+    formData.append('signature', `${SHA1(plainText)}`);
 
     if (imagePublicId) {
         try {
@@ -64,9 +70,9 @@ export const deleteImageFromCloudinary = async (
                 notification.success({
                     maxCount: 1,
                     key: 'success',
-                    message: 'Upload',
+                    message: 'Youpi!',
                     placement: 'topRight',
-                    description: 'Image supprimée avec succès du cloud',
+                    description: 'Image supprimée avec succès',
                 });
             }
             return data;
@@ -74,9 +80,9 @@ export const deleteImageFromCloudinary = async (
             notification.error({
                 maxCount: 1,
                 key: 'error',
-                message: 'Erreur',
+                message: 'Oops!',
                 placement: 'topRight',
-                description: "Impossible de supprimer l'image du cloud",
+                description: "Impossible de supprimer l'image",
             });
         }
     }

@@ -46,20 +46,19 @@ const useQuillEditor = (): IQuillEditorData => {
             const { data } = await axios.post(`${IMAGES_API_URL}/upload`, formData, {
                 headers: { 'X-Requested-With': 'XMLHttpRequest' },
             });
-            notification.info({
-                key: 'success',
+            notification.success({
                 maxCount: 1,
-                message: 'Cloud',
-                description: 'Image uploadée avec succès sur le cloud',
+                key: 'success',
+                message: 'Youpi!',
                 placement: 'topRight',
+                description: 'Image uploadée avec succès',
             });
             insertToEditor(data.url);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err) {
             notification.error({
-                key: 'error',
                 maxCount: 1,
-                message: 'Erreur',
+                key: 'error',
+                message: 'Oops!',
                 placement: 'topRight',
                 description: (err as Error)?.message,
             });
