@@ -36,8 +36,7 @@ const useQuillEditor = (): IQuillEditorData => {
         quill?.insertEmbed(range?.index as number, 'image', url);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const saveToServer = async (file: File): Promise<any> => {
+    const saveToServer = async (file: File): Promise<void> => {
         const formData = new FormData();
 
         formData.append('file', file, file.name);
@@ -56,13 +55,13 @@ const useQuillEditor = (): IQuillEditorData => {
             });
             insertToEditor(data.url);
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (err: any) {
+        } catch (err) {
             notification.error({
                 key: 'error',
                 maxCount: 1,
                 message: 'Erreur',
-                description: err?.message,
                 placement: 'topRight',
+                description: (err as Error)?.message,
             });
         }
     };

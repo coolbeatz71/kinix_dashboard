@@ -2,6 +2,7 @@ import EnumCategory from '@interfaces/category';
 
 export const LOGIN_PATH = '/';
 export const DASHBOARD_PATH = '/dashboard';
+export const SETTING_PATH = '/settings';
 export const VIDEO_PATH = '/videos';
 export const ARTICLE_PATH = '/articles';
 export const ADS_PATH = '/ads';

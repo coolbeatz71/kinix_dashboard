@@ -26,6 +26,7 @@ module.exports = {
             plugin: CracoAntdPlugin,
             options: {
                 customizeThemeLessPath: path.join(__dirname, 'src/theme/variables.less'),
+                babelPluginImportOptions: { libraryName: 'antd', libraryDirectory: 'es', style: true },
             },
         },
     ],

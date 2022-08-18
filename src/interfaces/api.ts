@@ -14,6 +14,11 @@ export interface IUser {
     image?: string | null;
     allowEmailNotification?: boolean;
     role?: EnumRole;
+    countryName?: string;
+    countryFlag?: string;
+    phoneISOCode?: string;
+    phoneDialCode?: string;
+    phonePartial?: string;
     createdAt?: string;
     updatedAt?: string;
 }
@@ -63,6 +68,7 @@ export interface IVideo {
     shared?: boolean;
     userId: number;
     user?: IUser;
+    lyrics?: string;
     category?: ICategory;
     share: IShare[];
     rate: IRate[];

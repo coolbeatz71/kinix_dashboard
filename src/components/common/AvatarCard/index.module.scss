@@ -1,0 +1,33 @@
+@import 'styles/colors.scss';
+
+.avatarCard {
+    [class~='ant-avatar'] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 4px solid $default;
+    }
+
+    &__button {
+        position: relative;
+        left: 5rem;
+        top: -2rem;
+        border: 2px solid $white !important;
+    }
+
+    &__cropper {
+        [class~='ant-modal-title'] {
+            font-weight: 600;
+        }
+
+        [class~='ant-modal-footer'] {
+            display: flex;
+            padding: 1rem 1.5rem;
+            justify-content: space-between;
+        }
+
+        [class~='img-crop-control'] {
+            width: 100%;
+        }
+    }
+}

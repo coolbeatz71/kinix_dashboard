@@ -3,6 +3,9 @@
 
 .profile {
     padding: $padding $mobile-content-padding;
+    a {
+        text-decoration: none !important;
+    }
 
     &__avatar {
         display: flex;

@@ -7,9 +7,10 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import logoutAction from '@redux/auth/logout';
 import { useAppDispatch } from '@redux/store';
-import { LOGIN_PATH } from '@constants/paths';
+import { LOGIN_PATH, SETTING_PATH } from '@constants/paths';
 
 import styles from './index.module.scss';
+import { Link } from 'react-router-dom';
 
 const { Item } = Menu;
 const { Text } = Typography;
@@ -48,7 +49,7 @@ const UserProfileMenu: FC<IUserProfileMenuProps> = ({ avatar, email, phoneNumber
     };
 
     return (
-        <Menu className={styles.profile}>
+        <Menu className={styles.profile} onMouseLeave={() => setOpenDropdown(false)}>
             <Row align="middle" justify="center">
                 <Col span={24} className={styles.profile__avatar}>
                     <Avatar
@@ -64,7 +65,9 @@ const UserProfileMenu: FC<IUserProfileMenuProps> = ({ avatar, email, phoneNumber
                     <Text data-phone>{phoneNumber}</Text>
                 </Col>
             </Row>
-            <Item icon={<SettingOutlined />}>Configuration</Item>
+            <Item icon={<SettingOutlined />}>
+                <Link to={SETTING_PATH}>Configuration</Link>
+            </Item>
             <Item danger data-signout icon={<LogoutOutlined />} onClick={onLogout}>
                 {loading ? <Spin indicator={<LoadingOutlined />} /> : 'Déconnexion'}
             </Item>
