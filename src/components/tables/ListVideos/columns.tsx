@@ -5,7 +5,7 @@ import numeral from 'numeral';
 import { Popover, Tag, Tooltip } from 'antd';
 import { IUnknownObject } from '@interfaces/app';
 import { ColumnType } from 'antd/lib/table';
-import { IVideo, IUser } from '@interfaces/api';
+import { IUser, IVideo } from '@interfaces/api';
 import format from '@helpers/formatString';
 import VideoTableActions from './VideoTableActions';
 import PopoverContentLink from '@components/common/PopoverContentLink';
@@ -68,7 +68,7 @@ const tableColumns = (
         key: 'user',
         dataIndex: 'user',
         width: 120,
-        render: (user: IUser) => user.userName || '-',
+        render: (user: IUser) => user?.userName || '-',
     },
     {
         title: 'Avis',

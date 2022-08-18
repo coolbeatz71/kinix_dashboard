@@ -65,8 +65,8 @@ const Header: FC<IHeaderProps> = ({ scrolled, isSideNavExpanded, setIsSideNavExp
                             }
                         >
                             <Button
-                                onClick={() => setOpenDropdown(!openDropDown)}
                                 type="link"
+                                onClick={() => setOpenDropdown(!openDropDown)}
                                 icon={
                                     <Avatar
                                         size="small"

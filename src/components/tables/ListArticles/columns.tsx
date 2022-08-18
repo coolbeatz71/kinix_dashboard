@@ -54,7 +54,7 @@ const tableColumns = (
         key: 'user',
         dataIndex: 'user',
         width: 120,
-        render: (user: IUser) => user.userName || '-',
+        render: (user: IUser) => user?.userName || '-',
     },
     {
         title: 'Likes',
