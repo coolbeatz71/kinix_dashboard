@@ -1,6 +1,9 @@
 @import 'styles/colors.scss';
 
 .avatarCard {
+    [class='ant-card-body'] {
+        padding: 1rem;
+    }
     [class~='ant-avatar'] {
         display: flex;
         align-items: center;
@@ -10,8 +13,8 @@
 
     &__button {
         position: relative;
-        left: 5rem;
-        top: -2rem;
+        left: -1rem;
+        bottom: -4rem;
         border: 2px solid $white !important;
     }
 

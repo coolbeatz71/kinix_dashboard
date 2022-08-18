@@ -2,15 +2,15 @@ import React, { FC, useEffect, useState } from 'react';
 import ImgCrop from 'antd-img-crop';
 import { EditOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import uploadImageCloudinary from '@services/cloudinary';
-import { Avatar, Button, Typography, Upload, message, notification, Spin } from 'antd';
+import { IRootState } from '@redux/reducers';
+import { useSelector } from 'react-redux';
+import { Avatar, Button, Typography, Upload, message, notification, Spin, Card } from 'antd';
 import { useAppDispatch } from '@redux/store';
 import { getAvatarColor } from '@helpers/getAvatarColor';
 import updateAvatar, { resetUpdateAvatarAction } from '@redux/users/updateAvatar';
 import 'antd/es/slider/style';
 
 import styles from './index.module.scss';
-import { IRootState } from '@redux/reducers';
-import { useSelector } from 'react-redux';
 
 const { Title } = Typography;
 
@@ -81,13 +81,11 @@ const AvatarCard: FC<IAvatarCardProps> = ({ image, userName, loading }) => {
     };
 
     return (
-        <div className={styles.avatarCard}>
-            <Title level={5} className="mb-4">
-                Photo de profil
-            </Title>
-            <div>
+        <Card bordered className={styles.avatarCard}>
+            <Title level={4}>Photo de profil</Title>
+            <div className="d-flex justify-content-center">
                 <Avatar
-                    size={120}
+                    size={98}
                     src={avatar}
                     icon={
                         loading || updating ? (
@@ -98,34 +96,36 @@ const AvatarCard: FC<IAvatarCardProps> = ({ image, userName, loading }) => {
                     }
                     style={{ backgroundColor: getAvatarColor(userName) }}
                 />
-                <ImgCrop
-                    grid
-                    zoom
-                    rotate
-                    shape="round"
-                    onModalOk={onUpload}
-                    modalCancel="Annuler"
-                    beforeCrop={beforeCrop}
-                    modalTitle="Modifier image"
-                    modalClassName={styles.avatarCard__cropper}
-                    cropperProps={{
-                        cropSize: {
-                            width: 250,
-                            height: 250,
-                        },
-                    }}
-                >
-                    <Upload showUploadList={false} accept="image/png, image/jpeg">
-                        <Button
-                            shape="circle"
-                            type="primary"
-                            className={styles.avatarCard__button}
-                            icon={<EditOutlined />}
-                        />
-                    </Upload>
-                </ImgCrop>
+                <div>
+                    <ImgCrop
+                        grid
+                        zoom
+                        rotate
+                        shape="round"
+                        onModalOk={onUpload}
+                        modalCancel="Annuler"
+                        beforeCrop={beforeCrop}
+                        modalTitle="Modifier image"
+                        modalClassName={styles.avatarCard__cropper}
+                        cropperProps={{
+                            cropSize: {
+                                width: 250,
+                                height: 250,
+                            },
+                        }}
+                    >
+                        <Upload showUploadList={false} accept="image/png, image/jpeg">
+                            <Button
+                                shape="circle"
+                                type="primary"
+                                className={styles.avatarCard__button}
+                                icon={<EditOutlined />}
+                            />
+                        </Upload>
+                    </ImgCrop>
+                </div>
             </div>
-        </div>
+        </Card>
     );
 };
 
