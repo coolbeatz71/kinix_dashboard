@@ -10,6 +10,7 @@ import { authInitialState } from './types';
 import logoutAction from './logout';
 import updateAvatarAction from './updateAvatar';
 import changePasswordAction from './changePassword';
+import updateAccountAction from './updateAccount';
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -34,7 +35,11 @@ export const authSlice = createSlice({
             // change password
             .addCase(changePasswordAction.pending, ActionWrapperPending)
             .addCase(changePasswordAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(changePasswordAction.rejected, ActionWrapperRejected);
+            .addCase(changePasswordAction.rejected, ActionWrapperRejected)
+            // update account
+            .addCase(updateAccountAction.pending, ActionWrapperPending)
+            .addCase(updateAccountAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(updateAccountAction.rejected, ActionWrapperRejected);
     },
 });
 

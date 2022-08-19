@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Button, Card, Form, Input, notification, Typography } from 'antd';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IRootState } from '@redux/reducers';
@@ -7,19 +7,23 @@ import FloatTextInput from '@components/common/FloatTextInput';
 import { required } from '@helpers/validators';
 import { useAppDispatch } from '@redux/store';
 import { newPassword, passwordMatchValidator } from './validator';
-import changePasswordAction from '@redux/auth/changePassword';
+import changePasswordAction, { resetChangePasswordAction } from '@redux/auth/changePassword';
 
 import styles from './index.module.scss';
 
-const { Item, useForm } = Form;
 const { Password } = Input;
 const { Title } = Typography;
+const { Item, useForm } = Form;
 const btnStyles = `d-flex align-items-center justify-content-center`;
 
 const ChangePasswordForm: FC = () => {
     const [form] = useForm();
     const dispatch = useAppDispatch();
     const { loading, error } = useSelector(({ auth: { changePassword } }: IRootState) => changePassword);
+
+    useEffect(() => {
+        resetChangePasswordAction()(dispatch);
+    }, [dispatch]);
 
     const onSubmit = (formData: { oldPassword: string; newPassword: string }): void => {
         const { oldPassword, newPassword } = formData;

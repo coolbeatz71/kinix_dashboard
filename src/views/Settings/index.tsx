@@ -11,6 +11,7 @@ import AvatarCard from '@components/common/AvatarCard';
 import UpdateAccountForm from '@components/form/UpdateAccount';
 import getCurrentUserAction from '@redux/users/getCurrentUser';
 import ChangePasswordForm from '@components/form/ChangePassword';
+import { IUser } from '@interfaces/api';
 
 const AccountSettings: FC = () => {
     const history = useHistory();
@@ -35,7 +36,7 @@ const AccountSettings: FC = () => {
                     <ChangePasswordForm />
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={12}>
-                    <UpdateAccountForm />
+                    <UpdateAccountForm initialValues={user as IUser} />
                 </Col>
             </Row>
         </div>

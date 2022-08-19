@@ -1,6 +1,7 @@
 @import 'styles/dimensions.scss';
 
 .updateAccount {
+    height: 100%;
     [class='ant-card-body'] {
         padding: $padding calc($padding * 2);
     }

@@ -1,3 +1,4 @@
+@import 'styles/mixins.scss';
 @import 'styles/dimensions.scss';
 
 .changePassword {
@@ -8,5 +9,10 @@
 
     [data-title='true'] {
         margin-bottom: 1.2rem;
+    }
+
+    @include mediaMinMD {
+        margin: 0;
+        margin-top: 0.5rem;
     }
 }
