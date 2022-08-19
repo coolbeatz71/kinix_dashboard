@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { Avatar, Button, Typography, Upload, message, notification, Spin, Card } from 'antd';
 import { useAppDispatch } from '@redux/store';
 import { getAvatarColor } from '@helpers/getAvatarColor';
-import updateAvatar, { resetUpdateAvatarAction } from '@redux/users/updateAvatar';
+import updateAvatarAction, { resetUpdateAvatarAction } from '@redux/auth/updateAvatar';
 import 'antd/es/slider/style';
 
 import styles from './index.module.scss';
@@ -25,7 +25,7 @@ type FileType = string | boolean | void | File | Blob;
 const AvatarCard: FC<IAvatarCardProps> = ({ image, userName, loading }) => {
     const dispatch = useAppDispatch();
     const [avatar, setAvatar] = useState<string | null>(image);
-    const { loading: updating } = useSelector(({ users: { updateAvatar } }: IRootState) => updateAvatar);
+    const { loading: updating } = useSelector(({ auth: { updateAvatar } }: IRootState) => updateAvatar);
 
     useEffect(() => {
         resetUpdateAvatarAction()(dispatch);
@@ -52,12 +52,12 @@ const AvatarCard: FC<IAvatarCardProps> = ({ image, userName, loading }) => {
             const imageUrl = await uploadImageCloudinary(file as File, image, 'avatars');
             if (typeof imageUrl === 'string') {
                 dispatch(
-                    updateAvatar({
+                    updateAvatarAction({
                         dispatch,
                         avatar: imageUrl as string,
                     }),
                 ).then((response) => {
-                    if (response.type === 'users/updateAvatar/fulfilled') {
+                    if (response.type === 'auth/updateAvatar/fulfilled') {
                         setAvatar(imageUrl as string);
                         notification.success({
                             maxCount: 1,

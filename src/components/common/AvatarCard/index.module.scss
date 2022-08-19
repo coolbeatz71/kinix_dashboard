@@ -1,8 +1,9 @@
 @import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
 
 .avatarCard {
     [class='ant-card-body'] {
-        padding: 1rem;
+        padding: $padding calc($padding * 2);
     }
     [class~='ant-avatar'] {
         display: flex;

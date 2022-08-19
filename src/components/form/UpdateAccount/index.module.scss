@@ -1,5 +1,11 @@
+@import 'styles/dimensions.scss';
+
 .updateAccount {
     [class='ant-card-body'] {
-        padding: 1rem;
+        padding: $padding calc($padding * 2);
+    }
+
+    [data-title='true'] {
+        margin-bottom: 1.2rem;
     }
 }

@@ -8,7 +8,9 @@ const { Title } = Typography;
 const UpdateAccountForm: FC = () => {
     return (
         <Card bordered className={styles.updateAccount}>
-            <Title level={4}>Informations sur le compte</Title>
+            <Title level={4} data-title>
+                Informations sur le compte
+            </Title>
         </Card>
     );
 };

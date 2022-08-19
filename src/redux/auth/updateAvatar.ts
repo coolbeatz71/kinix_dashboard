@@ -1,8 +1,8 @@
 import api from 'services/axios';
 import { AppDispatch } from '@redux/store';
 import { AnyAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { userSlice } from '.';
-import setCurrentUserAction from './setCurrentUser';
+import { authSlice } from '.';
+import setCurrentUserAction from '../users/setCurrentUser';
 
 interface IParams {
     avatar: string;
@@ -12,10 +12,10 @@ interface IParams {
 export const resetUpdateAvatarAction =
     () =>
     (dispatch: AppDispatch): AnyAction => {
-        return dispatch(userSlice.actions.clear({ context: 'users/updateAvatar' }));
+        return dispatch(authSlice.actions.clear({ context: 'auth/updateAvatar' }));
     };
 
-const updateAvatar = createAsyncThunk('users/updateAvatar', async (params: IParams, { rejectWithValue }) => {
+const updateAvatarAction = createAsyncThunk('auth/updateAvatar', async (params: IParams, { rejectWithValue }) => {
     const { avatar, dispatch } = params;
 
     try {
@@ -29,4 +29,4 @@ const updateAvatar = createAsyncThunk('users/updateAvatar', async (params: IPara
     }
 });
 
-export default updateAvatar;
+export default updateAvatarAction;

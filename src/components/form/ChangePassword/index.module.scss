@@ -1,6 +1,12 @@
+@import 'styles/dimensions.scss';
+
 .changePassword {
-    margin: 1.5rem 0;
+    margin: 0.5rem 0;
     [class='ant-card-body'] {
-        padding: 1rem;
+        padding: $padding calc($padding * 2);
+    }
+
+    [data-title='true'] {
+        margin-bottom: 1.2rem;
     }
 }
