@@ -1,0 +1,20 @@
+@import 'styles/colors.scss';
+
+.articleTags {
+    padding: 1rem 0;
+    [class~='ant-space-horizontal'] {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    [class~='ant-tag'] {
+        cursor: pointer;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+
+        a:hover {
+            color: $link;
+            text-decoration: underline;
+        }
+    }
+}
