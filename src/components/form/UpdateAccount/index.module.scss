@@ -1,3 +1,4 @@
+@import 'styles/colors.scss';
 @import 'styles/dimensions.scss';
 
 .updateAccount {
@@ -8,5 +9,12 @@
 
     [data-title='true'] {
         margin-bottom: 1.2rem;
+    }
+
+    [class~='ant-input-prefix'] {
+        font-weight: 500;
+        margin-right: 0.5rem;
+        padding-right: 0.5rem;
+        border-right: 1px solid $dark10;
     }
 }

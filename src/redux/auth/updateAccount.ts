@@ -4,13 +4,13 @@ import { AnyAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { userSlice } from '../users';
 
 interface IParams {
-    email: string;
-    userName: string;
-    countryName: string;
-    countryFlag: string;
-    phonePartial: string;
-    phoneISOCode: string;
-    phoneDialCode: string;
+    email?: string | null;
+    userName?: string | null;
+    countryName?: string | null;
+    countryFlag?: string | null;
+    phonePartial?: string | null;
+    phoneISOCode?: string | null;
+    phoneDialCode?: string | null;
 }
 
 export const resetUpdateAccountAction =

@@ -39,7 +39,7 @@ export const userNameValidator = (name: string): Rule[] => {
 
 export const countryNameValidator = (name: string): Rule[] => [required(name)];
 
-export const partialPhoneValidator = (name: string, phoneDialCode: string | undefined): Rule[] => [
+export const phonePartialValidator = (name: string, phoneDialCode: string | undefined): Rule[] => [
     required(name),
     {
         validator(_rule: unknown, value: string) {

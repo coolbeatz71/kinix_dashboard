@@ -3,7 +3,6 @@ import { ICurrentAdmin } from '@interfaces/admin';
 import getSideNavWidth from '@helpers/getSideNavWidth';
 import { MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Button, Col, Dropdown, Grid, Layout, Row } from 'antd';
-import format from '@helpers/formatString';
 import { getAvatarColor } from '@helpers/getAvatarColor';
 import UserProfileMenu from '@components/common/UserProfileMenu';
 
@@ -76,7 +75,7 @@ const Header: FC<IHeaderProps> = ({ scrolled, isSideNavExpanded, setIsSideNavExp
                                     />
                                 }
                             >
-                                {format(currentUser.userName, 'upper-lowercase')}
+                                {currentUser.userName}
                             </Button>
                         </Dropdown>
                     )}
