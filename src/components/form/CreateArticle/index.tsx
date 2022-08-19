@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { Form, FormInstance, Input, Select } from 'antd';
+import { deleteImageFromCloudinary } from '@services/cloudinary';
 import FloatTextInput from '@components/common/FloatTextInput';
 import { summaryValidator, tagsValidator, titleValidator } from './vaidators';
 import { IArticleData } from '@interfaces/articles';
 import useQuillEditor from '@hooks/useQuillEditor';
 import getQuillImageUrls from '@helpers/getQuillImageUrls';
-import deleteImageFromCloudinary from '@helpers/deleteImageCloudinary';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import ErrorAlert from '@components/common/ErrorAlert';
 
@@ -48,7 +48,7 @@ const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error, 
                     const deleted = getQuillImageUrls(quill?.getContents().diff(oldDelta).ops);
 
                     if (!isEmpty(deleted)) {
-                        const data = await deleteImageFromCloudinary(deleted[0]);
+                        const data = await deleteImageFromCloudinary(deleted[0], 'articles');
                         if (data) setInsertedImages(inserted.filter((val) => val !== deleted[0]));
                     }
                     if (!isEmpty(inserted)) setInsertedImages(inserted);

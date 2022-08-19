@@ -30,6 +30,12 @@
     }
 }
 
+@mixin mediaMinMD {
+    @media screen and (min-width: #{$md-size}) {
+        @content;
+    }
+}
+
 @mixin mediaMaxLG {
     @media screen and (max-width: #{$lg-size}) {
         @content;

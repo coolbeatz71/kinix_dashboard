@@ -6,5 +6,6 @@ export interface IVideoData {
     title: string;
     tags?: string[] | null;
     userId: number;
+    lyrics?: string;
     categoryId: number | IUnknownObject;
 }

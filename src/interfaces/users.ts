@@ -13,6 +13,11 @@ export interface IUserData {
     image?: string | null;
     allowEmailNotification?: boolean;
     role?: EnumRole;
+    countryName?: string;
+    countryFlag?: string;
+    phoneISOCode?: string;
+    phoneDialCode?: string;
+    phonePartial?: string;
     createdAt?: string;
     updatedAt?: string;
 }
