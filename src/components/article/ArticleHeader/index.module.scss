@@ -4,6 +4,7 @@
 .articleHeader {
     margin-bottom: calc(#{$padding} * 1.2);
     [data-author='true'] {
+        cursor: pointer;
         font-weight: 600;
 
         a {

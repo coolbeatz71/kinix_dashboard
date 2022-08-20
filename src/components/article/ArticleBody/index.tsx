@@ -43,7 +43,7 @@ const ArticleBody: FC<IArticleBodyProps> = ({ article }) => {
                         <ArticleShare />
                     </ActionWrapper>
                 </Col>
-                <Col xs={21} sm={22} lg={11} className={styles.articleBody__content}>
+                <Col xs={21} sm={22} lg={12} className={styles.articleBody__content}>
                     <ArticleHeader author={String(article.user?.userName)} updatedAt={String(article.updatedAt)} />
                     <div>
                         <Paragraph data-paragraph>{article.summary}</Paragraph>

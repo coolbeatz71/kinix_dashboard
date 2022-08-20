@@ -3,7 +3,7 @@ import { ARTICLE_PATH } from '@constants/paths';
 import EnumRole from '@interfaces/role';
 
 const Articles = React.lazy(() => import('.'));
-const SingleArticle = React.lazy(() => import('./SingleArticle'));
+const ViewArticle = React.lazy(() => import('./ViewArticle'));
 
 const route = [
     {
@@ -19,7 +19,7 @@ const route = [
     {
         exact: true,
         name: 'Article',
-        component: SingleArticle,
+        component: ViewArticle,
         path: `${ARTICLE_PATH}/:slug`,
         extraProps: {
             isLoggedIn: true,

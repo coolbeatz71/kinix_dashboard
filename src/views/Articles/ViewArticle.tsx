@@ -9,13 +9,14 @@ import { useAppDispatch } from '@redux/store';
 import getSingleArticleAction from '@redux/articles/single';
 import { IUnknownObject } from '@interfaces/app';
 import { IUser, IArticle } from '@interfaces/api';
+import ViewArticleSkeleton from '@components/skeleton/ViewArticle';
 
-const SingleArticle: FC = () => {
+const ViewArticle: FC = () => {
     const { slug } = useParams<IUnknownObject>();
     const dispatch = useAppDispatch();
 
     const { data: user } = useSelector(({ users: { currentUser } }: IRootState) => currentUser);
-    const { data: article, error } = useSelector(({ articles: { single } }: IRootState) => single);
+    const { data: article, error, loading } = useSelector(({ articles: { single } }: IRootState) => single);
 
     const loadArticle = useCallback(() => {
         dispatch(getSingleArticleAction(slug));
@@ -29,6 +30,8 @@ const SingleArticle: FC = () => {
         <Fragment>
             {error ? (
                 <ServerError onRefresh={() => loadArticle()} />
+            ) : loading ? (
+                <ViewArticleSkeleton />
             ) : (
                 <Fragment>
                     <ArticleCover user={user as IUser} article={article as IArticle} />
@@ -42,4 +45,4 @@ const SingleArticle: FC = () => {
     );
 };
 
-export default SingleArticle;
+export default ViewArticle;
