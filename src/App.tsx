@@ -9,7 +9,6 @@ import PageComponent from '@components/layout/PageComponent';
 import Page404 from '@views/Page404';
 
 const App = (): JSX.Element => {
-    //setup the locale to french
     useEffect(() => {
         dayjs.locale(fr);
         dayjs.extend(relativeTime);

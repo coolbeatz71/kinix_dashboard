@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TwitterOutlined, InstagramFilled, FacebookFilled, YoutubeFilled } from '@ant-design/icons';
+import { TwitterOutlined, InstagramFilled, FacebookFilled, YoutubeFilled, WhatsAppOutlined } from '@ant-design/icons';
 import { MdEmail } from 'react-icons/md';
 import { HiOutlineLink } from 'react-icons/hi';
 
@@ -45,6 +45,10 @@ export const shareList: ISocialIcon[] = [
     },
     social[0],
     social[2],
+    {
+        name: 'whatsapp',
+        icon: <WhatsAppOutlined className="whatsapp" />,
+    },
     {
         name: 'copy',
         icon: <HiOutlineLink className="copy" />,

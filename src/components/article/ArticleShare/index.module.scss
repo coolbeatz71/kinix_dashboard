@@ -32,6 +32,9 @@
             [class~='email'] {
                 color: $google;
             }
+            [class~='whatsapp'] {
+                color: $whatsapp;
+            }
             color: $primary !important;
         }
 
@@ -43,6 +46,13 @@
         }
         &[data-platform='email'] {
             background: $google;
+        }
+        &[data-platform='whatsapp'] {
+            background: $whatsapp;
+        }
+
+        &[data-platform='copy'] {
+            background: $primary;
         }
     }
 

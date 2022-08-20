@@ -44,7 +44,11 @@ const ArticleBody: FC<IArticleBodyProps> = ({ article, related }) => {
             <Row className={styles.articleBody}>
                 <Col xs={3} sm={2} lg={5}>
                     <ActionWrapper>
-                        <ArticleShare />
+                        {/* TODO: should add the link from the client web not the admin one */}
+                        <ArticleShare
+                            title={article.title}
+                            link={`https://www.website.com${ARTICLE_PATH}/${article.slug}`}
+                        />
                     </ActionWrapper>
                 </Col>
                 <Col xs={21} sm={22} lg={12} className={styles.articleBody__content}>
