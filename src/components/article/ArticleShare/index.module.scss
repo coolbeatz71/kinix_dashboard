@@ -1,0 +1,80 @@
+@import 'styles/mixins.scss';
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.articleShare {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    margin-right: calc(#{$padding} * 2);
+
+    &__button {
+        margin-bottom: calc(#{$padding} / 2);
+
+        width: 2.5rem;
+        height: 2.5rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 0;
+        color: $white !important;
+
+        &:hover {
+            background: $grey !important;
+            [class~='twitter'] {
+                color: $twitter;
+            }
+            [class~='facebook'] {
+                color: $facebook;
+            }
+            [class~='email'] {
+                color: $google;
+            }
+            [class~='whatsapp'] {
+                color: $whatsapp;
+            }
+            color: $primary !important;
+        }
+
+        &[data-platform='twitter'] {
+            background: $twitter;
+        }
+        &[data-platform='facebook'] {
+            background: $facebook;
+        }
+        &[data-platform='email'] {
+            background: $google;
+        }
+        &[data-platform='whatsapp'] {
+            background: $whatsapp;
+        }
+
+        &[data-platform='copy'] {
+            background: $primary;
+        }
+    }
+
+    @include mediaXS {
+        margin-right: 0;
+        align-items: flex-start;
+
+        &__button {
+            margin-bottom: calc(#{$padding} / 2);
+
+            width: 2.2rem;
+            height: 2.2rem;
+        }
+    }
+
+    @include mediaSM {
+        margin-right: 0;
+        align-items: flex-start;
+    }
+
+    @include mediaMD {
+        margin-right: 0;
+        align-items: flex-start;
+    }
+}

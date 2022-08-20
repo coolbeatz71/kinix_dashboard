@@ -13,7 +13,6 @@ import useRouteQuery from '@hooks/useRouteQuery';
 import format from '@helpers/formatString';
 import VideoPlayer from '@components/common/VideoPlayer';
 
-const { TextArea } = Input;
 const { Item, useWatch } = Form;
 
 export interface ICreateVideoProps {
@@ -41,10 +40,10 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
 }) => {
     const query = useRouteQuery();
     const dispatch = useAppDispatch();
-    const textAreaStyle = { height: 150 };
     const category = query.get('category');
     const videoLink = useWatch('link', formRef);
     const isEdit = formContext === EnumFormContext.EDIT;
+
     const onSubmitArticle = (formData: IVideoData): void => onSubmit(formData);
 
     useEffect(() => {
@@ -147,12 +146,6 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
                         disabled={loadingCategories}
                         defaultActiveFirstOption={false}
                     />
-                </FloatTextInput>
-            </Item>
-
-            <Item name="lyrics" validateTrigger={['onSubmit', 'onBlur']}>
-                <FloatTextInput label="Lyrics" placeholder="Lyrics pour les clip videos" required>
-                    <TextArea size="large" autoSize={false} style={textAreaStyle} />
                 </FloatTextInput>
             </Item>
 

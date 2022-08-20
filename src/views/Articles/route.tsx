@@ -1,13 +1,26 @@
+import React from 'react';
 import { ARTICLE_PATH } from '@constants/paths';
 import EnumRole from '@interfaces/role';
-import Articles from '.';
+
+const Articles = React.lazy(() => import('.'));
+const ViewArticle = React.lazy(() => import('./ViewArticle'));
 
 const route = [
     {
-        path: ARTICLE_PATH,
-        name: 'Articles',
-        component: Articles,
         exact: true,
+        name: 'Articles',
+        path: ARTICLE_PATH,
+        component: Articles,
+        extraProps: {
+            isLoggedIn: true,
+            roles: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
+        },
+    },
+    {
+        exact: true,
+        name: 'Article',
+        component: ViewArticle,
+        path: `${ARTICLE_PATH}/:slug`,
         extraProps: {
             isLoggedIn: true,
             roles: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],

@@ -15,11 +15,10 @@ const ServerError: FC<IServerErrorProps> = ({ onRefresh }) => {
 
     return (
         <Result
-            // status="500"
             className={styles.serverError}
             title="Désolé, quelque chose s'est mal passé"
             icon={<Lottie width={350} height={350} options={lottieOps} />}
-            subTitle="Le serveur a rencontré une erreur interne et n'a pas pu terminer la demande."
+            subTitle="Le serveur a rencontré une erreur et n'a pas pu terminer la requête."
             extra={
                 <div className="d-flex justify-content-center">
                     <Button key="refresh" type="primary" ghost size="large" onClick={onRefresh}>

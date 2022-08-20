@@ -1,0 +1,57 @@
+@import 'styles/mixins.scss';
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.sectionTitle {
+    margin: $padding 0;
+    padding: calc(#{$padding}/ 1.2) 0;
+    padding-top: 0;
+    margin-top: 0;
+    border-bottom: 1px solid $dark20;
+
+    @include preventTextSelection;
+
+    a {
+        text-decoration: none;
+    }
+
+    h3 {
+        color: $primary;
+        font-size: 32px;
+        margin-bottom: 0;
+        font-weight: 600;
+        display: inline-block;
+        text-transform: uppercase;
+    }
+
+    &[data-related='true'] {
+        h3 {
+            font-size: 16pt !important;
+        }
+    }
+
+    [data-icon='true'] {
+        & > svg:first-child,
+        [class~='anticon'] {
+            color: $primary;
+        }
+
+        & > svg:first-child {
+            margin-right: 0.5rem;
+            transform: scale(1.5);
+            margin-bottom: 0.2rem;
+        }
+        [class~='anticon'] {
+            margin-right: 0.5rem;
+            font-size: 24px;
+            line-height: 0;
+            margin-bottom: 0.2rem;
+        }
+    }
+
+    @include mediaXS {
+        h3 {
+            font-size: 16pt !important;
+        }
+    }
+}
