@@ -34,7 +34,7 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                     <Menu className={styles.actions__menu}>
                         <Button type="text" icon={<ReadOutlined />} className={styles.actions__button}>
                             <span>
-                                <Link to={`/articles/${article.slug}`} target="_blank" rel="noopener noreferrer">
+                                <Link to={`/articles/${article.slug}`} rel="noopener noreferrer">
                                     Ouvrir
                                 </Link>
                             </span>

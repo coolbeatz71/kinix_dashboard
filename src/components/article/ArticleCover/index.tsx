@@ -35,7 +35,7 @@ const ArticleCover: FC<IArticleCoverProps> = ({ article, user }) => {
                         ) : (
                             <HeartOutlined data-is-my-like={liked} />
                         )}
-                        <Text data-likes-value>{numeral(article.likesCount).format('0.[00]a')}</Text>
+                        <Text data-likes-value>{numeral(article.likesCount).format('0.[00]a')} likes</Text>
                         <Text data-read>{article.reads || 0} min read</Text>
                     </Col>
                 )}

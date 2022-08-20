@@ -37,7 +37,7 @@ const ArticleBody: FC<IArticleBodyProps> = ({ article }) => {
 
     return (
         <Fragment>
-            <Row justify="space-between" className={styles.articleBody}>
+            <Row className={styles.articleBody}>
                 <Col xs={3} sm={2} lg={5}>
                     <ActionWrapper>
                         <ArticleShare />
@@ -47,8 +47,7 @@ const ArticleBody: FC<IArticleBodyProps> = ({ article }) => {
                     <ArticleHeader author={String(article.user?.userName)} updatedAt={String(article.updatedAt)} />
                     <div>
                         <Paragraph data-paragraph>{article.summary}</Paragraph>
-                        <br />
-                        <div dangerouslySetInnerHTML={{ __html: article.body }} />
+                        <div data-article-body dangerouslySetInnerHTML={{ __html: article.body }} />
                     </div>
                     {lg && (
                         <ArticleAction

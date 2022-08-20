@@ -8,9 +8,28 @@
         padding-right: calc(#{$padding} * 2);
 
         [data-paragraph='true'] {
-            line-height: 1.7;
+            line-height: 2;
             font-size: 12.5pt;
-            font-weight: 300;
+            padding: 0.5rem;
+            padding-left: 1rem;
+            font-style: italic;
+            background: $default;
+            border-left: 0.4rem solid $dark30;
+            font-family: 'Playfair Display';
+        }
+
+        [data-article-body='true'] {
+            line-height: 2.2;
+            font-size: 13pt;
+
+            * {
+                font-family: Merriweather;
+            }
+
+            img {
+                width: 100%;
+                object-fit: cover;
+            }
         }
     }
 

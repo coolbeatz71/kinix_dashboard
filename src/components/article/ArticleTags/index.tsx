@@ -11,7 +11,9 @@ const ArticleTags: FC<IArticleTagsProps> = ({ tags }) => (
     <div className={styles.articleTags}>
         <Space>
             {tags?.map((tag) => (
-                <Tag key={tag}>#${tag}</Tag>
+                <Tag color="geekblue" key={tag}>
+                    #{tag}
+                </Tag>
             ))}
         </Space>
     </div>

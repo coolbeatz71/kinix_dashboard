@@ -6,6 +6,7 @@ export type IArticlesState = {
     approve: IBasicInitialState;
     disable: IBasicInitialState;
     delete: IBasicInitialState;
+    single: IBasicInitialState;
 };
 
 export const articlesInitialState: IArticlesState = {
@@ -14,4 +15,5 @@ export const articlesInitialState: IArticlesState = {
     approve: BasicInitialState,
     disable: BasicInitialState,
     delete: BasicInitialState,
+    single: BasicInitialState,
 };

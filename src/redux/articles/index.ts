@@ -10,6 +10,7 @@ import approveArticleAction from './approve';
 import deleteArticleAction from './delete';
 import disableArticleAction from './disable';
 import getAllArticlesAction from './getAll';
+import getSingleArticleAction from './single';
 import { articlesInitialState } from './types';
 
 export const articlesSlice = createSlice({
@@ -39,7 +40,11 @@ export const articlesSlice = createSlice({
             // delete
             .addCase(deleteArticleAction.pending, ActionWrapperPending)
             .addCase(deleteArticleAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(deleteArticleAction.rejected, ActionWrapperRejected);
+            .addCase(deleteArticleAction.rejected, ActionWrapperRejected)
+            // get single article
+            .addCase(getSingleArticleAction.pending, ActionWrapperPending)
+            .addCase(getSingleArticleAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getSingleArticleAction.rejected, ActionWrapperRejected);
     },
 });
 
