@@ -7,7 +7,7 @@
         padding-left: 0;
         padding-right: calc(#{$padding} * 2);
 
-        [data-paragraph='true'] {
+        [data-summary='true'] {
             line-height: 2;
             font-size: 12.5pt;
             padding: 0.5rem;

@@ -3,7 +3,7 @@ import { Col, Row, Skeleton, Space } from 'antd';
 import styles from './index.module.scss';
 
 const ViewArticleSkeleton: FC = () => {
-    const paragraph = Array.from(Array(4).keys()).map((i) => <Skeleton key={i} paragraph={{ rows: 4 }} active />);
+    const paragraph = Array.from(Array(2).keys()).map((i) => <Skeleton key={i} paragraph={{ rows: 4 }} active />);
     const shareButton = Array.from(Array(4).keys()).map((i) => (
         <Skeleton.Button key={i} size="large" active shape="circle" />
     ));

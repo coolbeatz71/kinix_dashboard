@@ -1,11 +1,8 @@
 import React, { FC } from 'react';
 import dayjs from 'dayjs';
 import { Breadcrumb, Col, Row } from 'antd';
-import relativeTime from 'dayjs/plugin/relativeTime';
-
 import styles from './index.module.scss';
 
-dayjs.extend(relativeTime);
 const { Item } = Breadcrumb;
 
 export interface IArticleHeaderProps {

@@ -10,6 +10,7 @@ import approveArticleAction from './approve';
 import deleteArticleAction from './delete';
 import disableArticleAction from './disable';
 import getAllArticlesAction from './getAll';
+import getRelatedArticlesAction from './related';
 import getSingleArticleAction from './single';
 import { articlesInitialState } from './types';
 
@@ -44,7 +45,11 @@ export const articlesSlice = createSlice({
             // get single article
             .addCase(getSingleArticleAction.pending, ActionWrapperPending)
             .addCase(getSingleArticleAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(getSingleArticleAction.rejected, ActionWrapperRejected);
+            .addCase(getSingleArticleAction.rejected, ActionWrapperRejected)
+            // get related articles
+            .addCase(getRelatedArticlesAction.pending, ActionWrapperPending)
+            .addCase(getRelatedArticlesAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getRelatedArticlesAction.rejected, ActionWrapperRejected);
     },
 });
 
