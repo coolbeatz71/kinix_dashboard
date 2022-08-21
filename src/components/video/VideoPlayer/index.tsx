@@ -4,6 +4,7 @@ import { Col, Row, Spin, Typography } from 'antd';
 import ReactPlayer from 'react-player';
 import Tags from '@components/common/Tags';
 import VideoAction from '../VideoAction';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
 
@@ -19,7 +20,7 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ video }) => {
     return (
         <Row className={styles.videoPlayer}>
             <Col span={24} className={styles.videoPlayer__container} data-video-loaded={videoLoaded}>
-                {videoLoaded === false ? <Spin size="large" /> : null}
+                {videoLoaded === false ? <Spin size="large" indicator={<LoadingOutlined spin />} /> : null}
                 <ReactPlayer
                     playing
                     controls

@@ -1,8 +1,12 @@
 @import 'styles/colors.scss';
 @import 'styles/mixins.scss';
+@import 'styles/dimensions.scss';
 
 .videoTabs {
+    background: $white;
+    padding: 0 $padding;
     padding-bottom: $padding;
+    border-radius: $border-radius;
 
     [class~='ant-tabs-ink-bar'] {
         background: $primary;

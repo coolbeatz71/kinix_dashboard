@@ -9,9 +9,6 @@ export interface IVideoTab {
 
 const videoTabs: IVideoTab[] = [
     {
-        title: EnumTabTitle.POPULAR,
-    },
-    {
         title: EnumTabTitle.LYRICS,
     },
 ];

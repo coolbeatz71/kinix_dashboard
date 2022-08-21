@@ -70,7 +70,7 @@
         [data-title='true'] {
             color: $black;
             margin-top: 1rem !important;
-            font-size: 12pt;
+            font-size: 13pt;
             font-weight: 600;
         }
 
@@ -81,6 +81,16 @@
 
         [class~='dv-star-rating-star'] {
             font-size: 15pt;
+        }
+
+        [class~='ant-divider'] {
+            margin: 1rem 0;
+            border-color: $dark20;
+        }
+
+        [data-update-time='true'] {
+            color: $dark50;
+            font-size: 10pt;
         }
 
         button {
@@ -109,7 +119,7 @@
             }
 
             [class~='anticon'] {
-                font-size: 14pt;
+                font-size: 15pt;
             }
 
             &[class~='ant-btn-icon-only'] {
@@ -118,21 +128,6 @@
                     font-size: 16pt;
                 }
             }
-        }
-
-        [class~='ant-divider'] {
-            margin: 1rem 0;
-            border-color: $dark20;
-        }
-
-        [data-views='true'] {
-            font-weight: 600;
-            font-size: 10.5pt;
-        }
-
-        [data-update-time='true'] {
-            color: $dark50;
-            font-size: 10pt;
         }
     }
 
@@ -193,10 +188,6 @@
 
             [class~='ant-divider'] {
                 margin: 0.8rem 0;
-            }
-
-            [data-views='true'] {
-                font-size: 10pt;
             }
         }
     }

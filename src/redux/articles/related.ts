@@ -9,7 +9,7 @@ export interface IParams {
 const getRelatedArticlesAction = createAsyncThunk('articles/related', async (params: IParams, { rejectWithValue }) => {
     const { slug, tags } = params;
     try {
-        const { data } = await api.get(`/articles/related/${slug}`, { params: { tags: tags?.join(',') } });
+        const { data } = await api.get(`/articles/related/${slug}`, { params: { tags: tags?.join(','), limit: 10 } });
         return data;
     } catch (error) {
         return rejectWithValue(error);

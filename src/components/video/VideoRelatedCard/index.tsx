@@ -36,7 +36,7 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video, youtubeAPIVideo }
 
     return (
         <div onMouseEnter={handleShowOverlay} onMouseLeave={handleShowOverlay} className={styles.relatedVideo}>
-            <Card bordered={false} hoverable>
+            <Card bordered>
                 <Row justify="space-between">
                     <Col span={9} className={styles.relatedVideo__cover}>
                         <div className="overlay" style={overLayStyles}>
