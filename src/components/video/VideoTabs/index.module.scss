@@ -1,0 +1,33 @@
+@import 'styles/colors.scss';
+@import 'styles/_mixins.scss';
+
+.videoTabs {
+    padding-bottom: $padding;
+
+    [class~='ant-tabs-ink-bar'] {
+        background: $primary;
+        height: 0.2rem !important;
+    }
+
+    [class~='ant-tabs-tab-btn'] {
+        font-weight: 500;
+        font-size: 12pt;
+    }
+
+    [class~='ant-tabs-nav'] {
+        margin-bottom: 2rem;
+        border-bottom: 1px solid $dark10;
+    }
+
+    [class~='ant-tabs-tab-active'] {
+        [class~='ant-tabs-tab-btn'] {
+            font-weight: 600;
+        }
+    }
+
+    @include mediaXS {
+        [class~='ant-tabs-tab-btn'] {
+            font-size: 10pt;
+        }
+    }
+}

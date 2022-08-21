@@ -125,12 +125,12 @@
             border-color: $dark20;
         }
 
-        [data-channel='true'] {
+        [data-views='true'] {
             font-weight: 600;
             font-size: 10.5pt;
         }
 
-        [data-subscribers='true'] {
+        [data-update-time='true'] {
             color: $dark50;
             font-size: 10pt;
         }
@@ -195,12 +195,8 @@
                 margin: 0.8rem 0;
             }
 
-            [data-channel='true'] {
+            [data-views='true'] {
                 font-size: 10pt;
-            }
-
-            [data-subscribers='true'] {
-                font-size: 9pt;
             }
         }
     }

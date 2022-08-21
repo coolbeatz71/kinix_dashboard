@@ -1,0 +1,23 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.emptyData {
+    padding: $content-padding;
+
+    [class~='ant-empty-image'] {
+        height: 200px;
+        margin: calc(#{$padding} * 1.5);
+
+        img {
+            padding: $padding;
+            background: $white;
+            border-radius: $border-radius;
+        }
+    }
+
+    [class~='ant-empty-description'] {
+        color: $dark;
+        font-size: 15pt;
+        font-weight: 500;
+    }
+}

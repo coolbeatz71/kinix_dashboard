@@ -1,0 +1,112 @@
+@import 'styles/dimensions.scss';
+@import 'styles/colors.scss';
+
+.videoCardHorinzontal {
+    cursor: pointer;
+    margin-bottom: 1rem;
+    border-radius: $border-radius;
+
+    [class~='ant-card-body'] {
+        padding: 0;
+        height: 100%;
+    }
+
+    [data-body='true'] {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        padding: calc(#{$padding} / 1.5);
+
+        [data-title='true'] {
+            font-family: Poppins;
+            font-weight: normal;
+            font-size: 11.5pt;
+        }
+
+        [data-views='true'] {
+            font-weight: 600;
+            font-size: 10pt;
+        }
+
+        [data-update-time='true'] {
+            font-size: 10pt;
+            color: $dark50;
+        }
+    }
+
+    &__cover {
+        padding: calc(#{$padding} / 1.5);
+        padding-right: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: $border-radius;
+        }
+
+        [class~='overlay'] {
+            cursor: pointer;
+            position: absolute;
+            z-index: 1;
+            transition: opacity ease-in-out 0.2s;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            [class~='ant-btn'] {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 1.5rem;
+
+                [class~='anticon'] {
+                    font-size: 1.5rem;
+                    background: $warning;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 80px;
+                    box-shadow: 0px 0px 60px $primary;
+
+                    svg {
+                        path {
+                            fill: $warning;
+                            &:last-of-type {
+                                fill: $white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &[data-theme='light'] {
+        [class~='ant-card'] {
+            background: $white;
+        }
+        [class~='ant-typography'] {
+            color: $dark;
+        }
+
+        [data-title='true'] {
+            color: $black;
+        }
+    }
+
+    &[data-theme='dark'] {
+        [class~='ant-card'] {
+            background: $bg-primary-dark90;
+        }
+        [class~='ant-typography'] {
+            color: $white;
+        }
+    }
+}
