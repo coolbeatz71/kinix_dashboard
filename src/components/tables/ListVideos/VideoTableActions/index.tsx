@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { IVideo } from '@interfaces/api';
 import VideoModal from '@components/modal/VideoModal';
 import { EnumArticleVideoActionContext, EnumFormContext } from '@interfaces/app';
-import VideoPlayer from '@components/common/VideoPlayer';
+import VideoPlayerModal from '@components/modal/VideoPlayerModal';
 import EnumRole from '@interfaces/role';
 import VideoActionModal from '../ActionModal';
 
@@ -33,7 +33,7 @@ const VideoTableActions: FC<IVideoTableActionsProps> = ({ video, reload }) => {
                 onVisibleChange={(v) => setOpenMenu(v)}
                 overlay={
                     <Menu className={styles.actions__menu}>
-                        <VideoPlayer url={video.link}>
+                        <VideoPlayerModal url={video.link}>
                             <Button
                                 type="text"
                                 icon={<PlayCircleOutlined />}
@@ -45,10 +45,23 @@ const VideoTableActions: FC<IVideoTableActionsProps> = ({ video, reload }) => {
                             >
                                 Aperçu
                             </Button>
-                        </VideoPlayer>
-                        <Button type="text" icon={<VideoCameraOutlined />} className={styles.actions__button}>
+                        </VideoPlayerModal>
+                        <Button
+                            type="text"
+                            icon={<VideoCameraOutlined />}
+                            className={styles.actions__button}
+                            onClick={() => {
+                                setOpenMenu(false);
+                            }}
+                        >
                             <span>
-                                <Link to={`/videos/${video.slug}`} target="_blank" rel="noopener noreferrer">
+                                <Link
+                                    to={`/videos/${video.slug}`}
+                                    rel="noopener noreferrer"
+                                    onClick={() => {
+                                        setOpenMenu(false);
+                                    }}
+                                >
                                     Details
                                 </Link>
                             </span>

@@ -12,7 +12,7 @@ const Tags: FC<ITagsProps> = ({ tags, type = 'article' }) => (
     <div className={styles.tags}>
         <Space>
             {tags?.map((tag) => (
-                <Tag color={type === 'article' ? 'geekblue' : 'volcano'} key={tag}>
+                <Tag data-type={type} color={type === 'article' ? 'geekblue' : 'default'} key={tag}>
                     #{tag}
                 </Tag>
             ))}

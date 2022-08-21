@@ -1,17 +1,18 @@
 import React, { FC } from 'react';
 import { Button, Col, Row } from 'antd';
+import numeral from 'numeral';
 import { IUnknownObject } from '@interfaces/app';
 import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
 import { RiPlayListAddFill } from 'react-icons/ri';
 import { IVideo } from '@interfaces/api';
 import StarRatingComponent from 'react-star-rating-component';
 
-export interface ISingleVideoActionProps {
+export interface IVideoActionProps {
     video: IVideo;
     youtubeAPIVideo: IUnknownObject;
 }
 
-const SingleVideoAction: FC<ISingleVideoActionProps> = ({ video, youtubeAPIVideo }) => {
+const VideoAction: FC<IVideoActionProps> = ({ video, youtubeAPIVideo }) => {
     const { avgRate } = video;
     const { likesCount, commentsCount } = youtubeAPIVideo;
     const likes = numeral(likesCount).format('0.[00]a');
@@ -35,4 +36,4 @@ const SingleVideoAction: FC<ISingleVideoActionProps> = ({ video, youtubeAPIVideo
     );
 };
 
-export default SingleVideoAction;
+export default VideoAction;

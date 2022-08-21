@@ -7,6 +7,8 @@ export type IVideosState = {
     approve: IBasicInitialState;
     disable: IBasicInitialState;
     delete: IBasicInitialState;
+    single: IBasicInitialState;
+    related: IBasicInitialStateList;
 };
 
 export const videosInitialState: IVideosState = {
@@ -16,4 +18,6 @@ export const videosInitialState: IVideosState = {
     approve: BasicInitialState,
     disable: BasicInitialState,
     delete: BasicInitialState,
+    single: BasicInitialState,
+    related: BasicInitialStateList,
 };

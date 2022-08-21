@@ -3,7 +3,7 @@ import { IVideo } from '@interfaces/api';
 import { Col, Row, Spin, Typography } from 'antd';
 import ReactPlayer from 'react-player';
 import Tags from '@components/common/Tags';
-import SingleVideoAction from '../SingleVideoAction';
+import VideoAction from '../VideoAction';
 
 import styles from './index.module.scss';
 
@@ -37,7 +37,7 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ video }) => {
                     {/* should come from youtube API */}
                     288,065 views - Jan 1, 2022
                 </Text>
-                <SingleVideoAction video={video} youtubeAPIVideo={{}} />
+                <VideoAction video={video} youtubeAPIVideo={{}} />
             </Col>
         </Row>
     );

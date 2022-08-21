@@ -32,9 +32,22 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                 onVisibleChange={(v) => setOpenMenu(v)}
                 overlay={
                     <Menu className={styles.actions__menu}>
-                        <Button type="text" icon={<ReadOutlined />} className={styles.actions__button}>
+                        <Button
+                            type="text"
+                            icon={<ReadOutlined />}
+                            className={styles.actions__button}
+                            onClick={() => {
+                                setOpenMenu(false);
+                            }}
+                        >
                             <span>
-                                <Link to={`/articles/${article.slug}`} rel="noopener noreferrer">
+                                <Link
+                                    to={`/articles/${article.slug}`}
+                                    rel="noopener noreferrer"
+                                    onClick={() => {
+                                        setOpenMenu(false);
+                                    }}
+                                >
                                     Ouvrir
                                 </Link>
                             </span>

@@ -1,7 +1,6 @@
 @import 'styles/colors.scss';
 
 .tags {
-    padding: 1rem 0;
     [class~='ant-space-horizontal'] {
         display: flex;
         flex-wrap: wrap;
@@ -17,5 +16,10 @@
             color: $link;
             text-decoration: underline;
         }
+    }
+
+    [data-type='video'] {
+        margin-bottom: 0;
+        padding: 0 0.5rem;
     }
 }

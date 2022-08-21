@@ -11,6 +11,8 @@ import deleteVideoAction from './delete';
 import disableVideoAction from './disable';
 import getAllVideosAction from './getAll';
 import getVideoCategoriesAction from './getCategories';
+import getRelatedVideosAction from './related';
+import getSingleVideoAction from './single';
 import { videosInitialState } from './types';
 
 export const videosSlice = createSlice({
@@ -44,7 +46,15 @@ export const videosSlice = createSlice({
             // delete
             .addCase(deleteVideoAction.pending, ActionWrapperPending)
             .addCase(deleteVideoAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(deleteVideoAction.rejected, ActionWrapperRejected);
+            .addCase(deleteVideoAction.rejected, ActionWrapperRejected)
+            // get single video
+            .addCase(getSingleVideoAction.pending, ActionWrapperPending)
+            .addCase(getSingleVideoAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getSingleVideoAction.rejected, ActionWrapperRejected)
+            // get related videos
+            .addCase(getRelatedVideosAction.pending, ActionWrapperPending)
+            .addCase(getRelatedVideosAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getRelatedVideosAction.rejected, ActionWrapperRejected);
     },
 });
 

@@ -23,8 +23,8 @@
         border-bottom-right-radius: 0;
 
         &[data-video-loaded='false'] {
-            background: $gray;
-            background-image: linear-gradient(to right, $gray 0%, $dark10 20%, $neutral 40%, $gray 100%);
+            background: $grey;
+            background-image: linear-gradient(to right, $grey 0%, $dark10 10%, $default 30%, $grey 100%);
             background-repeat: no-repeat;
             background-size: cover;
 

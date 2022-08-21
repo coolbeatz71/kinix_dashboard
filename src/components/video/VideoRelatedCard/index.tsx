@@ -13,12 +13,12 @@ import styles from './index.module.scss';
 const { useBreakpoint } = Grid;
 const { Title, Text } = Typography;
 
-export interface IVideoRelatedCardProps {
+export interface IRelatedVideoCardProps {
     video: IVideo;
     youtubeAPIVideo: IUnknownObject;
 }
 
-const VideoRelatedCard: FC<IVideoRelatedCardProps> = ({ video, youtubeAPIVideo }) => {
+const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video, youtubeAPIVideo }) => {
     const { lg } = useBreakpoint();
     const updatedTime = dayjs(youtubeAPIVideo?.updatedAt).fromNow();
 
@@ -35,10 +35,10 @@ const VideoRelatedCard: FC<IVideoRelatedCardProps> = ({ video, youtubeAPIVideo }
     }, [lg]);
 
     return (
-        <div onMouseEnter={handleShowOverlay} onMouseLeave={handleShowOverlay} className={styles.videoCardHorinzontal}>
+        <div onMouseEnter={handleShowOverlay} onMouseLeave={handleShowOverlay} className={styles.relatedVideo}>
             <Card bordered={false} hoverable>
                 <Row justify="space-between">
-                    <Col span={9} className={styles.videoCardHorinzontal__cover}>
+                    <Col span={9} className={styles.relatedVideo__cover}>
                         <div className="overlay" style={overLayStyles}>
                             <Button
                                 icon={<PlayCircleTwoTone twoToneColor={WARNING} />}
@@ -66,4 +66,4 @@ const VideoRelatedCard: FC<IVideoRelatedCardProps> = ({ video, youtubeAPIVideo }
     );
 };
 
-export default VideoRelatedCard;
+export default RelatedVideoCard;

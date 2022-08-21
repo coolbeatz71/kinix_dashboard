@@ -11,7 +11,7 @@ import { useAppDispatch } from '@redux/store';
 import searchUsersAction from '@redux/users/search';
 import useRouteQuery from '@hooks/useRouteQuery';
 import format from '@helpers/formatString';
-import VideoPlayer from '@components/common/VideoPlayer';
+import VideoPlayerModal from '@components/modal/VideoPlayerModal';
 
 const { Item, useWatch } = Form;
 
@@ -108,14 +108,14 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
                         size="large"
                         maxLength={500}
                         suffix={
-                            <VideoPlayer url={videoLink}>
+                            <VideoPlayerModal url={videoLink}>
                                 <Button
                                     size="small"
                                     type="link"
                                     icon={<PlayCircleOutlined />}
                                     className="d-flex justify-content-end"
                                 />
-                            </VideoPlayer>
+                            </VideoPlayerModal>
                         }
                     />
                 </FloatTextInput>
