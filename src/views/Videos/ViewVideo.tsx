@@ -15,6 +15,7 @@ import VideoPlayer from '@components/video/VideoPlayer';
 import ViewVideoSkeleton from '@components/skeleton/ViewVideo';
 import SectionTitle from '@components/common/SectionTitle';
 import RelatedVideoCard from '@components/video/VideoRelatedCard';
+import { VIDEO_PATH } from '@constants/paths';
 
 const { useBreakpoint } = Grid;
 
@@ -62,7 +63,7 @@ const ViewVideo: FC = () => {
                         <Col lg={8} className="ps-3">
                             <Row>
                                 <Col span={24}>
-                                    <SectionTitle title="Related videos" isRelated />
+                                    <SectionTitle title="Related videos" isRelated linkHasMore={VIDEO_PATH} />
                                 </Col>
 
                                 {(related as unknown as IVideo[]).map((el: IVideo) => (

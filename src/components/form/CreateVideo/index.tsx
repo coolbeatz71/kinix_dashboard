@@ -52,7 +52,7 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
     }, [isEdit, initialValues]);
 
     useEffect(() => {
-        if (!isEdit) {
+        if (!isEdit && category) {
             const initCategory = categories?.find((cat) => cat.name === category?.toUpperCase());
             formRef.setFieldsValue({
                 categoryId: {

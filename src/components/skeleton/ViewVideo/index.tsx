@@ -9,7 +9,7 @@ const ViewVideo: FC = () => {
     ));
 
     return (
-        <Row justify="space-between" gutter={24} className={styles.videoSkeleton}>
+        <Row justify="space-between" gutter={18} className={styles.videoSkeleton}>
             <Col xs={24} sm={24} md={24} lg={16}>
                 <Skeleton.Image className={styles.videoSkeleton__player} active />
                 <Skeleton.Button className={styles.videoSkeleton__tab} active block />
