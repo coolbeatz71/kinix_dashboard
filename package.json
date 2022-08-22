@@ -44,6 +44,7 @@
         "craco-antd": "^2.0.0",
         "crypto-js": "^4.1.1",
         "dayjs": "^1.10.4",
+        "get-video-id": "^3.6.5",
         "google-libphonenumber": "^3.2.30",
         "http-status": "^1.5.1",
         "lodash": "^4.17.15",

@@ -1,12 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
 import { isBoolean, truncate } from 'lodash';
 import dayjs from 'dayjs';
-import numeral from 'numeral';
+import getVideoId from 'get-video-id';
+import { Link } from 'react-router-dom';
+import StarRatingComponent from 'react-star-rating-component';
 import { Button, Card, Col, Grid, Row, Typography } from 'antd';
 import { PlayCircleTwoTone } from '@ant-design/icons';
+import { VIDEO_PATH } from '@constants/paths';
 import { IVideo } from '@interfaces/api';
+import getYoutubeVideoThumbnail from '@helpers/getYoutubeVideoThumbnail';
 import { WARNING } from '@constants/colors';
-import { IUnknownObject } from '@interfaces/app';
 
 import styles from './index.module.scss';
 
@@ -15,12 +18,13 @@ const { Title, Text } = Typography;
 
 export interface IRelatedVideoCardProps {
     video: IVideo;
-    youtubeAPIVideo: IUnknownObject;
 }
 
-const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video, youtubeAPIVideo }) => {
+const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video }) => {
     const { lg } = useBreakpoint();
-    const updatedTime = dayjs(youtubeAPIVideo?.updatedAt).fromNow();
+    const updatedTime = dayjs(video.updatedAt).fromNow();
+    const videoId = getVideoId(video.link).id;
+    const thumbnail = getYoutubeVideoThumbnail(String(videoId));
 
     const [showOverLay, setShowOverLay] = useState<boolean>(false);
     const overLayStyles = showOverLay ? { opacity: 1 } : { opacity: 0 };
@@ -35,10 +39,15 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video, youtubeAPIVideo }
     }, [lg]);
 
     return (
-        <div onMouseEnter={handleShowOverlay} onMouseLeave={handleShowOverlay} className={styles.relatedVideo}>
-            <Card bordered>
+        <Link to={`${VIDEO_PATH}/${video.slug}`} className="text-decoration-none">
+            <Card
+                bordered
+                className={styles.relatedVideo}
+                onMouseEnter={handleShowOverlay}
+                onMouseLeave={handleShowOverlay}
+            >
                 <Row justify="space-between">
-                    <Col span={9} className={styles.relatedVideo__cover}>
+                    <Col span={8} className={styles.relatedVideo__cover}>
                         <div className="overlay" style={overLayStyles}>
                             <Button
                                 icon={<PlayCircleTwoTone twoToneColor={WARNING} />}
@@ -47,22 +56,22 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video, youtubeAPIVideo }
                                 size="large"
                             />
                         </div>
-                        <img src={youtubeAPIVideo.thumbnail} alt={video.link} />
+                        <img src={thumbnail} alt={video.link} />
                     </Col>
-                    <Col span={15} data-body>
+                    <Col span={16} data-body>
                         <Title level={5} data-title>
                             {truncate(video.title, {
                                 length: 60,
                             })}
                         </Title>
-                        <div className="d-flex flex-column">
-                            <Text data-views>{numeral(youtubeAPIVideo.views).format('0,0')} views</Text>
+                        <div className="d-flex flex-column align-items-start">
+                            <StarRatingComponent name="video-rate" starCount={5} value={Number(video.avgRate)} />
                             <Text data-update-time>{updatedTime}</Text>
                         </div>
                     </Col>
                 </Row>
             </Card>
-        </div>
+        </Link>
     );
 };
 

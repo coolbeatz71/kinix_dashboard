@@ -66,9 +66,9 @@ const ViewVideo: FC = () => {
                                     <SectionTitle title="Related videos" isRelated linkHasMore={VIDEO_PATH} />
                                 </Col>
 
-                                {(related as unknown as IVideo[]).map((el: IVideo) => (
-                                    <Col key={el.id}>
-                                        <RelatedVideoCard video={el} youtubeAPIVideo={[]} />
+                                {(related as unknown as IVideo[]).map((vid: IVideo) => (
+                                    <Col key={vid.id} span={24}>
+                                        <RelatedVideoCard video={vid} />
                                     </Col>
                                 ))}
                             </Row>

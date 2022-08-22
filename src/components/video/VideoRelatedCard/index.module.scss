@@ -11,6 +11,10 @@
         height: 100%;
     }
 
+    [class~='ant-typography'] {
+        color: $dark;
+    }
+
     [data-body='true'] {
         display: flex;
         flex-flow: column;
@@ -18,14 +22,9 @@
         padding: calc(#{$padding} / 1.5);
 
         [data-title='true'] {
-            font-family: Poppins;
-            font-weight: normal;
+            color: $black;
+            font-weight: 500;
             font-size: 11.5pt;
-        }
-
-        [data-views='true'] {
-            font-weight: 600;
-            font-size: 10pt;
         }
 
         [data-update-time='true'] {
@@ -85,28 +84,6 @@
                     }
                 }
             }
-        }
-    }
-
-    &[data-theme='light'] {
-        [class~='ant-card'] {
-            background: $white;
-        }
-        [class~='ant-typography'] {
-            color: $dark;
-        }
-
-        [data-title='true'] {
-            color: $black;
-        }
-    }
-
-    &[data-theme='dark'] {
-        [class~='ant-card'] {
-            background: $bg-primary-dark90;
-        }
-        [class~='ant-typography'] {
-            color: $white;
         }
     }
 }

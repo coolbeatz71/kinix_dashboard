@@ -106,20 +106,23 @@
             }
 
             &[data-like='true'],
-            &[data-comment='true'] {
+            &[data-comment='true'],
+            &[data-playlist='true'] {
                 display: flex;
                 align-items: center;
                 flex-flow: row-reverse;
-                margin-right: 1rem;
+                margin-left: 1rem;
             }
 
             [data-count='true'] {
                 font-size: 12pt;
+                margin-top: 0.2rem;
                 margin-right: 0.3rem;
             }
 
+            svg,
             [class~='anticon'] {
-                font-size: 15pt;
+                font-size: 18pt;
             }
 
             &[class~='ant-btn-icon-only'] {
