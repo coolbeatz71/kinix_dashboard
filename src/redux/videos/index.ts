@@ -14,6 +14,7 @@ import getVideoCategoriesAction from './getCategories';
 import getRelatedVideosAction from './related';
 import getSingleVideoAction from './single';
 import { videosInitialState } from './types';
+import getYoutubeVideoInfoAction from './youtubeVideo';
 
 export const videosSlice = createSlice({
     name: 'videos',
@@ -54,7 +55,11 @@ export const videosSlice = createSlice({
             // get related videos
             .addCase(getRelatedVideosAction.pending, ActionWrapperPending)
             .addCase(getRelatedVideosAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(getRelatedVideosAction.rejected, ActionWrapperRejected);
+            .addCase(getRelatedVideosAction.rejected, ActionWrapperRejected)
+            // get single youtube video infos
+            .addCase(getYoutubeVideoInfoAction.pending, ActionWrapperPending)
+            .addCase(getYoutubeVideoInfoAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getYoutubeVideoInfoAction.rejected, ActionWrapperRejected);
     },
 });
 

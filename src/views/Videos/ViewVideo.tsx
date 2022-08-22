@@ -16,6 +16,8 @@ import ViewVideoSkeleton from '@components/skeleton/ViewVideo';
 import SectionTitle from '@components/common/SectionTitle';
 import RelatedVideoCard from '@components/video/VideoRelatedCard';
 import { VIDEO_PATH } from '@constants/paths';
+import { IYoutubeVideo } from '@interfaces/youtube/youtubeVideo';
+import getYoutubeVideoInfoAction from '../../redux/videos/youtubeVideo';
 
 const { useBreakpoint } = Grid;
 
@@ -29,8 +31,16 @@ const ViewVideo: FC = () => {
         error: errRelated,
         loading: loadRelated,
     } = useSelector(({ videos: { related } }: IRootState) => related);
-    // const { data:  } = useSelector(({ users: { currentUser } }: IRootState) => currentUser);
-    const { data: video, error, loading } = useSelector(({ videos: { single } }: IRootState) => single);
+    const {
+        error: errYoutube,
+        data: youtubeVideo,
+        loading: loadYoutube,
+    } = useSelector(({ videos: { youtubeVideo } }: IRootState) => youtubeVideo);
+    const {
+        data: video,
+        error: errSingle,
+        loading: loadSingle,
+    } = useSelector(({ videos: { single } }: IRootState) => single);
 
     const loadVideo = useCallback(() => {
         dispatch(getSingleVideoAction(slug));
@@ -41,20 +51,26 @@ const ViewVideo: FC = () => {
     }, [loadVideo]);
 
     useEffect(() => {
-        const { tags } = video;
-        if (!isEmpty(tags)) dispatch(getRelatedVideosAction({ slug, tags }));
+        const { tags, link } = video as IVideo;
+        if (!isEmpty(tags)) {
+            dispatch(getYoutubeVideoInfoAction(link));
+            dispatch(getRelatedVideosAction({ slug, tags }));
+        }
     }, [dispatch, slug, video]);
+
+    const error = errSingle || errRelated || errYoutube;
+    const loading = loadYoutube || loadSingle || loadRelated;
 
     return (
         <Fragment>
-            {error || errRelated ? (
+            {error ? (
                 <ServerError onRefresh={() => loadVideo()} />
-            ) : loading || loadRelated ? (
+            ) : loading ? (
                 <ViewVideoSkeleton />
             ) : (
                 <Row justify="space-between" gutter={[0, 0]}>
                     <Col xs={24} sm={24} md={24} lg={16}>
-                        <VideoPlayer video={video as IVideo} />
+                        <VideoPlayer video={video as IVideo} youtubeVideo={youtubeVideo as IYoutubeVideo} />
                         <div className="mt-3">
                             <VideoTabs video={video as IVideo} />
                         </div>

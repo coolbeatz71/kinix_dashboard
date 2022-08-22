@@ -1,20 +1,22 @@
 import React, { FC } from 'react';
 import { Button, Col, Row, Space } from 'antd';
 import numeral from 'numeral';
-import { IUnknownObject } from '@interfaces/app';
 import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
 import { RiPlayListAddFill } from 'react-icons/ri';
 import { IVideo } from '@interfaces/api';
 import StarRatingComponent from 'react-star-rating-component';
+import { IItemsEntity } from '@interfaces/youtube/youtubeVideo';
 
 export interface IVideoActionProps {
     video: IVideo;
-    youtubeAPIVideo: IUnknownObject;
+    youtubeVideoEntity: IItemsEntity;
 }
 
-const VideoAction: FC<IVideoActionProps> = ({ video, youtubeAPIVideo }) => {
+const VideoAction: FC<IVideoActionProps> = ({ video, youtubeVideoEntity }) => {
     const { avgRate } = video;
-    const { likesCount, commentsCount } = youtubeAPIVideo;
+    const likesCount = youtubeVideoEntity?.statistics?.likeCount;
+    const commentsCount = youtubeVideoEntity?.statistics?.commentCount;
+
     const likes = numeral(likesCount).format('0.[00]a');
     const comments = numeral(commentsCount).format('0.[00]a');
     const playlists = numeral(video.playlistsCount).format('0.[00]a');

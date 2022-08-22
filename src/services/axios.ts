@@ -1,5 +1,5 @@
 import { persistor } from '@redux/store';
-import { LOGIN_REQUIRED, TOKEN_INVALID_EXPIRED } from '@constants/api';
+import { LOGIN_REQUIRED, TOKEN_INVALID_EXPIRED } from '@constants/message';
 import { LOGIN_PATH } from '@constants/paths';
 import { API_TOKEN, API_URL, PLATFORM_NAME, USER_DATA } from '@constants/platform';
 import getToken from '@helpers/getToken';

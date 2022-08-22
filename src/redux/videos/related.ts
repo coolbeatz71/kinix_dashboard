@@ -3,7 +3,7 @@ import api from '@services/axios';
 
 export interface IParams {
     slug: string;
-    tags: string[];
+    tags: string[] | null;
 }
 
 const getRelatedVideosAction = createAsyncThunk('videos/related', async (params: IParams, { rejectWithValue }) => {

@@ -9,6 +9,7 @@ export type IVideosState = {
     delete: IBasicInitialState;
     single: IBasicInitialState;
     related: IBasicInitialStateList;
+    youtubeVideo: IBasicInitialState;
 };
 
 export const videosInitialState: IVideosState = {
@@ -20,4 +21,5 @@ export const videosInitialState: IVideosState = {
     delete: BasicInitialState,
     single: BasicInitialState,
     related: BasicInitialStateList,
+    youtubeVideo: BasicInitialState,
 };
