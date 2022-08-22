@@ -10,12 +10,12 @@ export interface ILyricsProps {
 }
 
 const Lyrics: FC<ILyricsProps> = ({ content }) => {
-    return content ? (
+    return !content ? (
         <EmptyData type={EnumEmptyDataType.LYRICS} desc={'Pas de paroles disponibles pour cette vidéo!'} />
     ) : (
         <Row className={styles.lyrics}>
             <Col sm={24} md={24} lg={12}>
-                <div data-text dangerouslySetInnerHTML={{ __html: String(content) }} />
+                <div data-text>{content}</div>
             </Col>
         </Row>
     );

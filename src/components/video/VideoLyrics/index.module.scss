@@ -3,6 +3,7 @@
 .lyrics {
     [data-text='true'] {
         color: $dark;
-        font-size: 12.5pt;
+        font-size: 12pt;
+        white-space: pre-wrap;
     }
 }
