@@ -1,0 +1,9 @@
+@import 'styles/colors.scss';
+
+.lyrics {
+    [data-text='true'] {
+        color: $dark;
+        font-size: 12pt;
+        white-space: pre-wrap;
+    }
+}

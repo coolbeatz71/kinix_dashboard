@@ -11,8 +11,9 @@ import { useAppDispatch } from '@redux/store';
 import searchUsersAction from '@redux/users/search';
 import useRouteQuery from '@hooks/useRouteQuery';
 import format from '@helpers/formatString';
-import VideoPlayer from '@components/common/VideoPlayer';
+import VideoPlayerModal from '@components/modal/VideoPlayerModal';
 
+const { TextArea } = Input;
 const { Item, useWatch } = Form;
 
 export interface ICreateVideoProps {
@@ -40,6 +41,7 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
 }) => {
     const query = useRouteQuery();
     const dispatch = useAppDispatch();
+    const textAreaStyle = { height: 150 };
     const category = query.get('category');
     const videoLink = useWatch('link', formRef);
     const isEdit = formContext === EnumFormContext.EDIT;
@@ -52,7 +54,7 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
     }, [isEdit, initialValues]);
 
     useEffect(() => {
-        if (!isEdit) {
+        if (!isEdit && category) {
             const initCategory = categories?.find((cat) => cat.name === category?.toUpperCase());
             formRef.setFieldsValue({
                 categoryId: {
@@ -108,14 +110,14 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
                         size="large"
                         maxLength={500}
                         suffix={
-                            <VideoPlayer url={videoLink}>
+                            <VideoPlayerModal url={videoLink}>
                                 <Button
                                     size="small"
                                     type="link"
                                     icon={<PlayCircleOutlined />}
                                     className="d-flex justify-content-end"
                                 />
-                            </VideoPlayer>
+                            </VideoPlayerModal>
                         }
                     />
                 </FloatTextInput>
@@ -146,6 +148,12 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
                         disabled={loadingCategories}
                         defaultActiveFirstOption={false}
                     />
+                </FloatTextInput>
+            </Item>
+
+            <Item name="lyrics" validateTrigger={['onSubmit', 'onBlur']}>
+                <FloatTextInput label="Lyrics" placeholder="Lyrics pour les clip videos" required>
+                    <TextArea size="large" autoSize={false} style={textAreaStyle} />
                 </FloatTextInput>
             </Item>
 

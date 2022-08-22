@@ -1,0 +1,30 @@
+@import 'styles/colors.scss';
+@import 'styles/mixins.scss';
+@import 'styles/dimensions.scss';
+
+.videoTabs {
+    background: $white;
+    padding: 0 $padding;
+    padding-bottom: $padding;
+    border-radius: $border-radius;
+
+    [class~='ant-tabs-ink-bar'] {
+        background: $primary;
+        height: 0.2rem !important;
+    }
+
+    [class~='ant-tabs-tab-btn'] {
+        font-size: 12pt;
+    }
+
+    [class~='ant-tabs-nav'] {
+        margin-bottom: 1rem;
+        border-bottom: 1px solid $dark10;
+    }
+
+    @include mediaXS {
+        [class~='ant-tabs-tab-btn'] {
+            font-size: 10pt;
+        }
+    }
+}

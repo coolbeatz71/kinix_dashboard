@@ -23,3 +23,5 @@ export const APP_DESCRIPTION = 'When words stop coming out, music pops up';
 export const API_TOKEN = 'kiinox-token';
 export const USER_DATA = 'kiinox-user';
 export const PLATFORM_NAME = 'kiinox_dashboard';
+
+export const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY as string;

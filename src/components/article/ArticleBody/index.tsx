@@ -4,10 +4,10 @@ import { IArticle } from '@interfaces/api';
 import ArticleShare from '../ArticleShare';
 import ArticleHeader from '../ArticleHeader';
 import ArticleAction from '../ArticleAction';
-import ArticleTags from '../ArticleTags';
 import { ARTICLE_PATH } from '@constants/paths';
 import SectionTitle from '@components/common/SectionTitle';
 import RelatedArticleCard from '../RelatedArticleCard';
+import Tags from '@components/common/Tags';
 
 import styles from './index.module.scss';
 
@@ -63,21 +63,25 @@ const ArticleBody: FC<IArticleBodyProps> = ({ article, related }) => {
                             commentsCount={article.commentsCount || 0}
                         />
                     )}
-                    {lg && article.tags && <ArticleTags tags={article.tags} />}
+                    {lg && article.tags && <Tags type="article" tags={article.tags} />}
                 </Col>
 
                 {lg && related && (
                     <Col sm={24} lg={7}>
-                        <SectionTitle title="Articles similaires" isRelated linkHasMore={ARTICLE_PATH} />
-                        {related.map((item) => (
-                            <RelatedArticleCard key={item.id} article={item} />
-                        ))}
+                        <ActionWrapper>
+                            <Fragment>
+                                <SectionTitle title="Articles similaires" isRelated linkHasMore={ARTICLE_PATH} />
+                                {related.map((item) => (
+                                    <RelatedArticleCard key={item.id} article={item} />
+                                ))}
+                            </Fragment>
+                        </ActionWrapper>
                     </Col>
                 )}
 
                 {md && !lg && article.tags && (
                     <Col sm={24} lg={8}>
-                        <ArticleTags tags={article.tags} />
+                        <Tags tags={article.tags} type="article" />
                     </Col>
                 )}
             </Row>

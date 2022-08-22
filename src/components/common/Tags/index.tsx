@@ -3,15 +3,16 @@ import { Space, Tag } from 'antd';
 
 import styles from './index.module.scss';
 
-export interface IArticleTagsProps {
+export interface ITagsProps {
     tags: string[];
+    type: 'article' | 'video';
 }
 
-const ArticleTags: FC<IArticleTagsProps> = ({ tags }) => (
-    <div className={styles.articleTags}>
+const Tags: FC<ITagsProps> = ({ tags, type = 'article' }) => (
+    <div className={styles.tags}>
         <Space>
             {tags?.map((tag) => (
-                <Tag color="geekblue" key={tag}>
+                <Tag data-type={type} color={type === 'article' ? 'geekblue' : 'default'} key={tag}>
                     #{tag}
                 </Tag>
             ))}
@@ -19,4 +20,4 @@ const ArticleTags: FC<IArticleTagsProps> = ({ tags }) => (
     </div>
 );
 
-export default ArticleTags;
+export default Tags;

@@ -5,12 +5,12 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
 
-export interface IVideoPlayerProps {
+export interface IVideoPlayerModalProps {
     url?: string;
     title?: string;
     children: ReactElement;
 }
-const VideoPlayer: FC<IVideoPlayerProps> = ({ url = '', title = 'Video Youtube', children }) => {
+const VideoPlayerModal: FC<IVideoPlayerModalProps> = ({ url = '', title = 'Video Youtube', children }) => {
     const [visible, setVisible] = useState(false);
     return (
         <Fragment>
@@ -24,9 +24,9 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ url = '', title = 'Video Youtube',
                 title={title}
                 destroyOnClose
                 visible={visible}
+                className={styles.videoPlayer}
                 onCancel={() => setVisible(false)}
                 closeIcon={<CloseCircleOutlined />}
-                className={styles.videoPlayer}
             >
                 <ReactPlayer controls url={url} width={600} height={400} />
             </Modal>
@@ -34,4 +34,4 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ url = '', title = 'Video Youtube',
     );
 };
 
-export default VideoPlayer;
+export default VideoPlayerModal;
