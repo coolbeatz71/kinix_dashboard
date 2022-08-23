@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { Drawer } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { IVideo } from '@interfaces/api';
@@ -7,11 +7,12 @@ import { IRootState } from '@redux/reducers';
 import YoutubeComment from '@components/common/YoutubeComment';
 import { IYoutubeComment } from '@interfaces/youtube/youtubeComment';
 import ErrorAlert from '@components/common/ErrorAlert';
+import VideoCommentListSkeleton from '@components/skeleton/VideoCommentList';
 import { useAppDispatch } from '@redux/store';
 import getYoutubeVideoCommentsAction from '@redux/videos/getYoutubeVideoComment';
 
 import styles from './index.module.scss';
-import VideoCommentList from '@components/skeleton/VideoCommentList';
+import CreateYoutubeComment from '@components/form/CreateYoutubeComment';
 
 export interface IYoutubeCommentsModalProps {
     video: IVideo;
@@ -29,10 +30,14 @@ const YoutubeCommentsModal: FC<IYoutubeCommentsModalProps> = ({ video, openModal
         setOpenModal(false);
     };
 
-    useEffect(() => {
+    const reloadVideoComments = useCallback(() => {
         dispatch(getYoutubeVideoCommentsAction(video.link));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
+
+    useEffect(() => {
+        reloadVideoComments();
+    }, [reloadVideoComments]);
 
     return (
         <Drawer
@@ -43,12 +48,16 @@ const YoutubeCommentsModal: FC<IYoutubeCommentsModalProps> = ({ video, openModal
             title="Commentaires Youtube"
             closeIcon={<CloseCircleOutlined />}
             className={styles.youtubeCommentModal}
-            footer={null}
+            footer={
+                <div className="m-4">
+                    <CreateYoutubeComment videoLink={video.link} reload={reloadVideoComments} />
+                </div>
+            }
         >
             {error ? (
                 <ErrorAlert error={error} closable banner showIcon />
             ) : loading ? (
-                <VideoCommentList />
+                <VideoCommentListSkeleton />
             ) : (
                 <YoutubeComment videoLink={video.link} data={(data as IYoutubeComment)?.items} />
             )}

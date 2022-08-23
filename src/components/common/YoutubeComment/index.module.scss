@@ -1,8 +1,15 @@
 @import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
 
 .youtubeComment {
     a {
         text-decoration: none;
+    }
+
+    [class~='ant-list-item'] {
+        background: $gray;
+        margin-bottom: 1.5rem;
+        border-radius: $border-radius;
     }
 
     [class~='ant-list-item-meta'] {

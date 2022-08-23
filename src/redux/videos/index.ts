@@ -6,6 +6,7 @@ import {
     ActionWrapperReset,
 } from 'constants/redux';
 import addVideoAction from './add';
+import addYoutubeVideoCommentAction from './addYoutubeVideoComment';
 import approveVideoAction from './approve';
 import deleteVideoAction from './delete';
 import disableVideoAction from './disable';
@@ -64,7 +65,11 @@ export const videosSlice = createSlice({
             // get comments from a youtube video
             .addCase(getYoutubeVideoCommentsAction.pending, ActionWrapperPending)
             .addCase(getYoutubeVideoCommentsAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(getYoutubeVideoCommentsAction.rejected, ActionWrapperRejected);
+            .addCase(getYoutubeVideoCommentsAction.rejected, ActionWrapperRejected)
+            // add comment to a youtube video
+            .addCase(addYoutubeVideoCommentAction.pending, ActionWrapperPending)
+            .addCase(addYoutubeVideoCommentAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(addYoutubeVideoCommentAction.rejected, ActionWrapperRejected);
     },
 });
 

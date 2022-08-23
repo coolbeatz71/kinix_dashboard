@@ -15,6 +15,7 @@ const YoutubeComment: FC<IYoutubeCommentProps> = ({ data, videoLink }) => {
     return (
         <List
             size="large"
+            split={false}
             itemLayout="vertical"
             className={styles.youtubeComment}
             dataSource={data as IItemsEntity[]}

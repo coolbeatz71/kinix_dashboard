@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { List, Skeleton } from 'antd';
 
-const VideoCommentList: FC = () => {
+const VideoCommentListSkeleton: FC = () => {
     return (
         <List>
             {Array.from(Array(4).keys()).map((i) => (
@@ -11,4 +11,4 @@ const VideoCommentList: FC = () => {
     );
 };
 
-export default VideoCommentList;
+export default VideoCommentListSkeleton;
