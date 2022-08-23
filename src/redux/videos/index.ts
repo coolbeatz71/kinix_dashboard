@@ -6,17 +6,15 @@ import {
     ActionWrapperReset,
 } from 'constants/redux';
 import addVideoAction from './add';
-import addYoutubeVideoCommentAction from './addYoutubeVideoComment';
 import approveVideoAction from './approve';
 import deleteVideoAction from './delete';
 import disableVideoAction from './disable';
 import getAllVideosAction from './getAll';
 import getVideoCategoriesAction from './getCategories';
-import getYoutubeVideoCommentsAction from './getYoutubeVideoComment';
 import getRelatedVideosAction from './related';
 import getSingleVideoAction from './single';
 import { videosInitialState } from './types';
-import getYoutubeVideoInfoAction from './youtubeVideo';
+import getYoutubeVideoInfoAction from './youtube';
 
 export const videosSlice = createSlice({
     name: 'videos',
@@ -61,15 +59,7 @@ export const videosSlice = createSlice({
             // get single youtube video infos
             .addCase(getYoutubeVideoInfoAction.pending, ActionWrapperPending)
             .addCase(getYoutubeVideoInfoAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(getYoutubeVideoInfoAction.rejected, ActionWrapperRejected)
-            // get comments from a youtube video
-            .addCase(getYoutubeVideoCommentsAction.pending, ActionWrapperPending)
-            .addCase(getYoutubeVideoCommentsAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(getYoutubeVideoCommentsAction.rejected, ActionWrapperRejected)
-            // add comment to a youtube video
-            .addCase(addYoutubeVideoCommentAction.pending, ActionWrapperPending)
-            .addCase(addYoutubeVideoCommentAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(addYoutubeVideoCommentAction.rejected, ActionWrapperRejected);
+            .addCase(getYoutubeVideoInfoAction.rejected, ActionWrapperRejected);
     },
 });
 

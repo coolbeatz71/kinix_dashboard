@@ -9,18 +9,17 @@ import { IYoutubeComment } from '@interfaces/youtube/youtubeComment';
 import ErrorAlert from '@components/common/ErrorAlert';
 import VideoCommentListSkeleton from '@components/skeleton/VideoCommentList';
 import { useAppDispatch } from '@redux/store';
-import getYoutubeVideoCommentsAction from '@redux/videos/getYoutubeVideoComment';
 
 import styles from './index.module.scss';
-import CreateYoutubeComment from '@components/form/CreateYoutubeComment';
+import CreateYoutubeComment from '@components/form/CreateArticleComment';
 
-export interface IYoutubeCommentsModalProps {
+export interface IArticleCommentsModalProps {
     video: IVideo;
     openModal: boolean;
     setOpenModal: (v: boolean) => void;
 }
 
-const YoutubeCommentsModal: FC<IYoutubeCommentsModalProps> = ({ video, openModal, setOpenModal }) => {
+const ArticleCommentsModal: FC<IArticleCommentsModalProps> = ({ video, openModal, setOpenModal }) => {
     const dispatch = useAppDispatch();
     const { error, loading, data } = useSelector(
         ({ videos: { youtubeVideoComments } }: IRootState) => youtubeVideoComments,
@@ -65,4 +64,4 @@ const YoutubeCommentsModal: FC<IYoutubeCommentsModalProps> = ({ video, openModal
     );
 };
 
-export default YoutubeCommentsModal;
+export default ArticleCommentsModal;

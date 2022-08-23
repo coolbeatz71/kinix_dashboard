@@ -1,14 +1,14 @@
 import React, { FC, Fragment, useCallback, useEffect } from 'react';
 import { Col, Grid, Row } from 'antd';
+import { isEmpty } from 'lodash';
+import { useParams } from 'react-router-dom';
 import ServerError from '@components/common/ServerError';
 import VideoTabs from '@components/video/VideoTabs';
 import { IUnknownObject } from '@interfaces/app';
 import { useAppDispatch } from '@redux/store';
-import { useParams } from 'react-router-dom';
 import { IRootState } from '@redux/reducers';
 import { useSelector } from 'react-redux';
 import getSingleVideoAction from '@redux/videos/single';
-import { isEmpty } from 'lodash';
 import getRelatedVideosAction from '@redux/videos/related';
 import { IVideo } from '@interfaces/api';
 import VideoPlayer from '@components/video/VideoPlayer';
@@ -16,8 +16,8 @@ import ViewVideoSkeleton from '@components/skeleton/ViewVideo';
 import SectionTitle from '@components/common/SectionTitle';
 import RelatedVideoCard from '@components/video/VideoRelatedCard';
 import { VIDEO_PATH } from '@constants/paths';
-import { IYoutubeVideo } from '@interfaces/youtube/youtubeVideo';
-import getYoutubeVideoInfoAction from '../../redux/videos/youtubeVideo';
+import { IYoutubeVideo } from '@interfaces/youtube';
+import getYoutubeVideoAction from '@redux/videos/youtube';
 
 const { useBreakpoint } = Grid;
 
@@ -35,7 +35,7 @@ const ViewVideo: FC = () => {
         error: errYoutube,
         data: youtubeVideo,
         loading: loadYoutube,
-    } = useSelector(({ videos: { youtubeVideo } }: IRootState) => youtubeVideo);
+    } = useSelector(({ videos: { youtube } }: IRootState) => youtube);
     const {
         data: video,
         error: errSingle,
@@ -53,7 +53,7 @@ const ViewVideo: FC = () => {
     useEffect(() => {
         const { tags, link } = video as IVideo;
         if (!isEmpty(tags)) {
-            dispatch(getYoutubeVideoInfoAction(link));
+            dispatch(getYoutubeVideoAction(link));
             dispatch(getRelatedVideosAction({ slug, tags }));
         }
     }, [dispatch, slug, video]);
