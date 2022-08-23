@@ -1,0 +1,39 @@
+@import 'styles/colors.scss';
+
+.youtubeComment {
+    a {
+        text-decoration: none;
+    }
+
+    [class~='ant-list-item-meta'] {
+        margin-bottom: 0.5rem;
+    }
+
+    [class~='ant-list-item-meta-description'] {
+        font-size: 9pt;
+    }
+
+    [class~='ant-list-item-meta-title'] {
+        font-size: 11pt;
+        margin-bottom: 0;
+        font-family: 'Merriweather';
+        a {
+            color: $black !important;
+        }
+    }
+
+    [class~='ant-list-item-meta-avatar'] {
+        margin-right: 0.5rem;
+
+        [class~='ant-avatar'] {
+            outline: 2px solid $grey;
+        }
+    }
+
+    [class~='ant-list-item-action'] {
+        text-decoration: none;
+        a {
+            color: $link;
+        }
+    }
+}

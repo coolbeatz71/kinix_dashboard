@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Button, Col, Row, Space } from 'antd';
 import numeral from 'numeral';
 import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
@@ -6,6 +6,7 @@ import { RiPlayListAddFill } from 'react-icons/ri';
 import { IVideo } from '@interfaces/api';
 import StarRatingComponent from 'react-star-rating-component';
 import { IItemsEntity } from '@interfaces/youtube/youtubeVideo';
+import YoutubeCommentsModal from '@components/modal/VideoCommentsModal';
 
 export interface IVideoActionProps {
     video: IVideo;
@@ -13,6 +14,8 @@ export interface IVideoActionProps {
 }
 
 const VideoAction: FC<IVideoActionProps> = ({ video, youtubeVideoEntity }) => {
+    const [openCommentModal, setOpenCommentModal] = useState<boolean>(false);
+
     const { avgRate } = video;
     const likesCount = youtubeVideoEntity?.statistics?.likeCount;
     const commentsCount = youtubeVideoEntity?.statistics?.commentCount;
@@ -30,13 +33,15 @@ const VideoAction: FC<IVideoActionProps> = ({ video, youtubeVideoEntity }) => {
                 <Button data-like type="link" icon={<HeartOutlined />}>
                     <span data-count>{likes}</span>
                 </Button>
-                <Button data-comment type="link" icon={<CommentOutlined />}>
+                <Button data-comment type="link" icon={<CommentOutlined />} onClick={() => setOpenCommentModal(true)}>
                     <span data-count>{comments}</span>
                 </Button>
                 <Button data-playlist type="link" icon={<RiPlayListAddFill />}>
                     <span data-count>{playlists}</span>
                 </Button>
             </Space>
+
+            <YoutubeCommentsModal video={video} openModal={openCommentModal} setOpenModal={setOpenCommentModal} />
         </Row>
     );
 };

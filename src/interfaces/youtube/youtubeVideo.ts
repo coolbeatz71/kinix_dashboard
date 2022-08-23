@@ -3,7 +3,7 @@ import { IUnknownObject } from '@interfaces/app';
 export interface IYoutubeVideo {
     kind: string;
     etag: string;
-    items: IItemsEntity[];
+    items?: IItemsEntity[] | null;
     pageInfo: IPageInfo;
 }
 export interface IItemsEntity {

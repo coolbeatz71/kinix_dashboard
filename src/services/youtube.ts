@@ -2,8 +2,9 @@ import axios from 'axios';
 import { YOUTUBE_API } from '@constants/api';
 import { GOOGLE_API_KEY } from '@constants/platform';
 import { IYoutubeVideo } from '@interfaces/youtube/youtubeVideo';
+import { IYoutubeComment } from '@interfaces/youtube/youtubeComment';
 
-const getYoutubeVideoInfo = async (videoId: string | null): Promise<IYoutubeVideo> => {
+export const getYoutubeVideoInfo = async (videoId: string | null): Promise<IYoutubeVideo> => {
     const part = 'snippet,contentDetails,statistics';
     const url = `${YOUTUBE_API}videos`;
 
@@ -17,4 +18,19 @@ const getYoutubeVideoInfo = async (videoId: string | null): Promise<IYoutubeVide
 
     return data;
 };
-export default getYoutubeVideoInfo;
+
+export const getYoutubeVideoComments = async (videoId: string | null): Promise<IYoutubeComment> => {
+    const part = 'snippet';
+    const url = `${YOUTUBE_API}commentThreads`;
+
+    const { data } = await axios.get(url, {
+        params: {
+            part,
+            videoId,
+            maxResults: 100,
+            key: GOOGLE_API_KEY,
+        },
+    });
+
+    return data;
+};

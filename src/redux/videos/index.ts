@@ -11,6 +11,7 @@ import deleteVideoAction from './delete';
 import disableVideoAction from './disable';
 import getAllVideosAction from './getAll';
 import getVideoCategoriesAction from './getCategories';
+import getYoutubeVideoCommentsAction from './getYoutubeVideoComment';
 import getRelatedVideosAction from './related';
 import getSingleVideoAction from './single';
 import { videosInitialState } from './types';
@@ -59,7 +60,11 @@ export const videosSlice = createSlice({
             // get single youtube video infos
             .addCase(getYoutubeVideoInfoAction.pending, ActionWrapperPending)
             .addCase(getYoutubeVideoInfoAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(getYoutubeVideoInfoAction.rejected, ActionWrapperRejected);
+            .addCase(getYoutubeVideoInfoAction.rejected, ActionWrapperRejected)
+            // get comments from a youtube video
+            .addCase(getYoutubeVideoCommentsAction.pending, ActionWrapperPending)
+            .addCase(getYoutubeVideoCommentsAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getYoutubeVideoCommentsAction.rejected, ActionWrapperRejected);
     },
 });
 
