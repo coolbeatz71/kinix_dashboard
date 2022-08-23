@@ -52,6 +52,7 @@ export interface IComment {
     userId: number;
     articleId: number;
     body: string;
+    user?: IUser;
     createdAt?: string;
     updatedAt?: string;
 }

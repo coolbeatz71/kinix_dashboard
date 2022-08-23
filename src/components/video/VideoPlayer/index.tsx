@@ -8,7 +8,7 @@ import { IVideo } from '@interfaces/api';
 import Tags from '@components/common/Tags';
 import VideoAction from '../VideoAction';
 import { LoadingOutlined } from '@ant-design/icons';
-import { IItemsEntity, IYoutubeVideo } from '@interfaces/youtube/youtubeVideo';
+import { IItemsEntity, IYoutubeVideo } from '@interfaces/youtube';
 
 import styles from './index.module.scss';
 

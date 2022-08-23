@@ -45,10 +45,7 @@ const ArticleCover: FC<IArticleCoverProps> = ({ article, user }) => {
                 {!lg && (
                     <Row className={styles.articleCover__content__action}>
                         <Col span={16} className={styles.articleCover__content__action__left}>
-                            <ArticleAction
-                                likesCount={article.likesCount || 0}
-                                commentsCount={article.commentsCount || 0}
-                            />
+                            <ArticleAction article={article} />
                         </Col>
                         <Col span={8} className={styles.articleCover__content__action__right}>
                             <Text data-read>{article.reads || 0} min read</Text>

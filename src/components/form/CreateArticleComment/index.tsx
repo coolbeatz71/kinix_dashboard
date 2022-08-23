@@ -1,52 +1,38 @@
 import React, { FC } from 'react';
-import { Button, Form, Input, notification } from 'antd';
+import { Button, Form, FormInstance, Input } from 'antd';
 import FloatTextInput from '@components/common/FloatTextInput';
 import { commentValidator } from './validators';
-import addYoutubeVideoCommentAction from '@redux/videos/addYoutubeVideoComment';
-import { useAppDispatch } from '@redux/store';
-import { useSelector } from 'react-redux';
-import { IRootState } from '@redux/reducers';
 import ErrorAlert from '@components/common/ErrorAlert';
+import { EnumFormContext, IUnknownObject } from '@interfaces/app';
+import { IComment } from '@interfaces/api';
+import { ICommentData } from '@interfaces/comments';
 
+const { Item } = Form;
 const { TextArea } = Input;
-const { Item, useForm } = Form;
 
-export interface ICreateYoutubeCommentProps {
-    videoLink: string;
-    reload: () => void;
+export interface ICreateArticleCommentProps {
+    loading: boolean;
+    initialValues?: IComment;
+    formRef: FormInstance<ICommentData>;
+    formContext: EnumFormContext;
+    onSubmit: (val: ICommentData) => void;
+    error: Error | IUnknownObject | null;
 }
 
-const CreateYoutubeComment: FC<ICreateYoutubeCommentProps> = ({ reload, videoLink }) => {
-    const [form] = useForm();
-    const dispatch = useAppDispatch();
+const CreateArticleComment: FC<ICreateArticleCommentProps> = ({ loading, error, formRef, initialValues, onSubmit }) => {
     const textAreaStyle = { height: 80 };
 
-    const { error, loading } = useSelector(
-        ({ videos: { addYoutubeVideoComment } }: IRootState) => addYoutubeVideoComment,
-    );
-
-    const onSubmitComment = (formData: { comment: string }): void => {
-        const { comment } = formData;
-
-        dispatch(addYoutubeVideoCommentAction({ link: videoLink, comment })).then((res) => {
-            if (res.type === 'videos/addYoutubeVideoComment/rejected') form.resetFields();
-            if (res.type === 'videos/addYoutubeVideoComment/fulfilled') {
-                reload();
-                notification.success({
-                    maxCount: 1,
-                    key: 'success',
-                    message: 'Youpi!',
-                    placement: 'topRight',
-                    description: 'Commentaire ajouté avec succès',
-                });
-            }
-        });
-    };
-
     return (
-        <Form form={form} size="large" layout="vertical" name="create_comment" onFinish={onSubmitComment}>
-            <Item name="comment" validateTrigger={['onSubmit', 'onBlur']} rules={commentValidator('Commentaire')}>
-                <FloatTextInput label="Commentaire" placeholder="Ajouter un commentaire..." required>
+        <Form
+            size="large"
+            form={formRef}
+            layout="vertical"
+            onFinish={onSubmit}
+            name="create_comment"
+            initialValues={initialValues}
+        >
+            <Item name="body" validateTrigger={['onSubmit', 'onBlur']} rules={commentValidator('Commentaire')}>
+                <FloatTextInput label="Commentaire" placeholder="Ajouter votre commentaire..." required>
                     <TextArea size="large" autoSize={false} style={textAreaStyle} />
                 </FloatTextInput>
             </Item>
@@ -62,4 +48,4 @@ const CreateYoutubeComment: FC<ICreateYoutubeCommentProps> = ({ reload, videoLin
     );
 };
 
-export default CreateYoutubeComment;
+export default CreateArticleComment;

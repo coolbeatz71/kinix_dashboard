@@ -1,18 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Button, Col, Row } from 'antd';
 import numeral from 'numeral';
+import { IArticle } from '@interfaces/api';
+import ArticleCommentsDrawer from '@components/comment/ArticleCommentsDrawer';
 import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
 
 export interface IArticleActionProps {
-    likesCount: number;
-    commentsCount: number;
+    article: IArticle;
 }
 
-const ArticleAction: FC<IArticleActionProps> = ({ likesCount, commentsCount }) => {
-    const likes = numeral(likesCount).format('0.[00]a');
-    const comments = numeral(commentsCount).format('0.[00]a');
+const ArticleAction: FC<IArticleActionProps> = ({ article }) => {
+    const [openCommentDrawer, setOpenCommentDrawer] = useState<boolean>(false);
+
+    const likes = numeral(article?.likesCount).format('0.[00]a');
+    const comments = numeral(article?.commentsCount).format('0.[00]a');
 
     return (
         <Row className={styles.articleAction}>
@@ -20,10 +23,15 @@ const ArticleAction: FC<IArticleActionProps> = ({ likesCount, commentsCount }) =
                 <Button data-like type="link" icon={<HeartOutlined />}>
                     <span data-count>{likes}</span>
                 </Button>
-                <Button data-comment type="link" icon={<CommentOutlined />}>
+                <Button data-comment type="link" icon={<CommentOutlined />} onClick={() => setOpenCommentDrawer(true)}>
                     <span data-count>{comments}</span>
                 </Button>
             </Col>
+            <ArticleCommentsDrawer
+                article={article}
+                openDrawer={openCommentDrawer}
+                setOpenDrawer={setOpenCommentDrawer}
+            />
         </Row>
     );
 };
