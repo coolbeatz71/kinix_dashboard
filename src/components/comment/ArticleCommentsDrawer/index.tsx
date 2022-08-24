@@ -93,7 +93,7 @@ const ArticleCommentsDrawer: FC<IArticleCommentsDrawerProps> = ({ article, openD
             ) : loading ? (
                 <ArticleCommentListSkeleton />
             ) : (
-                <ArticleCommentList data={comments.rows} />
+                <ArticleCommentList comments={comments.rows} article={article} />
             )}
         </Drawer>
     );

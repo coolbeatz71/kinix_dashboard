@@ -9,8 +9,10 @@ import { EnumFormContext } from '@interfaces/app';
 import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import { ICommentData } from '@interfaces/comments';
+import getAllArticleCommentsAction from '@redux/comments/getAll';
 
 import styles from './index.module.scss';
+import { CloseCircleOutlined } from '@ant-design/icons';
 
 const { useForm } = Form;
 
@@ -31,7 +33,6 @@ const UpdateArticleCommentModal: FC<IUpdateArticleCommentModalProps> = ({
     const dispatch = useAppDispatch();
     const [success, setSuccess] = useState('');
     const { error: errAddComment, loading: loadAddComment } = useSelector(({ comments: { add } }: IRootState) => add);
-
     useEffect(() => {
         if (openModal) setSuccess('');
         resetAddCommentAction()(dispatch);
@@ -49,7 +50,8 @@ const UpdateArticleCommentModal: FC<IUpdateArticleCommentModalProps> = ({
             if (res.type === 'comments/add/rejected') form.resetFields();
             if (res.type === 'comments/add/fulfilled') {
                 form.resetFields();
-                setSuccess('Le commentaire a été modifié avec succès');
+                setSuccess('commentaire modifié avec succès');
+                dispatch(getAllArticleCommentsAction({ slug }));
             }
         });
     };
@@ -57,12 +59,13 @@ const UpdateArticleCommentModal: FC<IUpdateArticleCommentModalProps> = ({
     return (
         <Modal
             centered
-            width={600}
+            width={520}
             footer={null}
             destroyOnClose
-            closable={false}
             visible={openModal}
+            onCancel={onCloseModal}
             title="Modifier commentaire"
+            closeIcon={<CloseCircleOutlined />}
             className={styles.updateCommentModal}
         >
             {success ? (

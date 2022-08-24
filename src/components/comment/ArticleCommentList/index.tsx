@@ -1,25 +1,26 @@
 import React, { FC } from 'react';
 import dayjs from 'dayjs';
-import { Avatar, Button, Col, List, Row, Space, Tooltip } from 'antd';
-import { EditFilled, DeleteFilled } from '@ant-design/icons';
+import { List } from 'antd';
 import { useSelector } from 'react-redux';
-import { IComment } from '@interfaces/api';
+import { IComment, IArticle } from '@interfaces/api';
 import { IRootState } from '@redux/reducers';
+import ArticleComment from '../ArticleComment';
 
 import styles from './index.module.scss';
 
 export interface IArticleCommentListProps {
-    data?: IComment[];
+    article: IArticle;
+    comments?: IComment[];
 }
 
-const ArticleCommentList: FC<IArticleCommentListProps> = ({ data }) => {
+const ArticleCommentList: FC<IArticleCommentListProps> = ({ comments, article }) => {
     const { data: user } = useSelector(({ users: { currentUser } }: IRootState) => currentUser);
 
     return (
         <List
             size="large"
             split={false}
-            dataSource={data}
+            dataSource={comments}
             itemLayout="vertical"
             className={styles.articleComment}
             renderItem={(comment) => {
@@ -27,40 +28,13 @@ const ArticleCommentList: FC<IArticleCommentListProps> = ({ data }) => {
                 const isCommentOwner = user.email === comment.user?.email;
 
                 return (
-                    <List.Item
+                    <ArticleComment
                         key={comment.id}
-                        actions={
-                            isCommentOwner
-                                ? [
-                                      <Space key="action">
-                                          <Tooltip title="Modifier" placement="topRight">
-                                              <Button icon={<EditFilled />} ghost type="primary" size="small" />
-                                          </Tooltip>
-                                          <Tooltip title="Effacer" placement="topRight">
-                                              <Button
-                                                  icon={<DeleteFilled />}
-                                                  ghost
-                                                  danger
-                                                  size="small"
-                                                  type="primary"
-                                              />
-                                          </Tooltip>
-                                      </Space>,
-                                  ]
-                                : undefined
-                        }
-                    >
-                        <List.Item.Meta
-                            title={
-                                <Row justify="space-between" align="middle">
-                                    <Col>{comment.user?.userName}</Col>
-                                    <Col data-updatetime>{updatedTime}</Col>
-                                </Row>
-                            }
-                            avatar={<Avatar size="small" alt={comment.user?.userName} src={comment.user?.image} />}
-                        />
-                        {comment.body}
-                    </List.Item>
+                        comment={comment}
+                        slug={article.slug}
+                        updatedTime={updatedTime}
+                        isCommentOwner={isCommentOwner}
+                    />
                 );
             }}
         />
