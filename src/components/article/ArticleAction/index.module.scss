@@ -11,6 +11,10 @@
     margin: calc(#{$padding} * 1.2) 0;
     padding: calc(#{$padding} * 1.2) 0;
 
+    [data-liked='true'] {
+        color: $warning;
+    }
+
     button {
         padding: 0 !important;
         color: $dark;
