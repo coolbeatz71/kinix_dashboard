@@ -14,7 +14,7 @@ import getVideoCategoriesAction from './getCategories';
 import getRelatedVideosAction from './related';
 import getSingleVideoAction from './single';
 import { videosInitialState } from './types';
-import getYoutubeVideoInfoAction from './youtubeVideo';
+import getYoutubeVideoInfoAction from './youtube';
 
 export const videosSlice = createSlice({
     name: 'videos',

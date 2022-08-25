@@ -57,12 +57,7 @@ const ArticleBody: FC<IArticleBodyProps> = ({ article, related }) => {
                         <Paragraph data-summary>{article.summary}</Paragraph>
                         <div data-article-body dangerouslySetInnerHTML={{ __html: article.body }} />
                     </div>
-                    {lg && (
-                        <ArticleAction
-                            likesCount={article.likesCount || 0}
-                            commentsCount={article.commentsCount || 0}
-                        />
-                    )}
+                    {lg && <ArticleAction article={article} />}
                     {lg && article.tags && <Tags type="article" tags={article.tags} />}
                 </Col>
 

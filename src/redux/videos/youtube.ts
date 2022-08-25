@@ -1,8 +1,8 @@
 import getVideoId from 'get-video-id';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import getYoutubeVideoInfo from '@services/youtube';
+import { getYoutubeVideoInfo } from '@services/youtube';
 
-const getYoutubeVideoInfoAction = createAsyncThunk('videos/youtubeVideo', async (link: string, { rejectWithValue }) => {
+const getYoutubeVideoAction = createAsyncThunk('videos/youtube', async (link: string, { rejectWithValue }) => {
     const { id } = getVideoId(link);
     try {
         const video = await getYoutubeVideoInfo(id);
@@ -12,4 +12,4 @@ const getYoutubeVideoInfoAction = createAsyncThunk('videos/youtubeVideo', async 
     }
 });
 
-export default getYoutubeVideoInfoAction;
+export default getYoutubeVideoAction;

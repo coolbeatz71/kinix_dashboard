@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Button, Col, Row, Space } from 'antd';
 import numeral from 'numeral';
-import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
+import { CommentOutlined, LikeOutlined } from '@ant-design/icons';
 import { RiPlayListAddFill } from 'react-icons/ri';
 import { IVideo } from '@interfaces/api';
 import StarRatingComponent from 'react-star-rating-component';
-import { IItemsEntity } from '@interfaces/youtube/youtubeVideo';
+import { IItemsEntity } from '@interfaces/youtube';
 
 export interface IVideoActionProps {
     video: IVideo;
@@ -27,10 +27,10 @@ const VideoAction: FC<IVideoActionProps> = ({ video, youtubeVideoEntity }) => {
                 <StarRatingComponent name="video-rate" starCount={5} value={Number(avgRate)} />
             </Col>
             <Space>
-                <Button data-like type="link" icon={<HeartOutlined />}>
+                <Button data-like type="text" icon={<LikeOutlined />}>
                     <span data-count>{likes}</span>
                 </Button>
-                <Button data-comment type="link" icon={<CommentOutlined />}>
+                <Button data-comment type="text" icon={<CommentOutlined />}>
                     <span data-count>{comments}</span>
                 </Button>
                 <Button data-playlist type="link" icon={<RiPlayListAddFill />}>

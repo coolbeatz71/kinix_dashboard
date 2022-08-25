@@ -15,10 +15,10 @@ body {
 
 .loadingContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     height: 100vh;
+    min-height: 100vh;
+    padding-top: 8rem;
+    background: $light;
 }
 
 [class~='ant-btn'] {
@@ -93,4 +93,9 @@ textarea {
 [class~='ant-form-item-explain-error'] {
     margin-top: 0.2rem;
     margin-bottom: 1rem;
+}
+
+[class~='ant-modal-confirm-btns'] {
+    display: flex;
+    justify-content: flex-end;
 }

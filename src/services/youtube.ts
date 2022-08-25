@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { YOUTUBE_API } from '@constants/api';
 import { GOOGLE_API_KEY } from '@constants/platform';
-import { IYoutubeVideo } from '@interfaces/youtube/youtubeVideo';
+import { IYoutubeVideo } from '@interfaces/youtube';
 
-const getYoutubeVideoInfo = async (videoId: string | null): Promise<IYoutubeVideo> => {
+export const getYoutubeVideoInfo = async (videoId: string | null): Promise<IYoutubeVideo> => {
     const part = 'snippet,contentDetails,statistics';
     const url = `${YOUTUBE_API}videos`;
 
@@ -17,4 +17,3 @@ const getYoutubeVideoInfo = async (videoId: string | null): Promise<IYoutubeVide
 
     return data;
 };
-export default getYoutubeVideoInfo;

@@ -5,7 +5,6 @@ import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
 import getCurrentUserAction from '@redux/users/getCurrentUser';
 import { isEmpty } from 'lodash';
-import Loading from '@components/common/Loading';
 import { isAdmin, isSuperAdmin } from '@constants/roles';
 import { IRoute } from '@interfaces/route';
 import EnumRole from '@interfaces/role';
@@ -14,6 +13,7 @@ import AppLayout from '@components/layout';
 import { DASHBOARD_PATH, LOGIN_PATH, NOT_FOUND_PATH } from '@constants/paths';
 import FancyRoute from '@components/common/FancyRoute';
 import { ICurrentAdmin } from '@interfaces/admin';
+import ScreenSkeleton from '@components/skeleton/Screen';
 
 const PageComponent: FC = () => {
     const dispatch = useAppDispatch();
@@ -48,10 +48,10 @@ const PageComponent: FC = () => {
     };
 
     return (
-        <Suspense fallback={<Loading spinning className="loadingContainer" />}>
+        <Suspense fallback={<ScreenSkeleton />}>
             <Switch>
-                {routes.filter(filterCallback).map((route, idx) => {
-                    return (
+                {routes.filter(filterCallback).map(
+                    (route, idx) =>
                         route.component && (
                             <FancyRoute
                                 key={idx}
@@ -63,9 +63,8 @@ const PageComponent: FC = () => {
                                     </AppLayout>
                                 )}
                             />
-                        )
-                    );
-                })}
+                        ),
+                )}
 
                 {handleRedirect()}
             </Switch>

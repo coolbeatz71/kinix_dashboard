@@ -34,8 +34,9 @@ const ViewArticle: FC = () => {
     }, [loadArticle]);
 
     useEffect(() => {
-        const { tags } = article;
-        if (!isEmpty(tags)) dispatch(getRelatedArticlesAction({ slug, tags }));
+        if (!isEmpty(article?.tags)) {
+            dispatch(getRelatedArticlesAction({ slug, tags: article?.tags }));
+        }
     }, [article, dispatch, slug]);
 
     return (
