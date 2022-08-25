@@ -94,3 +94,8 @@ textarea {
     margin-top: 0.2rem;
     margin-bottom: 1rem;
 }
+
+[class~='ant-modal-confirm-btns'] {
+    display: flex;
+    justify-content: flex-end;
+}

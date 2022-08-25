@@ -1,8 +1,15 @@
 import React, { FC, useState } from 'react';
-import { Avatar, Button, Col, List, Row, Tooltip } from 'antd';
-import { EditFilled, DeleteFilled } from '@ant-design/icons';
+import { Avatar, Button, Col, List, Row, Tooltip, Modal, notification } from 'antd';
+import { EditFilled, DeleteFilled, ExclamationCircleOutlined } from '@ant-design/icons';
 import { IComment } from '@interfaces/api';
+import { useAppDispatch } from '@redux/store';
+import { useSelector } from 'react-redux';
+import { IRootState } from '@redux/reducers';
+import deleteArticleCommentAction from '@redux/comments/delete';
+import getAllArticleCommentsAction from '@redux/comments/getAll';
 import UpdateArticleCommentModal from '@components/modal/UpdateArticleCommentModal';
+
+const { confirm } = Modal;
 
 export interface IArticleCommentProps {
     slug: string;
@@ -12,7 +19,43 @@ export interface IArticleCommentProps {
 }
 
 const ArticleComment: FC<IArticleCommentProps> = ({ slug, comment, updatedTime, isCommentOwner }) => {
+    const dispatch = useAppDispatch();
+    const {
+        delete: { error },
+    } = useSelector(({ comments }: IRootState) => comments);
     const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
+
+    const showDeleteConfirm = (): void => {
+        confirm({
+            okText: 'Oui',
+            okType: 'danger',
+            cancelText: 'Non',
+            icon: <ExclamationCircleOutlined />,
+            title: 'Êtes-vous sûr de supprimer ce commentaire?',
+            onOk() {
+                dispatch(deleteArticleCommentAction({ slug, id: Number(comment.id) })).then((res) => {
+                    if (res.type === 'comments/delete/fulfilled') {
+                        dispatch(getAllArticleCommentsAction({ slug }));
+                        notification.success({
+                            maxCount: 1,
+                            key: 'success',
+                            message: 'Youpi!',
+                            placement: 'topRight',
+                            description: 'Le commentaire a été supprimé avec succès!',
+                        });
+                    } else if (res.type === 'comments/delete/rejected') {
+                        notification.error({
+                            maxCount: 1,
+                            key: 'error',
+                            message: 'Youpi!',
+                            placement: 'topRight',
+                            description: error?.message,
+                        });
+                    }
+                });
+            },
+        });
+    };
 
     return (
         <List.Item
@@ -30,7 +73,14 @@ const ArticleComment: FC<IArticleCommentProps> = ({ slug, comment, updatedTime, 
                               />
                           </Tooltip>,
                           <Tooltip title="Effacer" placement="topRight" key="delete">
-                              <Button ghost danger size="small" type="primary" icon={<DeleteFilled />} />
+                              <Button
+                                  ghost
+                                  danger
+                                  size="small"
+                                  type="primary"
+                                  icon={<DeleteFilled />}
+                                  onClick={showDeleteConfirm}
+                              />
                           </Tooltip>,
                       ]
                     : undefined

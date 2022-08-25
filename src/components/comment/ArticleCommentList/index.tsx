@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { List } from 'antd';
 import { useSelector } from 'react-redux';
 import { IComment, IArticle } from '@interfaces/api';
+import { isSuperAdmin } from '@constants/roles';
 import { IRootState } from '@redux/reducers';
 import ArticleComment from '../ArticleComment';
 
@@ -25,7 +26,7 @@ const ArticleCommentList: FC<IArticleCommentListProps> = ({ comments, article })
             className={styles.articleComment}
             renderItem={(comment) => {
                 const updatedTime = dayjs(comment.updatedAt).fromNow();
-                const isCommentOwner = user.email === comment.user?.email;
+                const isCommentOwner = user.email === comment.user?.email || isSuperAdmin(user?.role);
 
                 return (
                     <ArticleComment
