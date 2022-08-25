@@ -28,10 +28,15 @@ const ArticleComment: FC<IArticleCommentProps> = ({ slug, comment, updatedTime, 
     const showDeleteConfirm = (): void => {
         confirm({
             okText: 'Oui',
-            okType: 'danger',
             cancelText: 'Non',
+            okButtonProps: {
+                ghost: true,
+                danger: true,
+                type: 'primary',
+            },
             icon: <ExclamationCircleOutlined />,
             title: 'Êtes-vous sûr de supprimer ce commentaire?',
+            cancelButtonProps: { type: 'primary', ghost: true, danger: false },
             onOk() {
                 dispatch(deleteArticleCommentAction({ slug, id: Number(comment.id) })).then((res) => {
                     if (res.type === 'comments/delete/fulfilled') {

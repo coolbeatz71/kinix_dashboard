@@ -21,7 +21,8 @@ export interface IArticleActionProps {
 const ArticleAction: FC<IArticleActionProps> = ({ article }) => {
     const dispatch = useAppDispatch();
 
-    const [like, setLike] = useState(article.likesCount);
+    const [likeCount, setLikeCount] = useState(article.likesCount);
+    const [commentCount, setCommentCount] = useState(article.commentsCount);
     const [likeOwner, setLikeOwner] = useState<boolean | undefined>(false);
 
     const [openCommentDrawer, setOpenCommentDrawer] = useState<boolean>(false);
@@ -29,10 +30,11 @@ const ArticleAction: FC<IArticleActionProps> = ({ article }) => {
     const { data: allLikes } = useSelector(({ likes: { all } }: IRootState) => all);
     const { error: errLike } = useSelector(({ likes: { add } }: IRootState) => add);
     const { error: errUnlike } = useSelector(({ likes: { unlike } }: IRootState) => unlike);
+    const { data: allComments } = useSelector(({ comments: { all } }: IRootState) => all);
     const { data: user } = useSelector(({ users: { currentUser } }: IRootState) => currentUser);
 
-    const likes = numeral(like).format('0.[00]a');
-    const comments = numeral(article.commentsCount).format('0.[00]a');
+    const likes = numeral(likeCount).format('0.[00]a');
+    const comments = numeral(commentCount).format('0.[00]a');
 
     useEffect(() => {
         if (article.slug) dispatch(getArticleLikesAction(article.slug));
@@ -41,16 +43,20 @@ const ArticleAction: FC<IArticleActionProps> = ({ article }) => {
 
     useEffect(() => {
         if (allLikes?.rows) {
-            setLike(allLikes?.count);
+            setLikeCount(allLikes?.count);
             if (allLikes?.rows) setLikeOwner(isLikeOwner(user.id, allLikes.rows));
         }
     }, [allLikes, user.id]);
+
+    useEffect(() => {
+        if (allComments?.rows) setCommentCount(allComments?.count);
+    }, [allComments]);
 
     const likeArticle = (): void => {
         dispatch(addArticleLikeAction(article.slug)).then((res) => {
             if (res.type === 'likes/add/rejected') message.error(errLike?.message);
             else if (res.type === 'likes/add/fulfilled') {
-                setLike(Number(like) + 1);
+                setLikeCount(Number(likeCount) + 1);
                 dispatch(getArticleLikesAction(article.slug));
                 message.success('Like ajouté avec succès!');
             }
@@ -61,7 +67,7 @@ const ArticleAction: FC<IArticleActionProps> = ({ article }) => {
         dispatch(removeArticleLikeAction(article.slug)).then((res) => {
             if (res.type === 'likes/unlike/rejected') message.error(errUnlike?.message);
             else if (res.type === 'likes/unlike/fulfilled') {
-                setLike(Number(like) - 1);
+                setLikeCount(Number(likeCount) - 1);
                 dispatch(getArticleLikesAction(article.slug));
                 message.success('Like supprimé avec succès!');
             }
