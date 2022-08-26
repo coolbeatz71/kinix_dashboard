@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Button, Col, Row, Space } from 'antd';
 import numeral from 'numeral';
 import { CommentOutlined, LikeOutlined } from '@ant-design/icons';
@@ -21,10 +21,17 @@ const VideoAction: FC<IVideoActionProps> = ({ video, youtubeVideoEntity }) => {
     const comments = numeral(commentsCount).format('0.[00]a');
     const playlists = numeral(video.playlistsCount).format('0.[00]a');
 
+    const [openRatingModal, setOpenRatingModal] = useState<boolean>(false);
+
     return (
         <Row justify="space-between" align="middle">
             <Col span={12} className="d-flex align-content-center">
-                <StarRatingComponent name="video-rate" starCount={5} value={Number(avgRate)} />
+                <StarRatingComponent
+                    name="video-rate"
+                    starCount={5}
+                    value={Number(avgRate)}
+                    onStarClick={() => setOpenRatingModal(true)}
+                />
             </Col>
             <Space>
                 <Button data-like type="text" icon={<LikeOutlined />}>
