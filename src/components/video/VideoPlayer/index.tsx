@@ -40,6 +40,7 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ video, youtubeVideo }) => {
     }, [userRatings]);
 
     useEffect(() => {
+        setHasUserRated(false);
         if (video.slug) dispatch(getSingleVideoRatedByUserAction(video.slug));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);

@@ -25,7 +25,7 @@ const ArticleCommentList: FC<IArticleCommentListProps> = ({ comments, article })
             itemLayout="vertical"
             className={styles.articleComment}
             renderItem={(comment) => {
-                const updatedTime = dayjs(comment.updatedAt).fromNow();
+                const createdTime = dayjs(comment.createdAt).fromNow();
                 const isCommentOwner = user.email === comment.user?.email || isSuperAdmin(user?.role);
 
                 return (
@@ -33,7 +33,7 @@ const ArticleCommentList: FC<IArticleCommentListProps> = ({ comments, article })
                         key={comment.id}
                         comment={comment}
                         slug={article.slug}
-                        updatedTime={updatedTime}
+                        createdTime={createdTime}
                         isCommentOwner={isCommentOwner}
                     />
                 );

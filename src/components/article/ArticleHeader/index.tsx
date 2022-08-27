@@ -7,11 +7,11 @@ const { Item } = Breadcrumb;
 
 export interface IArticleHeaderProps {
     author: string;
-    updatedAt: string;
+    createdAt: string;
 }
 
-const ArticleHeader: FC<IArticleHeaderProps> = ({ author, updatedAt }) => {
-    const updatedTime = dayjs(updatedAt).fromNow();
+const ArticleHeader: FC<IArticleHeaderProps> = ({ author, createdAt }) => {
+    const createdTime = dayjs(createdAt).fromNow();
     return (
         <div className={styles.articleHeader}>
             <Row justify="space-between" align="middle">
@@ -22,7 +22,7 @@ const ArticleHeader: FC<IArticleHeaderProps> = ({ author, updatedAt }) => {
                                 Par <strong>{author}</strong>
                             </span>
                         </Item>
-                        <Item>{updatedTime}</Item>
+                        <Item>{createdTime}</Item>
                     </Breadcrumb>
                 </Col>
             </Row>
