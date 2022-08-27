@@ -15,6 +15,8 @@ export interface ISocialIcon {
     url?: string;
 }
 
+export type IShareType = 'facebook' | 'whatsapp' | 'twitter' | 'email' | 'copy';
+
 const social: ISocialIcon[] = [
     {
         name: 'twitter',

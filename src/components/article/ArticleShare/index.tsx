@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Button } from 'antd';
-import { shareList } from '@constants/social';
+import { IShareType, shareList } from '@constants/social';
 import SocialShare from '@components/common/SocialShare';
 
 import styles from './index.module.scss';
@@ -9,8 +9,6 @@ export interface IArticleShareProps {
     link: string;
     title: string;
 }
-
-type IShareType = 'facebook' | 'whatsapp' | 'twitter' | 'email' | 'copy';
 
 const ArticleShare: FC<IArticleShareProps> = ({ link, title }) => {
     return (
