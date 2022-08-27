@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { upperFirst } from 'lodash';
 import { Col, Row, Spin, Typography } from 'antd';
 import ReactPlayer from 'react-player';
+import VideoRatingModal from '@components/modal/VideoRatingModal';
 import { IVideo } from '@interfaces/api';
 import Tags from '@components/common/Tags';
 import VideoAction from '../VideoAction';
@@ -24,6 +25,7 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ video, youtubeVideo }) => {
     const viewCount = youtubeVideoEntity?.statistics?.viewCount;
 
     const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
+    const [openRatingModal, setOpenRatingModal] = useState<boolean>(false);
 
     return (
         <Row className={styles.videoPlayer}>
@@ -35,6 +37,12 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ video, youtubeVideo }) => {
                     width={'100%'}
                     height={'100%'}
                     url={video.link}
+                    onEnded={() => {
+                        setOpenRatingModal(true);
+                    }}
+                    onPause={() => {
+                        setOpenRatingModal(true);
+                    }}
                     onReady={() => setVideoLoaded(true)}
                     className={styles.videoPlayer__container__player}
                 />
@@ -48,6 +56,8 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ video, youtubeVideo }) => {
                 </Text>
                 <VideoAction video={video} youtubeVideoEntity={youtubeVideoEntity as IItemsEntity} />
             </Col>
+
+            <VideoRatingModal slug={video.slug} openModal={openRatingModal} setOpenModal={setOpenRatingModal} />
         </Row>
     );
 };

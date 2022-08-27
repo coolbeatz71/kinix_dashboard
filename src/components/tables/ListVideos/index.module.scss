@@ -7,9 +7,9 @@
         }
     }
 
-    [class~='dv-star-rating'] {
-        label {
-            font-size: 1rem;
+    [class~='ant-rate'] {
+        [class~='anticon-star'] {
+            font-size: 12pt;
         }
     }
 }

@@ -1,0 +1,10 @@
+.ratingModal {
+    [class~='ant-rate'] {
+        [class~='ant-rate-star'] {
+            margin: 0 0.5rem;
+        }
+        [class~='anticon-star'] {
+            font-size: 32pt;
+        }
+    }
+}

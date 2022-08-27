@@ -3,8 +3,7 @@ import { isBoolean, truncate } from 'lodash';
 import dayjs from 'dayjs';
 import getVideoId from 'get-video-id';
 import { Link } from 'react-router-dom';
-import StarRatingComponent from 'react-star-rating-component';
-import { Button, Card, Col, Grid, Row, Typography } from 'antd';
+import { Button, Card, Col, Grid, Rate, Row, Typography } from 'antd';
 import { PlayCircleTwoTone } from '@ant-design/icons';
 import { VIDEO_PATH } from '@constants/paths';
 import { IVideo } from '@interfaces/api';
@@ -65,7 +64,7 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video }) => {
                             })}
                         </Title>
                         <div className="d-flex flex-column align-items-start">
-                            <StarRatingComponent name="video-rate" starCount={5} value={Number(video.avgRate)} />
+                            <Rate disabled defaultValue={Number(video.avgRate)} />
                             <Text data-update-time>{updatedTime}</Text>
                         </div>
                     </Col>

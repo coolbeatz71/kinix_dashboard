@@ -1,8 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import StarRatingComponent from 'react-star-rating-component';
 import numeral from 'numeral';
-import { Popover, Tag, Tooltip } from 'antd';
+import { Popover, Rate, Tag, Tooltip } from 'antd';
 import { IUnknownObject } from '@interfaces/app';
 import { ColumnType } from 'antd/lib/table';
 import { IUser, IVideo } from '@interfaces/api';
@@ -76,9 +75,7 @@ const tableColumns = (
         dataIndex: 'rate',
         width: 120,
         sorter: (a: IVideo, b: IVideo) => Number(a.avgRate) - Number(b.avgRate),
-        render: (_, video: IVideo) => (
-            <StarRatingComponent editing={false} name="video-rate" starCount={5} value={Number(video.avgRate)} />
-        ),
+        render: (_, video: IVideo) => <Rate defaultValue={Number(video.avgRate)} disabled />,
     },
     {
         title: 'Partages',

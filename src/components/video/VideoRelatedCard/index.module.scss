@@ -6,6 +6,15 @@
     margin-bottom: 1rem;
     border-radius: $border-radius;
 
+    [class~='ant-rate'] {
+        [class~='ant-rate-star'] {
+            margin: 0 0.2rem;
+        }
+        [class~='anticon-star'] {
+            font-size: 10pt;
+        }
+    }
+
     [class~='ant-card-body'] {
         padding: 0;
         height: 100%;
