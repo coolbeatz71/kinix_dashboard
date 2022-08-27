@@ -14,11 +14,11 @@ const { confirm } = Modal;
 export interface IArticleCommentProps {
     slug: string;
     comment: IComment;
-    updatedTime: string;
+    createdTime: string;
     isCommentOwner: boolean;
 }
 
-const ArticleComment: FC<IArticleCommentProps> = ({ slug, comment, updatedTime, isCommentOwner }) => {
+const ArticleComment: FC<IArticleCommentProps> = ({ slug, comment, createdTime, isCommentOwner }) => {
     const dispatch = useAppDispatch();
     const {
         delete: { error },
@@ -95,7 +95,7 @@ const ArticleComment: FC<IArticleCommentProps> = ({ slug, comment, updatedTime, 
                 title={
                     <Row justify="space-between" align="middle">
                         <Col>{comment.user?.userName}</Col>
-                        <Col data-updatetime>{updatedTime}</Col>
+                        <Col data-created-time>{createdTime}</Col>
                     </Row>
                 }
                 avatar={<Avatar size="small" alt={comment.user?.userName} src={comment.user?.image} />}

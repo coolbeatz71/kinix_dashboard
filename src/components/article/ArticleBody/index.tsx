@@ -52,7 +52,7 @@ const ArticleBody: FC<IArticleBodyProps> = ({ article, related }) => {
                     </ActionWrapper>
                 </Col>
                 <Col xs={21} sm={22} lg={12} className={styles.articleBody__content}>
-                    <ArticleHeader author={String(article.user?.userName)} updatedAt={String(article.updatedAt)} />
+                    <ArticleHeader author={String(article.user?.userName)} createdAt={String(article.createdAt)} />
                     <div>
                         <Paragraph data-summary>{article.summary}</Paragraph>
                         <div data-article-body dangerouslySetInnerHTML={{ __html: article.body }} />

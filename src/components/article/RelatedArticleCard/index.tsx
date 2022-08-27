@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import dayjs from 'dayjs';
 import { truncate } from 'lodash';
 import { Card, Col, Row, Typography } from 'antd';
+import { Link } from 'react-router-dom';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { IArticle } from '@interfaces/api';
+import { ARTICLE_PATH } from '@constants/paths';
 
 import styles from './index.module.scss';
-import { Link } from 'react-router-dom';
-import { ARTICLE_PATH } from '@constants/paths';
 
 const { Title, Text } = Typography;
 
@@ -17,7 +17,7 @@ export interface IRelatedArticleProps {
 
 const RelatedArticleCard: FC<IRelatedArticleProps> = ({ article }) => {
     const cover = article.images?.[0];
-    const updatedTime = dayjs(article?.updatedAt).fromNow();
+    const createdTime = dayjs(article?.createdAt).fromNow();
 
     return (
         <Card size="default" bordered className={styles.relatedArticleCard}>
@@ -36,7 +36,7 @@ const RelatedArticleCard: FC<IRelatedArticleProps> = ({ article }) => {
                                 </Text>
                                 <Text data-text="header" className="d-flex align-items-center">
                                     <ClockCircleOutlined />
-                                    &nbsp; {updatedTime}
+                                    &nbsp; {createdTime}
                                 </Text>
                             </div>
                         </div>

@@ -21,7 +21,7 @@ export interface IRelatedVideoCardProps {
 
 const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video }) => {
     const { lg } = useBreakpoint();
-    const updatedTime = dayjs(video.updatedAt).fromNow();
+    const createdTime = dayjs(video.createdAt).fromNow();
     const videoId = getVideoId(video.link).id;
     const thumbnail = getYoutubeVideoThumbnail(String(videoId));
 
@@ -65,7 +65,7 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video }) => {
                         </Title>
                         <div className="d-flex flex-column align-items-start">
                             <Rate disabled defaultValue={Number(video.avgRate)} />
-                            <Text data-update-time>{updatedTime}</Text>
+                            <Text data-created-time>{createdTime}</Text>
                         </div>
                     </Col>
                 </Row>
