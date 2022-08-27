@@ -1,11 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import numeral from 'numeral';
 import dayjs from 'dayjs';
-import { upperFirst } from 'lodash';
+import { isEmpty, upperFirst } from 'lodash';
+import { useSelector } from 'react-redux';
 import { Col, Row, Spin, Typography } from 'antd';
 import ReactPlayer from 'react-player';
 import VideoRatingModal from '@components/modal/VideoRatingModal';
 import { IVideo } from '@interfaces/api';
+import { IRootState } from '@redux/reducers';
+import { useAppDispatch } from '@redux/store';
+import getSingleVideoRatedByUserAction from '@redux/ratings/getUserRate';
 import Tags from '@components/common/Tags';
 import VideoAction from '../VideoAction';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -21,11 +25,24 @@ export interface IVideoPlayerProps {
 }
 
 const VideoPlayer: FC<IVideoPlayerProps> = ({ video, youtubeVideo }) => {
+    const dispatch = useAppDispatch();
+    const { data: userRatings } = useSelector(({ ratings: { userRate } }: IRootState) => userRate);
+
     const youtubeVideoEntity = youtubeVideo.items?.[0];
     const viewCount = youtubeVideoEntity?.statistics?.viewCount;
 
     const [videoLoaded, setVideoLoaded] = useState<boolean>(false);
     const [openRatingModal, setOpenRatingModal] = useState<boolean>(false);
+    const [hasUserRated, setHasUserRated] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!isEmpty(userRatings)) setHasUserRated(true);
+    }, [userRatings]);
+
+    useEffect(() => {
+        if (video.slug) dispatch(getSingleVideoRatedByUserAction(video.slug));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]);
 
     return (
         <Row className={styles.videoPlayer}>
@@ -38,10 +55,10 @@ const VideoPlayer: FC<IVideoPlayerProps> = ({ video, youtubeVideo }) => {
                     height={'100%'}
                     url={video.link}
                     onEnded={() => {
-                        setOpenRatingModal(true);
+                        !hasUserRated && setOpenRatingModal(true);
                     }}
                     onPause={() => {
-                        setOpenRatingModal(true);
+                        !hasUserRated && setOpenRatingModal(true);
                     }}
                     onReady={() => setVideoLoaded(true)}
                     className={styles.videoPlayer__container__player}

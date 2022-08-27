@@ -7,6 +7,7 @@ import videos from './videos';
 import overview from './overview';
 import articles from './articles';
 import comments from './comments';
+import ratings from './ratings';
 
 export const rootReducer = combineReducers({
     auth,
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
     articles,
     comments,
     likes,
+    ratings,
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;
