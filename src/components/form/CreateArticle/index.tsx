@@ -60,10 +60,9 @@ const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error, 
     }, [quill]);
 
     const onSubmitArticle = (formData: IArticleData): void => {
-        const { slug } = initialValues as IArticleData;
         const { title, summary, tags } = formData;
         return onSubmit({
-            slug,
+            slug: initialValues?.slug,
             title,
             summary,
             tags,
