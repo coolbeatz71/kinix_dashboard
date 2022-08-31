@@ -66,12 +66,8 @@ const CreateUserForm: FC<IcreateUserProps> = ({
         >
             <ErrorAlert error={error} closable banner showIcon />
 
-            <Item
-                name="userName"
-                validateTrigger={['onSubmit', 'onBlur']}
-                rules={userNameValidator("Nom d'utilisateur")}
-            >
-                <FloatTextInput label="Nom d'utilisateur" placeholder="Nom d'utilisateur" required>
+            <Item name="userName" validateTrigger={['onSubmit', 'onBlur']} rules={userNameValidator('Pseudo')}>
+                <FloatTextInput label="Pseudo" placeholder="Pseudo" required>
                     <Input size="large" />
                 </FloatTextInput>
             </Item>

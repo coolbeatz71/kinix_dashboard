@@ -59,7 +59,7 @@ const actionCol = (reload: () => void): IUnknownObject => ({
 
 const tableColumns = (reload: () => void, onSelect?: (user: IUser) => void): ColumnType<IUser | IUnknownObject>[] => [
     {
-        title: 'Username',
+        title: 'Pseudo',
         key: 'userName',
         dataIndex: 'userName',
         width: 120,
