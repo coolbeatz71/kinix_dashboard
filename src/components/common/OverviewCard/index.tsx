@@ -1,7 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import numeral from 'numeral';
-import { Card, Col, Row, Tag, Tooltip, Typography } from 'antd';
-import getPercentage from '@helpers/getPercentage';
+import { Card, Col, Row, Tag, Typography } from 'antd';
 import { upperFirst } from 'lodash';
 
 const { Text } = Typography;
@@ -27,10 +26,8 @@ const OverviewCard: FC<IOverviewCardProps> = ({ title, total, icon, actions, cla
             actions={[
                 actions.map((action) => (
                     <div key={action.title}>
-                        <Tooltip title={numeral(action.value).format('0.[00]a')}>
-                            <Tag>% {getPercentage(total, action.value)}</Tag>
-                            <Tag color={action.color}>{action.title}</Tag>
-                        </Tooltip>
+                        <Tag>{numeral(action.value).format('0.[00]a')}</Tag>
+                        <Tag color={action.color}>{action.title}</Tag>
                     </div>
                 )),
             ]}

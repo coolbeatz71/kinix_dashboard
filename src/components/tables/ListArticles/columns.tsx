@@ -58,8 +58,8 @@ const tableColumns = (
     },
     {
         title: 'Likes',
-        key: 'like',
-        dataIndex: 'like',
+        key: 'likesCount',
+        dataIndex: 'likesCount',
         sorter: (a: IArticle, b: IArticle) => Number(a.likesCount) - Number(b.likesCount),
         width: 100,
         render: (likes: number) => (
@@ -70,8 +70,8 @@ const tableColumns = (
     },
     {
         title: 'Commentaires',
-        key: 'comment',
-        dataIndex: 'comment',
+        key: 'commentsCount',
+        dataIndex: 'commentsCount',
         width: 100,
         sorter: (a: IArticle, b: IArticle) => Number(a.commentsCount) - Number(b.commentsCount),
         render: (comments: number) => (
@@ -82,8 +82,8 @@ const tableColumns = (
     },
     {
         title: 'Favoris',
-        key: 'bookmark',
-        dataIndex: 'bookmark',
+        key: 'bookmarksCount',
+        dataIndex: 'bookmarksCount',
         width: 100,
         sorter: (a: IArticle, b: IArticle) => Number(a.bookmarksCount) - Number(b.bookmarksCount),
         render: (bookmarks: number) => (
