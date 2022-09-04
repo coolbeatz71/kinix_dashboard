@@ -17,13 +17,21 @@ const api = axios.create({
 
 const responseHandler = (response: AxiosResponse): AxiosResponse => response.data;
 const errorHandler = async (error: AxiosError): Promise<AxiosError> => {
-    if ([LOGIN_REQUIRED, TOKEN_INVALID_EXPIRED].includes(error.response?.data.message)) {
+    let errorResponse;
+    if ([LOGIN_REQUIRED, TOKEN_INVALID_EXPIRED].includes(error.response?.data.code)) {
         persistor.purge();
         localStorage.removeItem(USER_DATA);
         localStorage.removeItem(API_TOKEN);
         window.location.href = LOGIN_PATH;
     }
-    const errorResponse = error.response ? error.response.data : error.message;
+
+    console.log(error.response);
+
+    if (error.response) {
+        const msg = error.response.data.message;
+        errorResponse = typeof msg !== 'string' ? { message: msg[0]?.msg } : error.response.data;
+    } else errorResponse = error.message;
+
     return await Promise.reject(errorResponse);
 };
 
