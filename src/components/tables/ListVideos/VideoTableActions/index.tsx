@@ -46,26 +46,24 @@ const VideoTableActions: FC<IVideoTableActionsProps> = ({ video, reload }) => {
                                 Aperçu
                             </Button>
                         </VideoPlayerModal>
-                        <Button
-                            type="text"
-                            icon={<VideoCameraOutlined />}
-                            className={styles.actions__button}
+                        <Link
+                            rel="noopener noreferrer"
+                            to={`/videos/${video.slug}`}
                             onClick={() => {
                                 setOpenMenu(false);
                             }}
                         >
-                            <span>
-                                <Link
-                                    to={`/videos/${video.slug}`}
-                                    rel="noopener noreferrer"
-                                    onClick={() => {
-                                        setOpenMenu(false);
-                                    }}
-                                >
-                                    Details
-                                </Link>
-                            </span>
-                        </Button>
+                            <Button
+                                type="text"
+                                icon={<VideoCameraOutlined />}
+                                className={styles.actions__button}
+                                onClick={() => {
+                                    setOpenMenu(false);
+                                }}
+                            >
+                                Details
+                            </Button>
+                        </Link>
 
                         <Button
                             type="text"
