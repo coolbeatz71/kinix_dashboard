@@ -28,8 +28,8 @@ export const userNameValidator = (name: string): Rule[] => {
 
                 if ([undefined, null, ''].includes(value)) return Promise.resolve();
 
-                if (!validator.isAlpha(value) && regex.test(value)) {
-                    return Promise.reject(`${name} ne doit contenir que des caractères alphabétique`);
+                if (!validator.isAlphanumeric(value) && regex.test(value)) {
+                    return Promise.reject(`${name} ne doit contenir que des caractères alphabétique ou des chiffres.`);
                 }
                 return Promise.resolve();
             },
