@@ -3,6 +3,13 @@
 .actions {
     &__menu {
         padding: 0.5rem;
+        a {
+            color: $dark;
+            text-decoration: none;
+            &:hover {
+                color: $primary !important;
+            }
+        }
     }
 
     &__button {
@@ -13,14 +20,6 @@
         &:hover {
             color: $primary;
             background: $dark10;
-        }
-
-        a {
-            color: $dark;
-            text-decoration: none;
-            &:hover {
-                color: $primary !important;
-            }
         }
     }
 
