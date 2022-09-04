@@ -79,8 +79,8 @@ const tableColumns = (
     },
     {
         title: 'Partages',
-        key: 'share',
-        dataIndex: 'share',
+        key: 'sharesCount',
+        dataIndex: 'sharesCount',
         sorter: (a: IVideo, b: IVideo) => Number(a.sharesCount) - Number(b.sharesCount),
         width: 100,
         render: (shares: number) => (
