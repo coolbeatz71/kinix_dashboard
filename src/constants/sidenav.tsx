@@ -80,7 +80,7 @@ export const VIDEO_SECTIONS: ISideNavSection[] = [
     },
     {
         icon: <BsFillSpeakerFill />,
-        text: 'Flex&Beatz',
+        text: 'FlexBeatz',
         href: FLEXBEATZ_PATH,
         role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
     },

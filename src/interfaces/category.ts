@@ -4,7 +4,7 @@ enum EnumCategory {
     INTERVIEW = 'interview',
     PODCAST = 'podcast',
     LEFOCUS = 'lefocus',
-    FLEXBEATZ = 'flex&beatz',
+    FLEXBEATZ = 'flexbeatz',
 }
 
 export default EnumCategory;
