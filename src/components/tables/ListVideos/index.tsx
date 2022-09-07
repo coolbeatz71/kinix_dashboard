@@ -35,11 +35,7 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
 
     const [status, setStatus] = useState<EnumStatus>(EnumStatus.ALL);
     const [category, setCategory] = useState<EnumCategory>((catQuery as EnumCategory) || EnumCategory.ALL);
-    const {
-        data: { total, rows },
-        loading,
-        error,
-    } = useSelector(({ videos: { all } }: IRootState) => all);
+    const { data, loading, error } = useSelector(({ videos: { all } }: IRootState) => all);
 
     const [pagination, setPagination] = useState({
         page: 1,
@@ -114,7 +110,7 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
                 <Row gutter={24}>
                     <Col flex={1}>
                         <TableTitle goBack={onSelect === undefined}>
-                            {title} ({numeral(total).format()})
+                            {title} ({numeral(data?.total).format()})
                         </TableTitle>
                     </Col>
                     <Col>
@@ -139,7 +135,7 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
                 </Row>
                 <br />
                 <Table
-                    dataSource={rows}
+                    dataSource={data?.rows}
                     loading={loading}
                     scroll={{ x: 1500 }}
                     className={styles.table}
@@ -147,7 +143,7 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     columns={tableColumns(() => changePage(page, limit, search), onSelect)}
                     pagination={{
-                        total,
+                        total: data?.total,
                         current: page,
                         pageSize: limit,
                         showSizeChanger: true,
