@@ -1,6 +1,8 @@
+import React from 'react';
 import { DASHBOARD_PATH } from '@constants/paths';
 import EnumRole from '@interfaces/role';
-import Dashboard from '.';
+
+const Dashboard = React.lazy(() => import('.'));
 
 const route = [
     {

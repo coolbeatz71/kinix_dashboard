@@ -47,7 +47,7 @@ export const PROMO_SECTIONS: ISideNavSection[] = [
     },
     {
         icon: <TbNetwork />,
-        text: 'Stories',
+        text: 'Story',
         href: STORY_PATH,
         role: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
     },

@@ -1,14 +1,14 @@
 import React from 'react';
-import { ADMIN_PATH } from '@constants/paths';
+import { ADS_PATH } from '@constants/paths';
 import EnumRole from '@interfaces/role';
 
-const Admins = React.lazy(() => import('.'));
+const Ads = React.lazy(() => import('.'));
 
 const route = [
     {
-        path: ADMIN_PATH,
-        name: 'Administrateurs',
-        component: Admins,
+        path: ADS_PATH,
+        name: 'Ads',
+        component: Ads,
         exact: true,
         extraProps: {
             isLoggedIn: true,

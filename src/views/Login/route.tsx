@@ -1,5 +1,7 @@
+import React from 'react';
 import { LOGIN_PATH } from '@constants/paths';
-import Login from '.';
+
+const Login = React.lazy(() => import('.'));
 
 const route = [
     {

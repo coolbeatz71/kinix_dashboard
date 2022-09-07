@@ -1,3 +1,4 @@
+import EPromotionPlan from '@constants/promotion';
 import EnumProvider from './provider';
 import EnumRole from './role';
 
@@ -129,3 +130,49 @@ export interface IShare {
     createdAt?: string;
     updatedAt?: string;
 }
+
+export interface IAds {
+    readonly id?: number;
+    userId: number | null;
+    planId: number;
+    slug: string;
+    legend: string;
+    title: string;
+    subTitle: string;
+    body: string;
+    redirectUrl?: string | null;
+    image: string;
+    active: boolean;
+    startDate: string;
+    endDate: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+export interface IStory {
+    readonly id?: number;
+    userId: number | null;
+    planId: number;
+    slug: string;
+    legend: string;
+    title: string;
+    subTitle: string;
+    body: string;
+    redirectUrl?: string | null;
+    media: string;
+    mediaType: string;
+    active: boolean;
+    startDate: string;
+    endDate: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+export interface IAdsPlan {
+    readonly id?: number;
+    name: EPromotionPlan;
+    price: number;
+    duration: number;
+    createdAt?: string;
+    updatedAt?: string;
+}
+export type IStoryPlan = IAdsPlan;
