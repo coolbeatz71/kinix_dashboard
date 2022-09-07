@@ -63,7 +63,7 @@ const VideoOverview: FC<IVideoOverviewProps> = ({ loading, overview }) => {
                 },
                 {
                     color: WARNING,
-                    name: 'Flex&Beatz',
+                    name: 'FlexBeatz',
                     value: overview?.category.flexBeatz,
                 },
                 {

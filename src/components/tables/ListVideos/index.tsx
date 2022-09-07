@@ -64,7 +64,11 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
             }),
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch, status, category]);
+    }, [dispatch, status, category, catQuery]);
+
+    useEffect(() => {
+        if (isCategoryValid) setCategory((catQuery as EnumCategory) || EnumCategory.ALL);
+    }, [catQuery, isCategoryValid]);
 
     const changePage = (p: number, l: number, s: string): void => {
         setPagination({ page: p, limit: l, search: s });

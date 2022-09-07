@@ -17,7 +17,7 @@ export const CATEGORY_FILTER_LIST: DefaultOptionType[] = [
     { label: 'Podcast', value: EnumCategory.PODCAST },
     { label: 'Interview', value: EnumCategory.INTERVIEW },
     { label: 'LeFocus', value: EnumCategory.LEFOCUS },
-    { label: 'Flex&Beatz', value: EnumCategory.FLEXBEATZ },
+    { label: 'FlexBeatz', value: EnumCategory.FLEXBEATZ },
 ];
 
 export const CLIENTS_FILTER_LIST: DefaultOptionType[] = [
