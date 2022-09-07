@@ -29,11 +29,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
     const dispatch = useAppDispatch();
 
     const [status, setStatus] = useState<EnumStatus>(EnumStatus.ALL);
-    const {
-        data: { total, rows },
-        loading,
-        error,
-    } = useSelector(({ articles: { all } }: IRootState) => all);
+    const { data, loading, error } = useSelector(({ articles: { all } }: IRootState) => all);
 
     const [pagination, setPagination] = useState({
         page: 1,
@@ -92,7 +88,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                 <Row gutter={24}>
                     <Col flex={1}>
                         <TableTitle goBack={onSelect === undefined}>
-                            {title} ({numeral(total).format()})
+                            {title} ({numeral(data?.total).format()})
                         </TableTitle>
                     </Col>
                     <Col>
@@ -110,7 +106,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                 </Row>
                 <br />
                 <Table
-                    dataSource={rows}
+                    dataSource={data?.rows}
                     loading={loading}
                     scroll={{ x: 1500 }}
                     className={styles.table}
@@ -118,7 +114,7 @@ const ListArticles: FC<ListArticlesProps> = ({ onSelect, onTitle }) => {
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     columns={tableColumns(() => changePage(page, limit, search), onSelect)}
                     pagination={{
-                        total,
+                        total: data?.total,
                         current: page,
                         pageSize: limit,
                         showSizeChanger: true,

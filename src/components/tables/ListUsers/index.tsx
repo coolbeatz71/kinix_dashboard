@@ -38,11 +38,7 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
     const [role, setRole] = useState<EnumRoleClient | EnumRoleAdmin>(
         (roleQuery as EnumRoleClient) || EnumRoleClient.ALL,
     );
-    const {
-        error,
-        loading,
-        data: { total, rows },
-    } = useSelector(({ users: { clients } }: IRootState) => clients);
+    const { error, loading, data } = useSelector(({ users: { clients } }: IRootState) => clients);
 
     const [pagination, setPagination] = useState({
         page: 1,
@@ -118,7 +114,7 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
                 <Row gutter={24}>
                     <Col flex={1}>
                         <TableTitle goBack={onSelect === undefined}>
-                            {title} ({numeral(total).format()})
+                            {title} ({numeral(data?.total).format()})
                         </TableTitle>
                     </Col>
                     <Col>
@@ -144,7 +140,7 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
                 </Row>
                 <br />
                 <Table
-                    dataSource={rows}
+                    dataSource={data?.rows}
                     loading={loading}
                     scroll={{ x: 1500 }}
                     className={styles.table}
@@ -152,7 +148,7 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     columns={tableColumns(() => changePage(page, limit, search), onSelect)}
                     pagination={{
-                        total,
+                        total: data?.total,
                         current: page,
                         pageSize: limit,
                         showSizeChanger: true,
