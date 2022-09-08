@@ -1,0 +1,194 @@
+@import 'styles/dimensions.scss';
+@import 'styles/colors.scss';
+@import 'styles/mixins.scss';
+
+.sidenav {
+    @include preventTextSelection;
+    transition: ease-out all 0.005s;
+
+    &__divider {
+        padding: 0 0.5rem;
+        [class~='ant-divider'] {
+            border-color: $light20;
+            margin: 0;
+        }
+    }
+
+    &__menu {
+        &_divider {
+            margin: 0;
+        }
+
+        &__items {
+            display: flex;
+            align-items: center;
+            padding: 0 1rem !important;
+            margin: 1rem 0 !important;
+
+            &:hover {
+                background-color: $bg-warning-fade;
+
+                span,
+                svg {
+                    color: $black;
+                }
+            }
+        }
+
+        &__sub {
+            font-size: 11px;
+
+            [class~='ant-menu-inline'] {
+                border-radius: $border-radius;
+                background-color: $bg-primary-dark;
+            }
+
+            [class~='ant-menu-submenu-title'] {
+                color: $light50;
+                padding-right: 0;
+                padding-left: 1rem !important;
+                border-radius: $border-radius;
+
+                i {
+                    color: $light50;
+                }
+            }
+        }
+    }
+
+    &__logo {
+        height: $header-height;
+        background-position: 0.5rem center;
+        background-repeat: no-repeat;
+    }
+
+    [class~='ant-layout-sider-trigger'] {
+        z-index: 99;
+        background: $light10;
+    }
+
+    [class~='ant-layout-sider-children'] {
+        background: $primary !important;
+        position: fixed;
+        z-index: 98;
+
+        .sidenav__menu {
+            border: none;
+            padding: 0 0.5rem;
+            background: transparent;
+            color: $white;
+
+            &__items {
+                border-radius: $border-radius;
+
+                a {
+                    text-decoration: none;
+                }
+
+                &::after {
+                    content: none;
+                }
+
+                [class~='ant-menu-item-icon'],
+                & > svg:first-child {
+                    transform: scale(1.2);
+                }
+            }
+        }
+    }
+
+    [class~='ant-menu-item-selected'] {
+        background-color: $bg-primary-light;
+
+        span,
+        svg {
+            color: $dark;
+            font-weight: 600;
+        }
+    }
+
+    [class~='ant-menu-submenu-title'] {
+        border-radius: $border-radius;
+
+        &:hover {
+            * {
+                color: $white;
+            }
+            background: rgba($color: $background, $alpha: 0.5);
+        }
+
+        &[aria-expanded='true'] {
+            background: rgba($color: $background, $alpha: 0.2);
+        }
+    }
+
+    &[data-expanded='true'] {
+        [class~='ant-layout-sider-trigger'] {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0.5rem;
+        }
+
+        .sidenav__logo {
+            width: $max-sidenav-width;
+            background-size: $logo-bg-size;
+            background-image: url('./../../../assets/logo/large_dark.svg');
+        }
+
+        .sidenav__menu__items {
+            svg,
+            span,
+            a {
+                color: $white;
+            }
+            &:hover {
+                background-color: $bg-warning-fade;
+                -webkit-backdrop-filter: saturate(180%) blur(20px);
+                backdrop-filter: saturate(180%) blur(20px);
+                svg,
+                span,
+                a {
+                    color: $white;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    &[data-expanded='false'] {
+        .sidenav__logo {
+            width: $min-sidenav-width;
+            background-size: $logo-bg-size;
+            background-image: url('./../../../assets/logo/short_dark.svg');
+        }
+
+        .sidenav__menu__items {
+            display: flex;
+            align-items: center;
+            span {
+                line-height: 0;
+            }
+
+            &:hover {
+                justify-content: flex-start;
+                width: $max-sidenav-width;
+                padding-left: 0 !important;
+
+                span,
+                & > svg:first-child {
+                    opacity: 1;
+                    line-height: 0;
+                    margin-left: 0.8rem;
+                }
+
+                background-color: $bg-warning-fade;
+                -webkit-backdrop-filter: saturate(180%) blur(20px);
+                backdrop-filter: saturate(180%) blur(20px);
+                span {
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

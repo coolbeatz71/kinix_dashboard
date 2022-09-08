@@ -1,0 +1,38 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+$border: #e0dfdf;
+
+.quillEditor {
+    width: 100%;
+    display: inline-block;
+    margin-top: $padding;
+    margin-bottom: $content-padding;
+
+    [class~='ql-toolbar'],
+    [class~='ql-container'] {
+        border-color: $border !important;
+    }
+
+    [class~='ql-toolbar'] {
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+
+        [class~='ql-picker-label'] {
+            display: flex;
+            align-items: center;
+            align-content: center;
+        }
+    }
+
+    [class~='ql-container'] {
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+
+        [class~='ql-blank']::before {
+            font-style: normal;
+            font-size: 14px;
+            color: $dark50;
+        }
+    }
+}

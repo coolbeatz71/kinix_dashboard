@@ -1,0 +1,29 @@
+@import 'styles/dimensions.scss';
+
+.videoSkeleton {
+    &__player {
+        width: 100% !important;
+        height: 30rem !important;
+        border-radius: $border-radius;
+        span {
+            height: 100% !important;
+        }
+    }
+
+    &__tab {
+        height: 11rem;
+        margin-top: 0.65rem;
+        span {
+            height: 100% !important;
+        }
+    }
+
+    &__related {
+        height: 8rem;
+        margin-top: 1rem;
+        margin-bottom: 1.1rem;
+        span {
+            height: 100% !important;
+        }
+    }
+}

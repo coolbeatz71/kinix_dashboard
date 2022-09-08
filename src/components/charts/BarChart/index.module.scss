@@ -1,0 +1,40 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.chart {
+    height: 100%;
+    padding: $padding;
+    padding-bottom: 0;
+    width: 100% !important;
+    & > svg {
+        height: 100%;
+        width: 100% !important;
+    }
+    [class~='recharts-legend-wrapper'] {
+        width: 100% !important;
+    }
+
+    [class~='recharts-tooltip-wrapper'] {
+        border: none !important;
+        outline: none !important;
+
+        [data-custom-tooltip='true'] {
+            padding: 0.5rem;
+            border: 1px solid $grey !important;
+            border-radius: $border-radius;
+            background: $bg-primary-light90;
+
+            [data-label='true'] {
+                color: $dark;
+                font-weight: 600;
+                margin-bottom: 0.1rem;
+            }
+
+            [data-desc='true'] {
+                margin: 0;
+                color: $dark50;
+                font-size: 10pt;
+            }
+        }
+    }
+}

@@ -1,0 +1,101 @@
+@import 'colors.scss';
+@import 'dimensions.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;300;400;500;700;900&display=swap');
+
+* {
+    font-family: Open Sans;
+}
+
+body {
+    background: $background !important;
+}
+
+.loadingContainer {
+    display: flex;
+    height: 100vh;
+    min-height: 100vh;
+    padding-top: 8rem;
+    background: $light;
+}
+
+[class~='ant-btn'] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[class~='ant-layout-header'] {
+    background: $white;
+    padding: 0 $padding;
+}
+
+[class~='ant-layout'] {
+    background: $white;
+}
+
+[data-content-padding] {
+    padding: calc(#{$content-padding} / 2) 0;
+}
+
+[class~='anticon'] {
+    vertical-align: middle;
+}
+
+[class~='ant-form-item-with-help'],
+[class~='ant-form-item-has-error'] {
+    margin-bottom: $padding !important;
+}
+
+[class~='ant-select-item-option-selected']:not(.ant-select-item-option-disabled) {
+    background-color: rgba($color: $link, $alpha: 0.1);
+}
+
+[class~='ant-select-selection-placeholder'] {
+    font-size: 14px;
+}
+[class~='ant-select-multiple'] {
+    [class~='ant-select-selection-item'] {
+        height: 30px !important;
+        line-height: 28px !important;
+    }
+}
+
+textarea {
+    &::-webkit-input-placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+
+    &:-moz-placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+
+    &::-moz-placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+
+    &:-ms-input-placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+
+    &::placeholder {
+        font-size: 14px;
+        color: $dark50 !important;
+    }
+}
+
+[class~='ant-form-item-explain-error'] {
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+[class~='ant-modal-confirm-btns'] {
+    display: flex;
+    justify-content: flex-end;
+}

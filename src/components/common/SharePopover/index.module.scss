@@ -1,0 +1,38 @@
+@import 'styles/dimensions.scss';
+@import 'styles/colors.scss';
+
+.sharePopover {
+    &__button {
+        margin: 0 0.8rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 0;
+        color: $white !important;
+
+        &:hover {
+            background: $grey !important;
+            [class~='twitter'] {
+                color: $twitter;
+            }
+            [class~='facebook'] {
+                color: $facebook;
+            }
+            [class~='whatsapp'] {
+                color: $whatsapp;
+            }
+        }
+
+        &[data-platform='twitter'] {
+            background: $twitter;
+        }
+        &[data-platform='facebook'] {
+            background: $facebook;
+        }
+        &[data-platform='whatsapp'] {
+            background: $whatsapp;
+        }
+    }
+}

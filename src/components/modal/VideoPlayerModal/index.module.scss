@@ -1,0 +1,35 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.videoPlayer {
+    [class~='ant-modal-close'] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 52px;
+
+        [class~='ant-modal-close-x'] {
+            font-size: 14pt;
+        }
+    }
+
+    [class~='ant-modal-title'] {
+        font-weight: 600;
+        color: $dark;
+    }
+
+    iframe {
+        border-radius: $border-radius;
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+    }
+
+    [class~='ant-modal-body'] {
+        background: $black;
+        padding: 0 !important;
+
+        border-radius: $border-radius;
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+    }
+}

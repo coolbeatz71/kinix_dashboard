@@ -1,0 +1,33 @@
+@import 'styles/colors.scss';
+
+.groupTitle {
+    margin-bottom: 1rem;
+    [class~='title'] {
+        margin-bottom: 0.5rem;
+    }
+
+    h4 {
+        font-size: 14pt;
+    }
+
+    [data-desc='true'] {
+        color: $dark50;
+        font-weight: 500;
+    }
+
+    svg,
+    [class~='anticon'] {
+        font-weight: bold;
+        font-size: 1.4rem;
+        margin-right: 0.4rem;
+    }
+
+    [class~='ant-typography'] {
+        margin-bottom: 0;
+    }
+
+    [class~='ant-divider'] {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+}

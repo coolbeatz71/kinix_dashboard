@@ -1,0 +1,15 @@
+@import 'styles/colors.scss';
+
+.articleCommentDrawer {
+    [class~='ant-drawer-title'] {
+        font-weight: 700;
+
+        [data-total='true'] {
+            color: $dark30;
+            font-weight: 500;
+        }
+    }
+    [class~='ant-drawer-footer'] {
+        padding: 0;
+    }
+}

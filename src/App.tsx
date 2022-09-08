@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, useEffect } from 'react';
+import dayjs from 'dayjs';
+import fr from 'dayjs/locale/fr';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { LOGIN_PATH, NOT_FOUND_PATH } from '@constants/paths';
+import PageComponent from '@components/layout/PageComponent';
+import Page404 from '@views/Page404';
+import ScreenSkeleton from '@components/skeleton/Screen';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = (): JSX.Element => {
+    useEffect(() => {
+        dayjs.locale(fr);
+        dayjs.extend(relativeTime);
+    }, []);
+
+    return (
+        <BrowserRouter>
+            <Suspense fallback={<ScreenSkeleton />}>
+                <Switch>
+                    <Route exact path={NOT_FOUND_PATH} render={(props) => <Page404 {...props} />} />
+                    <Route path={LOGIN_PATH} render={() => <PageComponent />} />
+                </Switch>
+            </Suspense>
+        </BrowserRouter>
+    );
+};
 
 export default App;

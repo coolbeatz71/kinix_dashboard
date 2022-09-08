@@ -1,0 +1,19 @@
+@import 'styles/colors.scss';
+
+.tableTitle {
+    &__button {
+        display: flex;
+        justify-content: flex-start !important;
+        color: $dark;
+        &::hover {
+            color: $black;
+        }
+        [class~='anticon'] {
+            line-height: 32px;
+            font-size: 14pt;
+        }
+    }
+    &__typography {
+        margin-bottom: 0 !important;
+    }
+}

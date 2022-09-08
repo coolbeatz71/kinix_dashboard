@@ -1,0 +1,62 @@
+@import 'styles/mixins.scss';
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.articleAction {
+    justify-content: flex-end;
+    border: 1px solid $dark10;
+    border-left: 0 !important;
+    border-right: 0 !important;
+
+    margin: calc(#{$padding} * 1.2) 0;
+    padding: calc(#{$padding} * 1.2) 0;
+
+    [data-liked='true'] {
+        color: $warning;
+    }
+
+    button {
+        padding: 0 !important;
+        color: $dark;
+
+        &[data-comment='true'],
+        &[data-like='true'] {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+
+        [data-count='true'] {
+            font-size: 12pt;
+            margin-right: 0.2rem;
+        }
+
+        [class~='anticon'] {
+            font-size: 20pt;
+        }
+
+        &[class~='ant-btn-icon-only'] {
+            svg {
+                font-size: 24pt;
+            }
+        }
+    }
+
+    @include mediaXS {
+        button {
+            [class~='anticon'] {
+                font-size: 16pt;
+            }
+
+            &[class~='ant-btn-icon-only'] {
+                svg {
+                    font-size: 18pt;
+                }
+            }
+            [data-count='true'] {
+                font-size: 10pt;
+                margin-right: 0.1rem;
+            }
+        }
+    }
+}

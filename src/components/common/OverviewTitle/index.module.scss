@@ -1,0 +1,42 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.overviewTitle {
+    cursor: pointer;
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+    border-radius: $border-radius;
+
+    svg,
+    [class~='anticon'] {
+        padding: 0.2rem;
+        font-size: 22pt;
+        background: $white;
+        color: $primary;
+        border-radius: $border-radius;
+    }
+
+    [class~='ant-typography'] {
+        color: $white;
+        margin-bottom: 0;
+        margin-left: 1rem;
+    }
+
+    a {
+        text-decoration: none;
+        [class~='ant-btn'] {
+            color: $light;
+            border-color: $white;
+
+            &:hover,
+            &:visited,
+            &:focus,
+            &:active {
+                color: $white;
+                border-color: $light;
+            }
+        }
+    }
+}

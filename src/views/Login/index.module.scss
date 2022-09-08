@@ -1,0 +1,32 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.login {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: $primary;
+
+    &__card {
+        width: 512px;
+        display: inline-block;
+        padding: $padding 0;
+
+        &__logo {
+            margin: auto;
+            margin-bottom: $padding;
+            width: $min-sidenav-width;
+            height: $min-sidenav-width;
+
+            background-size: $logo-bg-size;
+            background-image: url('./../../assets/logo/short_dark.svg');
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
+}

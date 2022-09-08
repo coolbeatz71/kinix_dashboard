@@ -1,0 +1,77 @@
+@import 'styles/colors.scss';
+
+.textInput {
+    position: relative;
+
+    [class~='ant-input-password'] {
+        [class~='ant-input'] {
+            padding-right: 10px !important;
+        }
+    }
+
+    [class~='ant-input-affix-wrapper'] {
+        padding: 0 !important;
+        padding-right: 12px !important;
+    }
+
+    [class~='ant-input'] {
+        font-size: 14px;
+        padding: 16px 12px 4px 12px !important;
+    }
+
+    [class~='ant-select'] {
+        [class~='anticon-loading'] {
+            color: $primary;
+            font-size: 14px;
+        }
+        [class~='ant-select-selection-search'] {
+            [class~='ant-select-selection-search-input'] {
+                font-size: 14px;
+                position: absolute;
+                top: -8px;
+            }
+        }
+        [class~='ant-select-selector'] {
+            font-size: 14px;
+            padding: 16px 12px 4px 12px !important;
+        }
+        [class~='ant-select-selection-item'] {
+            font-size: 14px;
+            line-height: 1.5 !important;
+        }
+    }
+
+    [class~='ant-select-single']:not([class~='ant-select-customize-input']) [class~='ant-select-selector'] {
+        padding: 16px 12px 4px 12px !important;
+        height: 42px !important;
+    }
+
+    [class~='ant-select-single'] [class~='ant-select-selector'] [class~='ant-select-selection-search'] {
+        top: 16px;
+    }
+
+    [class~='label'] {
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 12px;
+        top: 10px;
+        transition: 0.2s ease all;
+    }
+
+    [class~='asPlaceholder'] {
+        font-size: 14px;
+        color: $dark30;
+        z-index: 1;
+    }
+
+    [class~='asLabel'] {
+        top: 6px;
+        font-size: 10px !important;
+        font-weight: 700;
+        padding: 0 4px;
+        margin-left: -4px;
+        color: $primary;
+        z-index: 1;
+    }
+}

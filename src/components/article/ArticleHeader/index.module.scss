@@ -1,0 +1,18 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.articleHeader {
+    margin-bottom: calc(#{$padding} * 1.2);
+    [data-author='true'] {
+        cursor: pointer;
+        font-weight: 600;
+
+        a {
+            color: $black;
+            &:hover,
+            &:active {
+                color: $link;
+            }
+        }
+    }
+}

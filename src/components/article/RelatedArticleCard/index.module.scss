@@ -1,0 +1,66 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+$card-padding: calc(#{$padding} / 1.5);
+
+.relatedArticleCard {
+    cursor: pointer;
+    margin-bottom: 1rem;
+    border-radius: $border-radius;
+
+    a {
+        text-decoration: none;
+    }
+
+    [class~='ant-card'] {
+        height: 100%;
+        background: $white;
+    }
+    [class~='ant-card-body'] {
+        padding: 0;
+        height: 100%;
+    }
+    [class~='ant-typography'] {
+        color: $dark;
+    }
+
+    [data-body='true'] {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        padding: $card-padding 0;
+    }
+
+    &__cover {
+        padding: $card-padding;
+        padding-right: 0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: $border-radius;
+        }
+    }
+
+    &__header {
+        padding: 0 $card-padding;
+
+        [data-text='header'] {
+            font-size: 12px;
+        }
+    }
+
+    &__content {
+        padding: $card-padding;
+        padding-top: 0.8rem;
+        padding-bottom: 0;
+
+        [data-text='title'] {
+            font-size: 10pt;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+    }
+}

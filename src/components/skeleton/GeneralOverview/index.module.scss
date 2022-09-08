@@ -1,0 +1,26 @@
+.overview {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    [class~='ant-card-actions'] {
+        [class~='ant-skeleton'] {
+            padding: 0 1.5rem;
+        }
+    }
+
+    [class~='ant-skeleton-button'] {
+        width: 100% !important;
+    }
+
+    [class~='ant-card-body'] {
+        [class~='ant-row'] {
+            height: 4.4rem;
+        }
+
+        [class~='ant-col'],
+        [class~='ant-skeleton'],
+        [class~='ant-skeleton-button'] {
+            height: 100% !important;
+        }
+    }
+}
