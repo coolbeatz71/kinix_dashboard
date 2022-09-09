@@ -3,6 +3,10 @@
 .textInput {
     position: relative;
 
+    [class~='ant-picker'] {
+        width: 100%;
+    }
+
     [class~='ant-input-password'] {
         [class~='ant-input'] {
             padding-right: 10px !important;

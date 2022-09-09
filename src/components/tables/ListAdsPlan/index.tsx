@@ -15,7 +15,7 @@ import styles from './index.module.scss';
 
 export interface IListAdsPlanProps {
     onTitle?: (title: string) => void;
-    onSelect?: (user: IUnknownObject) => void;
+    onSelect?: (plan: IUnknownObject) => void;
 }
 
 const ListAdsPlan: FC<IListAdsPlanProps> = ({ onSelect, onTitle }) => {
@@ -60,7 +60,7 @@ const ListAdsPlan: FC<IListAdsPlanProps> = ({ onSelect, onTitle }) => {
                     scroll={{ x: 1500 }}
                     dataSource={data?.rows}
                     className={styles.table}
-                    rowKey={(user: IUnknownObject) => user.id}
+                    rowKey={(plan: IUnknownObject) => plan.id}
                     columns={tableColumns(() => changePage(page, limit), onSelect)}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     pagination={{

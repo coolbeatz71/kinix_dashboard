@@ -9,11 +9,15 @@ import ListAdsPlan from '@components/tables/ListAdsPlan';
 import getAllAdsAction from '@redux/ads/getAll';
 import { EnumFormContext } from '@interfaces/app';
 import PromotionPlanModal from '@components/modal/PromotionPlanModal';
+import ListAds from '@components/tables/ListAds';
+import AdsModal from '@components/modal/AdsModal';
 
 const Ads: FC = () => {
     const dispatch = useAppDispatch();
-    const [title, setTitle] = useState<string>('Ads');
+    const [adsTitle, setAdsTitle] = useState<string>('Ads');
     const [planTitle, setPlanTitle] = useState<string>("Formule d'abonnement");
+
+    const [openAddAdsModal, setOpenAddAdsModal] = useState(false);
     const [openAddAdsPlanModal, setOpenAddAdsPlanModal] = useState(false);
 
     const [pagination] = useState({
@@ -41,7 +45,7 @@ const Ads: FC = () => {
     return (
         <div>
             <Fragment>
-                <div>
+                <div className="mb-5">
                     <PageTitle title={planTitle}>
                         <Button
                             type="primary"
@@ -51,19 +55,30 @@ const Ads: FC = () => {
                             Ajouter
                         </Button>
                     </PageTitle>
-
+                    <PromotionPlanModal
+                        type="ads"
+                        reload={reloadPlan}
+                        visible={openAddAdsPlanModal}
+                        setVisible={setOpenAddAdsPlanModal}
+                        formContext={EnumFormContext.CREATE}
+                    />
                     <ListAdsPlan onTitle={(t) => setPlanTitle(t)} />
                 </div>
-                <div></div>
+                <div className="mt-5">
+                    <PageTitle title={adsTitle}>
+                        <Button type="primary" icon={<PlusCircleOutlined />} onClick={() => setOpenAddAdsModal(true)}>
+                            Ajouter
+                        </Button>
+                    </PageTitle>
+                    <AdsModal
+                        reload={reloadAds}
+                        visible={openAddAdsModal}
+                        setVisible={setOpenAddAdsModal}
+                        formContext={EnumFormContext.CREATE}
+                    />
+                    <ListAds onTitle={(t) => setAdsTitle(t)} />
+                </div>
             </Fragment>
-
-            <PromotionPlanModal
-                type="ads"
-                reload={reloadPlan}
-                visible={openAddAdsPlanModal}
-                setVisible={setOpenAddAdsPlanModal}
-                formContext={EnumFormContext.CREATE}
-            />
         </div>
     );
 };

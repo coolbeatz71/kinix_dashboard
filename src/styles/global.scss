@@ -56,6 +56,17 @@ body {
 [class~='ant-select-selection-placeholder'] {
     font-size: 14px;
 }
+[class~='ant-picker-large'] {
+    padding: 10px 11px 10px !important;
+    input {
+        font-size: 14px !important;
+    }
+}
+[class~='ant-picker-footer'] {
+    a {
+        text-decoration: none;
+    }
+}
 [class~='ant-select-multiple'] {
     [class~='ant-select-selection-item'] {
         height: 30px !important;
@@ -63,30 +74,31 @@ body {
     }
 }
 
-textarea {
+textarea,
+input {
     &::-webkit-input-placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark !important;
     }
 
     &:-moz-placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark !important;
     }
 
     &::-moz-placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark !important;
     }
 
     &:-ms-input-placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark !important;
     }
 
     &::placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark !important;
     }
 }
 
