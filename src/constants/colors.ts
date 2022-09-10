@@ -27,8 +27,8 @@ export const clientColors: IUnknownObject = {
 export const adsPlanColors: IUnknownObject = {
     FREE: GRAY,
     BASIC: WARNING,
-    PROFESSIONAL: SUCCESS,
     PREMIUM: PRIMARY,
+    PROFESSIONAL: SUCCESS,
 };
 
 export const adminColors: IUnknownObject = {

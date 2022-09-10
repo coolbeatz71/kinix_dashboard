@@ -4,12 +4,12 @@ import { MutableRefObject } from 'react';
 
 const pixelRatio = 4;
 
-export const clearImage = (previewCanvasRef: MutableRefObject<IUnknownObject>): void => {
+export const clearImage = (previewCanvasRef: MutableRefObject<IUnknownObject | null>): void => {
     const canvas = previewCanvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas?.getContext('2d');
 
     ctx.fillStyle = WHITE;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvas?.width, canvas?.height);
 };
 
 const drawImage = (

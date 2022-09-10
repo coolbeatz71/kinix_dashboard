@@ -34,7 +34,7 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
     const previewCanvasRef = useRef(null);
 
     const cancel = useCallback(
-        (r) => {
+        (r: MutableRefObject<null>) => {
             setFile([]);
             setShow(false);
             setCropped(null);
@@ -120,7 +120,7 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
             <Modal
                 visible={show}
                 destroyOnClose
-                title="Crop"
+                title="Crop image"
                 onCancel={() => cancel(previewCanvasRef)}
                 onOk={() => {
                     setShow(false);

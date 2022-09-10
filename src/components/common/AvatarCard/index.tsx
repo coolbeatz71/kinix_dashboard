@@ -118,8 +118,8 @@ const AvatarCard: FC<IAvatarCardProps> = ({ image, userName, loading }) => {
                             <Button
                                 shape="circle"
                                 type="primary"
-                                className={styles.avatarCard__button}
                                 icon={<EditOutlined />}
+                                className={styles.avatarCard__button}
                             />
                         </Upload>
                     </ImgCrop>
