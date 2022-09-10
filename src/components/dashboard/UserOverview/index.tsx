@@ -80,12 +80,12 @@ const UserOverview: FC<IUserOverviewProps> = ({ loading, overview }) => {
                 {
                     color: YELLOW,
                     name: 'Clients promotion',
-                    value: overview?.role.admin,
+                    value: overview?.role.ads,
                 },
                 {
                     color: GRAY,
                     name: 'Utilisateurs',
-                    value: overview?.role.admin,
+                    value: overview?.role.viewer,
                 },
             ],
         },

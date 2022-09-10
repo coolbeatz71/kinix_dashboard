@@ -6,8 +6,10 @@ import { HiUsers } from 'react-icons/hi';
 import { RiArticleLine } from 'react-icons/ri';
 import { VideoCameraFilled, GlobalOutlined } from '@ant-design/icons';
 import GeneralOverviewSkeleton from '@components/skeleton/GeneralOverview';
+import { ADS_PATH, ARTICLE_PATH, USER_PATH, VIDEO_PATH } from '@constants/paths';
 
 import styles from './index.module.scss';
+import { Link } from 'react-router-dom';
 export interface IGeneralOverviewProps {
     loading: boolean;
     overview: IGeneralOverview;
@@ -16,6 +18,7 @@ export interface IGeneralOverviewProps {
 const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, overview }) => {
     const data = [
         {
+            path: USER_PATH,
             title: 'utilisateurs',
             total: overview?.users.all,
             icon: <HiUsers data-icon="utilisateurs" />,
@@ -30,6 +33,7 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, overview }) => {
         },
         {
             title: 'videos',
+            path: VIDEO_PATH,
             total: overview?.videos.all,
             icon: <VideoCameraFilled data-icon="videos" />,
             actions: [
@@ -42,6 +46,7 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, overview }) => {
             ],
         },
         {
+            path: ARTICLE_PATH,
             title: 'articles',
             total: overview?.articles.all,
             icon: <RiArticleLine data-icon="articles" />,
@@ -55,6 +60,7 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, overview }) => {
             ],
         },
         {
+            path: ADS_PATH,
             title: 'promotions',
             total: overview?.promotions.all,
             icon: <GlobalOutlined data-icon="promotions" />,
@@ -79,13 +85,15 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, overview }) => {
                   ))
                 : data.map((item) => (
                       <Col xs={24} sm={24} md={12} lg={12} xl={6} key={item.title}>
-                          <OverviewCard
-                              icon={item.icon}
-                              title={item.title}
-                              total={item.total}
-                              actions={item.actions}
-                              className={styles.general__count}
-                          />
+                          <Link to={item.path}>
+                              <OverviewCard
+                                  icon={item.icon}
+                                  title={item.title}
+                                  total={item.total}
+                                  actions={item.actions}
+                                  className={styles.general__count}
+                              />
+                          </Link>
                       </Col>
                   ))}
         </Row>

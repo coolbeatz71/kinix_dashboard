@@ -8,6 +8,10 @@
         color: $white;
     }
 
+    a {
+        text-decoration: none;
+    }
+
     svg,
     [class~='anticon'] {
         width: 100%;
