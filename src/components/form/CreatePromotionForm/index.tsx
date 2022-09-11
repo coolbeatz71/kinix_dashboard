@@ -3,7 +3,6 @@ import { IAdsPlanData, IStoryPlanData } from '@interfaces/promotion';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { Form, FormInstance, Input } from 'antd';
 import ErrorAlert from '@components/common/ErrorAlert';
-import FloatTextInput from '@components/common/FloatTextInput';
 import { nameValidator } from './validators';
 import { required } from '@helpers/validators';
 
@@ -39,22 +38,21 @@ const CreatePromotionForm: FC<ICreatePromotionFormProps> = ({
         >
             <ErrorAlert error={error} closable banner showIcon />
 
-            <Item name="name" validateTrigger={['onSubmit', 'onBlur']} rules={nameValidator('Nom de la formule')}>
-                <FloatTextInput label="Nom de la formule" placeholder="Nom de la formule" required>
-                    <Input size="large" maxLength={20} />
-                </FloatTextInput>
+            <Item
+                name="name"
+                label="Nom de la formule"
+                validateTrigger={['onSubmit', 'onBlur']}
+                rules={nameValidator('Nom de la formule')}
+            >
+                <Input size="large" maxLength={20} placeholder="Nom de la formule" />
             </Item>
 
-            <Item name="duration" validateTrigger={['onSubmit', 'onBlur']} rules={[required('Durée')]}>
-                <FloatTextInput label="Durée (jours)" placeholder="Durée (jours)" required>
-                    <Input type="number" size="large" min={15} max={365} />
-                </FloatTextInput>
+            <Item name="duration" label="Durée" rules={[required('Durée')]} validateTrigger={['onSubmit', 'onBlur']}>
+                <Input type="number" placeholder="Durée (jours)" size="large" min={15} max={365} />
             </Item>
 
-            <Item name="price" validateTrigger={['onSubmit', 'onBlur']} rules={[required('Prix')]}>
-                <FloatTextInput label="Prix ($ USD)" placeholder="Prix ($ USD)" required>
-                    <Input type="number" size="large" />
-                </FloatTextInput>
+            <Item name="price" label="Prix" validateTrigger={['onSubmit', 'onBlur']} rules={[required('Prix')]}>
+                <Input type="number" placeholder="Prix (USD $)" size="large" />
             </Item>
         </Form>
     );

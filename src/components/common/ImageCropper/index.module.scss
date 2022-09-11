@@ -16,8 +16,12 @@
             top: 0px;
             left: 0px;
             align-items: center;
+            flex-flow: column;
             justify-content: center;
             background-color: rgba($neutral, 0.7) !important;
+            [class~='anticon'] {
+                font-size: 2.5rem;
+            }
         }
         &__inner {
             &__canvas {

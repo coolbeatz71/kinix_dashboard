@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Button, Form, FormInstance, Input, Select } from 'antd';
 import { PlayCircleOutlined } from '@ant-design/icons';
-import FloatTextInput from '@components/common/FloatTextInput';
 import { categoryValidator, linkValidator, tagsValidator, titleValidator, userValidator } from './validators';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import ErrorAlert from '@components/common/ErrorAlert';
@@ -94,70 +93,69 @@ const CreateVideoForm: FC<ICreateVideoProps> = ({
         >
             <ErrorAlert error={error} closable banner showIcon />
 
-            <Item name="title" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Titre')}>
-                <FloatTextInput label="Titre" placeholder="Titre" required>
-                    <Input size="large" maxLength={100} />
-                </FloatTextInput>
+            <Item name="title" label="Titre" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Titre')}>
+                <Input size="large" placeholder="Titre" maxLength={100} />
             </Item>
 
-            <Item name="link" validateTrigger={['onSubmit', 'onBlur']} rules={linkValidator('Lien')}>
-                <FloatTextInput
-                    required
-                    label="Lien video"
+            <Item name="link" label="Lien video" validateTrigger={['onSubmit', 'onBlur']} rules={linkValidator('Lien')}>
+                <Input
+                    size="large"
+                    maxLength={500}
                     placeholder="Ex: https://www.youtube.com/watch?v=q1YVUO9D_MI"
-                >
-                    <Input
-                        size="large"
-                        maxLength={500}
-                        suffix={
-                            <VideoPlayerModal url={videoLink}>
-                                <Button
-                                    size="small"
-                                    type="link"
-                                    icon={<PlayCircleOutlined />}
-                                    className="d-flex justify-content-end"
-                                />
-                            </VideoPlayerModal>
-                        }
-                    />
-                </FloatTextInput>
+                    suffix={
+                        <VideoPlayerModal url={videoLink}>
+                            <Button
+                                size="small"
+                                type="link"
+                                icon={<PlayCircleOutlined />}
+                                className="d-flex justify-content-end"
+                            />
+                        </VideoPlayerModal>
+                    }
+                />
             </Item>
 
-            <Item name="userId" validateTrigger={['onSubmit', 'onBlur']} rules={userValidator('Client')}>
-                <FloatTextInput label="Client" placeholder="Sélectionner un client" required>
-                    <Select
-                        showSearch
-                        size="large"
-                        filterOption={false}
-                        notFoundContent={null}
-                        loading={loadingUsers}
-                        options={usersOptions}
-                        onSearch={handleSearchUser}
-                        defaultActiveFirstOption={false}
-                    />
-                </FloatTextInput>
+            <Item name="userId" label="Client" validateTrigger={['onSubmit', 'onBlur']} rules={userValidator('Client')}>
+                <Select
+                    showSearch
+                    size="large"
+                    filterOption={false}
+                    notFoundContent={null}
+                    loading={loadingUsers}
+                    options={usersOptions}
+                    onSearch={handleSearchUser}
+                    defaultActiveFirstOption={false}
+                    placeholder="Sélectionner un client"
+                />
             </Item>
 
-            <Item name="categoryId" validateTrigger={['onSubmit', 'onBlur']} rules={categoryValidator('Catégorie')}>
-                <FloatTextInput label="Categorie" placeholder="Sélectionner une catégorie" required>
-                    <Select
-                        size="large"
-                        filterOption={false}
-                        options={categoriesOptions}
-                        loading={loadingCategories}
-                        disabled={loadingCategories}
-                        defaultActiveFirstOption={false}
-                    />
-                </FloatTextInput>
+            <Item
+                name="categoryId"
+                label="Categorie"
+                rules={categoryValidator('Catégorie')}
+                validateTrigger={['onSubmit', 'onBlur']}
+            >
+                <Select
+                    size="large"
+                    filterOption={false}
+                    options={categoriesOptions}
+                    loading={loadingCategories}
+                    disabled={loadingCategories}
+                    defaultActiveFirstOption={false}
+                    placeholder="Sélectionner une catégorie"
+                />
             </Item>
 
-            <Item name="lyrics" validateTrigger={['onSubmit', 'onBlur']}>
-                <FloatTextInput label="Lyrics" placeholder="Lyrics pour les clip videos" required>
-                    <TextArea size="large" autoSize={false} style={textAreaStyle} />
-                </FloatTextInput>
+            <Item name="lyrics" label="Lyrics" validateTrigger={['onSubmit', 'onBlur']}>
+                <TextArea
+                    size="large"
+                    autoSize={false}
+                    style={textAreaStyle}
+                    placeholder="Lyrics pour les clip videos"
+                />
             </Item>
 
-            <Item name="tags" validateTrigger={['onSubmit', 'onBlur']} rules={tagsValidator('Tags')}>
+            <Item name="tags" label="Mots clés" validateTrigger={['onSubmit', 'onBlur']} rules={tagsValidator('Tags')}>
                 <Select mode="tags" size="large" placeholder="Ex: kinshasa, music, hip-hop" maxTagCount="responsive" />
             </Item>
         </Form>

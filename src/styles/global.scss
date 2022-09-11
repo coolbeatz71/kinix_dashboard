@@ -49,12 +49,9 @@ body {
     margin-bottom: $padding !important;
 }
 
-[class~='ant-select-item-option-selected']:not(.ant-select-item-option-disabled) {
-    background-color: rgba($color: $link, $alpha: 0.1);
-}
-
 [class~='ant-select-selection-placeholder'] {
     font-size: 14px;
+    color: $dark30 !important;
 }
 [class~='ant-picker-large'] {
     padding: 10px 11px 10px !important;
@@ -67,10 +64,54 @@ body {
         text-decoration: none;
     }
 }
+
+[class~='ant-select-lg'] {
+    [class~='ant-select-selector'] {
+        height: 42px !important;
+    }
+}
+
+[class~='ant-select-item-option-selected']:not(.ant-select-item-option-disabled) {
+    background-color: rgba($color: $link, $alpha: 0.1);
+}
+[class~='ant-select-selection-item'],
+[class~='ant-select-selection-placeholder'] {
+    display: flex;
+    align-items: center;
+}
 [class~='ant-select-multiple'] {
+    [class~='ant-select-selector'] {
+        padding: 2.5px 4px !important;
+    }
     [class~='ant-select-selection-item'] {
         height: 30px !important;
         line-height: 28px !important;
+    }
+}
+
+[class~='ant-select-lg'] {
+    font-size: 14px !important;
+}
+
+[class~='ant-input-lg'],
+[class~='ant-picker-large'] {
+    width: 100%;
+    font-size: 14px !important;
+    padding: 10px 11px !important;
+}
+
+[class~='ant-form-item-label'] {
+    padding: 0 !important;
+    label {
+        display: flex;
+        flex-flow: row-reverse;
+        justify-content: flex-end;
+
+        height: 32px !important;
+        font-size: 13px !important;
+        &::before {
+            padding-left: 4px;
+        }
     }
 }
 
@@ -103,11 +144,25 @@ input {
 }
 
 [class~='ant-form-item-explain-error'] {
+    font-size: 12px;
     margin-top: 0.2rem;
     margin-bottom: 1rem;
 }
 
+[class~='ant-modal-footer'],
 [class~='ant-modal-confirm-btns'] {
     display: flex;
     justify-content: flex-end;
+}
+
+[class~='ant-input-password'] {
+    [class~='ant-input-lg'] {
+        padding: 0 !important;
+    }
+}
+
+[class~='ant-input-affix-wrapper-lg'] {
+    [class~='ant-input'] {
+        padding: 2.5px !important;
+    }
 }

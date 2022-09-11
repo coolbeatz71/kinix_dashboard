@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { Crop } from 'react-image-crop';
 import { DatePicker, Form, FormInstance, Input } from 'antd';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { IAdsData } from '@interfaces/promotion';
 import ErrorAlert from '@components/common/ErrorAlert';
-import FloatTextInput from '@components/common/FloatTextInput';
 import {
     bodyValidator,
     legendValidator,
@@ -12,6 +12,7 @@ import {
     subTitleValidator,
     titleValidator,
 } from './validator';
+import ImageCropper from '@components/common/ImageCropper';
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -27,8 +28,20 @@ export interface ICreateAdsFormProps {
 const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialValues, formRef, onSubmit }) => {
     const textAreaStyle = { height: 120 };
     const isEdit = formContext === EnumFormContext.EDIT;
+    const [imageData, setImageData] = useState<IUnknownObject>({
+        file: [],
+        image: null,
+        uploadFile: null,
+    });
 
     const onSubmitAds = (formData: IAdsData): void => onSubmit(formData);
+
+    const onImageCancel = (): void => {
+        setImageData({ file: [], image: null });
+    };
+    const onImageAccept = (image: Crop | null, file: File[], uploadFile: File): void => {
+        setImageData({ image, file, uploadFile });
+    };
 
     return (
         <Form
@@ -41,40 +54,44 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialVal
         >
             <ErrorAlert error={error} closable banner showIcon />
 
-            <Item name="title" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Titre')}>
-                <FloatTextInput label="Titre" placeholder="Titre" required>
-                    <Input size="large" maxLength={50} />
-                </FloatTextInput>
+            <Item name="title" label="Titre" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Titre')}>
+                <Input size="large" maxLength={50} placeholder="Titre" />
             </Item>
-
-            <Item name="subTitle" validateTrigger={['onSubmit', 'onBlur']} rules={subTitleValidator('Sous-titre')}>
-                <FloatTextInput label="Sous-titre" placeholder="Sous-titre" required>
-                    <Input size="large" maxLength={50} />
-                </FloatTextInput>
-            </Item>
-
-            <Item name="legend" validateTrigger={['onSubmit', 'onBlur']} rules={legendValidator('Legend')}>
-                <FloatTextInput label="Legend" placeholder="Legend" required>
-                    <Input size="large" maxLength={20} />
-                </FloatTextInput>
-            </Item>
-
-            <Item name="body" validateTrigger={['onSubmit', 'onBlur']} rules={bodyValidator('Description')}>
-                <FloatTextInput label="Description" placeholder="Description" required>
-                    <TextArea size="large" showCount autoSize={false} style={textAreaStyle} maxLength={250} />
-                </FloatTextInput>
-            </Item>
-            <br />
 
             <Item
-                name="redirectUrl"
+                name="subTitle"
+                label="Sous-titre"
+                rules={subTitleValidator('Sous-titre')}
                 validateTrigger={['onSubmit', 'onBlur']}
-                rules={redirectUrl('Lien de redirection')}
             >
-                <FloatTextInput label="Lien de redirection" placeholder="Lien de redirection">
-                    <Input size="large" />
-                </FloatTextInput>
+                <Input size="large" maxLength={50} placeholder="Sous-titre" />
             </Item>
+
+            <Item
+                name="legend"
+                label="Legend"
+                rules={legendValidator('Legend')}
+                validateTrigger={['onSubmit', 'onBlur']}
+            >
+                <Input size="large" maxLength={20} placeholder="Ex: people, actualité, concert, publicité, etc." />
+            </Item>
+
+            <Item
+                name="body"
+                label="Description"
+                rules={bodyValidator('Description')}
+                validateTrigger={['onSubmit', 'onBlur']}
+            >
+                <TextArea
+                    showCount
+                    size="large"
+                    maxLength={250}
+                    autoSize={false}
+                    style={textAreaStyle}
+                    placeholder="Ecrire quelque chose sur l'ads"
+                />
+            </Item>
+            <br />
 
             <Item
                 name="startDate"
@@ -82,7 +99,27 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialVal
                 validateTrigger={['onSubmit', 'onBlur']}
                 rules={startDateValidator('Date de lancement')}
             >
-                <DatePicker style={{ width: '100%' }} size="large" placeholder="Sélectionnez la date de lancement" />
+                <DatePicker size="large" placeholder="Sélectionnez la date de lancement" />
+            </Item>
+
+            <Item
+                name="redirectUrl"
+                label="Lien de redirection"
+                validateTrigger={['onSubmit', 'onBlur']}
+                rules={redirectUrl('Lien de redirection')}
+            >
+                <Input size="large" placeholder="Lien de redirection" />
+            </Item>
+
+            <Item label="Photo ads">
+                <ImageCropper
+                    onOk={onImageAccept}
+                    onCancel={onImageCancel}
+                    file={imageData.file || []}
+                    image={imageData.image || null}
+                    uploadHint="Selectionnez une image"
+                    uploadFile={imageData.uploadFile || null}
+                />
             </Item>
         </Form>
     );

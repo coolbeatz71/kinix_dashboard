@@ -6,8 +6,7 @@ $border: #e0dfdf;
 .quillEditor {
     width: 100%;
     display: inline-block;
-    margin-top: $padding;
-    margin-bottom: $content-padding;
+    margin: $padding 0;
 
     [class~='ql-toolbar'],
     [class~='ql-container'] {
@@ -32,7 +31,7 @@ $border: #e0dfdf;
         [class~='ql-blank']::before {
             font-style: normal;
             font-size: 14px;
-            color: $dark50;
+            color: $dark30;
         }
     }
 }

@@ -1,6 +1,6 @@
 import { FC, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
-import ReactCrop from 'react-image-crop';
+import ReactCrop, { Crop } from 'react-image-crop';
 import { Modal, Upload, message, UploadFile } from 'antd';
 import drawImage, { clearImage } from '@helpers/drawImage';
 import generateBlob from '@helpers/generateBlob';
@@ -8,30 +8,32 @@ import { IUnknownObject } from '@interfaces/app';
 import validator from 'validator';
 
 import styles from './index.module.scss';
+import { CameraOutlined } from '@ant-design/icons';
 
 interface IImageCropperProps {
-    file: any;
-    image: any;
-    uploadFile?: any;
+    uploadFile?: File;
+    image: Crop | null;
+    uploadHint: string;
     onCancel: () => void;
-    onOk: (image: any, file: File[], uploadFile: any) => void;
+    file: UploadFile<File>[];
+    onOk: (image: Crop | null, file: File[], uploadFile: File) => void;
 }
 
-const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onCancel, onOk }) => {
-    const [crop, setCrop] = useState<IUnknownObject>({
-        aspect: 1,
-        width: 100,
+const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onCancel, onOk, uploadHint }) => {
+    const [crop, setCrop] = useState<Crop | IUnknownObject>({
         unit: '%',
+        width: 100,
+        aspect: 4 / 3,
     });
-    const [cropped, setCropped] = useState<any>();
+    const [cropped, setCropped] = useState<string | null | ArrayBuffer>();
+    const [completedCrop, setCompletedCrop] = useState<Crop | null>(image);
     const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
-    const [completedCrop, setCompletedCrop] = useState<ReactCrop.Crop | null>(image);
 
-    const [file, setFile] = useState<UploadFile<File>[]>(fl);
     const [show, setShow] = useState<boolean>(false);
+    const [file, setFile] = useState<UploadFile<File>[]>(fl);
 
-    const imgRef = useRef(null);
     const previewCanvasRef = useRef(null);
+    const imgRef = useRef<HTMLImageElement | null>(null);
 
     const cancel = useCallback(
         (r: MutableRefObject<null>) => {
@@ -94,13 +96,12 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
         drawImage(imgRef, previewCanvasRef as unknown as MutableRefObject<IUnknownObject>, completedCrop);
     }, [completedCrop]);
 
-    const onLoad = useCallback((img: any) => {
+    const onLoad = useCallback((img: HTMLImageElement) => {
         imgRef.current = img;
     }, []);
 
     return (
         <div className={styles.cropping}>
-            <strong>Image</strong>
             <Upload.Dragger className={styles.cropping__upload} {...props}>
                 <div className={styles.cropping__upload__inner}>
                     <div className={styles.cropping__upload__inner__canvas}>
@@ -114,7 +115,8 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
                     </div>
                 </div>
                 <p className={styles.cropping__upload__hint}>
-                    {completedCrop ? 'Remplancez image' : 'Selectionnez une image'}
+                    <CameraOutlined />
+                    {completedCrop ? 'Remplancez image' : uploadHint}
                 </p>
             </Upload.Dragger>
             <Modal
@@ -124,7 +126,6 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
                 onCancel={() => cancel(previewCanvasRef)}
                 onOk={() => {
                     setShow(false);
-
                     generateBlob(previewCanvasRef.current as unknown as HTMLCanvasElement, crop)
                         ?.then((blob: Blob) => {
                             onOk(
@@ -148,11 +149,11 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
                 }}
             >
                 <ReactCrop
-                    crop={crop}
-                    src={cropped}
+                    crop={crop as Crop}
                     onImageLoaded={onLoad}
-                    onChange={(c: ReactCrop.Crop) => setCrop(c)}
-                    onComplete={(c: ReactCrop.Crop) => setCompletedCrop(c)}
+                    src={cropped as string}
+                    onChange={(c: Crop) => setCrop(c)}
+                    onComplete={(c: Crop) => setCompletedCrop(c)}
                 />
             </Modal>
         </div>
