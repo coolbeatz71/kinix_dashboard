@@ -50,9 +50,9 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
 
     const props = {
         name: 'image',
+        fileList: file,
         multiple: false,
         accept: 'image/*',
-        fileList: file,
         showUploadList: true,
         beforeUpload: () => false,
         onChange: ({ file, fileList }: IUnknownObject) => {
@@ -120,9 +120,11 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
                 </p>
             </Upload.Dragger>
             <Modal
+                okText="Ok"
                 visible={show}
                 destroyOnClose
                 title="Crop image"
+                cancelText="Annuler"
                 onCancel={() => cancel(previewCanvasRef)}
                 onOk={() => {
                     setShow(false);
@@ -131,7 +133,7 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
                             onOk(
                                 completedCrop,
                                 file as unknown as File[],
-                                new File([blob], `${dayjs().unix()}`, {
+                                new File([blob], `${dayjs().unix()}.png`, {
                                     type: 'image/png',
                                     lastModified: dayjs().unix(),
                                 }),
@@ -142,8 +144,6 @@ const ImageCropper: FC<IImageCropperProps> = ({ file: fl, image, uploadFile, onC
                             cancel(previewCanvasRef);
                         });
                 }}
-                okText="Ok"
-                cancelText="Annuler"
                 okButtonProps={{
                     disabled: !completedCrop || completedCrop?.width === 0 || completedCrop?.height === 0,
                 }}

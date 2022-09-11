@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import numeral from 'numeral';
-import { Card, Col, Row, Tag, Typography } from 'antd';
+import { Card, Col, Row, Space, Tag, Typography } from 'antd';
 import { upperFirst } from 'lodash';
 
 const { Text } = Typography;
@@ -25,10 +25,10 @@ const OverviewCard: FC<IOverviewCardProps> = ({ title, total, icon, actions, cla
             className="mb-4"
             actions={[
                 actions.map((action) => (
-                    <div key={action.title}>
+                    <Space key={action.title}>
                         <Tag>{numeral(action.value).format('0.[00]a')}</Tag>
                         <Tag color={action.color}>{action.title}</Tag>
-                    </div>
+                    </Space>
                 )),
             ]}
         >

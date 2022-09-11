@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
+import { isEmpty } from 'lodash';
 import { Crop } from 'react-image-crop';
 import { DatePicker, Form, FormInstance, Input } from 'antd';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
@@ -28,20 +29,32 @@ export interface ICreateAdsFormProps {
 const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialValues, formRef, onSubmit }) => {
     const textAreaStyle = { height: 120 };
     const isEdit = formContext === EnumFormContext.EDIT;
-    const [imageData, setImageData] = useState<IUnknownObject>({
+    const [imgUploadError, setImgUploadError] = useState<string>('');
+    const [uploadData, setUploadData] = useState<IUnknownObject>({
         file: [],
         image: null,
         uploadFile: null,
     });
 
-    const onSubmitAds = (formData: IAdsData): void => onSubmit(formData);
+    const onSubmitAds = (formData: IAdsData): void => {
+        if (isEmpty(uploadData.file) && isEmpty(uploadData.image) && isEmpty(!uploadData.uploadFile)) {
+            setImgUploadError('Photo ads est obligatoire');
+        } else {
+            console.log('image', uploadData.file, formData);
+        }
+        // onSubmit(formData);
+    };
 
     const onImageCancel = (): void => {
-        setImageData({ file: [], image: null });
+        setUploadData({ file: [], image: null });
     };
     const onImageAccept = (image: Crop | null, file: File[], uploadFile: File): void => {
-        setImageData({ image, file, uploadFile });
+        setUploadData({ image, file, uploadFile });
     };
+
+    useEffect(() => {
+        setImgUploadError('');
+    }, []);
 
     return (
         <Form
@@ -91,7 +104,6 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialVal
                     placeholder="Ecrire quelque chose sur l'ads"
                 />
             </Item>
-            <br />
 
             <Item
                 name="startDate"
@@ -111,15 +123,16 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialVal
                 <Input size="large" placeholder="Lien de redirection" />
             </Item>
 
-            <Item label="Photo ads">
+            <Item label="Photo ads" required>
                 <ImageCropper
                     onOk={onImageAccept}
                     onCancel={onImageCancel}
-                    file={imageData.file || []}
-                    image={imageData.image || null}
+                    file={uploadData.file || []}
+                    image={uploadData.image || null}
                     uploadHint="Selectionnez une image"
-                    uploadFile={imageData.uploadFile || null}
+                    uploadFile={uploadData.uploadFile || null}
                 />
+                {imgUploadError && <small className="ant-form-item-explain-error">{imgUploadError}</small>}
             </Item>
         </Form>
     );

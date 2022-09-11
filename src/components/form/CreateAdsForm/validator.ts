@@ -66,7 +66,7 @@ export const startDateValidator = (name: string): Rule[] => {
                 }
 
                 if (dayjs(value).isBefore(dayjs().startOf('day'))) {
-                    return Promise.reject(`${name} ne doit pas être dans le pass`);
+                    return Promise.reject(`${name} ne doit pas être dans le passé`);
                 }
 
                 return Promise.resolve();

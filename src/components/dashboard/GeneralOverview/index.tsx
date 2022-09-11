@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Col, Row } from 'antd';
+import { Link } from 'react-router-dom';
 import { IGeneralOverview } from '@interfaces/overview';
 import OverviewCard from '../../common/OverviewCard';
 import { HiUsers } from 'react-icons/hi';
@@ -9,7 +10,6 @@ import GeneralOverviewSkeleton from '@components/skeleton/GeneralOverview';
 import { ADS_PATH, ARTICLE_PATH, USER_PATH, VIDEO_PATH } from '@constants/paths';
 
 import styles from './index.module.scss';
-import { Link } from 'react-router-dom';
 export interface IGeneralOverviewProps {
     loading: boolean;
     overview: IGeneralOverview;
