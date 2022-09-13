@@ -3,6 +3,8 @@ import { minmax, required } from '@helpers/validators';
 import { Rule } from 'antd/lib/form';
 import dayjs from 'dayjs';
 
+export const planValidator = (name: string): Rule[] => [required(name)];
+export const userValidator = (name: string): Rule[] => [required(name)];
 export const titleValidator = (name: string): Rule[] => {
     return [
         required(name),
@@ -27,7 +29,7 @@ export const legendValidator = (name: string): Rule[] => {
     return [
         required(name),
         minmax(name, {
-            min: 5,
+            min: 1,
             max: 20,
         }),
     ];

@@ -16,8 +16,8 @@ const { Title } = Typography;
 
 export interface IAvatarCardProps {
     userName: string;
-    image: string | null;
     loading: boolean;
+    image: string | null;
 }
 
 type FileType = string | boolean | void | File | Blob;

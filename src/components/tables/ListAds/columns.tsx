@@ -4,11 +4,10 @@ import duration from 'dayjs/plugin/duration';
 import { IUnknownObject } from '@interfaces/app';
 import { IAds, IAdsPlan, IUser } from '@interfaces/api';
 import { LinkOutlined } from '@ant-design/icons';
-import { Tag } from 'antd';
+import { Tag, Image } from 'antd';
 import format from '@helpers/formatString';
 import { adsPlanColors } from '@constants/colors';
 import AdsTableActions from './AdsTableActions';
-import { IAdsData } from '@interfaces/promotion';
 
 dayjs.extend(duration);
 
@@ -17,6 +16,7 @@ const statusCol = {
     key: 'active',
     title: 'Status',
     dataIndex: 'active',
+    fixed: 'right',
     render: (active: boolean) => (
         <Tag color={active ? 'green' : 'volcano'} className="rounded">
             {format(active ? 'actif' : 'inactif')}
@@ -32,7 +32,7 @@ const actionCol = (reload: () => void): IUnknownObject => ({
     align: 'center',
     className: 'action',
     dataIndex: 'action',
-    render: (...prp: IAdsData[]) => <AdsTableActions reload={reload} ads={prp[1]} />,
+    render: (...prp: IAds[]) => <AdsTableActions reload={reload} ads={prp[1]} />,
 });
 
 const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): ColumnType<IAds | IUnknownObject>[] => [
@@ -40,8 +40,9 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
         title: 'Lien',
         key: 'link',
         dataIndex: 'link',
-        width: 80,
+        width: 50,
         fixed: 'left',
+        align: 'center',
         render: (_, ads: IAds) =>
             ads.redirectUrl ? (
                 <a target="_blank" href={ads.redirectUrl} rel="noreferrer">
@@ -52,10 +53,19 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
             ),
     },
     {
+        title: 'Image',
+        key: 'image',
+        dataIndex: 'image',
+        width: 80,
+        fixed: 'left',
+        align: 'center',
+        render: (_, ads: IAds) => <Image width={25} src={ads.image} />,
+    },
+    {
         title: 'Titre',
         key: 'title',
         dataIndex: 'title',
-        width: 120,
+        width: 150,
         fixed: 'left',
         ellipsis: true,
         render: (dt: string) => dt || '-',
@@ -65,7 +75,7 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
         key: 'ads_plan',
         fixed: 'left',
         dataIndex: 'ads_plan',
-        width: 120,
+        width: 100,
         render: (plan: IAdsPlan) => (
             <Tag color={adsPlanColors[plan.name]} className="rounded">
                 {format(plan.name)}
@@ -73,41 +83,11 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
         ),
     },
     {
-        title: 'Description',
-        key: 'body',
-        dataIndex: 'body',
-        width: 100,
-        ellipsis: true,
-        render: (dt: string) => dt || '0',
-    },
-    {
-        title: 'Sous-titre',
-        key: 'subTitle',
-        dataIndex: 'subTitle',
-        width: 100,
-        ellipsis: true,
-        render: (dt: string) => dt || '0',
-    },
-    {
         title: 'Auteur',
         key: 'user',
         dataIndex: 'user',
         width: 120,
         render: (user: IUser) => user?.userName || '-',
-    },
-    {
-        title: 'Date de lancement',
-        key: 'startDate',
-        dataIndex: 'startDate',
-        width: 150,
-        render: (date: string) => dayjs(date).format('DD MMM YYYY'),
-    },
-    {
-        title: 'Date de fin',
-        key: 'endDate',
-        dataIndex: 'endDate',
-        width: 150,
-        render: (date: string) => dayjs(date).format('DD MMM YYYY'),
     },
     {
         title: 'Créé le',
@@ -121,6 +101,22 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
         key: 'updatedAt',
         dataIndex: 'updatedAt',
         width: 120,
+        render: (date: string) => dayjs(date).format('DD MMM YYYY'),
+    },
+    {
+        title: 'Date de lancement',
+        key: 'startDate',
+        dataIndex: 'startDate',
+        width: 150,
+        fixed: 'right',
+        render: (date: string) => dayjs(date).format('DD MMM YYYY'),
+    },
+    {
+        title: 'Date de fin',
+        key: 'endDate',
+        dataIndex: 'endDate',
+        width: 150,
+        fixed: 'right',
         render: (date: string) => dayjs(date).format('DD MMM YYYY'),
     },
     ...[statusCol],

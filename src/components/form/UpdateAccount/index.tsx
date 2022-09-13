@@ -130,7 +130,7 @@ const UpdateAccountForm: FC<IUpdateAccountProps> = ({ initialValues }) => {
                     validateTrigger={['onSubmit', 'onBlur']}
                     rules={countryNameValidator('Indicatif téléphonique')}
                 >
-                    <Select showSearch size="large" placeholder="Selectionner indicatif téléphonique">
+                    <Select showSearch size="large" placeholder="Selectionnez indicatif téléphonique">
                         {countryList.map((country) => countryOption(country))}
                     </Select>
                 </Item>

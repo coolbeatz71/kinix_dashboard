@@ -1,53 +1,86 @@
 import React, { FC, useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import { isEmpty } from 'lodash';
 import { Crop } from 'react-image-crop';
-import { DatePicker, Form, FormInstance, Input } from 'antd';
+import { Form, FormInstance, Input, notification, Select } from 'antd';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { IAdsData } from '@interfaces/promotion';
 import ErrorAlert from '@components/common/ErrorAlert';
 import {
     bodyValidator,
     legendValidator,
+    planValidator,
     redirectUrl,
     startDateValidator,
     subTitleValidator,
     titleValidator,
+    userValidator,
 } from './validator';
 import ImageCropper from '@components/common/ImageCropper';
+import uploadImageCloudinary from '@services/cloudinary';
+import { useAppDispatch } from '@redux/store';
+import searchUsersAction from '@redux/users/search';
+import { IAds, IAdsPlan, IUser } from '@interfaces/api';
+import format from '@helpers/formatString';
+import AppDatePicker from '@components/common/AppDatePicker';
 
 const { Item } = Form;
 const { TextArea } = Input;
 
 export interface ICreateAdsFormProps {
-    initialValues?: IAdsData;
+    users?: IUser[];
+    plans?: IAdsPlan[];
+    initialValues?: IAds;
+    loadingPlans: boolean;
+    loadingUsers: boolean;
     formContext: EnumFormContext;
     formRef: FormInstance<IAdsData>;
     onSubmit: (val: IAdsData) => void;
     error: Error | IUnknownObject | null;
 }
 
-const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialValues, formRef, onSubmit }) => {
+const CreateAdsForm: FC<ICreateAdsFormProps> = ({
+    error,
+    plans,
+    users,
+    formRef,
+    onSubmit,
+    formContext,
+    loadingUsers,
+    loadingPlans,
+    initialValues,
+}) => {
+    const dispatch = useAppDispatch();
     const textAreaStyle = { height: 120 };
     const isEdit = formContext === EnumFormContext.EDIT;
     const [imgUploadError, setImgUploadError] = useState<string>('');
     const [uploadData, setUploadData] = useState<IUnknownObject>({
         file: [],
-        image: null,
         uploadFile: null,
+        image: initialValues?.image,
     });
 
-    const onSubmitAds = (formData: IAdsData): void => {
-        if (isEmpty(uploadData.file) && isEmpty(uploadData.image) && isEmpty(!uploadData.uploadFile)) {
-            setImgUploadError('Photo ads est obligatoire');
-        } else {
-            console.log('image', uploadData.file, formData);
-        }
-        // onSubmit(formData);
+    const onSubmitAds = async (formData: IAdsData): Promise<void> => {
+        const isNoImage = isEmpty(uploadData.file) && isEmpty(uploadData.image) && isEmpty(!uploadData.uploadFile);
+        if (isNoImage) setImgUploadError('Photo ads est obligatoire');
+        else if (!isEmpty(uploadData.file)) {
+            // upload a new file
+            try {
+                const image = await uploadImageCloudinary(uploadData.uploadFile, initialValues?.image, 'ads');
+                if (typeof image === 'string') onSubmit({ ...formData, image });
+            } catch (err) {
+                notification.error({
+                    maxCount: 1,
+                    key: 'error',
+                    message: 'Oops!',
+                    placement: 'topRight',
+                    description: (err as Error)?.message,
+                });
+            }
+        } else onSubmit({ ...formData, image: uploadData.image });
     };
 
-    const onImageCancel = (): void => {
-        setUploadData({ file: [], image: null });
-    };
+    const onImageCancel = (): void => setUploadData({ file: [], image: null });
     const onImageAccept = (image: Crop | null, file: File[], uploadFile: File): void => {
         setUploadData({ image, file, uploadFile });
     };
@@ -56,6 +89,29 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialVal
         setImgUploadError('');
     }, []);
 
+    useEffect(() => {
+        if (isEdit) handleSearchUser(initialValues?.user?.userName);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isEdit, initialValues]);
+
+    const handleSearchUser = (value: string | undefined): void => {
+        if (value) dispatch(searchUsersAction({ search: value }));
+    };
+
+    const plansOptions = plans?.map((plan) => ({
+        value: plan.id,
+        label: format(plan.name, 'upper-lowercase'),
+    }));
+    const usersOptions = users?.map((user) => ({
+        value: user.id,
+        label: (
+            <div className="d-flex justify-content-between w-100">
+                <strong>{user.userName}</strong>
+                <span className="text-muted">{user.email}</span>
+            </div>
+        ),
+    }));
+
     return (
         <Form
             size="large"
@@ -63,7 +119,7 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialVal
             layout="vertical"
             name="create_plan"
             onFinish={onSubmitAds}
-            initialValues={isEdit ? initialValues : {}}
+            initialValues={isEdit ? { ...initialValues, startDate: dayjs(initialValues?.startDate) } : {}}
         >
             <ErrorAlert error={error} closable banner showIcon />
 
@@ -89,6 +145,37 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialVal
                 <Input size="large" maxLength={20} placeholder="Ex: people, actualité, concert, publicité, etc." />
             </Item>
 
+            <Item name="userId" label="Client" validateTrigger={['onSubmit', 'onBlur']} rules={userValidator('Client')}>
+                <Select
+                    showSearch
+                    size="large"
+                    filterOption={false}
+                    notFoundContent={null}
+                    loading={loadingUsers}
+                    options={usersOptions}
+                    onSearch={handleSearchUser}
+                    defaultActiveFirstOption={false}
+                    placeholder="Sélectionner un client"
+                />
+            </Item>
+
+            <Item
+                name="planId"
+                label="Formule d'abonnement"
+                validateTrigger={['onSubmit', 'onBlur']}
+                rules={planValidator("Formule d'abonnement")}
+            >
+                <Select
+                    size="large"
+                    filterOption={false}
+                    options={plansOptions}
+                    loading={loadingPlans}
+                    disabled={loadingPlans}
+                    defaultActiveFirstOption={false}
+                    placeholder="Sélectionner la formule d'abonnement"
+                />
+            </Item>
+
             <Item
                 name="body"
                 label="Description"
@@ -111,7 +198,7 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({ formContext, error, initialVal
                 validateTrigger={['onSubmit', 'onBlur']}
                 rules={startDateValidator('Date de lancement')}
             >
-                <DatePicker size="large" placeholder="Sélectionnez la date de lancement" />
+                <AppDatePicker size="large" format="DD MMM YYYY" placeholder="Sélectionnez la date de lancement" />
             </Item>
 
             <Item

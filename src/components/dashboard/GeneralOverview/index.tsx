@@ -10,6 +10,7 @@ import GeneralOverviewSkeleton from '@components/skeleton/GeneralOverview';
 import { ADS_PATH, ARTICLE_PATH, USER_PATH, VIDEO_PATH } from '@constants/paths';
 
 import styles from './index.module.scss';
+
 export interface IGeneralOverviewProps {
     loading: boolean;
     overview: IGeneralOverview;

@@ -133,7 +133,7 @@ export interface IShare {
 
 export interface IAds {
     readonly id?: number;
-    userId: number | null;
+    user?: IUser;
     planId: number;
     slug: string;
     legend: string;
@@ -150,7 +150,7 @@ export interface IAds {
 }
 export interface IStory {
     readonly id?: number;
-    userId: number | null;
+    user: IUser;
     planId: number;
     slug: string;
     legend: string;

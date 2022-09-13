@@ -3,15 +3,15 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import { Button, Dropdown, Menu } from 'antd';
 import EnumRole from '@interfaces/role';
+import { IAds } from '@interfaces/api';
 import { FormOutlined, SettingOutlined } from '@ant-design/icons';
 import { EnumFormContext } from '@interfaces/app';
-import { IAdsData } from '@interfaces/promotion';
 import AdsModal from '@components/modal/AdsModal';
 
 import styles from './index.module.scss';
 
 export interface IAdsTableActionsProps {
-    ads: IAdsData;
+    ads: IAds;
     reload: () => void;
 }
 

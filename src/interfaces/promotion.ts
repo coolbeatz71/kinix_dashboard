@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs';
 import EPromotionPlan from '@constants/promotion';
 
 export interface IAdsData {
@@ -9,8 +10,8 @@ export interface IAdsData {
     subTitle: string;
     body: string;
     redirectUrl?: string | null;
-    image: string;
-    startDate: string;
+    image: string | null;
+    startDate: Dayjs | string;
 }
 export interface IStoryData {
     id?: number;
@@ -21,8 +22,8 @@ export interface IStoryData {
     subTitle: string;
     body: string;
     redirectUrl?: string | null;
-    media: string;
-    mediaType: string;
+    media: string | null;
+    mediaType: string | null;
     startDate: string;
 }
 

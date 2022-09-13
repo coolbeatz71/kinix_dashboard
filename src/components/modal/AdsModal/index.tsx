@@ -7,8 +7,10 @@ import { useAppDispatch } from '@redux/store';
 import { IRootState } from '@redux/reducers';
 import addAdsAction, { resetAddAdsAction } from '@redux/ads/add';
 import CreateModalHeader from '@components/common/CreateModalHeader';
+import getAllAdsPlanAction from '@redux/ads/plans';
 import FormSuccessResult from '@components/common/FormSuccessResult';
 import CreateAdsForm from '@components/form/CreateAdsForm';
+import { IAds, IUser } from '@interfaces/api';
 
 import styles from './index.module.scss';
 
@@ -19,7 +21,7 @@ export interface IAdsModalProps {
     reload?: () => void;
     formContext: EnumFormContext;
     setVisible: (val: boolean) => void;
-    initialValues?: IAdsData;
+    initialValues?: IAds;
 }
 
 const SUCCESS_CREATE = "L'Ads a été créée avec succès";
@@ -36,6 +38,9 @@ const AdsModal: FC<IAdsModalProps> = ({
     const dispatch = useAppDispatch();
     const isEdit = formContext === EnumFormContext.EDIT;
     const { error, loading } = useSelector(({ ads: { add } }: IRootState) => add);
+
+    const { data: plans, loading: loadingPlans } = useSelector(({ ads: { plans } }: IRootState) => plans);
+    const { data: users, loading: loadingUsers } = useSelector(({ users: { search } }: IRootState) => search);
 
     const [form] = useForm();
     const [success, setSuccess] = useState<string>('');
@@ -67,6 +72,7 @@ const AdsModal: FC<IAdsModalProps> = ({
     useEffect(() => {
         if (visible) setSuccess('');
         resetAddAdsAction()(dispatch);
+        dispatch(getAllAdsPlanAction());
     }, [dispatch, visible]);
 
     return (
@@ -97,8 +103,12 @@ const AdsModal: FC<IAdsModalProps> = ({
                 <CreateAdsForm
                     error={error}
                     formRef={form}
+                    plans={plans?.rows}
                     onSubmit={onSubmitAds}
+                    users={users as IUser[]}
                     formContext={formContext}
+                    loadingUsers={loadingUsers}
+                    loadingPlans={loadingPlans}
                     initialValues={initialValues}
                 />
             )}
