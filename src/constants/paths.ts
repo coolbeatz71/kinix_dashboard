@@ -6,7 +6,7 @@ export const SETTING_PATH = '/settings';
 export const VIDEO_PATH = '/videos';
 export const ARTICLE_PATH = '/articles';
 export const ADS_PATH = '/ads';
-export const STORY_PATH = '/stories';
+export const STORY_PATH = '/story';
 export const ADMIN_PATH = '/admins';
 export const USER_PATH = '/users';
 

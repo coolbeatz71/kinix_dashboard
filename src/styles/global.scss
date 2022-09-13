@@ -27,7 +27,7 @@ body {
     justify-content: center;
 }
 
-[class~='ant-layout-header'] {
+[class~='text-error'] [class~='ant-layout-header'] {
     background: $white;
     padding: 0 $padding;
 }
@@ -49,53 +49,121 @@ body {
     margin-bottom: $padding !important;
 }
 
+[class~='ant-select-selection-placeholder'] {
+    font-size: 14px;
+    color: $dark30 !important;
+}
+[class~='ant-picker-large'] {
+    padding: 10px 11px 10px !important;
+    input {
+        font-size: 14px !important;
+    }
+}
+[class~='ant-picker-footer'] {
+    a {
+        text-decoration: none;
+    }
+}
+
+[class~='ant-select-lg'] {
+    [class~='ant-select-selector'] {
+        height: 42px !important;
+    }
+}
+
 [class~='ant-select-item-option-selected']:not(.ant-select-item-option-disabled) {
     background-color: rgba($color: $link, $alpha: 0.1);
 }
-
+[class~='ant-select-selection-item'],
 [class~='ant-select-selection-placeholder'] {
-    font-size: 14px;
+    display: flex;
+    align-items: center;
 }
 [class~='ant-select-multiple'] {
+    [class~='ant-select-selector'] {
+        padding: 2.5px 4px !important;
+    }
     [class~='ant-select-selection-item'] {
         height: 30px !important;
         line-height: 28px !important;
     }
 }
 
-textarea {
+[class~='ant-select-lg'] {
+    font-size: 14px !important;
+}
+
+[class~='ant-input-lg'],
+[class~='ant-picker-large'] {
+    width: 100%;
+    font-size: 14px !important;
+    padding: 10px 11px !important;
+}
+
+[class~='ant-form-item-label'] {
+    padding: 0 !important;
+    label {
+        display: flex;
+        flex-flow: row-reverse;
+        justify-content: flex-end;
+
+        font-weight: 500;
+        height: 0 !important;
+        font-size: 12px !important;
+        &::before {
+            padding-left: 4px;
+        }
+    }
+}
+
+textarea,
+input {
     &::-webkit-input-placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark30 !important;
     }
 
     &:-moz-placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark30 !important;
     }
 
     &::-moz-placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark30 !important;
     }
 
     &:-ms-input-placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark30 !important;
     }
 
     &::placeholder {
         font-size: 14px;
-        color: $dark50 !important;
+        color: $dark30 !important;
     }
 }
 
 [class~='ant-form-item-explain-error'] {
+    font-size: 12px;
     margin-top: 0.2rem;
     margin-bottom: 1rem;
 }
 
+[class~='ant-modal-footer'],
 [class~='ant-modal-confirm-btns'] {
     display: flex;
     justify-content: flex-end;
+}
+
+[class~='ant-input-password'] {
+    [class~='ant-input-lg'] {
+        padding: 0 !important;
+    }
+}
+
+[class~='ant-input-affix-wrapper-lg'] {
+    [class~='ant-input'] {
+        padding: 2.5px !important;
+    }
 }

@@ -3,7 +3,6 @@ import { Button, Card, Form, Input, notification, Typography } from 'antd';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IRootState } from '@redux/reducers';
 import { useSelector } from 'react-redux';
-import FloatTextInput from '@components/common/FloatTextInput';
 import { required } from '@helpers/validators';
 import { useAppDispatch } from '@redux/store';
 import { newPassword, passwordMatchValidator } from './validator';
@@ -56,36 +55,29 @@ const ChangePasswordForm: FC = () => {
 
                 <Item
                     name="oldPassword"
+                    label="Ancien mot de passe"
                     validateTrigger={['onSubmit', 'onBlur']}
                     rules={[required('Ancien mot de passe')]}
                 >
-                    <FloatTextInput label="Ancien mot de passe" placeholder="Ancien mot de passe" required>
-                        <Password size="large" visibilityToggle autoComplete="new-password" />
-                    </FloatTextInput>
+                    <Password size="large" visibilityToggle autoComplete="new-password" placeholder="••••••••••••••" />
                 </Item>
 
                 <Item
                     name="newPassword"
+                    label="Nouveau mot de passe"
                     validateTrigger={['onSubmit', 'onBlur']}
                     rules={newPassword('Nouveau mot de passe')}
                 >
-                    <FloatTextInput label="Nouveau mot de passe" placeholder="Nouveau mot de passe" required>
-                        <Password size="large" visibilityToggle autoComplete="new-password" />
-                    </FloatTextInput>
+                    <Password size="large" visibilityToggle autoComplete="new-password" placeholder="••••••••••••••" />
                 </Item>
 
                 <Item
                     name="confNewPassword"
+                    label="Confirmer nouveau mot de passe"
                     validateTrigger={['onSubmit', 'onBlur']}
                     rules={passwordMatchValidator('Confirmer nouveau mot de passe')}
                 >
-                    <FloatTextInput
-                        required
-                        label="Confirmer nouveau mot de passe"
-                        placeholder="Confirmer nouveau mot de passe"
-                    >
-                        <Password size="large" visibilityToggle autoComplete="new-password" />
-                    </FloatTextInput>
+                    <Password size="large" visibilityToggle autoComplete="new-password" placeholder="••••••••••••••" />
                 </Item>
 
                 <Button size="large" type="primary" htmlType="submit" loading={loading} className={`mt-2 ${btnStyles}`}>

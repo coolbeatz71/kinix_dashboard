@@ -35,7 +35,7 @@ const FloatTextInput: FC<IFloatTextInputProps> = ({
     const [datePickerOpen, setDatePickerOpen] = useState<boolean>(false);
     const [selectOpen, setSelectOpen] = useState<boolean>(false);
 
-    const hasValue = focus || (value && value.length !== 0);
+    const hasValue = focus || (value && value.length !== 0) || value == '0';
     const labelClassName = hasValue ? `label asLabel` : `label asPlaceholder`;
     const requiredMark = required && <span className="text-danger">*</span>;
 
@@ -69,9 +69,9 @@ const FloatTextInput: FC<IFloatTextInputProps> = ({
                 ref,
                 value,
                 onChange,
-                ...(datePicker ? datePickerProps : {}),
                 ...(select ? selectProps : {}),
                 ...(formatNumber ? numberProps : {}),
+                ...(datePicker ? datePickerProps : {}),
                 ...(loading ? { disabled: true } : {}),
             })}
             <label

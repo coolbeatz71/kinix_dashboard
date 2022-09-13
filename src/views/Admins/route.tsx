@@ -1,6 +1,8 @@
+import React from 'react';
 import { ADMIN_PATH } from '@constants/paths';
 import EnumRole from '@interfaces/role';
-import Admins from '.';
+
+const Admins = React.lazy(() => import('.'));
 
 const route = [
     {

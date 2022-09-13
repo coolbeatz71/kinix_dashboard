@@ -7,7 +7,8 @@ import videos from '@views/Videos/route';
 import users from '@views/Users/route';
 import admins from '@views/Admins/route';
 import settings from '@views/Settings/route';
+import ads from '@views/Ads/route';
 
-const routes: IRoute[] = [...login, ...dashboard, ...articles, ...videos, ...users, ...admins, ...settings];
+const routes: IRoute[] = [...login, ...dashboard, ...articles, ...videos, ...users, ...admins, ...settings, ...ads];
 
 export default routes;

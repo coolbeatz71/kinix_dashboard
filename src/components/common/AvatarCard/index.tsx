@@ -16,8 +16,8 @@ const { Title } = Typography;
 
 export interface IAvatarCardProps {
     userName: string;
-    image: string | null;
     loading: boolean;
+    image: string | null;
 }
 
 type FileType = string | boolean | void | File | Blob;
@@ -118,8 +118,8 @@ const AvatarCard: FC<IAvatarCardProps> = ({ image, userName, loading }) => {
                             <Button
                                 shape="circle"
                                 type="primary"
-                                className={styles.avatarCard__button}
                                 icon={<EditOutlined />}
+                                className={styles.avatarCard__button}
                             />
                         </Upload>
                     </ImgCrop>

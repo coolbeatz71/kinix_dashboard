@@ -5,7 +5,6 @@ import { IUser } from '@interfaces/api';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { IUserData } from '@interfaces/users';
 import ErrorAlert from '@components/common/ErrorAlert';
-import FloatTextInput from '@components/common/FloatTextInput';
 import { emailValidator, roleValidator, userNameValidator } from './validators';
 import { ADMINS_FILTER_LIST, CLIENTS_FILTER_LIST } from '@constants/app';
 import EnumRole from '@interfaces/role';
@@ -66,22 +65,37 @@ const CreateUserForm: FC<IcreateUserProps> = ({
         >
             <ErrorAlert error={error} closable banner showIcon />
 
-            <Item name="userName" validateTrigger={['onSubmit', 'onBlur']} rules={userNameValidator('Pseudo')}>
-                <FloatTextInput label="Pseudo" placeholder="Pseudo" required>
-                    <Input size="large" />
-                </FloatTextInput>
+            <Item
+                name="userName"
+                label="Pseudo"
+                rules={userNameValidator('Pseudo')}
+                validateTrigger={['onSubmit', 'onBlur']}
+            >
+                <Input size="large" placeholder="Pseudo" />
             </Item>
 
-            <Item name="email" validateTrigger={['onSubmit', 'onBlur']} rules={emailValidator('Adresse e-mail')}>
-                <FloatTextInput label="Adresse e-mail" placeholder="Adresse e-mail" required>
-                    <Input size="large" />
-                </FloatTextInput>
+            <Item
+                name="email"
+                label="Adresse e-mail"
+                validateTrigger={['onSubmit', 'onBlur']}
+                rules={emailValidator('Adresse e-mail')}
+            >
+                <Input size="large" placeholder="Adresse e-mail" />
             </Item>
 
-            <Item name="role" validateTrigger={['onSubmit', 'onBlur']} rules={roleValidator('Type de compte')}>
-                <FloatTextInput label="Type de compte" placeholder="Sélectionner le type de compte" required>
-                    <Select size="large" filterOption={false} options={roleOptions} defaultActiveFirstOption={false} />
-                </FloatTextInput>
+            <Item
+                name="role"
+                label="Type de compte"
+                rules={roleValidator('Type de compte')}
+                validateTrigger={['onSubmit', 'onBlur']}
+            >
+                <Select
+                    size="large"
+                    filterOption={false}
+                    options={roleOptions}
+                    defaultActiveFirstOption={false}
+                    placeholder="Sélectionner le type de compte"
+                />
             </Item>
         </Form>
     );

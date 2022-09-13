@@ -12,6 +12,7 @@ import '@styles/coreui.min.css';
 import '@styles/nprogress.scss';
 import '@styles/404.scss';
 import 'quill/dist/quill.snow.css';
+import 'react-image-crop/dist/ReactCrop.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
