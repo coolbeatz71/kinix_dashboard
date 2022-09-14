@@ -151,6 +151,7 @@ const VideoActionModal: FC<IVideoActionModalProps> = ({
                 }
             >
                 <Form
+                    layout="vertical"
                     initialValues={{ password }}
                     validateTrigger={['onFinish']}
                     onFinish={() => onFinish(password)}

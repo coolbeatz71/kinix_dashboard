@@ -151,6 +151,7 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                 }
             >
                 <Form
+                    layout="vertical"
                     initialValues={{ password }}
                     validateTrigger={['onFinish']}
                     onFinish={() => onFinish(password)}

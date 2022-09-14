@@ -14,6 +14,12 @@ export enum EnumArticleVideoActionContext {
     DELETE = 'DELETE',
 }
 
+export enum EnumAdsActionContext {
+    ENABLE = 'ENABLE',
+    DISABLE = 'DISABLE',
+    DELETE = 'DELETE',
+}
+
 export enum EnumUserActionContext {
     UNBLOCK = 'UNBLOCK',
     BLOCK = 'BLOCK',

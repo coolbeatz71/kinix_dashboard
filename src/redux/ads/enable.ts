@@ -3,7 +3,7 @@ import { AnyAction, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '@services/axios';
 import { adsSlice } from '.';
 
-export const resetDisableAdsAction =
+export const resetEnableAdsAction =
     () =>
     (dispatch: AppDispatch): AnyAction => {
         return dispatch(adsSlice.actions.clear({ context: 'ads/enable' }));

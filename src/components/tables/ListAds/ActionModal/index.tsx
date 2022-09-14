@@ -1,17 +1,16 @@
 import React, { FC, Fragment, ReactNode, useState } from 'react';
 import { lowerCase, truncate } from 'lodash';
 import { useSelector } from 'react-redux';
-import { IUser } from '@interfaces/api';
-import { EnumUserActionContext } from '@interfaces/app';
+import { EnumAdsActionContext } from '@interfaces/app';
 import { Button, Col, Form, Modal, Row, Input, notification, Tooltip } from 'antd';
+import { IAds } from '@interfaces/api';
 import { required } from '@helpers/validators';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
-
-import unblockUserAction, { resetUnblockUserAction } from '@redux/users/unblock';
-import deleteUserAction, { resetDeleteUserAction } from '@redux/users/delete';
-import blockUserAction, { resetBlockUserAction } from '@redux/users/block';
+import enableAdsAction, { resetEnableAdsAction } from '@redux/ads/enable';
+import deleteAdsAction, { resetDeleteAdsAction } from '@redux/ads/delete';
+import disableAdsAction, { resetDisableAdsAction } from '@redux/ads/disable';
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, StopOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
@@ -19,51 +18,50 @@ import styles from './index.module.scss';
 const { Item } = Form;
 const { Password } = Input;
 
-export interface IUserActionModalProps {
-    user: IUser;
+export interface IAdsActionModalProps {
+    ads: IAds;
     reload: () => void;
     closeMenu?: () => void;
-    context: EnumUserActionContext;
-    accountType: 'client' | 'admin';
+    context: EnumAdsActionContext;
 }
 
-const UserActionModal: FC<IUserActionModalProps> = ({
-    user,
+const AdsActionModal: FC<IAdsActionModalProps> = ({
+    ads,
     reload,
+    context,
     closeMenu = () => {
         //
     },
-    context,
 }) => {
     const dispatch = useAppDispatch();
     const [password, setPassword] = useState<string>('');
     const [openModal, setOpenModal] = useState<boolean>(false);
 
     const {
-        block: { error: errBlock, loading: loadingBlock },
         delete: { error: errDelete, loading: loadingDelete },
-        unblock: { error: errUnblock, loading: loadingUnblock },
-    } = useSelector(({ users }: IRootState) => users);
+        enable: { error: errEnable, loading: loadingEnable },
+        disable: { error: errDisable, loading: loadingDisable },
+    } = useSelector(({ ads }: IRootState) => ads);
 
-    const error = errUnblock || errBlock || errDelete;
-    const loading = loadingUnblock || loadingBlock || loadingDelete;
+    const error = errEnable || errDisable || errDelete;
+    const loading = loadingEnable || loadingDisable || loadingDelete;
 
     const getButtonIcon = (): ReactNode => {
         switch (context) {
-            case EnumUserActionContext.BLOCK:
-                return <StopOutlined />;
-            case EnumUserActionContext.UNBLOCK:
+            case EnumAdsActionContext.ENABLE:
                 return <CheckCircleOutlined />;
+            case EnumAdsActionContext.DISABLE:
+                return <StopOutlined />;
             default:
                 return <DeleteOutlined />;
         }
     };
     const getButtonText = (): string => {
         switch (context) {
-            case EnumUserActionContext.BLOCK:
-                return 'Bloquer';
-            case EnumUserActionContext.UNBLOCK:
-                return 'Débloquer';
+            case EnumAdsActionContext.ENABLE:
+                return 'Activer';
+            case EnumAdsActionContext.DISABLE:
+                return 'Désactiver';
             default:
                 return 'Effacer';
         }
@@ -71,10 +69,10 @@ const UserActionModal: FC<IUserActionModalProps> = ({
 
     const getSuccessMessage = (): string => {
         switch (context) {
-            case EnumUserActionContext.BLOCK:
-                return 'bloqué';
-            case EnumUserActionContext.UNBLOCK:
-                return 'débloqué';
+            case EnumAdsActionContext.ENABLE:
+                return 'activé';
+            case EnumAdsActionContext.DISABLE:
+                return 'désactivé';
             default:
                 return 'effacé';
         }
@@ -86,7 +84,7 @@ const UserActionModal: FC<IUserActionModalProps> = ({
             key: 'success',
             placement: 'topRight',
             message: 'Confirmation',
-            description: `Utilisateur: "${user.userName} - ${user.email}" ${getSuccessMessage()}`,
+            description: `Ads: "${ads.title}" ${getSuccessMessage()}`,
         });
         clearErrors();
         reload();
@@ -94,21 +92,21 @@ const UserActionModal: FC<IUserActionModalProps> = ({
     };
 
     const onFinish = (password: string): void => {
-        const params = { id: Number(user.id), password };
-        const responseType = `users/${lowerCase(context)}/fulfilled`;
+        const params = { id: Number(ads.id), password };
+        const responseType = `ads/${lowerCase(context)}/fulfilled`;
         switch (context) {
-            case EnumUserActionContext.UNBLOCK:
-                dispatch(unblockUserAction(params)).then((res) => {
+            case EnumAdsActionContext.ENABLE:
+                dispatch(enableAdsAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
-            case EnumUserActionContext.BLOCK:
-                dispatch(blockUserAction(params)).then((res) => {
+            case EnumAdsActionContext.DISABLE:
+                dispatch(disableAdsAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
             default:
-                dispatch(deleteUserAction(params)).then((res) => {
+                dispatch(deleteAdsAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
@@ -116,9 +114,9 @@ const UserActionModal: FC<IUserActionModalProps> = ({
     };
 
     const clearErrors = (): void => {
-        resetUnblockUserAction()(dispatch);
-        resetBlockUserAction()(dispatch);
-        resetDeleteUserAction()(dispatch);
+        resetEnableAdsAction()(dispatch);
+        resetDeleteAdsAction()(dispatch);
+        resetDisableAdsAction()(dispatch);
     };
 
     return (
@@ -133,7 +131,7 @@ const UserActionModal: FC<IUserActionModalProps> = ({
                 }}
                 icon={getButtonIcon()}
                 className={styles.actionModal__button}
-                danger={context === EnumUserActionContext.DELETE}
+                danger={context === EnumAdsActionContext.DELETE}
             >
                 {getButtonText()}
             </Button>
@@ -146,8 +144,8 @@ const UserActionModal: FC<IUserActionModalProps> = ({
                 onCancel={() => setOpenModal(false)}
                 className={styles.actionModal__modal}
                 title={
-                    <Tooltip title={user.email} visible>
-                        {getButtonText()} utilisateur: "{truncate(user.userName, { length: 40 })}
+                    <Tooltip title={ads.title} visible>
+                        {getButtonText()} ads: "{truncate(ads.title, { length: 40 })}
                     </Tooltip>
                 }
             >
@@ -192,4 +190,4 @@ const UserActionModal: FC<IUserActionModalProps> = ({
     );
 };
 
-export default UserActionModal;
+export default AdsActionModal;
