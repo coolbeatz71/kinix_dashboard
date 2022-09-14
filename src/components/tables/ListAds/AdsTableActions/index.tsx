@@ -5,10 +5,11 @@ import { Button, Dropdown, Menu } from 'antd';
 import EnumRole from '@interfaces/role';
 import { IAds } from '@interfaces/api';
 import { FormOutlined, SettingOutlined } from '@ant-design/icons';
-import { EnumFormContext } from '@interfaces/app';
+import { EnumAdsActionContext, EnumFormContext } from '@interfaces/app';
 import AdsModal from '@components/modal/AdsModal';
 
 import styles from './index.module.scss';
+import AdsActionModal from '../ActionModal';
 
 export interface IAdsTableActionsProps {
     ads: IAds;
@@ -50,6 +51,20 @@ const AdsTableActions: FC<IAdsTableActionsProps> = ({ ads, reload }) => {
                                     visible={openAddUserModal}
                                     setVisible={setOpenAddUserModal}
                                     formContext={EnumFormContext.EDIT}
+                                />
+
+                                <AdsActionModal
+                                    ads={ads}
+                                    reload={reload}
+                                    closeMenu={() => setOpenMenu(false)}
+                                    context={ads.active ? EnumAdsActionContext.DISABLE : EnumAdsActionContext.ENABLE}
+                                />
+
+                                <AdsActionModal
+                                    reload={reload}
+                                    ads={ads}
+                                    context={EnumAdsActionContext.DELETE}
+                                    closeMenu={() => setOpenMenu(false)}
                                 />
                             </Fragment>
                         )}
