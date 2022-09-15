@@ -1,4 +1,4 @@
-import EPromotionPlan from '@constants/promotion';
+import EnumPromotionPlan from '@constants/promotion';
 import EnumProvider from './provider';
 import EnumRole from './role';
 
@@ -169,7 +169,7 @@ export interface IStory {
 
 export interface IAdsPlan {
     readonly id?: number;
-    name: EPromotionPlan;
+    name: EnumPromotionPlan;
     price: number;
     duration: number;
     createdAt?: string;
