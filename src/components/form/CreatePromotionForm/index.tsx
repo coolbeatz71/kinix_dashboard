@@ -52,7 +52,7 @@ const CreatePromotionForm: FC<ICreatePromotionFormProps> = ({
             </Item>
 
             <Item name="price" label="Prix" validateTrigger={['onSubmit', 'onBlur']} rules={[required('Prix')]}>
-                <Input type="number" placeholder="Prix (USD $)" size="large" />
+                <Input type="number" placeholder="Prix ($ USD)" size="large" />
             </Item>
         </Form>
     );

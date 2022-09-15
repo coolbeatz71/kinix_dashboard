@@ -1,13 +1,13 @@
-enum EPromotionPlan {
+enum EnumPromotionPlan {
     FREE = 'FREE',
     BASIC = 'BASIC',
     PROFESSIONAL = 'PROFESSIONAL',
     PREMIUM = 'PREMIUM',
 }
 
-export enum EPromotionType {
+export enum EnumPromotionType {
     ADS = 'ADS',
     STORY = 'STORY',
 }
 
-export default EPromotionPlan;
+export default EnumPromotionPlan;

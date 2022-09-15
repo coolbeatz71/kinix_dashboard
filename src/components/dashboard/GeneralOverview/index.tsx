@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router-dom';
 import { IGeneralOverview } from '@interfaces/overview';
-import OverviewCard from '../../common/OverviewCard';
+import DashboardOverviewCard from '../../common/DashboardOverviewCard';
 import { HiUsers } from 'react-icons/hi';
 import { RiArticleLine } from 'react-icons/ri';
 import { VideoCameraFilled, GlobalOutlined } from '@ant-design/icons';
@@ -87,7 +87,7 @@ const GeneralOverview: FC<IGeneralOverviewProps> = ({ loading, overview }) => {
                 : data.map((item) => (
                       <Col xs={24} sm={24} md={12} lg={12} xl={6} key={item.title}>
                           <Link to={item.path}>
-                              <OverviewCard
+                              <DashboardOverviewCard
                                   icon={item.icon}
                                   title={item.title}
                                   total={item.total}

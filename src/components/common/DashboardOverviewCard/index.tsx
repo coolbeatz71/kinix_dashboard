@@ -5,7 +5,7 @@ import { upperFirst } from 'lodash';
 
 const { Text } = Typography;
 
-export interface IOverviewCardProps {
+export interface IDashboardOverviewCardProps {
     title: string;
     total: number;
     icon: ReactNode;
@@ -17,7 +17,7 @@ export interface IOverviewCardProps {
     }[];
 }
 
-const OverviewCard: FC<IOverviewCardProps> = ({ title, total, icon, actions, className }) => {
+const DashboardOverviewCard: FC<IDashboardOverviewCardProps> = ({ title, total, icon, actions, className }) => {
     return (
         <Card
             bordered
@@ -46,4 +46,4 @@ const OverviewCard: FC<IOverviewCardProps> = ({ title, total, icon, actions, cla
     );
 };
 
-export default OverviewCard;
+export default DashboardOverviewCard;

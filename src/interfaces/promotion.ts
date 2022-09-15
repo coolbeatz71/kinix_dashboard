@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import EPromotionPlan from '@constants/promotion';
+import EnumPromotionPlan from '@constants/promotion';
 
 export interface IAdsData {
     id?: number;
@@ -30,7 +30,7 @@ export interface IStoryData {
 export interface IAdsPlanData {
     id?: number;
     price: number;
-    name: EPromotionPlan;
+    name: EnumPromotionPlan;
     duration: number;
 }
 export type IStoryPlanData = IAdsPlanData;
