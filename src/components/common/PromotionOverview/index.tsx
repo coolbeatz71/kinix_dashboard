@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
 import { Col, Row } from 'antd';
-import { IAdsOverview } from '@interfaces/promotion';
+import { IPromotionOverview } from '@interfaces/promotion';
 import EnumPromotionPlan from '@constants/promotion';
-import AdsOverviewSkeleton from '@components/skeleton/AdsOverview';
+import PromotionOverviewSkeleton from '@components/skeleton/PromotionOverview';
 import { LINK, PRIMARY, SUCCESS, WARNING } from '@constants/colors';
 import PromotionOverviewCard from '@components/common/PromotionOverviewCard';
 import { CrownOutlined, DashboardOutlined, DollarOutlined, MehOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
 
-export interface IAdsOverviewProps {
+export interface IPromotionOverviewProps {
     loading: boolean;
-    overview: IAdsOverview;
+    overview: IPromotionOverview;
 }
 
-const AdsOverview: FC<IAdsOverviewProps> = ({ loading, overview }) => {
+const PromotionOverview: FC<IPromotionOverviewProps> = ({ loading, overview }) => {
     const data = [
         {
             color: WARNING,
@@ -51,7 +51,7 @@ const AdsOverview: FC<IAdsOverviewProps> = ({ loading, overview }) => {
             {loading
                 ? Array.from(Array(4).keys()).map((i) => (
                       <Col xs={24} sm={24} md={12} lg={12} xl={6} key={i}>
-                          <AdsOverviewSkeleton />
+                          <PromotionOverviewSkeleton />
                       </Col>
                   ))
                 : data.map((item) => (
@@ -70,4 +70,4 @@ const AdsOverview: FC<IAdsOverviewProps> = ({ loading, overview }) => {
     );
 };
 
-export default AdsOverview;
+export default PromotionOverview;

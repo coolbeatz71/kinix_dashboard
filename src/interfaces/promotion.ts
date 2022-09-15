@@ -39,7 +39,7 @@ export interface IOverviewObj {
     amount: number;
     total: number;
 }
-export interface IAdsOverview {
+export interface IPromotionOverview {
     free: IOverviewObj;
     basic: IOverviewObj;
     premium: IOverviewObj;

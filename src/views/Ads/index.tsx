@@ -1,22 +1,22 @@
 import React, { FC, Fragment, useCallback, useEffect, useState } from 'react';
-import { LIMIT } from '@constants/app';
 import { Button } from 'antd';
+import { LIMIT } from '@constants/app';
+import { useSelector } from 'react-redux';
 import PageTitle from '@components/common/PageTitle';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { useAppDispatch } from '@redux/store';
-import getAllAdsPlanAction from '../../redux/ads/plans';
+import getAllAdsPlanAction from '@redux/ads/plans';
 import ListAdsPlan from '@components/tables/ListAdsPlan';
 import getAllAdsAction from '@redux/ads/getAll';
 import { EnumFormContext } from '@interfaces/app';
 import PromotionPlanModal from '@components/modal/PromotionPlanModal';
 import ListAds from '@components/tables/ListAds';
 import AdsModal from '@components/modal/AdsModal';
-import AdsOverview from '@components/promotion/AdsOverview';
-import { useSelector } from 'react-redux';
+import PromotionOverview from '@components/common/PromotionOverview';
 import { IRootState } from '@redux/reducers';
 import ServerError from '@components/common/ServerError';
 import getAdsOverviewAction from '@redux/ads/overview';
-import { IAdsOverview } from '@interfaces/promotion';
+import { IPromotionOverview } from '@interfaces/promotion';
 
 const Ads: FC = () => {
     const dispatch = useAppDispatch();
@@ -65,7 +65,7 @@ const Ads: FC = () => {
             ) : (
                 <Fragment>
                     <div className="mb-2">
-                        <AdsOverview loading={loading} overview={data as IAdsOverview} />
+                        <PromotionOverview loading={loading} overview={data as IPromotionOverview} />
                     </div>
                     <div className="mb-5">
                         <PageTitle title={planTitle}>
