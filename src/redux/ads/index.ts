@@ -11,6 +11,7 @@ import deleteAdsAction from './delete';
 import disableAdsAction from './disable';
 import enableAdsAction from './enable';
 import getAllAdsAction from './getAll';
+import getAdsOverviewAction from './overview';
 import getAllAdsPlanAction from './plans';
 import { adsInitialState } from './types';
 
@@ -49,7 +50,11 @@ export const adsSlice = createSlice({
             // add an ads plan
             .addCase(addAdsPlanAction.pending, ActionWrapperPending)
             .addCase(addAdsPlanAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(addAdsPlanAction.rejected, ActionWrapperRejected);
+            .addCase(addAdsPlanAction.rejected, ActionWrapperRejected)
+            // get ads overview
+            .addCase(getAdsOverviewAction.pending, ActionWrapperPending)
+            .addCase(getAdsOverviewAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(getAdsOverviewAction.rejected, ActionWrapperRejected);
     },
 });
 

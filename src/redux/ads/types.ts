@@ -8,6 +8,7 @@ export type IAdsState = {
     enable: IBasicInitialState;
     disable: IBasicInitialState;
     delete: IBasicInitialState;
+    overview: IBasicInitialState;
 };
 
 export const adsInitialState: IAdsState = {
@@ -18,4 +19,5 @@ export const adsInitialState: IAdsState = {
     enable: BasicInitialState,
     disable: BasicInitialState,
     delete: BasicInitialState,
+    overview: BasicInitialState,
 };
