@@ -8,7 +8,6 @@ const uploadImageCloudinary = async (
     currentImage: string | null | undefined,
     folderName: 'articles' | 'avatars' | 'ads' | 'stories',
 ): Promise<unknown> => {
-    console.log(file, currentImage, folderName);
     const formData = new FormData();
 
     formData.append('folder', folderName);

@@ -1,6 +1,7 @@
+import { MutableRefObject } from 'react';
 import { WHITE } from '@constants/colors';
 import { IUnknownObject } from '@interfaces/app';
-import { MutableRefObject } from 'react';
+import { Crop } from 'react-image-crop';
 
 const pixelRatio = 4;
 
@@ -15,7 +16,7 @@ export const clearImage = (previewCanvasRef: MutableRefObject<IUnknownObject | n
 const drawImage = (
     imgRef: MutableRefObject<IUnknownObject | null>,
     previewCanvasRef: MutableRefObject<IUnknownObject>,
-    completedCrop: any,
+    completedCrop: Crop,
 ): void => {
     const image = imgRef.current;
     const canvas = previewCanvasRef.current;
@@ -25,18 +26,18 @@ const drawImage = (
     const scaleY = image?.naturalHeight / image?.height;
     const ctx = canvas?.getContext('2d');
 
-    canvas.width = crop.width * pixelRatio;
-    canvas.height = crop.height * pixelRatio;
+    canvas.width = Number(crop.width) * pixelRatio;
+    canvas.height = Number(crop.height) * pixelRatio;
 
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     ctx.imageSmoothingEnabled = false;
 
     ctx.drawImage(
         image,
-        crop.x * scaleX,
-        crop.y * scaleY,
-        crop.width * scaleX,
-        crop.height * scaleY,
+        Number(crop.x) * scaleX,
+        Number(crop.y) * scaleY,
+        Number(crop.width) * scaleX,
+        Number(crop.height) * scaleY,
         0,
         0,
         crop.width,

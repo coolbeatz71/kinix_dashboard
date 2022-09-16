@@ -35,15 +35,15 @@ const StoryModal: FC<IStoryModalProps> = ({
         //
     },
 }) => {
+    const [form] = useForm();
     const dispatch = useAppDispatch();
+    const [success, setSuccess] = useState<string>('');
+    const [uploadingMedia, setUploadingMedia] = useState(false);
+
     const isEdit = formContext === EnumFormContext.EDIT;
     const { error, loading } = useSelector(({ story: { add } }: IRootState) => add);
-
     const { data: plans, loading: loadingPlans } = useSelector(({ story: { plans } }: IRootState) => plans);
     const { data: users, loading: loadingUsers } = useSelector(({ users: { search } }: IRootState) => search);
-
-    const [form] = useForm();
-    const [success, setSuccess] = useState<string>('');
 
     const onCloseModal = (): void => {
         setVisible(false);
@@ -88,9 +88,9 @@ const StoryModal: FC<IStoryModalProps> = ({
                     <CreateModalHeader
                         context="story"
                         isEdit={isEdit}
-                        loading={loading}
                         onCloseModal={onCloseModal}
                         onSubmit={() => form.submit()}
+                        loading={loading || uploadingMedia}
                     />
                 )
             }
@@ -108,6 +108,7 @@ const StoryModal: FC<IStoryModalProps> = ({
                     loadingUsers={loadingUsers}
                     loadingPlans={loadingPlans}
                     initialValues={initialValues}
+                    setUploadingMedia={setUploadingMedia}
                 />
             )}
         </Modal>

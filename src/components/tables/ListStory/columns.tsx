@@ -1,14 +1,17 @@
+import React from 'react';
 import { ColumnType } from 'antd/lib/table';
 import dayjs from 'dayjs';
 import { Tag, Image } from 'antd';
 import duration from 'dayjs/plugin/duration';
-import { LinkOutlined } from '@ant-design/icons';
 
+import { LinkOutlined, PlayCircleTwoTone } from '@ant-design/icons';
 import format from '@helpers/formatString';
 import { IUnknownObject } from '@interfaces/app';
 import { IStory, IStoryPlan, IUser } from '@interfaces/api';
 import { promotionPlanColors } from '@constants/colors';
 import StoryTableActions from './StoryTableActions';
+import getFileType from '@helpers/getFiletype';
+import VideoPlayerModal from '@components/modal/VideoPlayerModal';
 
 dayjs.extend(duration);
 
@@ -58,12 +61,21 @@ const tableColumns = (
     },
     {
         title: 'Image',
-        key: 'image',
-        dataIndex: 'image',
+        key: '',
+        dataIndex: '',
         width: 80,
         fixed: 'left',
         align: 'center',
-        render: (_, story: IStory) => <Image width={25} src={story.media} />,
+        render: (_, story: IStory) => {
+            const isImage = getFileType(story.mediaType) === 'image';
+            return isImage ? (
+                <Image width={25} src={story.media} />
+            ) : (
+                <VideoPlayerModal url={story.media}>
+                    <PlayCircleTwoTone />
+                </VideoPlayerModal>
+            );
+        },
     },
     {
         title: 'Titre',

@@ -37,6 +37,7 @@ export interface ICreateStoryFormProps {
     formRef: FormInstance<IStoryData>;
     onSubmit: (val: IStoryData) => void;
     error: Error | IUnknownObject | null;
+    setUploadingMedia: (val: boolean) => void;
 }
 
 const CreateStoryForm: FC<ICreateStoryFormProps> = ({
@@ -49,6 +50,7 @@ const CreateStoryForm: FC<ICreateStoryFormProps> = ({
     loadingUsers,
     loadingPlans,
     initialValues,
+    setUploadingMedia,
 }) => {
     const dispatch = useAppDispatch();
     const textAreaStyle = { height: 120 };
@@ -72,9 +74,14 @@ const CreateStoryForm: FC<ICreateStoryFormProps> = ({
         else if (!isEmpty(file)) {
             // upload a new file
             try {
+                setUploadingMedia(true);
                 const media = await uploadImageCloudinary(file[0], initialValues?.media, 'stories');
-                if (typeof media === 'string') onSubmit({ ...formData, media, mediaType: file[0].type });
+                if (typeof media === 'string') {
+                    setUploadingMedia(false);
+                    onSubmit({ ...formData, media, mediaType: file[0].type });
+                }
             } catch (err) {
+                setUploadingMedia(false);
                 notification.error({
                     maxCount: 1,
                     key: 'error',
@@ -245,6 +252,7 @@ const CreateStoryForm: FC<ICreateStoryFormProps> = ({
                 <FileUploader
                     media={media}
                     context={formContext}
+                    cloudFolderName="stories"
                     getRootProps={getRootProps}
                     onRemoveFile={onRemoveFile}
                     acceptedFiles={acceptedFiles}

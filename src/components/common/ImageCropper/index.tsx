@@ -1,6 +1,7 @@
 import { FC, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import ReactCrop, { Crop } from 'react-image-crop';
+import { CameraOutlined } from '@ant-design/icons';
 import { Modal, Upload, message, UploadFile } from 'antd';
 import drawImage, { clearImage } from '@helpers/drawImage';
 import generateBlob from '@helpers/generateBlob';
@@ -8,7 +9,6 @@ import { IUnknownObject } from '@interfaces/app';
 import validator from 'validator';
 
 import styles from './index.module.scss';
-import { CameraOutlined } from '@ant-design/icons';
 
 interface IImageCropperProps {
     uploadFile?: File;

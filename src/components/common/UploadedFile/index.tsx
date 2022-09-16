@@ -3,15 +3,17 @@ import { Alert } from 'antd';
 import { isEmpty, truncate } from 'lodash';
 import { FileWithPath } from 'react-dropzone';
 import { EnumFormContext } from '@interfaces/app';
+import getUploadedFileName from '@helpers/getUploadedFileName';
 
 export interface IUploadedFileProp {
     fileUrl?: string | null;
+    cloudFolderName: string;
     context: EnumFormContext;
     onRemove?: () => void | null;
     acceptedFiles?: FileWithPath[] | undefined;
 }
 
-const UploadedFile: FC<IUploadedFileProp> = ({ context, fileUrl, acceptedFiles, onRemove }) => {
+const UploadedFile: FC<IUploadedFileProp> = ({ context, fileUrl, acceptedFiles, onRemove, cloudFolderName }) => {
     let fileName;
 
     if (fileUrl) {
@@ -29,7 +31,7 @@ const UploadedFile: FC<IUploadedFileProp> = ({ context, fileUrl, acceptedFiles, 
                         closable
                         type="info"
                         onClose={onRemove}
-                        message={truncate(fileName, { length: 40 })}
+                        message={truncate(getUploadedFileName(fileName, cloudFolderName), { length: 40 })}
                     />
                 </Fragment>
             ) : (

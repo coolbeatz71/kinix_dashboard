@@ -13,7 +13,14 @@
     border: 1px solid rgba($grey, 0.65);
     background-color: $neutral !important;
 
-    [class~='anticon'] {
+    &__result {
+        [class~='ant-alert-banner'] {
+            border-radius: $border-radius;
+            background: rgba($color: $link, $alpha: 0.1);
+        }
+    }
+
+    [data-image-icon='true'] {
         svg {
             width: 3.5rem;
             height: 3.5rem;
@@ -23,5 +30,16 @@
     [class~='ant-typography'] {
         font-size: 12px;
         text-align: center;
+    }
+
+    input {
+        display: block !important;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 99;
+        cursor: pointer;
     }
 }

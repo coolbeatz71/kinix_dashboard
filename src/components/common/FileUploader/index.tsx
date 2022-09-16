@@ -9,6 +9,7 @@ import styles from './index.module.scss';
 
 export interface IFileUploaderProps {
     acceptedFiles: File[];
+    cloudFolderName: string;
     onRemoveFile: () => void;
     context: EnumFormContext;
     media: string | null | undefined;
@@ -23,6 +24,7 @@ const FileUploader: FC<IFileUploaderProps> = ({
     onRemoveFile,
     acceptedFiles,
     getInputProps,
+    cloudFolderName,
 }) => {
     return (
         <div
@@ -33,7 +35,7 @@ const FileUploader: FC<IFileUploaderProps> = ({
             <Row justify="center" align="middle" className={styles.fileUploader}>
                 <input {...getInputProps()} />
                 <Col span={24} className="d-flex justify-content-center">
-                    <CustomIcon type="media-icon" />
+                    <CustomIcon type="media-icon" data-image-icon />
                 </Col>
                 <Col span={24}>
                     <br />
@@ -41,11 +43,14 @@ const FileUploader: FC<IFileUploaderProps> = ({
                         Faites glisser et déposez un fichier photo/vidéo, ou parcourez
                     </Typography>
                 </Col>
+            </Row>
+            <Row justify="center" align="middle" className={styles.fileUploader__result}>
                 <Col span={24}>
                     <UploadedFile
                         context={context}
                         onRemove={onRemoveFile}
                         acceptedFiles={acceptedFiles}
+                        cloudFolderName={cloudFolderName}
                         fileUrl={context === EnumFormContext.EDIT ? media : null}
                     />
                 </Col>
