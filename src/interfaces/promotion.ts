@@ -22,8 +22,8 @@ export interface IStoryData {
     subTitle: string;
     body: string;
     redirectUrl?: string | null;
-    media: string | null;
-    mediaType: string | null;
+    media: string | null | undefined;
+    mediaType: string | null | undefined;
     startDate: string;
 }
 

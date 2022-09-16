@@ -1,0 +1,27 @@
+@import 'styles/colors.scss';
+@import 'styles/dimensions.scss';
+
+.fileUploader {
+    cursor: pointer;
+    padding: calc(#{$padding} * 1.2);
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+
+    border-radius: $border-radius;
+    border: 1px solid rgba($grey, 0.65);
+    background-color: $neutral !important;
+
+    [class~='anticon'] {
+        svg {
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+    }
+
+    [class~='ant-typography'] {
+        font-size: 12px;
+        text-align: center;
+    }
+}

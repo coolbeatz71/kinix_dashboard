@@ -1,13 +1,14 @@
 import { ColumnType } from 'antd/lib/table';
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-import { IUnknownObject } from '@interfaces/app';
-import { IAds, IAdsPlan, IUser } from '@interfaces/api';
-import { LinkOutlined } from '@ant-design/icons';
 import { Tag, Image } from 'antd';
+import duration from 'dayjs/plugin/duration';
+import { LinkOutlined } from '@ant-design/icons';
+
 import format from '@helpers/formatString';
+import { IUnknownObject } from '@interfaces/app';
+import { IStory, IStoryPlan, IUser } from '@interfaces/api';
 import { promotionPlanColors } from '@constants/colors';
-import AdsTableActions from './AdsTableActions';
+import StoryTableActions from './StoryTableActions';
 
 dayjs.extend(duration);
 
@@ -32,10 +33,13 @@ const actionCol = (reload: () => void): IUnknownObject => ({
     align: 'center',
     className: 'action',
     dataIndex: 'action',
-    render: (...prp: IAds[]) => <AdsTableActions reload={reload} ads={prp[1]} />,
+    render: (...prp: IStory[]) => <StoryTableActions reload={reload} story={prp[1]} />,
 });
 
-const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): ColumnType<IAds | IUnknownObject>[] => [
+const tableColumns = (
+    reload: () => void,
+    onSelect?: (story: IStory) => void,
+): ColumnType<IStory | IUnknownObject>[] => [
     {
         title: 'Lien',
         key: 'link',
@@ -43,9 +47,9 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
         width: 50,
         fixed: 'left',
         align: 'center',
-        render: (_, ads: IAds) =>
-            ads.redirectUrl ? (
-                <a target="_blank" href={ads.redirectUrl} rel="noreferrer">
+        render: (_, story: IStory) =>
+            story.redirectUrl ? (
+                <a target="_blank" href={story.redirectUrl} rel="noreferrer">
                     <LinkOutlined />
                 </a>
             ) : (
@@ -59,7 +63,7 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
         width: 80,
         fixed: 'left',
         align: 'center',
-        render: (_, ads: IAds) => <Image width={25} src={ads.image} />,
+        render: (_, story: IStory) => <Image width={25} src={story.media} />,
     },
     {
         title: 'Titre',
@@ -72,11 +76,11 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
     },
     {
         title: 'Plan',
-        key: 'ads_plan',
+        key: 'story_plan',
         fixed: 'left',
-        dataIndex: 'ads_plan',
+        dataIndex: 'story_plan',
         width: 100,
-        render: (plan: IAdsPlan) => (
+        render: (plan: IStoryPlan) => (
             <Tag color={promotionPlanColors[plan.name]} className="rounded">
                 {format(plan.name)}
             </Tag>

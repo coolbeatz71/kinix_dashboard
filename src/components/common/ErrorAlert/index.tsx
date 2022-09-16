@@ -5,11 +5,11 @@ import { IUnknownObject } from '@interfaces/app';
 const { Item } = Form;
 
 export interface IErrorAlertProps {
-    error: Error | IUnknownObject | null;
-    closable: boolean;
     banner: boolean;
     showIcon: boolean;
+    closable: boolean;
     closeText?: string;
+    error: Error | IUnknownObject | null;
     onClose?: MouseEventHandler<HTMLButtonElement>;
 }
 

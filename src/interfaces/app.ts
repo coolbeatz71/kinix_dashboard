@@ -14,7 +14,7 @@ export enum EnumArticleVideoActionContext {
     DELETE = 'DELETE',
 }
 
-export enum EnumAdsActionContext {
+export enum EnumPromotionActionContext {
     ENABLE = 'ENABLE',
     DISABLE = 'DISABLE',
     DELETE = 'DELETE',

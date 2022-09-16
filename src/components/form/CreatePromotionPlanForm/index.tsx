@@ -8,7 +8,7 @@ import { required } from '@helpers/validators';
 
 const { Item } = Form;
 
-export interface ICreatePromotionFormProps {
+export interface ICreatePromotionPlanFormProps {
     formContext: EnumFormContext;
     error: Error | IUnknownObject | null;
     initialValues?: IAdsPlanData | IStoryPlanData;
@@ -16,7 +16,7 @@ export interface ICreatePromotionFormProps {
     onSubmit: (val: IAdsPlanData | IStoryPlanData) => void;
 }
 
-const CreatePromotionForm: FC<ICreatePromotionFormProps> = ({
+const CreatePromotionPlanForm: FC<ICreatePromotionPlanFormProps> = ({
     error,
     formRef,
     onSubmit,
@@ -58,4 +58,4 @@ const CreatePromotionForm: FC<ICreatePromotionFormProps> = ({
     );
 };
 
-export default CreatePromotionForm;
+export default CreatePromotionPlanForm;

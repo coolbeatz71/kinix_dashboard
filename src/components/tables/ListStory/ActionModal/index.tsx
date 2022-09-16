@@ -1,16 +1,16 @@
 import React, { FC, Fragment, ReactNode, useState } from 'react';
-import { lowerCase, truncate } from 'lodash';
 import { useSelector } from 'react-redux';
-import { EnumPromotionActionContext } from '@interfaces/app';
+import { lowerCase, truncate } from 'lodash';
 import { Button, Col, Form, Modal, Row, Input, notification, Tooltip } from 'antd';
-import { IAds } from '@interfaces/api';
+import { EnumPromotionActionContext } from '@interfaces/app';
+import { IStory } from '@interfaces/api';
 import { required } from '@helpers/validators';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
-import enableAdsAction, { resetEnableAdsAction } from '@redux/ads/enable';
-import deleteAdsAction, { resetDeleteAdsAction } from '@redux/ads/delete';
-import disableAdsAction, { resetDisableAdsAction } from '@redux/ads/disable';
+import enableStoryAction, { resetEnableStoryAction } from '@redux/story/enable';
+import deleteStoryAction, { resetDeleteStoryAction } from '@redux/story/delete';
+import disableStoryAction, { resetDisableStoryAction } from '@redux/story/disable';
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, StopOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
@@ -18,15 +18,15 @@ import styles from './index.module.scss';
 const { Item } = Form;
 const { Password } = Input;
 
-export interface IAdsActionModalProps {
-    ads: IAds;
+export interface IStoryActionModalProps {
+    story: IStory;
     reload: () => void;
     closeMenu?: () => void;
     context: EnumPromotionActionContext;
 }
 
-const AdsActionModal: FC<IAdsActionModalProps> = ({
-    ads,
+const StoryActionModal: FC<IStoryActionModalProps> = ({
+    story,
     reload,
     context,
     closeMenu = () => {
@@ -41,7 +41,7 @@ const AdsActionModal: FC<IAdsActionModalProps> = ({
         delete: { error: errDelete, loading: loadingDelete },
         enable: { error: errEnable, loading: loadingEnable },
         disable: { error: errDisable, loading: loadingDisable },
-    } = useSelector(({ ads }: IRootState) => ads);
+    } = useSelector(({ story }: IRootState) => story);
 
     const error = errEnable || errDisable || errDelete;
     const loading = loadingEnable || loadingDisable || loadingDelete;
@@ -84,7 +84,7 @@ const AdsActionModal: FC<IAdsActionModalProps> = ({
             key: 'success',
             placement: 'topRight',
             message: 'Confirmation',
-            description: `Ads: "${ads.title}" ${getSuccessMessage()}`,
+            description: `Story: "${story.title}" ${getSuccessMessage()}`,
         });
         clearErrors();
         reload();
@@ -92,21 +92,21 @@ const AdsActionModal: FC<IAdsActionModalProps> = ({
     };
 
     const onFinish = (password: string): void => {
-        const params = { id: Number(ads.id), password };
-        const responseType = `ads/${lowerCase(context)}/fulfilled`;
+        const params = { id: Number(story.id), password };
+        const responseType = `story/${lowerCase(context)}/fulfilled`;
         switch (context) {
             case EnumPromotionActionContext.ENABLE:
-                dispatch(enableAdsAction(params)).then((res) => {
+                dispatch(enableStoryAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
             case EnumPromotionActionContext.DISABLE:
-                dispatch(disableAdsAction(params)).then((res) => {
+                dispatch(disableStoryAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
             default:
-                dispatch(deleteAdsAction(params)).then((res) => {
+                dispatch(deleteStoryAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
@@ -114,9 +114,9 @@ const AdsActionModal: FC<IAdsActionModalProps> = ({
     };
 
     const clearErrors = (): void => {
-        resetEnableAdsAction()(dispatch);
-        resetDeleteAdsAction()(dispatch);
-        resetDisableAdsAction()(dispatch);
+        resetEnableStoryAction()(dispatch);
+        resetDeleteStoryAction()(dispatch);
+        resetDisableStoryAction()(dispatch);
     };
 
     return (
@@ -144,8 +144,8 @@ const AdsActionModal: FC<IAdsActionModalProps> = ({
                 onCancel={() => setOpenModal(false)}
                 className={styles.actionModal__modal}
                 title={
-                    <Tooltip title={ads.title} visible>
-                        {getButtonText()} ads: "{truncate(ads.title, { length: 40 })}
+                    <Tooltip title={story.title} visible>
+                        {getButtonText()} story: "{truncate(story.title, { length: 40 })}
                     </Tooltip>
                 }
             >
@@ -190,4 +190,4 @@ const AdsActionModal: FC<IAdsActionModalProps> = ({
     );
 };
 
-export default AdsActionModal;
+export default StoryActionModal;

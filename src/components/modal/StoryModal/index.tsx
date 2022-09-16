@@ -1,32 +1,32 @@
 import React, { FC, useState, useEffect } from 'react';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
 import { Form, Modal } from 'antd';
+import { IStoryData } from '@interfaces/promotion';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@redux/store';
 import { IRootState } from '@redux/reducers';
-import { IAdsData } from '@interfaces/promotion';
-import addAdsAction, { resetAddAdsAction } from '@redux/ads/add';
+import addStoryAction, { resetAddStoryAction } from '@redux/story/add';
 import CreateModalHeader from '@components/common/CreateModalHeader';
-import getAllAdsPlanAction from '@redux/ads/plans';
+import getAllStoryPlanAction from '@redux/story/plans';
 import FormSuccessResult from '@components/common/FormSuccessResult';
-import CreateAdsForm from '@components/form/CreateAdsForm';
-import { IAds, IUser } from '@interfaces/api';
+import CreateStoryForm from '@components/form/CreateStoryForm';
+import { IStory, IUser } from '@interfaces/api';
 
 import styles from './index.module.scss';
 
 const { useForm } = Form;
 
-export interface IAdsModalProps {
+export interface IStoryModalProps {
     visible: boolean;
     reload?: () => void;
-    initialValues?: IAds;
+    initialValues?: IStory;
     formContext: EnumFormContext;
     setVisible: (val: boolean) => void;
 }
 
-const SUCCESS_CREATE = "L'Ads a été créée avec succès";
-const SUCCESS_EDIT = "L'Ads a été modifiée avec succès";
-const AdsModal: FC<IAdsModalProps> = ({
+const SUCCESS_CREATE = 'Le Story a été créée avec succès';
+const SUCCESS_EDIT = 'Le Story a été modifiée avec succès';
+const StoryModal: FC<IStoryModalProps> = ({
     visible,
     setVisible,
     formContext,
@@ -37,10 +37,9 @@ const AdsModal: FC<IAdsModalProps> = ({
 }) => {
     const dispatch = useAppDispatch();
     const isEdit = formContext === EnumFormContext.EDIT;
-    const [uploadingImage, setUploadingImage] = useState(false);
-    const { error, loading: loadingAds } = useSelector(({ ads: { add } }: IRootState) => add);
+    const { error, loading } = useSelector(({ story: { add } }: IRootState) => add);
 
-    const { data: plans, loading: loadingPlans } = useSelector(({ ads: { plans } }: IRootState) => plans);
+    const { data: plans, loading: loadingPlans } = useSelector(({ story: { plans } }: IRootState) => plans);
     const { data: users, loading: loadingUsers } = useSelector(({ users: { search } }: IRootState) => search);
 
     const [form] = useForm();
@@ -51,16 +50,16 @@ const AdsModal: FC<IAdsModalProps> = ({
         form.resetFields();
     };
 
-    const onSubmitAds = (formData: IUnknownObject | IAdsData): void => {
+    const onSubmitStory = (formData: IUnknownObject | IStoryData): void => {
         form.validateFields();
         dispatch(
-            addAdsAction({
+            addStoryAction({
                 isEdit,
-                data: isEdit ? ({ ...formData, id: initialValues?.id } as IAdsData) : (formData as IAdsData),
+                data: isEdit ? ({ ...formData, id: initialValues?.id } as IStoryData) : (formData as IStoryData),
             }),
         ).then((res) => {
-            if (['ads/add/rejected'].includes(res.type)) window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (['ads/add/fulfilled'].includes(res.type)) {
+            if (['story/add/rejected'].includes(res.type)) window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (['story/add/fulfilled'].includes(res.type)) {
                 reload();
                 setSuccess(isEdit ? SUCCESS_EDIT : SUCCESS_CREATE);
                 form.resetFields();
@@ -70,8 +69,8 @@ const AdsModal: FC<IAdsModalProps> = ({
 
     useEffect(() => {
         if (visible) setSuccess('');
-        resetAddAdsAction()(dispatch);
-        dispatch(getAllAdsPlanAction());
+        resetAddStoryAction()(dispatch);
+        dispatch(getAllStoryPlanAction());
     }, [dispatch, visible]);
 
     return (
@@ -82,16 +81,16 @@ const AdsModal: FC<IAdsModalProps> = ({
             destroyOnClose
             closable={false}
             visible={visible}
-            className={styles.adsModal}
-            wrapClassName={styles.adsModal__wrap}
+            className={styles.storyModal}
+            wrapClassName={styles.storyModal__wrap}
             title={
                 !success && (
                     <CreateModalHeader
-                        context="ads"
+                        context="story"
                         isEdit={isEdit}
+                        loading={loading}
                         onCloseModal={onCloseModal}
                         onSubmit={() => form.submit()}
-                        loading={uploadingImage || loadingAds}
                     />
                 )
             }
@@ -99,21 +98,20 @@ const AdsModal: FC<IAdsModalProps> = ({
             {success ? (
                 <FormSuccessResult title={success} onClose={onCloseModal} />
             ) : (
-                <CreateAdsForm
+                <CreateStoryForm
                     error={error}
                     formRef={form}
                     plans={plans?.rows}
-                    onSubmit={onSubmitAds}
+                    onSubmit={onSubmitStory}
                     users={users as IUser[]}
                     formContext={formContext}
                     loadingUsers={loadingUsers}
                     loadingPlans={loadingPlans}
                     initialValues={initialValues}
-                    setUploadingImage={setUploadingImage}
                 />
             )}
         </Modal>
     );
 };
 
-export default AdsModal;
+export default StoryModal;

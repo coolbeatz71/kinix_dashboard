@@ -3,7 +3,7 @@ import { Col, Row } from 'antd';
 import { IPromotionOverview } from '@interfaces/promotion';
 import EnumPromotionPlan from '@constants/promotion';
 import PromotionOverviewSkeleton from '@components/skeleton/PromotionOverview';
-import { LINK, PRIMARY, SUCCESS, WARNING } from '@constants/colors';
+import { promotionPlanColors } from '@constants/colors';
 import PromotionOverviewCard from '@components/common/PromotionOverviewCard';
 import { CrownOutlined, DashboardOutlined, DollarOutlined, MehOutlined } from '@ant-design/icons';
 
@@ -17,32 +17,32 @@ export interface IPromotionOverviewProps {
 const PromotionOverview: FC<IPromotionOverviewProps> = ({ loading, overview }) => {
     const data = [
         {
-            color: WARNING,
             icon: <MehOutlined />,
             total: overview?.free?.total,
             title: EnumPromotionPlan.FREE,
             amount: overview?.free?.amount,
+            color: promotionPlanColors.FREE,
         },
         {
-            color: SUCCESS,
             icon: <DashboardOutlined />,
             total: overview?.basic?.total,
             title: EnumPromotionPlan.BASIC,
             amount: overview?.basic?.amount,
+            color: promotionPlanColors.BASIC,
         },
         {
-            color: LINK,
             icon: <DollarOutlined />,
             total: overview?.professional?.total,
             title: EnumPromotionPlan.PROFESSIONAL,
             amount: overview?.professional?.amount,
+            color: promotionPlanColors.PROFESSIONAL,
         },
         {
-            color: PRIMARY,
             icon: <CrownOutlined />,
             total: overview?.premium?.total,
             title: EnumPromotionPlan.PREMIUM,
             amount: overview?.premium?.amount,
+            color: promotionPlanColors.PREMIUM,
         },
     ];
 

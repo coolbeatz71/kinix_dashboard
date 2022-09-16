@@ -3,20 +3,20 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import { Button, Dropdown, Menu } from 'antd';
 import EnumRole from '@interfaces/role';
-import { IAds } from '@interfaces/api';
+import { IStory } from '@interfaces/api';
 import { FormOutlined, SettingOutlined } from '@ant-design/icons';
 import { EnumPromotionActionContext, EnumFormContext } from '@interfaces/app';
-import AdsModal from '@components/modal/AdsModal';
-import AdsActionModal from '../ActionModal';
+import StoryModal from '@components/modal/StoryModal';
+import StoryActionModal from '../ActionModal';
 
 import styles from './index.module.scss';
 
-export interface IAdsTableActionsProps {
-    ads: IAds;
+export interface IStoryTableActionsProps {
+    story: IStory;
     reload: () => void;
 }
 
-const AdsTableActions: FC<IAdsTableActionsProps> = ({ ads, reload }) => {
+const StoryTableActions: FC<IStoryTableActionsProps> = ({ story, reload }) => {
     const [openMenu, setOpenMenu] = useState(false);
     const [openAddUserModal, setOpenAddUserModal] = useState(false);
     const { data: userData } = useSelector(({ users }: IRootState) => users?.currentUser);
@@ -45,30 +45,30 @@ const AdsTableActions: FC<IAdsTableActionsProps> = ({ ads, reload }) => {
                                     Modifier
                                 </Button>
 
-                                <AdsModal
+                                <StoryModal
                                     reload={reload}
-                                    initialValues={ads}
+                                    initialValues={story}
                                     visible={openAddUserModal}
                                     setVisible={setOpenAddUserModal}
                                     formContext={EnumFormContext.EDIT}
                                 />
 
-                                <AdsActionModal
-                                    ads={ads}
+                                <StoryActionModal
+                                    story={story}
                                     reload={reload}
                                     closeMenu={() => setOpenMenu(false)}
                                     context={
-                                        ads.active
+                                        story.active
                                             ? EnumPromotionActionContext.DISABLE
                                             : EnumPromotionActionContext.ENABLE
                                     }
                                 />
 
-                                <AdsActionModal
+                                <StoryActionModal
+                                    story={story}
                                     reload={reload}
-                                    ads={ads}
-                                    context={EnumPromotionActionContext.DELETE}
                                     closeMenu={() => setOpenMenu(false)}
+                                    context={EnumPromotionActionContext.DELETE}
                                 />
                             </Fragment>
                         )}
@@ -81,4 +81,4 @@ const AdsTableActions: FC<IAdsTableActionsProps> = ({ ads, reload }) => {
     );
 };
 
-export default AdsTableActions;
+export default StoryTableActions;

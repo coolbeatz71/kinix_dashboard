@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useEffect, Fragment, FC } from 'react';
+import { Button } from 'antd';
 import { useSelector } from 'react-redux';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import { LIMIT } from '@constants/app';
 import getAllStoryAction from '@redux/story/getAll';
 import getStoryOverviewAction from '@redux/story/overview';
@@ -8,12 +10,13 @@ import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
 import ServerError from '@components/common/ServerError';
 import PageTitle from '@components/common/PageTitle';
-import { Button } from 'antd';
-import { PlusCircleOutlined } from '@ant-design/icons';
 import PromotionPlanModal from '@components/modal/PromotionPlanModal';
 import { EnumFormContext } from '@interfaces/app';
 import { IPromotionOverview } from '@interfaces/promotion';
 import PromotionOverview from '@components/common/PromotionOverview';
+import ListStoryPlan from '@components/tables/ListStoryPlan';
+import ListStory from '@components/tables/ListStory';
+import StoryModal from '@components/modal/StoryModal';
 
 const Story: FC = () => {
     const dispatch = useAppDispatch();
@@ -75,13 +78,13 @@ const Story: FC = () => {
                             </Button>
                         </PageTitle>
                         <PromotionPlanModal
-                            type="ads"
+                            type="story"
                             reload={reloadPlan}
                             visible={openAddStoryPlanModal}
                             setVisible={setOpenAddStoryPlanModal}
                             formContext={EnumFormContext.CREATE}
                         />
-                        <ListAdsPlan onTitle={(t) => setPlanTitle(t)} />
+                        <ListStoryPlan onTitle={(t) => setPlanTitle(t)} />
                     </div>
                     <div className="mt-5">
                         <PageTitle title={storyTitle}>
@@ -93,13 +96,13 @@ const Story: FC = () => {
                                 Ajouter
                             </Button>
                         </PageTitle>
-                        <AdsModal
+                        <StoryModal
                             reload={reloadStory}
                             visible={openAddStoryModal}
                             setVisible={setOpenAddStoryModal}
                             formContext={EnumFormContext.CREATE}
                         />
-                        <ListAds onTitle={(t) => setStoryTitle(t)} />
+                        <ListStory onTitle={(t) => setStoryTitle(t)} />
                     </div>
                 </Fragment>
             )}
