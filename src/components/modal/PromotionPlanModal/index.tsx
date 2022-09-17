@@ -8,9 +8,10 @@ import { useSelector } from 'react-redux';
 import addAdsPlanAction, { resetAddAdsPlanAction } from '@redux/ads/addPlan';
 import CreateModalHeader from '@components/common/CreateModalHeader';
 import FormSuccessResult from '@components/common/FormSuccessResult';
-import CreatePromotionForm from '@components/form/CreatePromotionForm';
 
 import styles from './index.module.scss';
+import CreatePromotionPlanForm from '@components/form/CreatePromotionPlanForm';
+import addStoryPlanAction, { resetAddStoryPlanAction } from '@redux/story/addPlan';
 
 const { useForm } = Form;
 
@@ -36,12 +37,13 @@ const PromotionModal: FC<IPromotionModalProps> = ({
     const SUCCESS_CREATE = `La formule d'abonnement ${type} a été créée avec succès`;
     const SUCCESS_EDIT = `La formule d'abonnement ${type} a été modifiée avec succès`;
 
-    const dispatch = useAppDispatch();
-    const isEdit = formContext === EnumFormContext.EDIT;
-    const { error, loading } = useSelector(({ ads: { addPlan } }: IRootState) => addPlan);
-
     const [form] = useForm();
+    const dispatch = useAppDispatch();
     const [success, setSuccess] = useState<string>('');
+    const isEdit = formContext === EnumFormContext.EDIT;
+
+    const { error: adsErr, loading: adsLoading } = useSelector(({ ads: { addPlan } }: IRootState) => addPlan);
+    const { error: storyErr, loading: storyLoading } = useSelector(({ story: { addPlan } }: IRootState) => addPlan);
 
     const onCloseModal = (): void => {
         setVisible(false);
@@ -51,10 +53,19 @@ const PromotionModal: FC<IPromotionModalProps> = ({
     const onSubmitPromotion = (formData: IUnknownObject | IAdsPlanData | IStoryPlanData): void => {
         form.validateFields();
         dispatch(
-            addAdsPlanAction({
-                isEdit,
-                data: isEdit ? ({ ...formData, id: initialValues?.id } as IAdsPlanData) : (formData as IAdsPlanData),
-            }),
+            type === 'ads'
+                ? addAdsPlanAction({
+                      isEdit,
+                      data: isEdit
+                          ? ({ ...formData, id: initialValues?.id } as IAdsPlanData)
+                          : (formData as IAdsPlanData),
+                  })
+                : addStoryPlanAction({
+                      isEdit,
+                      data: isEdit
+                          ? ({ ...formData, id: initialValues?.id } as IStoryPlanData)
+                          : (formData as IStoryPlanData),
+                  }),
         ).then((res) => {
             if (['ads/addPlan/rejected', 'story/addPlan/rejected'].includes(res.type)) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -70,6 +81,7 @@ const PromotionModal: FC<IPromotionModalProps> = ({
     useEffect(() => {
         if (visible) setSuccess('');
         resetAddAdsPlanAction()(dispatch);
+        resetAddStoryPlanAction()(dispatch);
     }, [dispatch, visible]);
 
     return (
@@ -87,9 +99,9 @@ const PromotionModal: FC<IPromotionModalProps> = ({
                     <CreateModalHeader
                         context="plan"
                         isEdit={isEdit}
-                        loading={loading}
                         onCloseModal={onCloseModal}
                         onSubmit={() => form.submit()}
+                        loading={adsLoading || storyLoading}
                     />
                 )
             }
@@ -97,10 +109,10 @@ const PromotionModal: FC<IPromotionModalProps> = ({
             {success ? (
                 <FormSuccessResult title={success} onClose={onCloseModal} />
             ) : (
-                <CreatePromotionForm
-                    error={error}
+                <CreatePromotionPlanForm
                     formRef={form}
                     formContext={formContext}
+                    error={adsErr || storyErr}
                     onSubmit={onSubmitPromotion}
                     initialValues={initialValues}
                 />

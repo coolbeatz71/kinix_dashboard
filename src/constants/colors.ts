@@ -24,11 +24,11 @@ export const clientColors: IUnknownObject = {
     VIEWER_CLIENT: GRAY,
 };
 
-export const adsPlanColors: IUnknownObject = {
-    FREE: GRAY,
-    BASIC: WARNING,
+export const promotionPlanColors: IUnknownObject = {
+    FREE: WARNING,
+    BASIC: SUCCESS,
     PREMIUM: PRIMARY,
-    PROFESSIONAL: SUCCESS,
+    PROFESSIONAL: LINK,
 };
 
 export const adminColors: IUnknownObject = {

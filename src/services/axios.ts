@@ -26,8 +26,6 @@ const errorHandler = async (error: AxiosError): Promise<AxiosError> => {
         window.location.href = LOGIN_PATH;
     }
 
-    console.log(error.response);
-
     if (error.response) {
         const msg = error.response.data.message;
         errorResponse = typeof msg !== 'string' ? { message: msg[0]?.msg } : error.response.data;

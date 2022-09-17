@@ -1,0 +1,12 @@
+@import 'styles/dimensions.scss';
+
+.storyModal {
+    top: $padding !important;
+    [class~='ant-typography'] {
+        margin-bottom: 0;
+    }
+
+    &__wrap::before {
+        vertical-align: text-top;
+    }
+}
