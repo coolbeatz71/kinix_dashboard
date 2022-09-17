@@ -1,6 +1,7 @@
-import React, { FC, Fragment, Key, ReactNode, useState } from 'react';
+import React, { FC, Fragment, Key, ReactNode, useState, useEffect, useCallback } from 'react';
 import { Divider, Grid, Layout, Menu } from 'antd';
 import getSideNavWidth from '@helpers/getSideNavWidth';
+import getCurrentPath from '@helpers/getCurrentPath';
 import { Link } from 'react-router-dom';
 import Logo from '@components/common/Logo';
 import { DASHBOARD_PATH } from '@constants/paths';
@@ -26,13 +27,23 @@ const defaultOpen = [sidenav[1].key];
 
 const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, currentUser }) => {
     const { lg } = useBreakpoint();
+    const currentPath = getCurrentPath(window?.location);
     const sideNavWidth = getSideNavWidth(isSideNavExpanded);
     const menuStyles = { width: sideNavWidth };
 
     const [openSections, setOpenSections] = useState(defaultOpen);
 
+    const getCurrentPathSection = useCallback((): number | undefined => {
+        return sidenav.findIndex((nav) => nav.sub.find((subnav) => subnav.href === currentPath));
+    }, [currentPath]);
+
+    useEffect(() => {
+        const activeSection = getCurrentPathSection();
+        if (activeSection) setOpenSections([sidenav[activeSection]?.key]);
+    }, [getCurrentPathSection, currentPath]);
+
     const onExpand = (collapsed: boolean): void => {
-        if (!collapsed) setOpenSections(defaultOpen);
+        if (!collapsed) setOpenSections(openSections);
         setIsSideNavExpanded(!collapsed);
     };
 
@@ -58,20 +69,37 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
         return sidenav.map((section) => (
             <Fragment key={section.key}>
                 {!isExpanded ? (
-                    getSubMenuItems(section.sub).map((item) => (
-                        <Item title={null} className={styles.sidenav__menu__items} key={item.text} icon={item.icon}>
-                            <Link to={item.href as string}>{item.text}</Link>
-                        </Item>
-                    ))
+                    getSubMenuItems(section.sub).map((item) => {
+                        const isActive = currentPath === item.href;
+                        return (
+                            <Item
+                                title={null}
+                                key={item.text}
+                                icon={item.icon}
+                                data-active={isActive}
+                                className={styles.sidenav__menu__items}
+                            >
+                                <Link to={item.href as string}>{item.text}</Link>
+                            </Item>
+                        );
+                    })
                 ) : (
                     <Fragment key={section.key}>
                         <Divider className={styles.sidenav__menu_divider} />
                         <SubMenu key={section.key} title={toUpper(section.title)} className={styles.sidenav__menu__sub}>
-                            {getSubMenuItems(section.sub).map((item) => (
-                                <Item className={styles.sidenav__menu__items} key={item.text} icon={item.icon}>
-                                    <Link to={item.href as string}>{item.text}</Link>
-                                </Item>
-                            ))}
+                            {getSubMenuItems(section.sub).map((item) => {
+                                const isActive = currentPath === item.href;
+                                return (
+                                    <Item
+                                        key={item.text}
+                                        icon={item.icon}
+                                        data-active={isActive}
+                                        className={styles.sidenav__menu__items}
+                                    >
+                                        <Link to={item.href as string}>{item.text}</Link>
+                                    </Item>
+                                );
+                            })}
                         </SubMenu>
                     </Fragment>
                 )}
