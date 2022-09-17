@@ -1,0 +1,6 @@
+.statusFilter {
+    width: 180px;
+    [class~='ant-select-selection-item'] {
+        text-transform: capitalize !important;
+    }
+}

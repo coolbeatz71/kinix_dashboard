@@ -14,8 +14,8 @@ export const STATUS_FILTER_LIST: DefaultOptionType[] = [
 export const CATEGORY_FILTER_LIST: DefaultOptionType[] = [
     { label: 'Tout', value: EnumCategory.ALL },
     { label: 'Clip video', value: EnumCategory.MUSIC_VIDEO },
-    { label: 'Podcast', value: EnumCategory.PODCAST },
     { label: 'Interview', value: EnumCategory.INTERVIEW },
+    { label: 'Podcast', value: EnumCategory.PODCAST },
     { label: 'LeFocus', value: EnumCategory.LEFOCUS },
     { label: 'FlexBeatz', value: EnumCategory.FLEXBEATZ },
 ];

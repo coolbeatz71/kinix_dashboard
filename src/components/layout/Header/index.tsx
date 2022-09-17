@@ -22,7 +22,9 @@ const Header: FC<IHeaderProps> = ({ scrolled, isSideNavExpanded, setIsSideNavExp
     const { lg } = useBreakpoint();
     const [openDropDown, setOpenDropdown] = useState(false);
 
-    const toggleSideNav = (): void => setIsSideNavExpanded(!isSideNavExpanded);
+    const toggleSideNav = (): void => {
+        setTimeout(() => setIsSideNavExpanded(!isSideNavExpanded), 50);
+    };
     const sideNavWidth = getSideNavWidth(isSideNavExpanded);
 
     const headerStyles = {

@@ -18,6 +18,16 @@ const route = [
     },
     {
         exact: true,
+        name: 'Videos',
+        path: `${VIDEO_PATH}/:category`,
+        component: Videos,
+        extraProps: {
+            isLoggedIn: true,
+            roles: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
+        },
+    },
+    {
+        exact: true,
         name: 'Video',
         component: ViewVideo,
         path: `${VIDEO_PATH}/:slug`,

@@ -81,6 +81,19 @@
             &__items {
                 border-radius: $border-radius;
 
+                &[data-active='true'] {
+                    font-weight: 600;
+                    background-color: rgba($color: $warning, $alpha: 0.8);
+
+                    [class~='anticon'] {
+                        display: flex;
+                    }
+
+                    * {
+                        color: $primary;
+                    }
+                }
+
                 a {
                     text-decoration: none;
                 }
