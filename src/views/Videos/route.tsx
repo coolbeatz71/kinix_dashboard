@@ -30,7 +30,7 @@ const route = [
         exact: true,
         name: 'Video',
         component: ViewVideo,
-        path: `${VIDEO_PATH}/:slug`,
+        path: `${VIDEO_PATH}/watch/:slug`,
         extraProps: {
             isLoggedIn: true,
             roles: [EnumRole.ADMIN, EnumRole.SUPER_ADMIN],
