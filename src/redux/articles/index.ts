@@ -9,10 +9,12 @@ import addArticleAction from './add';
 import approveArticleAction from './approve';
 import deleteArticleAction from './delete';
 import disableArticleAction from './disable';
+import featureArticleAction from './feature';
 import getAllArticlesAction from './getAll';
 import getRelatedArticlesAction from './related';
 import getSingleArticleAction from './single';
 import { articlesInitialState } from './types';
+import unfeatureArticleAction from './unfeature';
 
 export const articlesSlice = createSlice({
     name: 'articles',
@@ -49,7 +51,15 @@ export const articlesSlice = createSlice({
             // get related articles
             .addCase(getRelatedArticlesAction.pending, ActionWrapperPending)
             .addCase(getRelatedArticlesAction.fulfilled, ActionWrapperFulfilled)
-            .addCase(getRelatedArticlesAction.rejected, ActionWrapperRejected);
+            .addCase(getRelatedArticlesAction.rejected, ActionWrapperRejected)
+            // feature
+            .addCase(featureArticleAction.pending, ActionWrapperPending)
+            .addCase(featureArticleAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(featureArticleAction.rejected, ActionWrapperRejected)
+            // unfeature
+            .addCase(unfeatureArticleAction.pending, ActionWrapperPending)
+            .addCase(unfeatureArticleAction.fulfilled, ActionWrapperFulfilled)
+            .addCase(unfeatureArticleAction.rejected, ActionWrapperRejected);
     },
 });
 

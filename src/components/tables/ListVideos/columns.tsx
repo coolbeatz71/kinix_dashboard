@@ -11,8 +11,9 @@ import PopoverContentLink from '@components/common/PopoverContentLink';
 import { LinkOutlined } from '@ant-design/icons';
 
 const statusCol = {
-    width: 120,
+    width: 80,
     key: 'active',
+    fixed: 'right',
     title: 'Status',
     dataIndex: 'active',
     render: (active: boolean) => (

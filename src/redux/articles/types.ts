@@ -7,6 +7,8 @@ export type IArticlesState = {
     single: IBasicInitialState;
     approve: IBasicInitialState;
     disable: IBasicInitialState;
+    feature: IBasicInitialState;
+    unfeature: IBasicInitialState;
     related: IBasicInitialStateList;
 };
 
@@ -17,5 +19,7 @@ export const articlesInitialState: IArticlesState = {
     single: BasicInitialState,
     approve: BasicInitialState,
     disable: BasicInitialState,
+    feature: BasicInitialState,
+    unfeature: BasicInitialState,
     related: BasicInitialStateList,
 };

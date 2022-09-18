@@ -10,7 +10,7 @@ import { CLIENTS_ROLE } from '@constants/app';
 import UserTableActions from './UserTableActions';
 
 const statusCol = {
-    width: 120,
+    width: 80,
     key: 'active',
     title: 'Status',
     dataIndex: 'active',
