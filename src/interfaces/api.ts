@@ -36,6 +36,7 @@ export interface IArticle {
     tags: string[] | null;
     active?: boolean;
     liked?: boolean;
+    featured?: boolean;
     userId: number;
     createdAt?: string;
     updatedAt?: string;
@@ -135,6 +136,8 @@ export interface IAds {
     readonly id?: number;
     user?: IUser;
     planId: number;
+    plan?: string;
+    amount?: number;
     slug: string;
     legend: string;
     title: string;
@@ -152,6 +155,8 @@ export interface IStory {
     readonly id?: number;
     user: IUser;
     planId: number;
+    plan?: string;
+    amount?: number;
     slug: string;
     legend: string;
     title: string;

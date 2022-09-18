@@ -10,13 +10,27 @@ import ArticleTableActions from './ArticleTableActions';
 import PopoverContentLink from '@components/common/PopoverContentLink';
 
 const statusCol = {
-    width: 120,
+    width: 80,
     key: 'active',
     title: 'Status',
+    fixed: 'right',
     dataIndex: 'active',
     render: (active: boolean) => (
         <Tag color={active ? 'green' : 'volcano'} className="rounded">
             {format(active ? 'actif' : 'inactif')}
+        </Tag>
+    ),
+};
+
+const featureCol = {
+    width: 80,
+    key: 'featured',
+    title: 'A la une',
+    fixed: 'right',
+    dataIndex: 'featured',
+    render: (featured: boolean) => (
+        <Tag color={featured ? 'success' : 'error'} className="rounded">
+            {format(featured ? 'oui' : 'non')}
         </Tag>
     ),
 };
@@ -106,6 +120,7 @@ const tableColumns = (
         width: 100,
         render: (date: string) => dayjs(date).format('DD MMM YYYY'),
     },
+    ...[featureCol],
     ...[statusCol],
     ...(onSelect ? [] : [actionCol(reload)]),
 ];

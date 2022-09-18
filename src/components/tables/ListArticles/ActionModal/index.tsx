@@ -1,6 +1,14 @@
 import React, { FC, Fragment, ReactNode, useState } from 'react';
 import { lowerCase, truncate } from 'lodash';
 import { useSelector } from 'react-redux';
+import {
+    CheckCircleOutlined,
+    CloseCircleOutlined,
+    DeleteOutlined,
+    EyeInvisibleOutlined,
+    EyeOutlined,
+    StopOutlined,
+} from '@ant-design/icons';
 import { IArticle } from '@interfaces/api';
 import { EnumArticleVideoActionContext } from '@interfaces/app';
 import { Button, Col, Form, Modal, Row, Input, notification, Tooltip } from 'antd';
@@ -8,11 +16,11 @@ import { required } from '@helpers/validators';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IRootState } from '@redux/reducers';
 import { useAppDispatch } from '@redux/store';
-
 import approveArticleAction, { resetApproveArticleAction } from '@redux/articles/approve';
 import deleteArticleAction, { resetDeleteArticleAction } from '@redux/articles/delete';
 import disableArticleAction, { resetDisableArticleAction } from '@redux/articles/disable';
-import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, StopOutlined } from '@ant-design/icons';
+import featureArticleAction, { resetFeatureArticleAction } from '@redux/articles/feature';
+import unfeatureArticleAction, { resetUnFeatureArticleAction } from '@redux/articles/unfeature';
 
 import styles from './index.module.scss';
 
@@ -42,10 +50,12 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
         delete: { error: errDelete, loading: loadingDelete },
         approve: { error: errApprove, loading: loadingApprove },
         disable: { error: errDisable, loading: loadingDisable },
+        feature: { error: errFeature, loading: loadingFeature },
+        unfeature: { error: errUnFeature, loading: loadingUnFeature },
     } = useSelector(({ articles }: IRootState) => articles);
 
-    const error = errApprove || errDisable || errDelete;
-    const loading = loadingApprove || loadingDisable || loadingDelete;
+    const error = errApprove || errDisable || errDelete || errFeature || errUnFeature;
+    const loading = loadingApprove || loadingDisable || loadingDelete || loadingFeature || loadingUnFeature;
 
     const getButtonIcon = (): ReactNode => {
         switch (context) {
@@ -53,6 +63,10 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                 return <CheckCircleOutlined />;
             case EnumArticleVideoActionContext.DISABLE:
                 return <StopOutlined />;
+            case EnumArticleVideoActionContext.FEATURE:
+                return <EyeOutlined />;
+            case EnumArticleVideoActionContext.UNFEATURE:
+                return <EyeInvisibleOutlined />;
             default:
                 return <DeleteOutlined />;
         }
@@ -63,6 +77,10 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                 return 'Approver';
             case EnumArticleVideoActionContext.DISABLE:
                 return 'Désactiver';
+            case EnumArticleVideoActionContext.FEATURE:
+                return 'A la une: ON';
+            case EnumArticleVideoActionContext.UNFEATURE:
+                return 'A la une: OFF';
             default:
                 return 'Effacer';
         }
@@ -74,6 +92,10 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                 return 'apprové';
             case EnumArticleVideoActionContext.DISABLE:
                 return 'désactivé';
+            case EnumArticleVideoActionContext.FEATURE:
+                return 'mis à la une';
+            case EnumArticleVideoActionContext.UNFEATURE:
+                return 'retiré de la une';
             default:
                 return 'effacé';
         }
@@ -106,6 +128,16 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
                     if (res.type === responseType) handleSuccess();
                 });
                 break;
+            case EnumArticleVideoActionContext.FEATURE:
+                dispatch(featureArticleAction(params)).then((res) => {
+                    if (res.type === responseType) handleSuccess();
+                });
+                break;
+            case EnumArticleVideoActionContext.UNFEATURE:
+                dispatch(unfeatureArticleAction(params)).then((res) => {
+                    if (res.type === responseType) handleSuccess();
+                });
+                break;
             default:
                 dispatch(deleteArticleAction(params)).then((res) => {
                     if (res.type === responseType) handleSuccess();
@@ -118,6 +150,8 @@ const ArticleActionModal: FC<IArticleActionModalProps> = ({
         resetApproveArticleAction()(dispatch);
         resetDisableArticleAction()(dispatch);
         resetDeleteArticleAction()(dispatch);
+        resetFeatureArticleAction()(dispatch);
+        resetUnFeatureArticleAction()(dispatch);
     };
 
     return (
