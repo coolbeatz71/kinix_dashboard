@@ -72,9 +72,7 @@ const ArticleCover: FC<IArticleCoverProps> = ({ article, user }) => {
 
     return (
         <div className={styles.articleCover}>
-            <div className={styles.articleCover__overlay}>
-                <img src={cover} alt={article.title} />
-            </div>
+            <div className={styles.articleCover__overlay}>{cover && <img src={cover} alt={article.title} />}</div>
             <Row justify="space-between" align="middle" className={styles.articleCover__content}>
                 {lg && (
                     <Col md={24} lg={3} className={styles.articleCover__content__like}>
