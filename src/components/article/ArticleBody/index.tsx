@@ -1,4 +1,5 @@
-import React, { FC, Fragment, ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { FC, Fragment } from 'react';
+import { isEmpty } from 'lodash';
 import { Affix, Col, Grid, Row, Typography } from 'antd';
 import { IArticle } from '@interfaces/api';
 import ArticleShare from '../ArticleShare';
@@ -21,35 +22,18 @@ export interface IArticleBodyProps {
 
 const ArticleBody: FC<IArticleBodyProps> = ({ article, related }) => {
     const { lg, md } = useBreakpoint();
-    const [scrolled, setScrolled] = useState<string>('');
-
-    const scrollHandler = useCallback(() => {
-        if (lg) setScrolled(window.pageYOffset > 640 && window.pageYOffset < 1500 ? 'over' : '');
-        else setScrolled(window.pageYOffset < 1500 ? 'over' : '');
-    }, [lg]);
-
-    useEffect(() => {
-        window.addEventListener('scroll', scrollHandler, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', scrollHandler);
-        };
-    }, [scrollHandler]);
-
-    const ActionWrapper: FC<{ children: ReactElement }> = ({ children }) => (
-        <Fragment>{scrolled === 'over' ? <Affix offsetTop={80}>{children}</Affix> : children}</Fragment>
-    );
 
     return (
         <Fragment>
             <Row className={styles.articleBody}>
                 <Col xs={3} sm={2} lg={5}>
-                    <ActionWrapper>
+                    <Affix offsetTop={80}>
                         {/* TODO: should add the link from the client web not the admin one */}
                         <ArticleShare
                             title={article.title}
                             link={`https://www.website.com${ARTICLE_PATH}/${article.slug}`}
                         />
-                    </ActionWrapper>
+                    </Affix>
                 </Col>
                 <Col xs={21} sm={22} lg={12} className={styles.articleBody__content}>
                     <ArticleHeader author={String(article.user?.userName)} createdAt={String(article.createdAt)} />
@@ -61,16 +45,16 @@ const ArticleBody: FC<IArticleBodyProps> = ({ article, related }) => {
                     {lg && article.tags && <Tags type="article" tags={article.tags} />}
                 </Col>
 
-                {lg && related && (
+                {lg && !isEmpty(related) && (
                     <Col sm={24} lg={7}>
-                        <ActionWrapper>
+                        <Affix offsetTop={80}>
                             <Fragment>
                                 <SectionTitle title="Articles similaires" isRelated linkHasMore={ARTICLE_PATH} />
                                 {related.map((item) => (
                                     <RelatedArticleCard key={item.id} article={item} />
                                 ))}
                             </Fragment>
-                        </ActionWrapper>
+                        </Affix>
                     </Col>
                 )}
 
