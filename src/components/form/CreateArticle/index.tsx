@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { Form, FormInstance, Input, Select } from 'antd';
 import { deleteImageFromCloudinary } from '@services/cloudinary';
-import { summaryValidator, tagsValidator, titleValidator } from './vaidators';
+import { summaryValidator, tagsValidator, titleValidator } from './validators';
 import { IArticleData } from '@interfaces/articles';
 import useQuillEditor from '@hooks/useQuillEditor';
 import getQuillImageUrls from '@helpers/getQuillImageUrls';

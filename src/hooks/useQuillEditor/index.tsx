@@ -1,10 +1,10 @@
 import React, { ReactElement, RefObject, useEffect } from 'react';
 import Quill from 'quill';
 import axios from 'axios';
-import { useQuill } from 'react-quilljs';
-import { IMAGES_API_PRESET, IMAGES_API_SECRET, IMAGES_API_URL } from '@constants/platform';
 import { notification } from 'antd';
+import { useQuill } from 'react-quilljs';
 import { IUnknownObject } from '@interfaces/app';
+import { IMAGES_API_PRESET, IMAGES_API_SECRET, IMAGES_API_URL } from '@constants/platform';
 
 import styles from './index.module.scss';
 
