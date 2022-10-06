@@ -18,7 +18,7 @@ export const resetAddVideoRatingAction =
 const addVideoRatingAction = createAsyncThunk('ratings/add', async (params: IParams, { rejectWithValue }) => {
     const { count, slug } = params;
     try {
-        const { data }: IUnknownObject = await api.post(`rates/${slug}`, {
+        const { data }: IUnknownObject = await api.post(`/rates/${slug}`, {
             count,
         });
         return data;
