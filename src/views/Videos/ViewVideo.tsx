@@ -79,7 +79,7 @@ const ViewVideo: FC = () => {
                         <Col lg={8} className="ps-3">
                             <Row>
                                 <Col span={24}>
-                                    <SectionTitle title="Related videos" isRelated linkHasMore={VIDEO_PATH} />
+                                    <SectionTitle title="Vidéos similaires" isRelated linkHasMore={VIDEO_PATH} />
                                 </Col>
 
                                 {(related as unknown as IVideo[]).map((vid: IVideo) => (
