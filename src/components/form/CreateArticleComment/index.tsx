@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Button, Form, FormInstance, Input } from 'antd';
-import FloatTextInput from '@components/common/FloatTextInput';
 import { commentValidator } from './validators';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { EnumFormContext, IUnknownObject } from '@interfaces/app';
@@ -31,10 +30,18 @@ const CreateArticleComment: FC<ICreateArticleCommentProps> = ({ loading, error, 
             name="create_comment"
             initialValues={initialValues}
         >
-            <Item name="body" validateTrigger={['onSubmit', 'onBlur']} rules={commentValidator('Commentaire')}>
-                <FloatTextInput label="Commentaire" placeholder="Ajouter votre commentaire..." required>
-                    <TextArea size="large" autoSize={false} style={textAreaStyle} />
-                </FloatTextInput>
+            <Item
+                name="body"
+                label="Commentaire"
+                rules={commentValidator('Commentaire')}
+                validateTrigger={['onSubmit', 'onBlur']}
+            >
+                <TextArea
+                    size="large"
+                    autoSize={false}
+                    style={textAreaStyle}
+                    placeholder="Ajouter votre commentaire..."
+                />
             </Item>
 
             <ErrorAlert error={error} closable banner showIcon />

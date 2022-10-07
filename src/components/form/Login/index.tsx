@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
 import { useHistory } from 'react-router-dom';
-import FloatTextInput from '@components/common/FloatTextInput';
 import emailValidator, { passwordValidator } from './validators';
 import { useAppDispatch } from '@redux/store';
 import { useSelector } from 'react-redux';
@@ -45,16 +44,22 @@ const LoginForm: FC = () => {
             onFinish={onSubmit}
             className={styles.loginForm}
         >
-            <Item name="credential" validateTrigger={['onSubmit', 'onBlur']} rules={emailValidator('Adresse e-mail')}>
-                <FloatTextInput label="Adresse e-mail" placeholder="Adresse e-mail" required>
-                    <Input size="large" />
-                </FloatTextInput>
+            <Item
+                name="credential"
+                label="Adresse e-mail"
+                validateTrigger={['onSubmit', 'onBlur']}
+                rules={emailValidator('Adresse e-mail')}
+            >
+                <Input size="large" placeholder="Adresse e-mail" />
             </Item>
 
-            <Item name="password" validateTrigger={['onSubmit', 'onBlur']} rules={passwordValidator('Mot de passe')}>
-                <FloatTextInput label="Mot de passe" placeholder="Mot de passe" required>
-                    <Password size="large" visibilityToggle autoComplete="new-password" />
-                </FloatTextInput>
+            <Item
+                name="password"
+                label="Mot de passe"
+                validateTrigger={['onSubmit', 'onBlur']}
+                rules={passwordValidator('Mot de passe')}
+            >
+                <Password size="large" placeholder="••••••••••••••" visibilityToggle autoComplete="new-password" />
             </Item>
 
             <ErrorAlert error={error} showIcon closable banner />

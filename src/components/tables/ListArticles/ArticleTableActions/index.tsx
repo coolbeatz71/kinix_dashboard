@@ -12,6 +12,7 @@ import ArticleModal from '@components/modal/ArticleModal';
 import { IArticleData } from '@interfaces/articles';
 
 import styles from './index.module.scss';
+
 export interface IArticleTableActionsProps {
     article: IArticle;
     reload: () => void;
@@ -81,6 +82,17 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                                         article.active
                                             ? EnumArticleVideoActionContext.DISABLE
                                             : EnumArticleVideoActionContext.APPROVE
+                                    }
+                                />
+
+                                <ArticleActionModal
+                                    reload={reload}
+                                    article={article}
+                                    closeMenu={() => setOpenMenu(false)}
+                                    context={
+                                        article.featured
+                                            ? EnumArticleVideoActionContext.UNFEATURE
+                                            : EnumArticleVideoActionContext.FEATURE
                                     }
                                 />
 

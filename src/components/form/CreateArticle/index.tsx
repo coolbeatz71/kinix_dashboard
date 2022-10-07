@@ -2,8 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { Form, FormInstance, Input, Select } from 'antd';
 import { deleteImageFromCloudinary } from '@services/cloudinary';
-import FloatTextInput from '@components/common/FloatTextInput';
-import { summaryValidator, tagsValidator, titleValidator } from './vaidators';
+import { summaryValidator, tagsValidator, titleValidator } from './validators';
 import { IArticleData } from '@interfaces/articles';
 import useQuillEditor from '@hooks/useQuillEditor';
 import getQuillImageUrls from '@helpers/getQuillImageUrls';
@@ -82,21 +81,29 @@ const CreateArticleForm: FC<ICreateArticleProps> = ({ onSubmit, formRef, error, 
         >
             <ErrorAlert error={error} closable banner showIcon />
 
-            <Item name="title" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Titre')}>
-                <FloatTextInput label="Titre" placeholder="Titre" required>
-                    <Input size="large" maxLength={100} />
-                </FloatTextInput>
+            <Item name="title" label="Titre" validateTrigger={['onSubmit', 'onBlur']} rules={titleValidator('Titre')}>
+                <Input size="large" maxLength={100} placeholder="Titre" />
             </Item>
 
-            <Item name="summary" validateTrigger={['onSubmit', 'onBlur']} rules={summaryValidator('Sommaire')}>
-                <FloatTextInput label="Sommaire" placeholder="Sommaire" required>
-                    <TextArea size="large" maxLength={300} showCount autoSize={false} style={textAreaStyle} />
-                </FloatTextInput>
+            <Item
+                name="summary"
+                label="Sommaire"
+                rules={summaryValidator('Sommaire')}
+                validateTrigger={['onSubmit', 'onBlur']}
+            >
+                <TextArea
+                    showCount
+                    size="large"
+                    maxLength={300}
+                    autoSize={false}
+                    placeholder="Sommaire"
+                    style={textAreaStyle}
+                />
             </Item>
 
             {quillEditor}
 
-            <Item name="tags" validateTrigger={['onSubmit', 'onBlur']} rules={tagsValidator('Tags')}>
+            <Item name="tags" label="Mots clés" validateTrigger={['onSubmit', 'onBlur']} rules={tagsValidator('Tags')}>
                 <Select mode="tags" size="large" placeholder="Ex: kinshasa, music, hip-hop" maxTagCount="responsive" />
             </Item>
         </Form>

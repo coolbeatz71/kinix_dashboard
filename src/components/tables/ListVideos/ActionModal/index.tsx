@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { IVideo } from '@interfaces/api';
 import { EnumArticleVideoActionContext } from '@interfaces/app';
 import { Button, Col, Form, Modal, Row, Input, notification, Tooltip } from 'antd';
-import FloatTextInput from '@components/common/FloatTextInput';
 import { required } from '@helpers/validators';
 import ErrorAlert from '@components/common/ErrorAlert';
 import { IRootState } from '@redux/reducers';
@@ -152,15 +151,24 @@ const VideoActionModal: FC<IVideoActionModalProps> = ({
                 }
             >
                 <Form
+                    layout="vertical"
                     initialValues={{ password }}
                     validateTrigger={['onFinish']}
                     onFinish={() => onFinish(password)}
                     onValuesChange={({ password: ps }) => setPassword(ps)}
                 >
-                    <Item name="password" validateTrigger={['onSubmit', 'onBlur']} rules={[required('Mot de passe')]}>
-                        <FloatTextInput label="Mot de passe" placeholder="Mot de passe" required>
-                            <Password size="large" visibilityToggle autoComplete="new-password" />
-                        </FloatTextInput>
+                    <Item
+                        name="password"
+                        label="Mot de passe"
+                        rules={[required('Mot de passe')]}
+                        validateTrigger={['onSubmit', 'onBlur']}
+                    >
+                        <Password
+                            size="large"
+                            visibilityToggle
+                            autoComplete="new-password"
+                            placeholder="••••••••••••••"
+                        />
                     </Item>
 
                     <ErrorAlert error={error} showIcon closable banner />

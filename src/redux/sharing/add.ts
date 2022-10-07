@@ -12,7 +12,7 @@ export const resetAddVideoSharingAction =
 
 const addVideoSharingAction = createAsyncThunk('sharings/add', async (slug: string, { rejectWithValue }) => {
     try {
-        const { data }: IUnknownObject = await api.post(`shares/${slug}`);
+        const { data }: IUnknownObject = await api.post(`/shares/${slug}`);
         return data;
     } catch (error) {
         return rejectWithValue(error);

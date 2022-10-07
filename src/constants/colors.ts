@@ -7,6 +7,7 @@ export const WARNING = '#f07f34';
 export const YELLOW = '#ffc300';
 export const LINK = '#1890ff';
 export const GRAY = '#bbbbbb';
+export const WHITE = '#ffffff';
 
 export const GOOGLE = '#e45e52';
 export const FACEBOOK = '#4267b2';
@@ -21,6 +22,13 @@ export const clientColors: IUnknownObject = {
     VIDEO_CLIENT: LINK,
     ADS_CLIENT: YELLOW,
     VIEWER_CLIENT: GRAY,
+};
+
+export const promotionPlanColors: IUnknownObject = {
+    FREE: WARNING,
+    BASIC: SUCCESS,
+    PREMIUM: PRIMARY,
+    PROFESSIONAL: LINK,
 };
 
 export const adminColors: IUnknownObject = {

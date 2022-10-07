@@ -8,6 +8,10 @@
         color: $white;
     }
 
+    a {
+        text-decoration: none;
+    }
+
     svg,
     [class~='anticon'] {
         width: 100%;
@@ -49,7 +53,12 @@
 
             & > span {
                 display: flex;
-                justify-content: space-around;
+                padding: 0 $padding;
+                justify-content: space-between;
+
+                [class~='ant-tag'] {
+                    margin: 0;
+                }
             }
         }
     }

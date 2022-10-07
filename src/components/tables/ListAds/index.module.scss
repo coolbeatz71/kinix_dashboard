@@ -1,0 +1,13 @@
+.table {
+    [class~='ant-table-tbody'] {
+        [class~='action'] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        [class~='ant-image-mask-info'] {
+            padding: 0 5.5px;
+        }
+    }
+}

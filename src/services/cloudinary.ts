@@ -5,8 +5,8 @@ import { IMAGES_API_KEY, IMAGES_API_URL, IMAGES_API_SECRET } from '@constants/pl
 
 const uploadImageCloudinary = async (
     file: File,
-    currentImage: string | null,
-    folderName: 'articles' | 'avatars',
+    currentImage: string | null | undefined,
+    folderName: 'articles' | 'avatars' | 'ads' | 'stories',
 ): Promise<unknown> => {
     const formData = new FormData();
 
@@ -46,9 +46,10 @@ const uploadImageCloudinary = async (
     }
 };
 
+// TODO: should call this function on delete articles/ads/stories
 export const deleteImageFromCloudinary = async (
     imageUrl: string,
-    folderName: 'articles' | 'avatars',
+    folderName: 'articles' | 'avatars' | 'ads' | 'stories',
 ): Promise<unknown> => {
     const splitted = imageUrl?.split(folderName);
     const fileName = splitted[1]?.split('.')[0];

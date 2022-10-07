@@ -1,6 +1,6 @@
 import React, { cloneElement, FC, Fragment, ReactElement, useState } from 'react';
-import ReactPlayer from 'react-player';
 import { Modal } from 'antd';
+import ReactPlayer from 'react-player';
 import { CloseCircleOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
@@ -10,7 +10,7 @@ export interface IVideoPlayerModalProps {
     title?: string;
     children: ReactElement;
 }
-const VideoPlayerModal: FC<IVideoPlayerModalProps> = ({ url = '', title = 'Video Youtube', children }) => {
+const VideoPlayerModal: FC<IVideoPlayerModalProps> = ({ url = '', title = 'Lecteur video', children }) => {
     const [visible, setVisible] = useState(false);
     return (
         <Fragment>

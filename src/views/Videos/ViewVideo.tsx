@@ -1,6 +1,6 @@
 import React, { FC, Fragment, useCallback, useEffect } from 'react';
-import { Col, Grid, Row } from 'antd';
 import { isEmpty } from 'lodash';
+import { Col, Grid, Row } from 'antd';
 import { useParams } from 'react-router-dom';
 import ServerError from '@components/common/ServerError';
 import VideoTabs from '@components/video/VideoTabs';
@@ -75,11 +75,11 @@ const ViewVideo: FC = () => {
                             <VideoTabs video={video as IVideo} />
                         </div>
                     </Col>
-                    {lg && (
+                    {lg && !isEmpty(related) && (
                         <Col lg={8} className="ps-3">
                             <Row>
                                 <Col span={24}>
-                                    <SectionTitle title="Related videos" isRelated linkHasMore={VIDEO_PATH} />
+                                    <SectionTitle title="Vidéos similaires" isRelated linkHasMore={VIDEO_PATH} />
                                 </Col>
 
                                 {(related as unknown as IVideo[]).map((vid: IVideo) => (

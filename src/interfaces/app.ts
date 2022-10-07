@@ -12,6 +12,14 @@ export enum EnumArticleVideoActionContext {
     APPROVE = 'APPROVE',
     DISABLE = 'DISABLE',
     DELETE = 'DELETE',
+    FEATURE = 'FEATURE',
+    UNFEATURE = 'UNFEATURE',
+}
+
+export enum EnumPromotionActionContext {
+    ENABLE = 'ENABLE',
+    DISABLE = 'DISABLE',
+    DELETE = 'DELETE',
 }
 
 export enum EnumUserActionContext {

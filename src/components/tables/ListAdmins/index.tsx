@@ -140,17 +140,17 @@ const ListAdmins: FC<ListAdminsProps> = ({ onSelect, onTitle }) => {
                 </Row>
                 <br />
                 <Table
-                    dataSource={data?.rows}
                     loading={loading}
                     scroll={{ x: 1500 }}
+                    dataSource={data?.rows}
                     className={styles.table}
                     rowKey={(admin: IUnknownObject) => admin.id}
                     {...(onSelect ? { rowSelection: { onSelect, type: 'radio' } } : {})}
                     columns={tableColumns(() => changePage(page, limit, search), onSelect)}
                     pagination={{
-                        total: data?.total,
                         current: page,
                         pageSize: limit,
+                        total: data?.total,
                         showSizeChanger: true,
                         pageSizeOptions: ['10', '20', '50', '100'],
                         showTotal: (t) => `${numeral(t).format('0,0')} administrateurs`,

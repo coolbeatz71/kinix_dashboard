@@ -1,0 +1,40 @@
+@import 'styles/colors.scss';
+
+.actionModal {
+    &__button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start !important;
+        &:hover {
+            color: $primary;
+            background: $dark10;
+        }
+
+        a {
+            color: $dark;
+            text-decoration: none;
+        }
+
+        &[class~='ant-btn-dangerous']:hover {
+            background: rgba($color: $error, $alpha: 0.1);
+        }
+    }
+
+    &__modal {
+        [class~='ant-modal-close'] {
+            height: 3.4rem;
+
+            [class~='ant-modal-close-x'] {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                [class~='anticon'] {
+                    margin-right: 0.4rem;
+                }
+            }
+        }
+    }
+}

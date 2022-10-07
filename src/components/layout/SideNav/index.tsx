@@ -1,7 +1,7 @@
-import React, { FC, Fragment, Key, ReactNode, useState } from 'react';
+import React, { FC, Fragment, Key, ReactNode, useState, useEffect, useCallback } from 'react';
 import { Divider, Grid, Layout, Menu } from 'antd';
 import getSideNavWidth from '@helpers/getSideNavWidth';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from '@components/common/Logo';
 import { DASHBOARD_PATH } from '@constants/paths';
 import { HomeFilled } from '@ant-design/icons';
@@ -22,18 +22,26 @@ export interface ISideNavProps {
     setIsSideNavExpanded: (val: boolean) => void;
 }
 
-const defaultOpen = [sidenav[1].key];
+const defaultOpen = [sidenav[0].key];
 
 const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, currentUser }) => {
     const { lg } = useBreakpoint();
+    const { pathname } = useLocation();
     const sideNavWidth = getSideNavWidth(isSideNavExpanded);
     const menuStyles = { width: sideNavWidth };
-
     const [openSections, setOpenSections] = useState(defaultOpen);
 
+    const getCurrentPathSection = useCallback((): number | undefined => {
+        return sidenav.findIndex((nav) => nav.sub.find((subnav) => subnav.href === pathname));
+    }, [pathname]);
+
+    useEffect(() => {
+        const activeSection = getCurrentPathSection();
+        setOpenSections(activeSection ? [sidenav[activeSection]?.key] : defaultOpen);
+    }, [getCurrentPathSection, pathname, isSideNavExpanded]);
+
     const onExpand = (collapsed: boolean): void => {
-        if (!collapsed) setOpenSections(defaultOpen);
-        setIsSideNavExpanded(!collapsed);
+        setTimeout(() => setIsSideNavExpanded(!collapsed), 50);
     };
 
     const onOpenSectionChange = (keys: Key[]): void => {
@@ -58,20 +66,37 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
         return sidenav.map((section) => (
             <Fragment key={section.key}>
                 {!isExpanded ? (
-                    getSubMenuItems(section.sub).map((item) => (
-                        <Item title={null} className={styles.sidenav__menu__items} key={item.text} icon={item.icon}>
-                            <Link to={item.href as string}>{item.text}</Link>
-                        </Item>
-                    ))
+                    getSubMenuItems(section.sub).map((item) => {
+                        const isActive = pathname === item.href;
+                        return (
+                            <Item
+                                title={null}
+                                key={item.text}
+                                icon={item.icon}
+                                data-active={isActive}
+                                className={styles.sidenav__menu__items}
+                            >
+                                <Link to={item.href as string}>{item.text}</Link>
+                            </Item>
+                        );
+                    })
                 ) : (
                     <Fragment key={section.key}>
                         <Divider className={styles.sidenav__menu_divider} />
                         <SubMenu key={section.key} title={toUpper(section.title)} className={styles.sidenav__menu__sub}>
-                            {getSubMenuItems(section.sub).map((item) => (
-                                <Item className={styles.sidenav__menu__items} key={item.text} icon={item.icon}>
-                                    <Link to={item.href as string}>{item.text}</Link>
-                                </Item>
-                            ))}
+                            {getSubMenuItems(section.sub).map((item) => {
+                                const isActive = pathname === item.href;
+                                return (
+                                    <Item
+                                        key={item.text}
+                                        icon={item.icon}
+                                        data-active={isActive}
+                                        className={styles.sidenav__menu__items}
+                                    >
+                                        <Link to={item.href as string}>{item.text}</Link>
+                                    </Item>
+                                );
+                            })}
                         </SubMenu>
                     </Fragment>
                 )}
@@ -80,6 +105,7 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
     };
 
     const sideNavContent = (): ReactNode => {
+        const isActive = pathname === DASHBOARD_PATH;
         return (
             <>
                 {lg && <Logo canRedirect className={styles.sidenav__logo} />}
@@ -95,7 +121,13 @@ const SideNav: FC<ISideNavProps> = ({ isSideNavExpanded, setIsSideNavExpanded, c
                     className={styles.sidenav__menu}
                     onOpenChange={onOpenSectionChange}
                 >
-                    <Item key="Dashboard" title={null} className={styles.sidenav__menu__items} icon={<HomeFilled />}>
+                    <Item
+                        title={null}
+                        key="Dashboard"
+                        data-active={isActive}
+                        className={styles.sidenav__menu__items}
+                        icon={<HomeFilled />}
+                    >
                         <Link to={DASHBOARD_PATH}>Dashboard</Link>
                     </Item>
 

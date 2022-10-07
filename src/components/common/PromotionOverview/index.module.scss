@@ -1,0 +1,51 @@
+@import 'styles/dimensions.scss';
+@import 'styles/colors.scss';
+
+.overview {
+    svg {
+        padding: 0.5rem;
+        height: 5rem;
+        color: $white;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    svg,
+    [class~='anticon'] {
+        width: 100%;
+    }
+
+    &__count {
+        padding-left: 1rem;
+        display: flex;
+        flex-flow: column;
+        align-items: flex-end;
+        justify-content: space-around;
+
+        span {
+            color: $white;
+        }
+
+        [data-value='true'] {
+            font-size: 30pt;
+            font-weight: 600;
+            line-height: 35px;
+        }
+    }
+
+    [class~='ant-card-actions'] {
+        display: flex;
+        justify-content: space-between;
+
+        li {
+            border: transparent;
+
+            & > span {
+                font-weight: 500;
+                padding: 0 $padding;
+            }
+        }
+    }
+}

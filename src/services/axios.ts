@@ -10,6 +10,7 @@ const token = getToken();
 const api = axios.create({
     baseURL: API_URL,
     headers: {
+        'Accept-Language': 'fr',
         platform: PLATFORM_NAME,
         Authorization: `Bearer ${token}`,
     },
@@ -24,8 +25,6 @@ const errorHandler = async (error: AxiosError): Promise<AxiosError> => {
         localStorage.removeItem(API_TOKEN);
         window.location.href = LOGIN_PATH;
     }
-
-    console.log(error.response);
 
     if (error.response) {
         const msg = error.response.data.message;
