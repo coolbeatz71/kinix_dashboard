@@ -7,9 +7,10 @@ import { useSelector } from 'react-redux';
 import { IRootState } from '@redux/reducers';
 import EnumRole from '@interfaces/role';
 import ArticleActionModal from '../ActionModal';
-import { EnumArticleVideoActionContext, EnumFormContext } from '@interfaces/app';
-import ArticleModal from '@components/modal/ArticleModal';
+import { ARTICLE_PATH } from '@constants/paths';
 import { IArticleData } from '@interfaces/articles';
+import ArticleModal from '@components/modal/ArticleModal';
+import { EnumArticleVideoActionContext, EnumFormContext } from '@interfaces/app';
 
 import styles from './index.module.scss';
 
@@ -35,7 +36,7 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                     <Menu className={styles.actions__menu}>
                         <Link
                             rel="noopener noreferrer"
-                            to={`/articles/${article.slug}`}
+                            to={`${ARTICLE_PATH}/${article.slug}`}
                             onClick={() => {
                                 setOpenMenu(false);
                             }}

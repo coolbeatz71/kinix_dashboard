@@ -38,7 +38,7 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video }) => {
     }, [lg]);
 
     return (
-        <Link to={`${VIDEO_PATH}/${video.slug}`} className="text-decoration-none">
+        <Link to={`${VIDEO_PATH}/watch/${video.slug}`} className="text-decoration-none">
             <Card
                 bordered
                 className={styles.relatedVideo}
