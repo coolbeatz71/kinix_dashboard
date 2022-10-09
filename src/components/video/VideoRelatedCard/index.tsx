@@ -50,9 +50,9 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video }) => {
                         <div className="overlay" style={overLayStyles}>
                             <Button
                                 icon={<PlayCircleTwoTone twoToneColor={WARNING} />}
-                                shape="circle"
                                 type="text"
                                 size="large"
+                                shape="circle"
                             />
                         </div>
                         <img src={thumbnail} alt={video.link} />

@@ -100,8 +100,8 @@ const ArticleTableActions: FC<IArticleTableActionsProps> = ({ article, reload })
                                 <ArticleActionModal
                                     reload={reload}
                                     article={article}
-                                    context={EnumArticleVideoActionContext.DELETE}
                                     closeMenu={() => setOpenMenu(false)}
+                                    context={EnumArticleVideoActionContext.DELETE}
                                 />
                             </Fragment>
                         )}
