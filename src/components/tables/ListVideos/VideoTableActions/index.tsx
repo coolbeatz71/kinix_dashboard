@@ -1,15 +1,16 @@
 import React, { FC, Fragment, useState } from 'react';
-import { IRootState } from '@redux/reducers';
 import { useSelector } from 'react-redux';
 import { Button, Dropdown, Menu } from 'antd';
+import { IRootState } from '@redux/reducers';
 import { FormOutlined, PlayCircleOutlined, SettingOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import EnumRole from '@interfaces/role';
 import { IVideo } from '@interfaces/api';
+import VideoActionModal from '../ActionModal';
+import { VIDEO_PATH } from '@constants/paths';
 import VideoModal from '@components/modal/VideoModal';
 import { EnumArticleVideoActionContext, EnumFormContext } from '@interfaces/app';
 import VideoPlayerModal from '@components/modal/VideoPlayerModal';
-import EnumRole from '@interfaces/role';
-import VideoActionModal from '../ActionModal';
 
 import styles from './index.module.scss';
 
@@ -48,7 +49,7 @@ const VideoTableActions: FC<IVideoTableActionsProps> = ({ video, reload }) => {
                         </VideoPlayerModal>
                         <Link
                             rel="noopener noreferrer"
-                            to={`/videos/${video.slug}`}
+                            to={`${VIDEO_PATH}/watch/${video.slug}`}
                             onClick={() => {
                                 setOpenMenu(false);
                             }}

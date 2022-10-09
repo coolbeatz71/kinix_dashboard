@@ -105,8 +105,6 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
         const isStatusAll = status === EnumStatus.ALL;
         const isCategoryAll = selected === ('' as EnumCategory) || selected === EnumCategory.ALL;
 
-        console.log(isStatusAll, isCategoryAll);
-
         if (isStatusAll && isCategoryAll) push(`${VIDEO_PATH}`);
         else if (!isStatusAll && isCategoryAll) push(`${VIDEO_PATH}?status=${format(status, 'lowercase')}`);
         else push(`${VIDEO_PATH}/${selected}?status=${format(status, 'lowercase')}`);
@@ -115,7 +113,14 @@ const ListVideos: FC<ListVideosProps> = ({ onSelect, onTitle }) => {
     return (
         <Fragment>
             {error && (
-                <ErrorAlert error={error} banner={onSelect === undefined} closeText="Re-Essayer" closable showIcon />
+                <ErrorAlert
+                    closable
+                    showIcon
+                    error={error}
+                    closeText="Re-Essayer"
+                    banner={onSelect === undefined}
+                    onClose={() => changePage(page, limit, search)}
+                />
             )}
             <Wrapper>
                 <Row gutter={24}>

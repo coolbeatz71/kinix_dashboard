@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Space } from 'antd';
-import { BiLinkExternal } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import { BiLinkExternal } from 'react-icons/bi';
 import { IUnknownObject } from '@interfaces/app';
 
 declare const TYPE_ELE_LIST: ['articles', 'videos'];
