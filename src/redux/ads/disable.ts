@@ -15,7 +15,7 @@ const disableAdsAction = createAsyncThunk(
         const { password, id } = params;
 
         try {
-            const { data } = await api.put(`/admin/promotions/ads/disable/${id}`, { password });
+            const { data } = await api.put(`/admin/promotions/pubs/disable/${id}`, { password });
             return data;
         } catch (error) {
             return rejectWithValue(error);
