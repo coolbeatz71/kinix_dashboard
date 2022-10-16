@@ -19,7 +19,7 @@ const addAdsAction = createAsyncThunk(
             const response: IUnknownObject = await api.request({
                 data,
                 method: isEdit ? 'PUT' : 'POST',
-                url: `/admin/promotions/ads${isEdit ? `/${data.id}` : ''}`,
+                url: `/admin/promotions/pubs${isEdit ? `/${data.id}` : ''}`,
             });
             return response.data;
         } catch (error) {

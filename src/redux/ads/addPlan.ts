@@ -24,7 +24,7 @@ const addAdsPlanAction = createAsyncThunk(
                     duration: Number(duration),
                 },
                 method: isEdit ? 'PUT' : 'POST',
-                url: `/admin/promotions/plan/ads${isEdit ? `/${data.id}` : ''}`,
+                url: `/admin/promotions/plan/pubs${isEdit ? `/${data.id}` : ''}`,
             });
             return response.data;
         } catch (error) {
