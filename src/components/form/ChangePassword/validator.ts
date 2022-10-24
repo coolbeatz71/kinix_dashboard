@@ -1,6 +1,6 @@
 import { required } from '@helpers/validators';
 import { IUnknownObject } from '@interfaces/app';
-import { Rule } from 'antd/lib/form';
+import { Rule } from 'antd/es/form';
 
 export const newPassword = (name: string): Rule[] => {
     return [

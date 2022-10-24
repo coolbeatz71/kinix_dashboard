@@ -1,5 +1,5 @@
 import { minmax, required } from '@helpers/validators';
-import { Rule } from 'antd/lib/form';
+import { Rule } from 'antd/es/form';
 import validator from 'validator';
 import { PhoneNumberUtil } from 'google-libphonenumber';
 import countryList from '@constants/countryList';

@@ -1,4 +1,4 @@
-import { ColumnType } from 'antd/lib/table';
+import { ColumnType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { IUnknownObject } from '@interfaces/app';

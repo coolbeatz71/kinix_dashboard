@@ -8,6 +8,7 @@ import { Avatar, Button, Typography, Upload, message, notification, Spin, Card }
 import { useAppDispatch } from '@redux/store';
 import { getAvatarColor } from '@helpers/getAvatarColor';
 import updateAvatarAction, { resetUpdateAvatarAction } from '@redux/auth/updateAvatar';
+import 'antd/es/modal/style';
 import 'antd/es/slider/style';
 
 import styles from './index.module.scss';
