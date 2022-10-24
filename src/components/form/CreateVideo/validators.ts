@@ -1,5 +1,5 @@
 import ReactPlayer from 'react-player';
-import { Rule } from 'antd/lib/form';
+import { Rule } from 'antd/es/form';
 import { max, required } from '@helpers/validators';
 
 export const titleValidator = (name: string): Rule[] => [required(name)];

@@ -1,5 +1,5 @@
 import { minmax, required } from '@helpers/validators';
-import { Rule } from 'antd/lib/form';
+import { Rule } from 'antd/es/form';
 
 export const titleValidator = (name: string): Rule[] => [required(name)];
 export const summaryValidator = (name: string): Rule[] => {

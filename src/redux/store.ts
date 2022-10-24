@@ -12,7 +12,7 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import { rootReducer, IRootState } from './reducers';
 import { useDispatch } from 'react-redux';
 import { IUnknownObject } from '@interfaces/app';
-import storage from 'redux-persist/lib/storage';
+import storage from 'redux-persist/es/storage';
 
 const isDevMode = process.env.NODE_ENV === 'development';
 

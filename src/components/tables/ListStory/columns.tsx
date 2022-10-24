@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColumnType } from 'antd/lib/table';
+import { ColumnType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { Tag, Image } from 'antd';
 import duration from 'dayjs/plugin/duration';

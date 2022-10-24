@@ -1,5 +1,5 @@
 import { required } from '@helpers/validators';
-import { Rule } from 'antd/lib/form';
+import { Rule } from 'antd/es/form';
 
 const emailValidator = (name: string): Rule[] => [
     required(name),
