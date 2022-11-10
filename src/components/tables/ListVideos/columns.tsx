@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import numeral from 'numeral';
 import { Popover, Rate, Tag, Tooltip } from 'antd';
 import { IUnknownObject } from '@interfaces/app';
-import { ColumnType } from 'antd/lib/table';
+import { ColumnType } from 'antd/es/table';
 import { IUser, IVideo } from '@interfaces/api';
 import format from '@helpers/formatString';
 import VideoTableActions from './VideoTableActions';

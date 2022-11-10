@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import validator from 'validator';
-import { Rule } from 'antd/lib/form';
+import { Rule } from 'antd/es/form';
 import { minmax, required } from '@helpers/validators';
 
 export const planValidator = (name: string): Rule[] => [required(name)];

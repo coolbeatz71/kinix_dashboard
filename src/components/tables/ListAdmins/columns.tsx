@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { ColumnType } from 'antd/lib/table';
+import { ColumnType } from 'antd/es/table';
 import { Tag } from 'antd';
 import format from '@helpers/formatString';
 import { IUnknownObject } from '@interfaces/app';

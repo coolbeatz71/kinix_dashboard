@@ -1,7 +1,7 @@
 import { EnumStatus, IUnknownObject } from '@interfaces/app';
 import EnumCategory from '@interfaces/category';
 import { EnumRoleAdmin, EnumRoleClient } from '@interfaces/role';
-import { DefaultOptionType } from 'antd/lib/select';
+import { DefaultOptionType } from 'antd/es/select';
 
 export const LIMIT = 10;
 

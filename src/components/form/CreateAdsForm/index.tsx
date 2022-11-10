@@ -192,7 +192,7 @@ const CreateAdsForm: FC<ICreateAdsFormProps> = ({
                 <TextArea
                     showCount
                     size="large"
-                    maxLength={250}
+                    maxLength={200}
                     autoSize={false}
                     style={textAreaStyle}
                     placeholder="Ecrire quelque chose sur l'ads"

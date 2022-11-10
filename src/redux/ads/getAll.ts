@@ -10,7 +10,7 @@ export interface IParams {
 
 const getAllAdsAction = createAsyncThunk('ads/all', async (params: IParams, { rejectWithValue }) => {
     try {
-        const { data } = await api.get('/admin/promotions/ads', { params });
+        const { data } = await api.get('/admin/promotions/pubs', { params });
         return data;
     } catch (error) {
         return rejectWithValue(error);

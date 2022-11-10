@@ -15,7 +15,7 @@ const deleteAdsAction = createAsyncThunk(
         const { password, id } = params;
 
         try {
-            const { data } = await api.delete(`/admin/promotions/ads/${id}`, { data: { password } });
+            const { data } = await api.delete(`/admin/promotions/pubs/${id}`, { data: { password } });
             return data;
         } catch (error) {
             return rejectWithValue(error);

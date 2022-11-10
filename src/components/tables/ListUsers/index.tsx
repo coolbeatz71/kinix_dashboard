@@ -108,7 +108,14 @@ const ListUsers: FC<ListUsersProps> = ({ onSelect, onTitle }) => {
     return (
         <Fragment>
             {error && (
-                <ErrorAlert error={error} banner={onSelect === undefined} closeText="Re-Essayer" closable showIcon />
+                <ErrorAlert
+                    closable
+                    showIcon
+                    error={error}
+                    closeText="Re-Essayer"
+                    banner={onSelect === undefined}
+                    onClose={() => changePage(page, limit, search)}
+                />
             )}
             <Wrapper>
                 <Row gutter={24}>

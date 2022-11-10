@@ -38,7 +38,7 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video }) => {
     }, [lg]);
 
     return (
-        <Link to={`${VIDEO_PATH}/${video.slug}`} className="text-decoration-none">
+        <Link to={`${VIDEO_PATH}/watch/${video.slug}`} className="text-decoration-none">
             <Card
                 bordered
                 className={styles.relatedVideo}
@@ -50,9 +50,9 @@ const RelatedVideoCard: FC<IRelatedVideoCardProps> = ({ video }) => {
                         <div className="overlay" style={overLayStyles}>
                             <Button
                                 icon={<PlayCircleTwoTone twoToneColor={WARNING} />}
-                                shape="circle"
                                 type="text"
                                 size="large"
+                                shape="circle"
                             />
                         </div>
                         <img src={thumbnail} alt={video.link} />

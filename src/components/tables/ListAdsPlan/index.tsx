@@ -44,7 +44,14 @@ const ListAdsPlan: FC<IListAdsPlanProps> = ({ onSelect, onTitle }) => {
     return (
         <Fragment>
             {error && (
-                <ErrorAlert error={error} banner={onSelect === undefined} closeText="Re-Essayer" closable showIcon />
+                <ErrorAlert
+                    showIcon
+                    closable
+                    error={error}
+                    closeText="Re-Essayer"
+                    banner={onSelect === undefined}
+                    onClose={() => changePage(page, limit)}
+                />
             )}
             <Wrapper>
                 <Row gutter={24}>

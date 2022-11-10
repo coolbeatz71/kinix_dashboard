@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import numeral from 'numeral';
-import { ColumnType } from 'antd/lib/table';
+import { ColumnType } from 'antd/es/table';
 import { Popover, Tag, Tooltip } from 'antd';
 import format from '@helpers/formatString';
 import { IUnknownObject } from '@interfaces/app';
