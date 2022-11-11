@@ -93,8 +93,8 @@ const tableColumns = (
         dataIndex: 'story_plan',
         width: 100,
         render: (plan: IStoryPlan) => (
-            <Tag color={promotionPlanColors[plan.name]} className="rounded">
-                {format(plan.name)}
+            <Tag color={promotionPlanColors[plan?.name]} className="rounded">
+                {format(plan?.name)}
             </Tag>
         ),
     },
