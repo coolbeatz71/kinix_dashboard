@@ -77,8 +77,8 @@ const tableColumns = (reload: () => void, onSelect?: (ads: IAds) => void): Colum
         dataIndex: 'ads_plan',
         width: 100,
         render: (plan: IAdsPlan) => (
-            <Tag color={promotionPlanColors[plan.name]} className="rounded">
-                {format(plan.name)}
+            <Tag color={promotionPlanColors[plan?.name]} className="rounded">
+                {format(plan?.name)}
             </Tag>
         ),
     },
