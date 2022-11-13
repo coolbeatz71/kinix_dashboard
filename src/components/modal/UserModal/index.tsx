@@ -87,7 +87,7 @@ const UserModal: FC<IUserModalProps> = ({
     return (
         <Modal
             centered
-            width={520}
+            width={590}
             footer={null}
             destroyOnClose
             closable={false}
